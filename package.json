@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "writeup.io",
+  "version": "0.0.0",
+  "description": "The official site for [Up](https://github.com/start/up), a lightweight markup language for writing structured content for the web.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unplannedcompany/writeup.io.git"
+  },
+  "author": "Daniel Miller <daniel@wants.email>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unplannedcompany/writeup.io/issues"
+  },
+  "homepage": "https://github.com/unplannedcompany/writeup.io#readme"
+}
