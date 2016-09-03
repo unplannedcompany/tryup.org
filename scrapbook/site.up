@@ -1,0 +1,535 @@
+[image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)
+
+
+############################################################
+Up (the easiest way to write structured content for the web)
+############################################################
+
+
+Up is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.
+
+For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts Up documents into HTML. This website uses that software library! And so could any website that wants to provide an easy way for users to contribute structured content.
+
+
+What's so good about Up?
+========================
+
+Up is designed for humans to write and read, not for computers to process and parse.
+
+
+- Up has full support for *overlapping [highlight: inline* conventions]
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  Other lightweight markup languages require inline conventions to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
+
+  For more information, see [topic: overlapping inline conventions].
+
+- Up has outrageously easy tables with automatic cell alignment
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  
+  Table: Moves learned by the Pokémon Bulbasaur
+
+  Level;  Move;         Type;     Power;  Accuracy;   PP
+  1;      Tackle;       Normal;   50;     100%;       35
+  3;      Growl;        Normal;   ;       100%;       40
+  7;      Leech Seed;   Grass;    ;       90%;        10
+  9;      Vine Whip;    Grass;    45;     100%;       25
+
+- Up has effortless footnotes
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
+
+  For more information, see [topic: footnotes].
+
+- Up lets you easily link to various sections within your document
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  `````
+  For more information, see [topic: internal links].
+  `````
+
+  That's all it takes! Simply reference snippet of a text from the section's title ("internal links", in the above example), and Up handles the rest.
+
+  For more information, see [topic: internal links].
+
+- Up is truly, actually, honestly readable as plain text markup
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
+
+  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.
+
+  These markup terms are fully customizable! For more information, see [topic: custom terms].
+
+- Up produces accessible HTML for people with visual or motor impairments
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
+
+
+
+################################################
+Writing conventions (the rules and syntax of Up)
+################################################
+
+
+Wait! No one likes feeling lost! The following terms are occasionally used in this section:
+
+Inline convention
+  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. 
+
+Outline convention
+  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  
+
+
+
+Emphasis
+===================
+
+Purpose
+  Use the emphasis convention to emphasize a word or phrase.
+  
+  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.
+
+Example
+  Markup
+    ````
+    Only eat the *green* grapes. The red grapes are for Pikachu.
+    ````
+
+  Output
+    Only eat the *green* grapes. The red grapes are for Pikachu.
+
+Syntax
+  To emphasize text, enclose it within single asterisks on either side.
+  
+Notes
+  Emphasized text is rendered using the `<em>` HTML element.
+
+
+
+Stress
+===================
+
+Purpose
+  Use the stress convention to indicate a word or phrase is particularly important.
+
+  If you intend the reader to raise their voice while reading a word or phrase, consider stressing it.
+
+Example
+  Markup
+    ````
+    Do **not** step on the dinosaur!
+    ````
+
+  Output
+    Do **not** step on the dinosaur!
+
+Syntax
+  To stress text, enclose it within double asterisks on either side.
+  
+Notes
+  Stressed text is rendered using the `<strong>` HTML element.
+  
+  
+
+Italics
+===================
+
+Purpose
+  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
+  
+  Some authors use italics instead of quotation marks.
+
+Example
+  Markup
+    ````
+    My favorite video game is _Chrono Cross_.
+    ````
+
+  Output
+    My favorite video game is _Chrono Cross_.
+
+Syntax
+  To italicize text, enclose it within single underscores on either side.
+  
+Notes
+  Italics are rendered using the `<i>` HTML element.
+
+
+  
+Bold
+===================
+
+Purpose
+  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.
+  
+  This convention should be used rarely. Usually, there's a more appropriate convention!
+  
+  If you merely want to highlight text, see [topic: highlights]. If you want to indicate the importance of a word of phrase, see [topic: stress].
+
+Example
+  Markup
+    ````
+    Has anyone actually used __KABOOM__ cleaning products?
+    ````
+
+  Output
+    Has anyone actually used  __KABOOM__ cleaning products? 
+
+Syntax
+  To make text bold, enclose it within double underscores on either side.
+  
+Notes
+  Bold text is rendered using the `<b>` HTML element.
+
+
+
+Parentheticals (parentheses and square brackets)
+================================================
+
+Purpose
+  Up automatically recognizes parenthetical text!
+  
+  You don't need to change how you use parentheses or square brackets.
+
+Example
+  Markup
+    ````
+    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. 
+    ````
+
+  Output
+    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  
+
+Syntax
+  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.
+
+Notes
+  Parenthetical text is rendered using the `<small>` HTML element.
+
+
+
+Highlighting
+===================
+
+Purpose
+  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.
+
+  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
+
+Example
+  Markup
+    ````
+    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. 
+    ````
+
+  Output
+    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     
+
+Syntax
+  To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your open bracket.
+  
+Notes
+  Highlighted text is rendered using the `<mark>` HTML element.
+
+
+  
+Example input
+===================
+
+Purpose
+  Use the example input convention to represent user input, including:
+  
+  - Keys the user should press
+  - Buttons the user should click
+  - Menu items the user should access
+
+Example
+  Markup
+    ````
+     Press {esc} to quit.
+    ````
+
+  Output
+    Press {esc} to quit.
+
+Syntax
+  To indicate text represents user input, enclose the text within curly brackets.
+  
+  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.
+
+  Markup
+    ````
+    Press { Start Game(s) } when you are ready. 
+    ```` 
+  Output
+    Press { Start Game(s) } when you are ready. 
+    
+  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.
+  
+Notes
+  Example input is rendered using the `<kbd>` HTML element.
+
+
+  
+Inline code
+===================
+
+Purpose
+  Use the inline code convention to represent a small fragment of computer code.
+
+  If you need to represent more than a small fragment of computer code, use [topic: code blocks].
+
+Example
+  Markup
+    ````
+    In HTML, you probably shouldn't use the `<font>` element.
+    ````
+
+  Output
+    In HTML, you probably shouldn't use the `<font>` element.
+
+Syntax
+  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
+
+  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!
+
+
+  Including backticks in your inline code
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.
+  
+  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:
+  
+  Markup
+    `````
+    `let display = ``score:`` + 5`
+    `````
+
+  Output
+    `let display = ``score:`` + 5`
+    
+  In this example, the delimiters are **2** backticks long, so the inline code can contain "streaks" of **1** backtick:
+  
+  Markup
+    `````
+    ``let display = `score:` + 5``
+    `````
+
+  Output
+    ``let display = `score:` + 5``
+
+
+  But my inline code starts (or ends) with backticks! 
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:
+
+  Markup
+    `` `inline_code` ``
+  
+  Output
+    `` `inline_code` ``
+
+  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.
+
+  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given "side" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.
+
+  Markup
+    `` (`inline_code`) ``
+  
+  Output
+    `` (`inline_code`) ``    
+  
+Notes
+  Inline code is rendered using the `<code>` HTML element.
+
+
+  
+Footnotes
+===================
+
+Purpose
+  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.
+
+  Footnotes are automatically extracted into blocks for you.
+
+Example
+  Markup
+    ````
+    Pokémon Red begins in Pallet Town, [^ "Pallet" was probably a misspelling of "palette".] where Professor Oak gives Red his first Pokémon.
+    ````
+
+  Output
+    Pokémon Red begins in Pallet Town, [^ "Pallet" was probably a misspelling of "palette".] where Professor Oak gives Red his first Pokémon.
+
+Syntax
+  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.
+
+Notes
+  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
+
+
+  
+Code blocks
+===================
+
+Purpose
+  Use the code block convention to represent a block of computer code.
+
+  If you need to reference only a small fragment of computer code, use [topic: inline code].
+
+Example
+  Markup
+    ````````
+    ```
+    function nthFibonacci(n: number): number {
+      return (
+        n <= 2
+        ? n - 1 
+        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+    }
+    ```
+    ````````
+
+  Output
+    ```
+    function nthFibonacci(n: number): number {
+      return (
+        n <= 2
+        ? n - 1 
+        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+    }
+    ```
+
+Syntax
+  Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
+
+  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).
+
+  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!
+
+
+  Including streaks of backticks within your code block
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.
+
+  Markup
+    `````````
+    ``````
+    A code block:
+    
+    ```
+    function factorial(n: number): number {
+      return (
+        n <= 1
+          ? 1
+          : n * factorial(n - 1))
+    }
+    ```
+
+    See? Not so hard!
+    ``````
+    `````````
+  
+  Output
+    ``````
+    A code block:
+    
+    ```
+    function factorial(n: number): number {
+      return (
+        n <= 1
+          ? 1
+          : n * factorial(n - 1))
+    }
+    ```
+
+    See? Not so hard!
+    ``````
+
+Notes
+  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.
+
+
+
+Bulleted lists
+===================
+
+Purpose
+  Use the bulleted list convention to represent lists whose order is *not* particularly important.
+
+  Bulleted lists can contain any outline convention, even other bulleted lists!
+
+Example
+  Markup
+    ````
+    - Buy milk
+    - Buy bread
+    - Buy happiness
+    ````
+
+  Output
+    - Buy milk
+    - Buy bread
+    - Buy happiness
+
+Syntax
+  Bullets
+  =~=~=~=~=~=~=~=~=
+
+  Each item in a bulleted list starts with a bullet followed by a space. Up recognizes the following bullet characters:
+
+  - Asterisks `*`
+  - Hyphens `-`
+  - Actual bullet characters `•`
+
+
+  Spacing between list items
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+  List items can be followed by single blank lines. This does not affect the list:
+
+  Markup
+    ````
+    - Buy milk
+
+    - Buy bread
+
+    - Buy happiness
+    ````
+
+  Output
+    - Buy milk
+
+    - Buy bread
+
+    - Buy happiness
+
+  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.  
+
+    Markup
+    ````
+    - Buy milk
+    - Buy bread
+
+
+    - Fix squeaky cabinet
+    - Fix self-esteem
+    ````
+
+  Output
+    - Buy milk
+    - Buy bread
+
+
+    - Fix squeaky cabinet
+    - Fix self-esteem
+
+
+  Including other outline conventions within list items
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
