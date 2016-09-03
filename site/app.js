@@ -44,10 +44,11 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1)
+	'use strict';
 
+	__webpack_require__(1);
 
-	document.write('<h1>Hello world!</h1>')
+	document.write('<h1>Hello world!</h1>');
 
 /***/ },
 /* 1 */
