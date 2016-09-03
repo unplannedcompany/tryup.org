@@ -1,4 +1,12 @@
-import './app.scss'
+require('./app.scss')
+import { Up } from 'write-up'
 
 
-document.write('<h1>Hello world!</h1>')
+const $ = document.getElementById.bind(document)
+
+document.addEventListener('DOMContentLoaded', () => {
+  $('convert').onclick = () => {
+    const html = Up.toHtml($('markup').value)
+    $('rendered').innerHTML = html
+  }
+})
