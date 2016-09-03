@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/unplannedcompany/writeup.io/issues"
   },
-  "homepage": "https://github.com/unplannedcompany/writeup.io#readme"
+  "homepage": "https://github.com/unplannedcompany/writeup.io#readme",
+  "devDependencies": {
+    "css-loader": "^0.24.0",
+    "install": "^0.8.1",
+    "node-sass": "^3.8.0",
+    "npm": "^3.10.6",
+    "sass-loader": "^4.0.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2"
+  }
 }
