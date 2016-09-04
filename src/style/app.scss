@@ -6,9 +6,7 @@ body {
   height: 100vh;
 }
 
-$min-editor-height: 200px;
-$min-rendered-document-height: 280px;
-
+/* TODO: Clean up */
 
 #editor-container,
 #rendered-document-container {
@@ -18,7 +16,6 @@ $min-rendered-document-height: 280px;
 #editor-container {
   flex-basis: 40%;
   flex-grow: 1;
-  min-height: 0px;
   overflow-y: scroll;
 }
 
@@ -26,15 +23,14 @@ $min-rendered-document-height: 280px;
   background: lightblue;
   flex-basis: 60%;
   flex-grow: 2;
-  min-height: 0px;
-  overflow-y: scroll;
   padding: 0 15px;
+  overflow-y: scroll;
 }
 
 $min-editor-width: 400px;
-$min-rendered-document-width: 500px;
+$min-rendered-document-width: 400px;
 
-/* When both the editor and the rendered document are side-by-side... */
+/* If we have enough room to show the editor side-by-side with the rendered document... */
 @media (orientation: landscape) and (min-width: $min-editor-width + $min-rendered-document-width) {
   body {
     flex-direction: row-reverse;
