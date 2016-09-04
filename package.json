@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/unplannedcompany/writeup.io#readme",
   "devDependencies": {
+    "autoprefixer": "^6.4.1",
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
@@ -25,6 +26,7 @@
     "node-sass": "^3.8.0",
     "normalize.css": "^4.2.0",
     "npm": "^3.10.6",
+    "postcss-loader": "^0.11.1",
     "sass-loader": "^4.0.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2"

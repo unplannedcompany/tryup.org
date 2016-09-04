@@ -68,8 +68,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../css-loader/index.js!./normalize.css", function() {
-				var newContent = require("!!./../css-loader/index.js!./normalize.css");
+			module.hot.accept("!!./../css-loader/index.js!./../postcss-loader/index.js!./normalize.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./../postcss-loader/index.js!./normalize.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -416,8 +416,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./app.scss", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./app.scss");
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/postcss-loader/index.js!./../node_modules/sass-loader/index.js!./app.scss", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/postcss-loader/index.js!./../node_modules/sass-loader/index.js!./app.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -435,7 +435,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  display: flex;\n  flex-flow: wrap row-reverse;\n  min-height: 100vh; }\n\n#rendered,\n#markup {\n  flex-basis: 400px;\n  flex-grow: 1; }\n", ""]);
+	exports.push([module.id, "body {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap row-reverse;\n      flex-flow: wrap row-reverse;\n  min-height: 100vh; }\n\n#rendered,\n#markup {\n  -ms-flex-preferred-size: 400px;\n      flex-basis: 400px;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n", ""]);
 
 	// exports
 

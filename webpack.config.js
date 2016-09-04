@@ -1,3 +1,6 @@
+const autoprefixer = require('autoprefixer')
+
+
 module.exports = {
   entry: './src/app.js',
   output: {
@@ -16,12 +19,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: ["style", "css"]
+        loaders: ["style", "css", "postcss"]
       },
       {
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        loaders: ["style", "css", "postcss", "sass"]
       }
     ]
-  }
+  },
+  postcss: [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ]
 }
