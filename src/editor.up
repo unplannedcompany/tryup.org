@@ -17,15 +17,15 @@ What's so good about Up?
 Up is designed for humans to write and read, not for computers to process and parse.
 
 
-- Up has full support for *overlapping [highlight: inline* conventions]
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+- Up supports *overlapping [highlight: inline* conventions]
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 
   Other lightweight markup languages require inline conventions to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
   For more information, see [topic: overlapping inline conventions].
 
 - Up has outrageously easy tables with automatic cell alignment
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
   
   Table: Moves learned by the Pokémon Bulbasaur
 
@@ -36,14 +36,14 @@ Up is designed for humans to write and read, not for computers to process and pa
   9;      Vine Whip;    Grass;    45;     100%;       25
 
 - Up has effortless footnotes
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=
 
   You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
 
   For more information, see [topic: footnotes].
 
-- Up lets you easily link to various sections within your document
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+- Up helps you link to various sections within your document
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 
   `````
   For more information, see [topic: internal links].
@@ -54,7 +54,7 @@ Up is designed for humans to write and read, not for computers to process and pa
   For more information, see [topic: internal links].
 
 - Up is truly, actually, honestly readable as plain text markup
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 
   Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
 
@@ -62,8 +62,8 @@ Up is designed for humans to write and read, not for computers to process and pa
 
   These markup terms are fully customizable! For more information, see [topic: custom terms].
 
-- Up produces accessible HTML for people with visual or motor impairments
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+- Up produces fully accessible HTML
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 
   From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
 
