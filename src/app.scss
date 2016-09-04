@@ -4,8 +4,12 @@ body {
   min-height: 100vh;
 }
 
-#rendered,
+#rendered {
+  flex-basis: 500px;
+  flex-grow: 3;  
+}
+
 #markup {
-  flex-basis: 400px;
+  flex-basis: 400px;  
   flex-grow: 1;
 }

@@ -456,7 +456,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap row-reverse;\n      flex-flow: wrap row-reverse;\n  min-height: 100vh; }\n\n#rendered,\n#markup {\n  -ms-flex-preferred-size: 400px;\n      flex-basis: 400px;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n", ""]);
+	exports.push([module.id, "body {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap row-reverse;\n      flex-flow: wrap row-reverse;\n  min-height: 100vh; }\n\n#rendered {\n  -ms-flex-preferred-size: 500px;\n      flex-basis: 500px;\n  -ms-flex-positive: 3;\n      flex-grow: 3; }\n\n#markup {\n  -ms-flex-preferred-size: 400px;\n      flex-basis: 400px;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n", ""]);
 
 	// exports
 
