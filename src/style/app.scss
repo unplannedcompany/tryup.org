@@ -26,12 +26,12 @@ body {
 #rendered-document-container {
   background: lightblue;
   flex-basis: 60%;
-  flex-grow: 2;
+  flex-grow: 2.5;
   padding: 0 15px;
   overflow-y: scroll;
 }
 
-$min-editor-width: 400px;
+$min-editor-width: 450px;
 $min-rendered-document-width: 400px;
 
 /* If we have enough room to show the editor side-by-side with the rendered document... */

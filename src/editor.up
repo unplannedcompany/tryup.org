@@ -44,8 +44,8 @@ Up is designed for humans to write and read, not for computers to process and pa
 
   For more information, see [topic: footnotes].
 
-- Up helps you link to various sections within your document
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+- Up helps you reference various sections in your document
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 
   `````
   For more information, see [topic: internal links].
@@ -55,8 +55,8 @@ Up is designed for humans to write and read, not for computers to process and pa
 
   For more information, see [topic: internal links].
 
-- Up is truly, actually, honestly readable as plain text markup
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+- Up is truly, actually, honestly readable
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 
   Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
 
