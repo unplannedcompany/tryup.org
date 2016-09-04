@@ -52,15 +52,6 @@
 
 	var _writeUp = __webpack_require__(7);
 
-	var $ = document.getElementById.bind(document);
-
-	document.addEventListener('DOMContentLoaded', function () {
-	  $('convert').onclick = function () {
-	    var html = _writeUp.Up.toHtml($('markup').value);
-	    $('rendered').innerHTML = html;
-	  };
-	});
-
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -444,7 +435,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  color: red; }\n", ""]);
+	exports.push([module.id, "body {\n  display: flex;\n  flex-flow: wrap row-reverse;\n  min-height: 100vh; }\n\n#rendered,\n#markup {\n  flex-basis: 400px;\n  flex-grow: 1; }\n", ""]);
 
 	// exports
 
