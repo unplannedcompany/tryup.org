@@ -9711,7 +9711,7 @@
 	        return defaultUp.toInlineHtml(markupOrInlineDocument, settings);
 	    }
 	    Up.toInlineHtml = toInlineHtml;
-	    Up.VERSION = '13.0.1';
+	    Up.VERSION = '13.0.2';
 	})(Up = exports.Up || (exports.Up = {}));
 	function toDocument(markup, config) {
 	    return parseDocument_1.parseDocument(markup, config);
@@ -11607,7 +11607,7 @@
 	        this.rawCurlyBracketConvention = this.getRawCurlyBracketConvention();
 	        this.mediaUrlConventions = this.getMediaUrlConventions();
 	        this.linkUrlConventions = this.getLinkUrlConventions();
-	        this.nakedUrlPathConvention = this.getBareUrlPathConvention();
+	        this.bareUrlPathConvention = this.getBareUrlPathConvention();
 	        this.inflectionHandlers = [
 	            {
 	                delimiterChar: '*',
@@ -11666,7 +11666,7 @@
 	            }
 	        ].map(function (args) { return _this.getParentheticalConvention(args); }), [
 	            this.getExampleInputConvention(),
-	            this.nakedUrlPathConvention
+	            this.bareUrlPathConvention
 	        ]);
 	    };
 	    Tokenizer.prototype.getFootnoteConventions = function () {
@@ -11759,7 +11759,7 @@
 	    Tokenizer.prototype.tryToTokenizeBareUrlSchemeAndHostname = function () {
 	        var _this = this;
 	        return this.markupConsumer.consume({
-	            pattern: NAKED_URL_SCHEME_AND_HOSTNAME,
+	            pattern: BARE_URL_SCHEME_AND_HOSTNAME,
 	            thenBeforeConsumingText: function (url) {
 	                _this.flushNonEmptyBufferToPlainTextToken();
 	                _this.appendNewToken(TokenRole_1.TokenRole.BareUrl, url);
@@ -11777,8 +11777,8 @@
 	            canOnlyOpenIfDirectlyFollowing: [TokenRole_1.TokenRole.BareUrl],
 	            insteadOfOpeningNormalConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
-	            whenClosing: function () { return _this.appendBufferedUlPathToCurrentBareUrl(); },
-	            insteadOfFailingWhenLeftUnclosed: function () { return _this.appendBufferedUlPathToCurrentBareUrl(); }
+	            whenClosing: function () { return _this.appendBufferedUrlPathToCurrentBareUrl(); },
+	            insteadOfFailingWhenLeftUnclosed: function () { return _this.appendBufferedUrlPathToCurrentBareUrl(); }
 	        });
 	    };
 	    Tokenizer.prototype.getExampleInputConvention = function () {
@@ -12134,8 +12134,8 @@
 	        var openContexts = this.openContexts;
 	        var outermostIndexThatMayBeBareUrl = args ? (args.withinContextAtIndex + 1) : 0;
 	        for (var i = outermostIndexThatMayBeBareUrl; i < openContexts.length; i++) {
-	            if (openContexts[i].convention === this.nakedUrlPathConvention) {
-	                this.appendBufferedUlPathToCurrentBareUrl();
+	            if (openContexts[i].convention === this.bareUrlPathConvention) {
+	                this.appendBufferedUrlPathToCurrentBareUrl();
 	                this.openContexts.splice(i);
 	                return;
 	            }
@@ -12323,13 +12323,11 @@
 	    Tokenizer.prototype.appendNewToken = function (role, value) {
 	        this.appendToken(new Token_1.Token(role, value));
 	    };
-	    Tokenizer.prototype.appendBufferedUlPathToCurrentBareUrl = function () {
-	        if (this.mostRecentToken.role === TokenRole_1.TokenRole.BareUrl) {
-	            this.mostRecentToken.value += this.flushBuffer();
-	        }
-	        else {
+	    Tokenizer.prototype.appendBufferedUrlPathToCurrentBareUrl = function () {
+	        if (this.mostRecentToken.role !== TokenRole_1.TokenRole.BareUrl) {
 	            throw new Error('Most recent token is not a bare URL token');
 	        }
+	        this.mostRecentToken.value += this.flushBuffer();
 	    };
 	    Tokenizer.prototype.flushBuffer = function () {
 	        var buffer = this.textBuffer;
@@ -12395,8 +12393,8 @@
 	var TOP_LEVEL_DOMAIN_WITH_AT_LEAST_ONE_SUBDOMAIN = PatternHelpers_1.oneOrMore(URL_SUBDOMAIN) + URL_TOP_LEVEL_DOMAIN;
 	var EXPLICIT_URL_PREFIX = PatternHelpers_1.either(PatternPieces_1.URL_SCHEME, PatternPieces_1.FORWARD_SLASH, PatternPieces_1.HASH_MARK);
 	var URL_CONSISTING_SOLELY_OF_PREFIX = PatternHelpers_1.solely(EXPLICIT_URL_PREFIX);
-	var NAKED_URL_SCHEME = 'http' + PatternHelpers_1.optional('s') + '://';
-	var NAKED_URL_SCHEME_AND_HOSTNAME = PatternHelpers_1.patternStartingWith(NAKED_URL_SCHEME
+	var BARE_URL_SCHEME = 'http' + PatternHelpers_1.optional('s') + '://';
+	var BARE_URL_SCHEME_AND_HOSTNAME = PatternHelpers_1.patternStartingWith(BARE_URL_SCHEME
 	    + PatternHelpers_1.everyOptional(URL_SUBDOMAIN) + URL_TOP_LEVEL_DOMAIN);
 	var PARENTHETICAL_BRACKET_START_PATTERNS = PARENTHETICAL_BRACKETS.map(function (bracket) { return bracket.startPattern; });
 	var ALL_BRACKETS = [PARENTHESIS, SQUARE_BRACKET, CURLY_BRACKET];
@@ -14231,7 +14229,7 @@
 	    markupLineConsumer.consume({
 	        linePattern: CODE_BLOCK_STREAK_PATTERN,
 	        thenBeforeConsumingLine: function (line) {
-	            startStreak = line;
+	            startStreak = line.trim();
 	        }
 	    });
 	    if (!startStreak) {
@@ -14243,7 +14241,7 @@
 	        markupLineConsumer.consume({
 	            linePattern: CODE_BLOCK_STREAK_PATTERN,
 	            thenBeforeConsumingLine: function (line) {
-	                possibleEndStreak = line;
+	                possibleEndStreak = line.trim();
 	            }
 	        });
 	        if (!possibleEndStreak) {
