@@ -50,43 +50,82 @@
 
 	__webpack_require__(5);
 
-	var _app = __webpack_require__(7);
+	__webpack_require__(7);
 
-	var _app2 = _interopRequireDefault(_app);
+	__webpack_require__(9);
 
-	var _writeUp = __webpack_require__(8);
+	var _writeUp = __webpack_require__(11);
 
-	var _codemirror = __webpack_require__(109);
+	var _codemirror = __webpack_require__(112);
 
 	var _codemirror2 = _interopRequireDefault(_codemirror);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	document.addEventListener('DOMContentLoaded', function () {
-	  var editorContainer = document.getElementById('editorContainer');
-	  var renderedContainer = document.getElementById('renderedContainer');
+	var $ = document.getElementById.bind(document);
 
-	  var editor = (0, _codemirror2.default)(editorContainer, {
-	    value: _app2.default,
+	document.addEventListener('DOMContentLoaded', function () {
+	  var codeMirror = (0, _codemirror2.default)($('editorContainer'), {
+	    value: __webpack_require__(113),
 	    lineNumbers: true,
-	    lineWrapping: true,
-	    tabSize: 2
+	    lineWrapping: true
 	  });
 
-	  //  markup.onkeyup = debounce(() => {
-	  //  rendered.innerHTML = Up.toHtml(markup.value)
-	  //}, 1000)
+	  configureSoftWrappedLinesToBeIndented(codeMirror);
+
+	  codeMirror.on('change', debounce(onMarkupChange, 1000));
 	});
 
+	function onMarkupChange(codeMirror, args) {
+	  var markup = codeMirror.getValue();
+	  $('renderedDocumentContainer').innerHTML = _writeUp.Up.toHtml(markup);
+	}
+
+	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
+	//
+	// It does not work when tabs are used for indentation, because CodeMirror handles
+	// tab characters using a special `<span class="cm-tab">` element. Luckily, our
+	// editor is conigured (by default) to use spaces for indentation.
+	//
+	// TODO: Replace leading tab characters on-paste
+	function configureSoftWrappedLinesToBeIndented(codeMirror) {
+	  var charWidth = codeMirror.defaultCharWidth();
+
+	  // This value is taken from the "PADDING" section of `codemirror.css`
+	  var basePadding = 4;
+
+	  codeMirror.on('renderLine', function (codeMirror, line, lineElement) {
+	    var indentation = charWidth * _codemirror2.default.countColumn(line.text, null, codeMirror.getOption('tabSize'));
+
+	    // First, let's eliminate the natural indentation provided by the leading spaces themselves.
+	    lineElement.style.textIndent = '-' + indentation + 'px';
+
+	    // Now, let's use padding to indent the entire soft-wrapped line!
+	    lineElement.style.paddingLeft = basePadding + indentation + 'px';
+	  });
+
+	  codeMirror.refresh();
+	}
+
 	function debounce(callback, delay) {
+	  var _this = this;
+
 	  var timeoutHandle = void 0;
 
 	  return function () {
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
 	    if (timeoutHandle) {
 	      clearTimeout(timeoutHandle);
 	    }
 
-	    timeoutHandle = setTimeout(callback, delay);
+	    var callbackWithArgs = function callbackWithArgs() {
+	      callback.apply(_this, args);
+	    };
+
+	    timeoutHandle = setTimeout(callbackWithArgs, delay);
 	  };
 	}
 
@@ -454,8 +493,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/postcss-loader/index.js!./../node_modules/sass-loader/index.js!./app.scss", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/postcss-loader/index.js!./../node_modules/sass-loader/index.js!./app.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./codemirror.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./codemirror.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -473,122 +512,196 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap row-reverse;\n      flex-flow: wrap row-reverse;\n  min-height: 100vh; }\n\n#renderedContainer {\n  -ms-flex-preferred-size: 500px;\n      flex-basis: 500px;\n  -ms-flex-positive: 3;\n      flex-grow: 3;\n  background: yellow; }\n\n#editorContainer {\n  -ms-flex-preferred-size: 400px;\n      flex-basis: 400px;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n", ""]);
+	exports.push([module.id, "/* BASICS */\n\n.CodeMirror {\n  /* Set height, width, borders, and global font properties here */\n  font-family: monospace;\n  height: 300px;\n  color: black;\n}\n\n/* PADDING */\n\n.CodeMirror-lines {\n  padding: 4px 0; /* Vertical padding around content */\n}\n.CodeMirror pre {\n  padding: 0 4px; /* Horizontal padding of content */\n}\n\n.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  background-color: white; /* The little square between H and V scrollbars */\n}\n\n/* GUTTER */\n\n.CodeMirror-gutters {\n  border-right: 1px solid #ddd;\n  background-color: #f7f7f7;\n  white-space: nowrap;\n}\n.CodeMirror-linenumbers {}\n.CodeMirror-linenumber {\n  padding: 0 3px 0 5px;\n  min-width: 20px;\n  text-align: right;\n  color: #999;\n  white-space: nowrap;\n}\n\n.CodeMirror-guttermarker { color: black; }\n.CodeMirror-guttermarker-subtle { color: #999; }\n\n/* CURSOR */\n\n.CodeMirror-cursor {\n  border-left: 1px solid black;\n  border-right: none;\n  width: 0;\n}\n/* Shown when moving in bi-directional text */\n.CodeMirror div.CodeMirror-secondarycursor {\n  border-left: 1px solid silver;\n}\n.cm-fat-cursor .CodeMirror-cursor {\n  width: auto;\n  border: 0 !important;\n  background: #7e7;\n}\n.cm-fat-cursor div.CodeMirror-cursors {\n  z-index: 1;\n}\n\n.cm-animate-fat-cursor {\n  width: auto;\n  border: 0;\n  animation: blink 1.06s steps(1) infinite;\n  background-color: #7e7;\n}\n@keyframes blink {\n  0% {}\n  50% { background-color: transparent; }\n  100% {}\n}\n\n/* Can style cursor different in overwrite (non-insert) mode */\n.CodeMirror-overwrite .CodeMirror-cursor {}\n\n.cm-tab { display: inline-block; text-decoration: inherit; }\n\n.CodeMirror-rulers {\n  position: absolute;\n  left: 0; right: 0; top: -50px; bottom: -20px;\n  overflow: hidden;\n}\n.CodeMirror-ruler {\n  border-left: 1px solid #ccc;\n  top: 0; bottom: 0;\n  position: absolute;\n}\n\n/* DEFAULT THEME */\n\n.cm-s-default .cm-header {color: blue;}\n.cm-s-default .cm-quote {color: #090;}\n.cm-negative {color: #d44;}\n.cm-positive {color: #292;}\n.cm-header, .cm-strong {font-weight: bold;}\n.cm-em {font-style: italic;}\n.cm-link {text-decoration: underline;}\n.cm-strikethrough {text-decoration: line-through;}\n\n.cm-s-default .cm-keyword {color: #708;}\n.cm-s-default .cm-atom {color: #219;}\n.cm-s-default .cm-number {color: #164;}\n.cm-s-default .cm-def {color: #00f;}\n.cm-s-default .cm-variable,\n.cm-s-default .cm-punctuation,\n.cm-s-default .cm-property,\n.cm-s-default .cm-operator {}\n.cm-s-default .cm-variable-2 {color: #05a;}\n.cm-s-default .cm-variable-3 {color: #085;}\n.cm-s-default .cm-comment {color: #a50;}\n.cm-s-default .cm-string {color: #a11;}\n.cm-s-default .cm-string-2 {color: #f50;}\n.cm-s-default .cm-meta {color: #555;}\n.cm-s-default .cm-qualifier {color: #555;}\n.cm-s-default .cm-builtin {color: #30a;}\n.cm-s-default .cm-bracket {color: #997;}\n.cm-s-default .cm-tag {color: #170;}\n.cm-s-default .cm-attribute {color: #00c;}\n.cm-s-default .cm-hr {color: #999;}\n.cm-s-default .cm-link {color: #00c;}\n\n.cm-s-default .cm-error {color: #f00;}\n.cm-invalidchar {color: #f00;}\n\n.CodeMirror-composing { border-bottom: 2px solid; }\n\n/* Default styles for common addons */\n\ndiv.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}\ndiv.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}\n.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }\n.CodeMirror-activeline-background {background: #e8f2ff;}\n\n/* STOP */\n\n/* The rest of this file contains styles related to the mechanics of\n   the editor. You probably shouldn't touch them. */\n\n.CodeMirror {\n  position: relative;\n  overflow: hidden;\n  background: white;\n}\n\n.CodeMirror-scroll {\n  overflow: scroll !important; /* Things will break if this is overridden */\n  /* 30px is the magic margin used to hide the element's real scrollbars */\n  /* See overflow: hidden in .CodeMirror */\n  margin-bottom: -30px; margin-right: -30px;\n  padding-bottom: 30px;\n  height: 100%;\n  outline: none; /* Prevent dragging from highlighting the element */\n  position: relative;\n}\n.CodeMirror-sizer {\n  position: relative;\n  border-right: 30px solid transparent;\n}\n\n/* The fake, visible scrollbars. Used to force redraw during scrolling\n   before actual scrolling happens, thus preventing shaking and\n   flickering artifacts. */\n.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {\n  position: absolute;\n  z-index: 6;\n  display: none;\n}\n.CodeMirror-vscrollbar {\n  right: 0; top: 0;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.CodeMirror-hscrollbar {\n  bottom: 0; left: 0;\n  overflow-y: hidden;\n  overflow-x: scroll;\n}\n.CodeMirror-scrollbar-filler {\n  right: 0; bottom: 0;\n}\n.CodeMirror-gutter-filler {\n  left: 0; bottom: 0;\n}\n\n.CodeMirror-gutters {\n  position: absolute; left: 0; top: 0;\n  min-height: 100%;\n  z-index: 3;\n}\n.CodeMirror-gutter {\n  white-space: normal;\n  height: 100%;\n  display: inline-block;\n  vertical-align: top;\n  margin-bottom: -30px;\n  /* Hack to make IE7 behave */\n  *zoom:1;\n  *display:inline;\n}\n.CodeMirror-gutter-wrapper {\n  position: absolute;\n  z-index: 4;\n  background: none !important;\n  border: none !important;\n}\n.CodeMirror-gutter-background {\n  position: absolute;\n  top: 0; bottom: 0;\n  z-index: 4;\n}\n.CodeMirror-gutter-elt {\n  position: absolute;\n  cursor: default;\n  z-index: 4;\n}\n.CodeMirror-gutter-wrapper {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n}\n\n.CodeMirror-lines {\n  cursor: text;\n  min-height: 1px; /* prevents collapsing before first draw */\n}\n.CodeMirror pre {\n  /* Reset some styles that the rest of the page might have set */ border-radius: 0;\n  border-width: 0;\n  background: transparent;\n  font-family: inherit;\n  font-size: inherit;\n  margin: 0;\n  white-space: pre;\n  word-wrap: normal;\n  line-height: inherit;\n  color: inherit;\n  z-index: 2;\n  position: relative;\n  overflow: visible;\n  -webkit-tap-highlight-color: transparent;\n  font-variant-ligatures: none;\n}\n.CodeMirror-wrap pre {\n  word-wrap: break-word;\n  white-space: pre-wrap;\n  word-break: normal;\n}\n\n.CodeMirror-linebackground {\n  position: absolute;\n  left: 0; right: 0; top: 0; bottom: 0;\n  z-index: 0;\n}\n\n.CodeMirror-linewidget {\n  position: relative;\n  z-index: 2;\n  overflow: auto;\n}\n\n.CodeMirror-widget {}\n\n.CodeMirror-code {\n  outline: none;\n}\n\n/* Force content-box sizing for the elements where we expect it */\n.CodeMirror-scroll,\n.CodeMirror-sizer,\n.CodeMirror-gutter,\n.CodeMirror-gutters,\n.CodeMirror-linenumber {\n  box-sizing: content-box;\n}\n\n.CodeMirror-measure {\n  position: absolute;\n  width: 100%;\n  height: 0;\n  overflow: hidden;\n  visibility: hidden;\n}\n\n.CodeMirror-cursor {\n  position: absolute;\n  pointer-events: none;\n}\n.CodeMirror-measure pre { position: static; }\n\ndiv.CodeMirror-cursors {\n  visibility: hidden;\n  position: relative;\n  z-index: 3;\n}\ndiv.CodeMirror-dragcursors {\n  visibility: visible;\n}\n\n.CodeMirror-focused div.CodeMirror-cursors {\n  visibility: visible;\n}\n\n.CodeMirror-selected { background: #d9d9d9; }\n.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }\n.CodeMirror-crosshair { cursor: crosshair; }\n.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }\n.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }\n.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }\n\n.cm-searching {\n  background: #ffa;\n  background: rgba(255, 255, 0, .4);\n}\n\n/* IE7 hack to prevent it from returning funny offsetTops on the spans */\n.CodeMirror span { *vertical-align: text-bottom; }\n\n/* Used to force a border model for a node */\n.cm-force-border { padding-right: .1px; }\n\n@media print {\n  /* Hide the cursor when printing */\n  .CodeMirror div.CodeMirror-cursors {\n    visibility: hidden;\n  }\n}\n\n/* See issue #2901 */\n.cm-tab-wrap-hack:after { content: ''; }\n\n/* Help users use markselection to safely style text background */\nspan.CodeMirror-selectedtext { background: none; }\n", ""]);
 
 	// exports
 
 
 /***/ },
 /* 7 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "[image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)\n\n\n############################################################\nUp (the easiest way to write structured content for the web)\n############################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts Up documents into HTML. This website uses that software library! And so could any website that wants to provide an easy way for users to contribute structured content.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to write and read, not for computers to process and parse.\n\n\n- Up has full support for *overlapping [highlight: inline* conventions]\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require inline conventions to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  For more information, see [topic: overlapping inline conventions].\n\n- Up has outrageously easy tables with automatic cell alignment\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n  \n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy;   PP\n  1;      Tackle;       Normal;   50;     100%;       35\n  3;      Growl;        Normal;   ;       100%;       40\n  7;      Leech Seed;   Grass;    ;       90%;        10\n  9;      Vine Whip;    Grass;    45;     100%;       25\n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Up lets you easily link to various sections within your document\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  `````\n  For more information, see [topic: internal links].\n  `````\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example), and Up handles the rest.\n\n  For more information, see [topic: internal links].\n\n- Up is truly, actually, honestly readable as plain text markup\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! For more information, see [topic: custom terms].\n\n- Up produces accessible HTML for people with visual or motor impairments\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nWait! No one likes feeling lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks on either side.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If you intend the reader to raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks on either side.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors use italics instead of quotation marks.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores on either side.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you merely want to highlight text, see [topic: highlights]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores on either side.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. Up recognizes the following bullet characters:\n\n  - Asterisks `*`\n  - Hyphens `-`\n  - Actual bullet characters `•`\n\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  List items can be followed by single blank lines. This does not affect the list:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.  \n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~="
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(8);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./app.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./app.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
 
 /***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	var Up_1 = __webpack_require__(9);
-	exports.default = Up_1.Up;
-	exports.Up = Up_1.Up;
-	var UpDocument_1 = __webpack_require__(16);
-	exports.UpDocument = UpDocument_1.UpDocument;
-	var InlineUpDocument_1 = __webpack_require__(103);
-	exports.InlineUpDocument = InlineUpDocument_1.InlineUpDocument;
-	var Audio_1 = __webpack_require__(67);
-	exports.Audio = Audio_1.Audio;
-	var Bold_1 = __webpack_require__(53);
-	exports.Bold = Bold_1.Bold;
-	var Blockquote_1 = __webpack_require__(25);
-	exports.Blockquote = Blockquote_1.Blockquote;
-	var CodeBlock_1 = __webpack_require__(94);
-	exports.CodeBlock = CodeBlock_1.CodeBlock;
-	var DescriptionList_1 = __webpack_require__(27);
-	exports.DescriptionList = DescriptionList_1.DescriptionList;
-	var Emphasis_1 = __webpack_require__(50);
-	exports.Emphasis = Emphasis_1.Emphasis;
-	var ExampleInput_1 = __webpack_require__(87);
-	exports.ExampleInput = ExampleInput_1.ExampleInput;
-	var FootnoteBlock_1 = __webpack_require__(28);
-	exports.FootnoteBlock = FootnoteBlock_1.FootnoteBlock;
-	var Footnote_1 = __webpack_require__(29);
-	exports.Footnote = Footnote_1.Footnote;
-	var Heading_1 = __webpack_require__(18);
-	exports.Heading = Heading_1.Heading;
-	var Highlight_1 = __webpack_require__(54);
-	exports.Highlight = Highlight_1.Highlight;
-	var Image_1 = __webpack_require__(69);
-	exports.Image = Image_1.Image;
-	var InlineCode_1 = __webpack_require__(86);
-	exports.InlineCode = InlineCode_1.InlineCode;
-	var InlineNsfl_1 = __webpack_require__(58);
-	exports.InlineNsfl = InlineNsfl_1.InlineNsfl;
-	var InlineNsfw_1 = __webpack_require__(57);
-	exports.InlineNsfw = InlineNsfw_1.InlineNsfw;
-	var InlineSpoiler_1 = __webpack_require__(55);
-	exports.InlineSpoiler = InlineSpoiler_1.InlineSpoiler;
-	var InlineQuote_1 = __webpack_require__(59);
-	exports.InlineQuote = InlineQuote_1.InlineQuote;
-	var Italic_1 = __webpack_require__(52);
-	exports.Italic = Italic_1.Italic;
-	var LineBlock_1 = __webpack_require__(32);
-	exports.LineBlock = LineBlock_1.LineBlock;
-	var Link_1 = __webpack_require__(63);
-	exports.Link = Link_1.Link;
-	var NsflBlock_1 = __webpack_require__(39);
-	exports.NsflBlock = NsflBlock_1.NsflBlock;
-	var NsfwBlock_1 = __webpack_require__(38);
-	exports.NsfwBlock = NsfwBlock_1.NsfwBlock;
-	var OrderedList_1 = __webpack_require__(33);
-	exports.OrderedList = OrderedList_1.OrderedList;
-	var Paragraph_1 = __webpack_require__(34);
-	exports.Paragraph = Paragraph_1.Paragraph;
-	var NormalParenthetical_1 = __webpack_require__(62);
-	exports.NormalParenthetical = NormalParenthetical_1.NormalParenthetical;
-	var PlainText_1 = __webpack_require__(84);
-	exports.PlainText = PlainText_1.PlainText;
-	var ReferenceToTableOfContentsEntry_1 = __webpack_require__(22);
-	exports.ReferenceToTableOfContentsEntry = ReferenceToTableOfContentsEntry_1.ReferenceToTableOfContentsEntry;
-	var SpoilerBlock_1 = __webpack_require__(36);
-	exports.SpoilerBlock = SpoilerBlock_1.SpoilerBlock;
-	var SquareParenthetical_1 = __webpack_require__(60);
-	exports.SquareParenthetical = SquareParenthetical_1.SquareParenthetical;
-	var Stress_1 = __webpack_require__(51);
-	exports.Stress = Stress_1.Stress;
-	var Table_1 = __webpack_require__(40);
-	exports.Table = Table_1.Table;
-	var ThematicBreak_1 = __webpack_require__(44);
-	exports.ThematicBreak = ThematicBreak_1.ThematicBreak;
-	var UnorderedList_1 = __webpack_require__(35);
-	exports.UnorderedList = UnorderedList_1.UnorderedList;
-	var Video_1 = __webpack_require__(70);
-	exports.Video = Video_1.Video;
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
-	exports.InlineSyntaxNodeContainer = InlineSyntaxNodeContainer_1.InlineSyntaxNodeContainer;
-	var MediaSyntaxNode_1 = __webpack_require__(68);
-	exports.MediaSyntaxNode = MediaSyntaxNode_1.MediaSyntaxNode;
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(17);
-	exports.OutlineSyntaxNodeContainer = OutlineSyntaxNodeContainer_1.OutlineSyntaxNodeContainer;
-	var RevealableInlineSyntaxNode_1 = __webpack_require__(56);
-	exports.RevealableInlineSyntaxNode = RevealableInlineSyntaxNode_1.RevealableInlineSyntaxNode;
-	var RevealableOutlineSyntaxNode_1 = __webpack_require__(37);
-	exports.RevealableOutlineSyntaxNode = RevealableOutlineSyntaxNode_1.RevealableOutlineSyntaxNode;
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
-	exports.RichInlineSyntaxNode = RichInlineSyntaxNode_1.RichInlineSyntaxNode;
-	var RichOutlineSyntaxNode_1 = __webpack_require__(26);
-	exports.RichOutlineSyntaxNode = RichOutlineSyntaxNode_1.RichOutlineSyntaxNode;
-	//# sourceMappingURL=index.js.map
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "body {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap row-reverse;\n      flex-flow: wrap row-reverse;\n  min-height: 100vh; }\n\n#editorContainer {\n  -ms-flex-preferred-size: 400px;\n      flex-basis: 400px;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n\n#renderedDocumentContainer {\n  -ms-flex-preferred-size: 500px;\n      flex-basis: 500px;\n  -ms-flex-positive: 2;\n      flex-grow: 2;\n  background: yellow; }\n", ""]);
+
+	// exports
+
 
 /***/ },
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(10);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./codemirror-changes.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./codemirror-changes.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".CodeMirror {\n  height: 100vh !important; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
-	var Config_1 = __webpack_require__(10);
-	var parseDocument_1 = __webpack_require__(15);
-	var parseInlineDocument_1 = __webpack_require__(102);
-	var getHtml_1 = __webpack_require__(104);
+	var Up_1 = __webpack_require__(12);
+	exports.default = Up_1.Up;
+	exports.Up = Up_1.Up;
+	var UpDocument_1 = __webpack_require__(19);
+	exports.UpDocument = UpDocument_1.UpDocument;
+	var InlineUpDocument_1 = __webpack_require__(106);
+	exports.InlineUpDocument = InlineUpDocument_1.InlineUpDocument;
+	var Audio_1 = __webpack_require__(70);
+	exports.Audio = Audio_1.Audio;
+	var Bold_1 = __webpack_require__(56);
+	exports.Bold = Bold_1.Bold;
+	var Blockquote_1 = __webpack_require__(28);
+	exports.Blockquote = Blockquote_1.Blockquote;
+	var CodeBlock_1 = __webpack_require__(97);
+	exports.CodeBlock = CodeBlock_1.CodeBlock;
+	var DescriptionList_1 = __webpack_require__(30);
+	exports.DescriptionList = DescriptionList_1.DescriptionList;
+	var Emphasis_1 = __webpack_require__(53);
+	exports.Emphasis = Emphasis_1.Emphasis;
+	var ExampleInput_1 = __webpack_require__(90);
+	exports.ExampleInput = ExampleInput_1.ExampleInput;
+	var FootnoteBlock_1 = __webpack_require__(31);
+	exports.FootnoteBlock = FootnoteBlock_1.FootnoteBlock;
+	var Footnote_1 = __webpack_require__(32);
+	exports.Footnote = Footnote_1.Footnote;
+	var Heading_1 = __webpack_require__(21);
+	exports.Heading = Heading_1.Heading;
+	var Highlight_1 = __webpack_require__(57);
+	exports.Highlight = Highlight_1.Highlight;
+	var Image_1 = __webpack_require__(72);
+	exports.Image = Image_1.Image;
+	var InlineCode_1 = __webpack_require__(89);
+	exports.InlineCode = InlineCode_1.InlineCode;
+	var InlineNsfl_1 = __webpack_require__(61);
+	exports.InlineNsfl = InlineNsfl_1.InlineNsfl;
+	var InlineNsfw_1 = __webpack_require__(60);
+	exports.InlineNsfw = InlineNsfw_1.InlineNsfw;
+	var InlineSpoiler_1 = __webpack_require__(58);
+	exports.InlineSpoiler = InlineSpoiler_1.InlineSpoiler;
+	var InlineQuote_1 = __webpack_require__(62);
+	exports.InlineQuote = InlineQuote_1.InlineQuote;
+	var Italic_1 = __webpack_require__(55);
+	exports.Italic = Italic_1.Italic;
+	var LineBlock_1 = __webpack_require__(35);
+	exports.LineBlock = LineBlock_1.LineBlock;
+	var Link_1 = __webpack_require__(66);
+	exports.Link = Link_1.Link;
+	var NsflBlock_1 = __webpack_require__(42);
+	exports.NsflBlock = NsflBlock_1.NsflBlock;
+	var NsfwBlock_1 = __webpack_require__(41);
+	exports.NsfwBlock = NsfwBlock_1.NsfwBlock;
+	var OrderedList_1 = __webpack_require__(36);
+	exports.OrderedList = OrderedList_1.OrderedList;
+	var Paragraph_1 = __webpack_require__(37);
+	exports.Paragraph = Paragraph_1.Paragraph;
+	var NormalParenthetical_1 = __webpack_require__(65);
+	exports.NormalParenthetical = NormalParenthetical_1.NormalParenthetical;
+	var PlainText_1 = __webpack_require__(87);
+	exports.PlainText = PlainText_1.PlainText;
+	var ReferenceToTableOfContentsEntry_1 = __webpack_require__(25);
+	exports.ReferenceToTableOfContentsEntry = ReferenceToTableOfContentsEntry_1.ReferenceToTableOfContentsEntry;
+	var SpoilerBlock_1 = __webpack_require__(39);
+	exports.SpoilerBlock = SpoilerBlock_1.SpoilerBlock;
+	var SquareParenthetical_1 = __webpack_require__(63);
+	exports.SquareParenthetical = SquareParenthetical_1.SquareParenthetical;
+	var Stress_1 = __webpack_require__(54);
+	exports.Stress = Stress_1.Stress;
+	var Table_1 = __webpack_require__(43);
+	exports.Table = Table_1.Table;
+	var ThematicBreak_1 = __webpack_require__(47);
+	exports.ThematicBreak = ThematicBreak_1.ThematicBreak;
+	var UnorderedList_1 = __webpack_require__(38);
+	exports.UnorderedList = UnorderedList_1.UnorderedList;
+	var Video_1 = __webpack_require__(73);
+	exports.Video = Video_1.Video;
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	exports.InlineSyntaxNodeContainer = InlineSyntaxNodeContainer_1.InlineSyntaxNodeContainer;
+	var MediaSyntaxNode_1 = __webpack_require__(71);
+	exports.MediaSyntaxNode = MediaSyntaxNode_1.MediaSyntaxNode;
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
+	exports.OutlineSyntaxNodeContainer = OutlineSyntaxNodeContainer_1.OutlineSyntaxNodeContainer;
+	var RevealableInlineSyntaxNode_1 = __webpack_require__(59);
+	exports.RevealableInlineSyntaxNode = RevealableInlineSyntaxNode_1.RevealableInlineSyntaxNode;
+	var RevealableOutlineSyntaxNode_1 = __webpack_require__(40);
+	exports.RevealableOutlineSyntaxNode = RevealableOutlineSyntaxNode_1.RevealableOutlineSyntaxNode;
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
+	exports.RichInlineSyntaxNode = RichInlineSyntaxNode_1.RichInlineSyntaxNode;
+	var RichOutlineSyntaxNode_1 = __webpack_require__(29);
+	exports.RichOutlineSyntaxNode = RichOutlineSyntaxNode_1.RichOutlineSyntaxNode;
+	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var Config_1 = __webpack_require__(13);
+	var parseDocument_1 = __webpack_require__(18);
+	var parseInlineDocument_1 = __webpack_require__(105);
+	var getHtml_1 = __webpack_require__(107);
 	var Up = (function () {
 	    function Up(settings) {
 	        this.config = new Config_1.Config(settings);
@@ -650,13 +763,13 @@
 	//# sourceMappingURL=Up.js.map
 
 /***/ },
-/* 10 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternPieces_1 = __webpack_require__(11);
-	var Patterns_1 = __webpack_require__(13);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var PatternPieces_1 = __webpack_require__(14);
+	var Patterns_1 = __webpack_require__(16);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var Config = (function () {
 	    function Config(settings) {
 	        this.createSourceMap = false;
@@ -926,11 +1039,11 @@
 	//# sourceMappingURL=Config.js.map
 
 /***/ },
-/* 11 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(12);
+	var PatternHelpers_1 = __webpack_require__(15);
 	exports.INLINE_WHITESPACE_CHAR = PatternHelpers_1.anyCharNotMatching('\\S', '\\r', '\\n');
 	exports.WHITESPACE_CHAR = '\\s';
 	exports.ANY_WHITESPACE = PatternHelpers_1.everyOptional(exports.WHITESPACE_CHAR);
@@ -947,7 +1060,7 @@
 	//# sourceMappingURL=PatternPieces.js.map
 
 /***/ },
-/* 12 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1059,7 +1172,7 @@
 	    return new RegExp(pattern + '$');
 	}
 	exports.patternEndingWith = patternEndingWith;
-	var PatternPieces_1 = __webpack_require__(11);
+	var PatternPieces_1 = __webpack_require__(14);
 	function getRegExpSolelyConsistingOf(args) {
 	    return new RegExp('^' + PatternPieces_1.ANY_WHITESPACE + args.pattern + PatternPieces_1.ANY_WHITESPACE + '$', getRegExpFlags(args.isCaseInsensitive));
 	}
@@ -1072,12 +1185,12 @@
 	//# sourceMappingURL=PatternHelpers.js.map
 
 /***/ },
-/* 13 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(12);
-	var PatternPieces_1 = __webpack_require__(11);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternPieces_1 = __webpack_require__(14);
 	var INDENT = PatternHelpers_1.either('\t', PatternHelpers_1.exactly(2, PatternPieces_1.INLINE_WHITESPACE_CHAR));
 	exports.INDENTED_PATTERN = PatternHelpers_1.patternStartingWith(INDENT);
 	exports.DIVIDER_STREAK_PATTERN = PatternHelpers_1.streakOf(PatternHelpers_1.anyCharFrom('#', '=', '-', '+', '~', '*', '@', ':'));
@@ -1087,7 +1200,7 @@
 	//# sourceMappingURL=Patterns.js.map
 
 /***/ },
-/* 14 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1142,14 +1255,14 @@
 	//# sourceMappingURL=CollectionHelpers.js.map
 
 /***/ },
-/* 15 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var UpDocument_1 = __webpack_require__(16);
-	var HeadingLeveler_1 = __webpack_require__(41);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
-	var Strings_1 = __webpack_require__(71);
+	var UpDocument_1 = __webpack_require__(19);
+	var HeadingLeveler_1 = __webpack_require__(44);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
+	var Strings_1 = __webpack_require__(74);
 	function parseDocument(markup, config) {
 	    var children = getOutlineSyntaxNodes_1.getOutlineSyntaxNodes({
 	        markupLines: markup.split(Strings_1.INPUT_LINE_BREAK),
@@ -1163,7 +1276,7 @@
 	//# sourceMappingURL=parseDocument.js.map
 
 /***/ },
-/* 16 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1172,11 +1285,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(17);
-	var Heading_1 = __webpack_require__(18);
-	var ReferenceToTableOfContentsEntry_1 = __webpack_require__(22);
-	var insertFootnoteBlocksAndAssignFootnoteReferenceNumbers_1 = __webpack_require__(24);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
+	var Heading_1 = __webpack_require__(21);
+	var ReferenceToTableOfContentsEntry_1 = __webpack_require__(25);
+	var insertFootnoteBlocksAndAssignFootnoteReferenceNumbers_1 = __webpack_require__(27);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var UpDocument = (function (_super) {
 	    __extends(UpDocument, _super);
 	    function UpDocument(children, tableOfContents) {
@@ -1227,12 +1340,12 @@
 	//# sourceMappingURL=UpDocument.js.map
 
 /***/ },
-/* 17 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var UpDocument_1 = __webpack_require__(16);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var UpDocument_1 = __webpack_require__(19);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var OutlineSyntaxNodeContainer = (function () {
 	    function OutlineSyntaxNodeContainer(children) {
 	        this.children = children;
@@ -1249,7 +1362,7 @@
 	//# sourceMappingURL=OutlineSyntaxNodeContainer.js.map
 
 /***/ },
-/* 18 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1258,8 +1371,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
-	var getSearchableText_1 = __webpack_require__(21);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var getSearchableText_1 = __webpack_require__(24);
 	var Heading = (function (_super) {
 	    __extends(Heading, _super);
 	    function Heading(children, options) {
@@ -1288,11 +1401,11 @@
 	//# sourceMappingURL=Heading.js.map
 
 /***/ },
-/* 19 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var getInlineDescendants_1 = __webpack_require__(20);
+	var getInlineDescendants_1 = __webpack_require__(23);
 	var InlineSyntaxNodeContainer = (function () {
 	    function InlineSyntaxNodeContainer(children) {
 	        this.children = children;
@@ -1306,11 +1419,11 @@
 	//# sourceMappingURL=InlineSyntaxNodeContainer.js.map
 
 /***/ },
-/* 20 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	function getInlineDescendants(nodes) {
 	    return CollectionHelpers_1.concat(nodes.map(function (child) { return [child].concat(child.inlineDescendants()); }));
 	}
@@ -1318,7 +1431,7 @@
 	//# sourceMappingURL=getInlineDescendants.js.map
 
 /***/ },
-/* 21 */
+/* 24 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1331,11 +1444,11 @@
 	//# sourceMappingURL=getSearchableText.js.map
 
 /***/ },
-/* 22 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var StringHelpers_1 = __webpack_require__(23);
+	var StringHelpers_1 = __webpack_require__(26);
 	var ReferenceToTableOfContentsEntry = (function () {
 	    function ReferenceToTableOfContentsEntry(snippetFromEntry, entry) {
 	        this.snippetFromEntry = snippetFromEntry;
@@ -1381,11 +1494,11 @@
 	//# sourceMappingURL=ReferenceToTableOfContentsEntry.js.map
 
 /***/ },
-/* 23 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(12);
+	var PatternHelpers_1 = __webpack_require__(15);
 	function repeat(text, count) {
 	    return new Array(count + 1).join(text);
 	}
@@ -1403,25 +1516,25 @@
 	//# sourceMappingURL=StringHelpers.js.map
 
 /***/ },
-/* 24 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var CollectionHelpers_1 = __webpack_require__(14);
-	var Blockquote_1 = __webpack_require__(25);
-	var DescriptionList_1 = __webpack_require__(27);
-	var FootnoteBlock_1 = __webpack_require__(28);
-	var Footnote_1 = __webpack_require__(29);
-	var Heading_1 = __webpack_require__(18);
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
-	var LineBlock_1 = __webpack_require__(32);
-	var OrderedList_1 = __webpack_require__(33);
-	var Paragraph_1 = __webpack_require__(34);
-	var UnorderedList_1 = __webpack_require__(35);
-	var SpoilerBlock_1 = __webpack_require__(36);
-	var NsfwBlock_1 = __webpack_require__(38);
-	var NsflBlock_1 = __webpack_require__(39);
-	var Table_1 = __webpack_require__(40);
+	var CollectionHelpers_1 = __webpack_require__(17);
+	var Blockquote_1 = __webpack_require__(28);
+	var DescriptionList_1 = __webpack_require__(30);
+	var FootnoteBlock_1 = __webpack_require__(31);
+	var Footnote_1 = __webpack_require__(32);
+	var Heading_1 = __webpack_require__(21);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
+	var LineBlock_1 = __webpack_require__(35);
+	var OrderedList_1 = __webpack_require__(36);
+	var Paragraph_1 = __webpack_require__(37);
+	var UnorderedList_1 = __webpack_require__(38);
+	var SpoilerBlock_1 = __webpack_require__(39);
+	var NsfwBlock_1 = __webpack_require__(41);
+	var NsflBlock_1 = __webpack_require__(42);
+	var Table_1 = __webpack_require__(43);
 	function insertFootnoteBlocksAndAssignFootnoteReferenceNumbers(document) {
 	    new FootnoteBlockInserter(document);
 	}
@@ -1523,7 +1636,7 @@
 	//# sourceMappingURL=insertFootnoteBlocksAndAssignFootnoteReferenceNumbers.js.map
 
 /***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1532,7 +1645,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichOutlineSyntaxNode_1 = __webpack_require__(26);
+	var RichOutlineSyntaxNode_1 = __webpack_require__(29);
 	var Blockquote = (function (_super) {
 	    __extends(Blockquote, _super);
 	    function Blockquote() {
@@ -1548,7 +1661,7 @@
 	//# sourceMappingURL=Blockquote.js.map
 
 /***/ },
-/* 26 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1557,7 +1670,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(17);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
 	var RichOutlineSyntaxNode = (function (_super) {
 	    __extends(RichOutlineSyntaxNode, _super);
 	    function RichOutlineSyntaxNode(children, options) {
@@ -1573,7 +1686,7 @@
 	//# sourceMappingURL=RichOutlineSyntaxNode.js.map
 
 /***/ },
-/* 27 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1582,9 +1695,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(17);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var DescriptionList = (function () {
 	    function DescriptionList(items, options) {
 	        this.items = items;
@@ -1648,11 +1761,11 @@
 	//# sourceMappingURL=DescriptionList.js.map
 
 /***/ },
-/* 28 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var getInlineDescendants_1 = __webpack_require__(20);
+	var getInlineDescendants_1 = __webpack_require__(23);
 	var FootnoteBlock = (function () {
 	    function FootnoteBlock(footnotes) {
 	        this.footnotes = footnotes;
@@ -1680,7 +1793,7 @@
 	//# sourceMappingURL=FootnoteBlock.js.map
 
 /***/ },
-/* 29 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1689,7 +1802,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Footnote = (function (_super) {
 	    __extends(Footnote, _super);
 	    function Footnote(children, options) {
@@ -1710,7 +1823,7 @@
 	//# sourceMappingURL=Footnote.js.map
 
 /***/ },
-/* 30 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1719,9 +1832,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
-	var getTextAppearingInline_1 = __webpack_require__(31);
-	var getSearchableText_1 = __webpack_require__(21);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var getTextAppearingInline_1 = __webpack_require__(34);
+	var getSearchableText_1 = __webpack_require__(24);
 	var RichInlineSyntaxNode = (function (_super) {
 	    __extends(RichInlineSyntaxNode, _super);
 	    function RichInlineSyntaxNode() {
@@ -1739,7 +1852,7 @@
 	//# sourceMappingURL=RichInlineSyntaxNode.js.map
 
 /***/ },
-/* 31 */
+/* 34 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1752,7 +1865,7 @@
 	//# sourceMappingURL=getTextAppearingInline.js.map
 
 /***/ },
-/* 32 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1761,8 +1874,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var LineBlock = (function () {
 	    function LineBlock(lines, options) {
 	        this.lines = lines;
@@ -1798,7 +1911,7 @@
 	//# sourceMappingURL=LineBlock.js.map
 
 /***/ },
-/* 33 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1807,8 +1920,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(17);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var OrderedList = (function () {
 	    function OrderedList(items, options) {
 	        this.items = items;
@@ -1866,7 +1979,7 @@
 	//# sourceMappingURL=OrderedList.js.map
 
 /***/ },
-/* 34 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1875,7 +1988,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
 	var Paragraph = (function (_super) {
 	    __extends(Paragraph, _super);
 	    function Paragraph(children, options) {
@@ -1898,7 +2011,7 @@
 	//# sourceMappingURL=Paragraph.js.map
 
 /***/ },
-/* 35 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1907,8 +2020,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(17);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var UnorderedList = (function () {
 	    function UnorderedList(items, options) {
 	        this.items = items;
@@ -1944,7 +2057,7 @@
 	//# sourceMappingURL=UnorderedList.js.map
 
 /***/ },
-/* 36 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1953,7 +2066,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RevealableOutlineSyntaxNode_1 = __webpack_require__(37);
+	var RevealableOutlineSyntaxNode_1 = __webpack_require__(40);
 	var SpoilerBlock = (function (_super) {
 	    __extends(SpoilerBlock, _super);
 	    function SpoilerBlock() {
@@ -1969,7 +2082,7 @@
 	//# sourceMappingURL=SpoilerBlock.js.map
 
 /***/ },
-/* 37 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1978,7 +2091,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichOutlineSyntaxNode_1 = __webpack_require__(26);
+	var RichOutlineSyntaxNode_1 = __webpack_require__(29);
 	var RevealableOutlineSyntaxNode = (function (_super) {
 	    __extends(RevealableOutlineSyntaxNode, _super);
 	    function RevealableOutlineSyntaxNode() {
@@ -1994,7 +2107,7 @@
 	//# sourceMappingURL=RevealableOutlineSyntaxNode.js.map
 
 /***/ },
-/* 38 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2003,7 +2116,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RevealableOutlineSyntaxNode_1 = __webpack_require__(37);
+	var RevealableOutlineSyntaxNode_1 = __webpack_require__(40);
 	var NsfwBlock = (function (_super) {
 	    __extends(NsfwBlock, _super);
 	    function NsfwBlock() {
@@ -2019,7 +2132,7 @@
 	//# sourceMappingURL=NsfwBlock.js.map
 
 /***/ },
-/* 39 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2028,7 +2141,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RevealableOutlineSyntaxNode_1 = __webpack_require__(37);
+	var RevealableOutlineSyntaxNode_1 = __webpack_require__(40);
 	var NsflBlock = (function (_super) {
 	    __extends(NsflBlock, _super);
 	    function NsflBlock() {
@@ -2044,7 +2157,7 @@
 	//# sourceMappingURL=NsflBlock.js.map
 
 /***/ },
-/* 40 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2053,11 +2166,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
-	var PatternPieces_1 = __webpack_require__(11);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var CollectionHelpers_1 = __webpack_require__(14);
-	var getInlineDescendants_1 = __webpack_require__(20);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var PatternPieces_1 = __webpack_require__(14);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var CollectionHelpers_1 = __webpack_require__(17);
+	var getInlineDescendants_1 = __webpack_require__(23);
 	var Table = (function () {
 	    function Table(header, rows, caption, options) {
 	        this.header = header;
@@ -2167,11 +2280,11 @@
 	//# sourceMappingURL=Table.js.map
 
 /***/ },
-/* 41 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var HeadingLeveler = (function () {
 	    function HeadingLeveler() {
 	        this.headingSignatures = [];
@@ -2201,28 +2314,28 @@
 	//# sourceMappingURL=HeadingLeveler.js.map
 
 /***/ },
-/* 42 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var ThematicBreak_1 = __webpack_require__(44);
-	var SpoilerBlock_1 = __webpack_require__(36);
-	var NsfwBlock_1 = __webpack_require__(38);
-	var NsflBlock_1 = __webpack_require__(39);
-	var tryToParseThematicBreakStreak_1 = __webpack_require__(45);
-	var tryToParseHeading_1 = __webpack_require__(46);
-	var tryToParseBlankLineSeparation_1 = __webpack_require__(95);
-	var tryToParseCodeBlock_1 = __webpack_require__(93);
-	var tryToParseBlockquote_1 = __webpack_require__(92);
-	var tryToParseUnorderedList_1 = __webpack_require__(89);
-	var tryToParseOrderedList_1 = __webpack_require__(91);
-	var tryToParseDescriptionList_1 = __webpack_require__(96);
-	var tryToParseTableOrChart_1 = __webpack_require__(97);
-	var getLabeledBlockParser_1 = __webpack_require__(99);
-	var parseParagraphOrLineBlock_1 = __webpack_require__(100);
-	var Patterns_1 = __webpack_require__(13);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var LineConsumer_1 = __webpack_require__(46);
+	var ThematicBreak_1 = __webpack_require__(47);
+	var SpoilerBlock_1 = __webpack_require__(39);
+	var NsfwBlock_1 = __webpack_require__(41);
+	var NsflBlock_1 = __webpack_require__(42);
+	var tryToParseThematicBreakStreak_1 = __webpack_require__(48);
+	var tryToParseHeading_1 = __webpack_require__(49);
+	var tryToParseBlankLineSeparation_1 = __webpack_require__(98);
+	var tryToParseCodeBlock_1 = __webpack_require__(96);
+	var tryToParseBlockquote_1 = __webpack_require__(95);
+	var tryToParseUnorderedList_1 = __webpack_require__(92);
+	var tryToParseOrderedList_1 = __webpack_require__(94);
+	var tryToParseDescriptionList_1 = __webpack_require__(99);
+	var tryToParseTableOrChart_1 = __webpack_require__(100);
+	var getLabeledBlockParser_1 = __webpack_require__(102);
+	var parseParagraphOrLineBlock_1 = __webpack_require__(103);
+	var Patterns_1 = __webpack_require__(16);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	function getOutlineSyntaxNodes(args) {
 	    var markupLines = args.markupLines, headingLeveler = args.headingLeveler, config = args.config;
 	    var terms = config.terms;
@@ -2309,7 +2422,7 @@
 	//# sourceMappingURL=getOutlineSyntaxNodes.js.map
 
 /***/ },
-/* 43 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2363,7 +2476,7 @@
 	//# sourceMappingURL=LineConsumer.js.map
 
 /***/ },
-/* 44 */
+/* 47 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2390,13 +2503,13 @@
 	//# sourceMappingURL=ThematicBreak.js.map
 
 /***/ },
-/* 45 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var ThematicBreak_1 = __webpack_require__(44);
-	var Patterns_1 = __webpack_require__(13);
+	var LineConsumer_1 = __webpack_require__(46);
+	var ThematicBreak_1 = __webpack_require__(47);
+	var Patterns_1 = __webpack_require__(16);
 	function tryToParseThematicBreakStreak(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    if (!markupLineConsumer.consume({ linePattern: Patterns_1.DIVIDER_STREAK_PATTERN })) {
@@ -2409,16 +2522,16 @@
 	//# sourceMappingURL=tryToParseThematicBreakStreak.js.map
 
 /***/ },
-/* 46 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var Heading_1 = __webpack_require__(18);
-	var Patterns_1 = __webpack_require__(13);
-	var getInlineSyntaxNodes_1 = __webpack_require__(47);
-	var isLineFancyOutlineConvention_1 = __webpack_require__(88);
-	var HeadingLeveler_1 = __webpack_require__(41);
+	var LineConsumer_1 = __webpack_require__(46);
+	var Heading_1 = __webpack_require__(21);
+	var Patterns_1 = __webpack_require__(16);
+	var getInlineSyntaxNodes_1 = __webpack_require__(50);
+	var isLineFancyOutlineConvention_1 = __webpack_require__(91);
+	var HeadingLeveler_1 = __webpack_require__(44);
 	function tryToParseHeading(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var optionalOverline;
@@ -2455,12 +2568,12 @@
 	//# sourceMappingURL=tryToParseHeading.js.map
 
 /***/ },
-/* 47 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var tokenize_1 = __webpack_require__(48);
-	var parse_1 = __webpack_require__(83);
+	var tokenize_1 = __webpack_require__(51);
+	var parse_1 = __webpack_require__(86);
 	function getInlineSyntaxNodes(markup, config) {
 	    return parse_1.parse(tokenize_1.tokenize(markup, config));
 	}
@@ -2472,29 +2585,29 @@
 	//# sourceMappingURL=getInlineSyntaxNodes.js.map
 
 /***/ },
-/* 48 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var RichConventions_1 = __webpack_require__(49);
-	var MediaConventions_1 = __webpack_require__(66);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var PatternPieces_1 = __webpack_require__(11);
-	var Patterns_1 = __webpack_require__(13);
-	var Strings_1 = __webpack_require__(71);
-	var tryToTokenizeCodeOrUnmatchedDelimiter_1 = __webpack_require__(72);
-	var nestOverlappingConventions_1 = __webpack_require__(75);
-	var CollectionHelpers_1 = __webpack_require__(14);
-	var StringHelpers_1 = __webpack_require__(23);
-	var Bracket_1 = __webpack_require__(76);
-	var FailedConventionTracker_1 = __webpack_require__(77);
-	var ConventionContext_1 = __webpack_require__(78);
-	var TextConsumer_1 = __webpack_require__(73);
-	var TokenRole_1 = __webpack_require__(64);
-	var Token_1 = __webpack_require__(74);
-	var Convention_1 = __webpack_require__(79);
-	var InflectionHandler_1 = __webpack_require__(80);
-	var trimEscapedAndUnescapedOuterWhitespace_1 = __webpack_require__(82);
+	var RichConventions_1 = __webpack_require__(52);
+	var MediaConventions_1 = __webpack_require__(69);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternPieces_1 = __webpack_require__(14);
+	var Patterns_1 = __webpack_require__(16);
+	var Strings_1 = __webpack_require__(74);
+	var tryToTokenizeCodeOrUnmatchedDelimiter_1 = __webpack_require__(75);
+	var nestOverlappingConventions_1 = __webpack_require__(78);
+	var CollectionHelpers_1 = __webpack_require__(17);
+	var StringHelpers_1 = __webpack_require__(26);
+	var Bracket_1 = __webpack_require__(79);
+	var FailedConventionTracker_1 = __webpack_require__(80);
+	var ConventionContext_1 = __webpack_require__(81);
+	var TextConsumer_1 = __webpack_require__(76);
+	var TokenRole_1 = __webpack_require__(67);
+	var Token_1 = __webpack_require__(77);
+	var Convention_1 = __webpack_require__(82);
+	var InflectionHandler_1 = __webpack_require__(83);
+	var trimEscapedAndUnescapedOuterWhitespace_1 = __webpack_require__(85);
 	function tokenize(markup, config) {
 	    return new Tokenizer(markup, config).result;
 	}
@@ -3334,25 +3447,25 @@
 	//# sourceMappingURL=tokenize.js.map
 
 /***/ },
-/* 49 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Emphasis_1 = __webpack_require__(50);
-	var Stress_1 = __webpack_require__(51);
-	var Italic_1 = __webpack_require__(52);
-	var Bold_1 = __webpack_require__(53);
-	var Highlight_1 = __webpack_require__(54);
-	var InlineSpoiler_1 = __webpack_require__(55);
-	var InlineNsfw_1 = __webpack_require__(57);
-	var InlineNsfl_1 = __webpack_require__(58);
-	var InlineQuote_1 = __webpack_require__(59);
-	var Footnote_1 = __webpack_require__(29);
-	var SquareParenthetical_1 = __webpack_require__(60);
-	var NormalParenthetical_1 = __webpack_require__(62);
-	var Link_1 = __webpack_require__(63);
-	var TokenRole_1 = __webpack_require__(64);
-	var RevealableConvention_1 = __webpack_require__(65);
+	var Emphasis_1 = __webpack_require__(53);
+	var Stress_1 = __webpack_require__(54);
+	var Italic_1 = __webpack_require__(55);
+	var Bold_1 = __webpack_require__(56);
+	var Highlight_1 = __webpack_require__(57);
+	var InlineSpoiler_1 = __webpack_require__(58);
+	var InlineNsfw_1 = __webpack_require__(60);
+	var InlineNsfl_1 = __webpack_require__(61);
+	var InlineQuote_1 = __webpack_require__(62);
+	var Footnote_1 = __webpack_require__(32);
+	var SquareParenthetical_1 = __webpack_require__(63);
+	var NormalParenthetical_1 = __webpack_require__(65);
+	var Link_1 = __webpack_require__(66);
+	var TokenRole_1 = __webpack_require__(67);
+	var RevealableConvention_1 = __webpack_require__(68);
 	exports.EMPHASIS = {
 	    SyntaxNodeType: Emphasis_1.Emphasis,
 	    startTokenRole: TokenRole_1.TokenRole.EmphasisStart,
@@ -3421,7 +3534,7 @@
 	//# sourceMappingURL=RichConventions.js.map
 
 /***/ },
-/* 50 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3430,7 +3543,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Emphasis = (function (_super) {
 	    __extends(Emphasis, _super);
 	    function Emphasis() {
@@ -3446,7 +3559,7 @@
 	//# sourceMappingURL=Emphasis.js.map
 
 /***/ },
-/* 51 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3455,7 +3568,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Stress = (function (_super) {
 	    __extends(Stress, _super);
 	    function Stress() {
@@ -3471,7 +3584,7 @@
 	//# sourceMappingURL=Stress.js.map
 
 /***/ },
-/* 52 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3480,7 +3593,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Italic = (function (_super) {
 	    __extends(Italic, _super);
 	    function Italic() {
@@ -3496,7 +3609,7 @@
 	//# sourceMappingURL=Italic.js.map
 
 /***/ },
-/* 53 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3505,7 +3618,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Bold = (function (_super) {
 	    __extends(Bold, _super);
 	    function Bold() {
@@ -3521,7 +3634,7 @@
 	//# sourceMappingURL=Bold.js.map
 
 /***/ },
-/* 54 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3530,7 +3643,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Highlight = (function (_super) {
 	    __extends(Highlight, _super);
 	    function Highlight() {
@@ -3546,7 +3659,7 @@
 	//# sourceMappingURL=Highlight.js.map
 
 /***/ },
-/* 55 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3555,7 +3668,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RevealableInlineSyntaxNode_1 = __webpack_require__(56);
+	var RevealableInlineSyntaxNode_1 = __webpack_require__(59);
 	var InlineSpoiler = (function (_super) {
 	    __extends(InlineSpoiler, _super);
 	    function InlineSpoiler() {
@@ -3571,7 +3684,7 @@
 	//# sourceMappingURL=InlineSpoiler.js.map
 
 /***/ },
-/* 56 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3580,7 +3693,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var RevealableInlineSyntaxNode = (function (_super) {
 	    __extends(RevealableInlineSyntaxNode, _super);
 	    function RevealableInlineSyntaxNode() {
@@ -3593,7 +3706,7 @@
 	//# sourceMappingURL=RevealableInlineSyntaxNode.js.map
 
 /***/ },
-/* 57 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3602,7 +3715,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RevealableInlineSyntaxNode_1 = __webpack_require__(56);
+	var RevealableInlineSyntaxNode_1 = __webpack_require__(59);
 	var InlineNsfw = (function (_super) {
 	    __extends(InlineNsfw, _super);
 	    function InlineNsfw() {
@@ -3618,7 +3731,7 @@
 	//# sourceMappingURL=InlineNsfw.js.map
 
 /***/ },
-/* 58 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3627,7 +3740,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RevealableInlineSyntaxNode_1 = __webpack_require__(56);
+	var RevealableInlineSyntaxNode_1 = __webpack_require__(59);
 	var InlineNsfl = (function (_super) {
 	    __extends(InlineNsfl, _super);
 	    function InlineNsfl() {
@@ -3643,7 +3756,7 @@
 	//# sourceMappingURL=InlineNsfl.js.map
 
 /***/ },
-/* 59 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3652,7 +3765,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RevealableInlineSyntaxNode_1 = __webpack_require__(56);
+	var RevealableInlineSyntaxNode_1 = __webpack_require__(59);
 	var InlineQuote = (function (_super) {
 	    __extends(InlineQuote, _super);
 	    function InlineQuote() {
@@ -3668,7 +3781,7 @@
 	//# sourceMappingURL=InlineQuote.js.map
 
 /***/ },
-/* 60 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3677,7 +3790,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var ParentheticalSyntaxNode_1 = __webpack_require__(61);
+	var ParentheticalSyntaxNode_1 = __webpack_require__(64);
 	var SquareParenthetical = (function (_super) {
 	    __extends(SquareParenthetical, _super);
 	    function SquareParenthetical() {
@@ -3693,7 +3806,7 @@
 	//# sourceMappingURL=SquareParenthetical.js.map
 
 /***/ },
-/* 61 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3702,7 +3815,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var ParentheticalSyntaxNode = (function (_super) {
 	    __extends(ParentheticalSyntaxNode, _super);
 	    function ParentheticalSyntaxNode() {
@@ -3715,7 +3828,7 @@
 	//# sourceMappingURL=ParentheticalSyntaxNode.js.map
 
 /***/ },
-/* 62 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3724,7 +3837,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var ParentheticalSyntaxNode_1 = __webpack_require__(61);
+	var ParentheticalSyntaxNode_1 = __webpack_require__(64);
 	var NormalParenthetical = (function (_super) {
 	    __extends(NormalParenthetical, _super);
 	    function NormalParenthetical() {
@@ -3740,7 +3853,7 @@
 	//# sourceMappingURL=NormalParenthetical.js.map
 
 /***/ },
-/* 63 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3749,7 +3862,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(30);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Link = (function (_super) {
 	    __extends(Link, _super);
 	    function Link(children, url, options) {
@@ -3775,7 +3888,7 @@
 	//# sourceMappingURL=Link.js.map
 
 /***/ },
-/* 64 */
+/* 67 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3827,7 +3940,7 @@
 	//# sourceMappingURL=TokenRole.js.map
 
 /***/ },
-/* 65 */
+/* 68 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3843,14 +3956,14 @@
 	//# sourceMappingURL=RevealableConvention.js.map
 
 /***/ },
-/* 66 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Audio_1 = __webpack_require__(67);
-	var Image_1 = __webpack_require__(69);
-	var Video_1 = __webpack_require__(70);
-	var TokenRole_1 = __webpack_require__(64);
+	var Audio_1 = __webpack_require__(70);
+	var Image_1 = __webpack_require__(72);
+	var Video_1 = __webpack_require__(73);
+	var TokenRole_1 = __webpack_require__(67);
 	exports.AUDIO = {
 	    term: function (terms) { return terms.audio; },
 	    SyntaxNodeType: Audio_1.Audio,
@@ -3869,7 +3982,7 @@
 	//# sourceMappingURL=MediaConventions.js.map
 
 /***/ },
-/* 67 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3878,7 +3991,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var MediaSyntaxNode_1 = __webpack_require__(68);
+	var MediaSyntaxNode_1 = __webpack_require__(71);
 	var Audio = (function (_super) {
 	    __extends(Audio, _super);
 	    function Audio() {
@@ -3894,7 +4007,7 @@
 	//# sourceMappingURL=Audio.js.map
 
 /***/ },
-/* 68 */
+/* 71 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3926,7 +4039,7 @@
 	//# sourceMappingURL=MediaSyntaxNode.js.map
 
 /***/ },
-/* 69 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3935,7 +4048,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var MediaSyntaxNode_1 = __webpack_require__(68);
+	var MediaSyntaxNode_1 = __webpack_require__(71);
 	var Image = (function (_super) {
 	    __extends(Image, _super);
 	    function Image() {
@@ -3951,7 +4064,7 @@
 	//# sourceMappingURL=Image.js.map
 
 /***/ },
-/* 70 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3960,7 +4073,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var MediaSyntaxNode_1 = __webpack_require__(68);
+	var MediaSyntaxNode_1 = __webpack_require__(71);
 	var Video = (function (_super) {
 	    __extends(Video, _super);
 	    function Video() {
@@ -3976,7 +4089,7 @@
 	//# sourceMappingURL=Video.js.map
 
 /***/ },
-/* 71 */
+/* 74 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3986,14 +4099,14 @@
 	//# sourceMappingURL=Strings.js.map
 
 /***/ },
-/* 72 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(12);
-	var TextConsumer_1 = __webpack_require__(73);
-	var TokenRole_1 = __webpack_require__(64);
-	var Token_1 = __webpack_require__(74);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var TextConsumer_1 = __webpack_require__(76);
+	var TokenRole_1 = __webpack_require__(67);
+	var Token_1 = __webpack_require__(77);
 	function tryToTokenizeCodeOrUnmatchedDelimiter(args) {
 	    var markup = args.markup, then = args.then;
 	    var markupConsumer = new TextConsumer_1.TextConsumer(markup);
@@ -4058,7 +4171,7 @@
 	//# sourceMappingURL=tryToTokenizeCodeOrUnmatchedDelimiter.js.map
 
 /***/ },
-/* 73 */
+/* 76 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4127,7 +4240,7 @@
 	//# sourceMappingURL=TextConsumer.js.map
 
 /***/ },
-/* 74 */
+/* 77 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4146,11 +4259,11 @@
 	//# sourceMappingURL=Token.js.map
 
 /***/ },
-/* 75 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var RichConventions_1 = __webpack_require__(49);
+	var RichConventions_1 = __webpack_require__(52);
 	function nestOverlappingConventions(tokens) {
 	    return new ConventionNester(tokens).tokens;
 	}
@@ -4281,11 +4394,11 @@
 	//# sourceMappingURL=nestOverlappingConventions.js.map
 
 /***/ },
-/* 76 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(12);
+	var PatternHelpers_1 = __webpack_require__(15);
 	var Bracket = (function () {
 	    function Bracket(open, close) {
 	        this.open = open;
@@ -4299,7 +4412,7 @@
 	//# sourceMappingURL=Bracket.js.map
 
 /***/ },
-/* 77 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4325,7 +4438,7 @@
 	//# sourceMappingURL=FailedConventionTracker.js.map
 
 /***/ },
-/* 78 */
+/* 81 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4376,11 +4489,11 @@
 	//# sourceMappingURL=ConventionContext.js.map
 
 /***/ },
-/* 79 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(12);
+	var PatternHelpers_1 = __webpack_require__(15);
 	var Convention = (function () {
 	    function Convention(args) {
 	        var startsWith = args.startsWith, endsWith = args.endsWith;
@@ -4412,13 +4525,13 @@
 	//# sourceMappingURL=Convention.js.map
 
 /***/ },
-/* 80 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var InflectionStartDelimiter_1 = __webpack_require__(81);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var CollectionHelpers_1 = __webpack_require__(14);
+	var InflectionStartDelimiter_1 = __webpack_require__(84);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var CollectionHelpers_1 = __webpack_require__(17);
 	var InflectionHandler = (function () {
 	    function InflectionHandler(args, openStartDelimiters, delimiterPattern) {
 	        if (openStartDelimiters === void 0) { openStartDelimiters = []; }
@@ -4545,7 +4658,7 @@
 	//# sourceMappingURL=InflectionHandler.js.map
 
 /***/ },
-/* 81 */
+/* 84 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4585,13 +4698,13 @@
 	//# sourceMappingURL=InflectionStartDelimiter.js.map
 
 /***/ },
-/* 82 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(12);
-	var PatternPieces_1 = __webpack_require__(11);
-	var Strings_1 = __webpack_require__(71);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternPieces_1 = __webpack_require__(14);
+	var Strings_1 = __webpack_require__(74);
 	function trimEscapedAndUnescapedOuterWhitespace(markup) {
 	    return markup
 	        .replace(ALL_LEADING_ESCAPED_AND_UNESCAPED_WHITESPACE_PATTERN, '')
@@ -4607,22 +4720,22 @@
 	//# sourceMappingURL=trimEscapedAndUnescapedOuterWhitespace.js.map
 
 /***/ },
-/* 83 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var RichConventions_1 = __webpack_require__(49);
-	var MediaConventions_1 = __webpack_require__(66);
-	var PlainText_1 = __webpack_require__(84);
-	var isWhitespace_1 = __webpack_require__(85);
-	var CollectionHelpers_1 = __webpack_require__(14);
-	var TokenRole_1 = __webpack_require__(64);
-	var InlineCode_1 = __webpack_require__(86);
-	var ExampleInput_1 = __webpack_require__(87);
-	var ReferenceToTableOfContentsEntry_1 = __webpack_require__(22);
-	var Link_1 = __webpack_require__(63);
-	var RevealableConvention_1 = __webpack_require__(65);
-	var Patterns_1 = __webpack_require__(13);
+	var RichConventions_1 = __webpack_require__(52);
+	var MediaConventions_1 = __webpack_require__(69);
+	var PlainText_1 = __webpack_require__(87);
+	var isWhitespace_1 = __webpack_require__(88);
+	var CollectionHelpers_1 = __webpack_require__(17);
+	var TokenRole_1 = __webpack_require__(67);
+	var InlineCode_1 = __webpack_require__(89);
+	var ExampleInput_1 = __webpack_require__(90);
+	var ReferenceToTableOfContentsEntry_1 = __webpack_require__(25);
+	var Link_1 = __webpack_require__(66);
+	var RevealableConvention_1 = __webpack_require__(68);
+	var Patterns_1 = __webpack_require__(16);
 	function parse(tokens) {
 	    return new Parser({
 	        tokens: tokens,
@@ -4770,7 +4883,7 @@
 	//# sourceMappingURL=parse.js.map
 
 /***/ },
-/* 84 */
+/* 87 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4797,12 +4910,12 @@
 	//# sourceMappingURL=PlainText.js.map
 
 /***/ },
-/* 85 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PlainText_1 = __webpack_require__(84);
-	var Patterns_1 = __webpack_require__(13);
+	var PlainText_1 = __webpack_require__(87);
+	var Patterns_1 = __webpack_require__(16);
 	function isWhitespace(node) {
 	    return (node instanceof PlainText_1.PlainText) && Patterns_1.BLANK_PATTERN.test(node.content);
 	}
@@ -4810,7 +4923,7 @@
 	//# sourceMappingURL=isWhitespace.js.map
 
 /***/ },
-/* 86 */
+/* 89 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4836,7 +4949,7 @@
 	//# sourceMappingURL=InlineCode.js.map
 
 /***/ },
-/* 87 */
+/* 90 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4862,16 +4975,16 @@
 	//# sourceMappingURL=ExampleInput.js.map
 
 /***/ },
-/* 88 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var tryToParseUnorderedList_1 = __webpack_require__(89);
-	var tryToParseOrderedList_1 = __webpack_require__(91);
-	var tryToParseThematicBreakStreak_1 = __webpack_require__(45);
-	var tryToParseBlockquote_1 = __webpack_require__(92);
-	var tryToParseCodeBlock_1 = __webpack_require__(93);
-	var HeadingLeveler_1 = __webpack_require__(41);
+	var tryToParseUnorderedList_1 = __webpack_require__(92);
+	var tryToParseOrderedList_1 = __webpack_require__(94);
+	var tryToParseThematicBreakStreak_1 = __webpack_require__(48);
+	var tryToParseBlockquote_1 = __webpack_require__(95);
+	var tryToParseCodeBlock_1 = __webpack_require__(96);
+	var HeadingLeveler_1 = __webpack_require__(44);
 	var OUTLINE_CONVENTIONS_POSSIBLY_ONE_LINE_LONG = [
 	    tryToParseUnorderedList_1.tryToParseUnorderedList,
 	    tryToParseOrderedList_1.trytoParseOrderedList,
@@ -4895,16 +5008,16 @@
 	//# sourceMappingURL=isLineFancyOutlineConvention.js.map
 
 /***/ },
-/* 89 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var UnorderedList_1 = __webpack_require__(35);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
-	var getIndentedBlock_1 = __webpack_require__(90);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var PatternPieces_1 = __webpack_require__(11);
+	var LineConsumer_1 = __webpack_require__(46);
+	var UnorderedList_1 = __webpack_require__(38);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
+	var getIndentedBlock_1 = __webpack_require__(93);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternPieces_1 = __webpack_require__(14);
 	function tryToParseUnorderedList(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var listItems = [];
@@ -4954,12 +5067,12 @@
 	//# sourceMappingURL=tryToParseUnorderedList.js.map
 
 /***/ },
-/* 90 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var Patterns_1 = __webpack_require__(13);
+	var LineConsumer_1 = __webpack_require__(46);
+	var Patterns_1 = __webpack_require__(16);
 	function getIndentedBlock(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.lines);
 	    var indentedLines = [];
@@ -5002,17 +5115,17 @@
 	//# sourceMappingURL=getIndentedBlock.js.map
 
 /***/ },
-/* 91 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var OrderedList_1 = __webpack_require__(33);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var PatternPieces_1 = __webpack_require__(11);
-	var Patterns_1 = __webpack_require__(13);
-	var getIndentedBlock_1 = __webpack_require__(90);
+	var LineConsumer_1 = __webpack_require__(46);
+	var OrderedList_1 = __webpack_require__(36);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternPieces_1 = __webpack_require__(14);
+	var Patterns_1 = __webpack_require__(16);
+	var getIndentedBlock_1 = __webpack_require__(93);
 	function trytoParseOrderedList(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var unparsedListItems = [];
@@ -5097,15 +5210,15 @@
 	//# sourceMappingURL=tryToParseOrderedList.js.map
 
 /***/ },
-/* 92 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var Blockquote_1 = __webpack_require__(25);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var PatternPieces_1 = __webpack_require__(11);
+	var LineConsumer_1 = __webpack_require__(46);
+	var Blockquote_1 = __webpack_require__(28);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternPieces_1 = __webpack_require__(14);
 	function tryToParseBlockquote(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var blockquotedLines = [];
@@ -5133,14 +5246,14 @@
 	//# sourceMappingURL=tryToParseBlockquote.js.map
 
 /***/ },
-/* 93 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var CodeBlock_1 = __webpack_require__(94);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var Strings_1 = __webpack_require__(71);
+	var LineConsumer_1 = __webpack_require__(46);
+	var CodeBlock_1 = __webpack_require__(97);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var Strings_1 = __webpack_require__(74);
 	function tryToParseCodeBlock(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var startStreak;
@@ -5187,7 +5300,7 @@
 	//# sourceMappingURL=tryToParseCodeBlock.js.map
 
 /***/ },
-/* 94 */
+/* 97 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5215,13 +5328,13 @@
 	//# sourceMappingURL=CodeBlock.js.map
 
 /***/ },
-/* 95 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var ThematicBreak_1 = __webpack_require__(44);
-	var Patterns_1 = __webpack_require__(13);
+	var LineConsumer_1 = __webpack_require__(46);
+	var ThematicBreak_1 = __webpack_require__(47);
+	var Patterns_1 = __webpack_require__(16);
 	function tryToParseBlankLineSeparation(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var countBlankLines = 0;
@@ -5241,17 +5354,17 @@
 	//# sourceMappingURL=tryToParseBlankLineSeparation.js.map
 
 /***/ },
-/* 96 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var DescriptionList_1 = __webpack_require__(27);
-	var getInlineSyntaxNodes_1 = __webpack_require__(47);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
-	var isLineFancyOutlineConvention_1 = __webpack_require__(88);
-	var Patterns_1 = __webpack_require__(13);
-	var getIndentedBlock_1 = __webpack_require__(90);
+	var LineConsumer_1 = __webpack_require__(46);
+	var DescriptionList_1 = __webpack_require__(30);
+	var getInlineSyntaxNodes_1 = __webpack_require__(50);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
+	var isLineFancyOutlineConvention_1 = __webpack_require__(91);
+	var Patterns_1 = __webpack_require__(16);
+	var getIndentedBlock_1 = __webpack_require__(93);
 	function tryToParseDescriptionList(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var listItems = [];
@@ -5323,17 +5436,17 @@
 	//# sourceMappingURL=tryToParseDescriptionList.js.map
 
 /***/ },
-/* 97 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var Table_1 = __webpack_require__(40);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var Patterns_1 = __webpack_require__(13);
-	var PatternPieces_1 = __webpack_require__(11);
-	var getInlineSyntaxNodes_1 = __webpack_require__(47);
-	var getTableCells_1 = __webpack_require__(98);
+	var LineConsumer_1 = __webpack_require__(46);
+	var Table_1 = __webpack_require__(43);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var Patterns_1 = __webpack_require__(16);
+	var PatternPieces_1 = __webpack_require__(14);
+	var getInlineSyntaxNodes_1 = __webpack_require__(50);
+	var getTableCells_1 = __webpack_require__(101);
 	function tryToParseTableOrChart(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var config = args.config;
@@ -5405,7 +5518,7 @@
 	//# sourceMappingURL=tryToParseTableOrChart.js.map
 
 /***/ },
-/* 98 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5414,11 +5527,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Table_1 = __webpack_require__(40);
-	var PatternHelpers_1 = __webpack_require__(12);
-	var getInlineSyntaxNodes_1 = __webpack_require__(47);
-	var CollectionHelpers_1 = __webpack_require__(14);
-	var Strings_1 = __webpack_require__(71);
+	var Table_1 = __webpack_require__(43);
+	var PatternHelpers_1 = __webpack_require__(15);
+	var getInlineSyntaxNodes_1 = __webpack_require__(50);
+	var CollectionHelpers_1 = __webpack_require__(17);
+	var Strings_1 = __webpack_require__(74);
 	var TableCell = (function (_super) {
 	    __extends(TableCell, _super);
 	    function TableCell() {
@@ -5466,14 +5579,14 @@
 	//# sourceMappingURL=getTableCells.js.map
 
 /***/ },
-/* 99 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
-	var getIndentedBlock_1 = __webpack_require__(90);
-	var PatternHelpers_1 = __webpack_require__(12);
+	var LineConsumer_1 = __webpack_require__(46);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
+	var getIndentedBlock_1 = __webpack_require__(93);
+	var PatternHelpers_1 = __webpack_require__(15);
 	function getLabeledBlockParser(labels, SyntaxNodeType) {
 	    return function tryToParseLabeledBlock(args) {
 	        var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
@@ -5506,17 +5619,17 @@
 	//# sourceMappingURL=getLabeledBlockParser.js.map
 
 /***/ },
-/* 100 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(43);
-	var Paragraph_1 = __webpack_require__(34);
-	var LineBlock_1 = __webpack_require__(32);
-	var getInlineSyntaxNodes_1 = __webpack_require__(47);
-	var Patterns_1 = __webpack_require__(13);
-	var isLineFancyOutlineConvention_1 = __webpack_require__(88);
-	var tryToPromoteMediaToOutline_1 = __webpack_require__(101);
+	var LineConsumer_1 = __webpack_require__(46);
+	var Paragraph_1 = __webpack_require__(37);
+	var LineBlock_1 = __webpack_require__(35);
+	var getInlineSyntaxNodes_1 = __webpack_require__(50);
+	var Patterns_1 = __webpack_require__(16);
+	var isLineFancyOutlineConvention_1 = __webpack_require__(91);
+	var tryToPromoteMediaToOutline_1 = __webpack_require__(104);
 	function parseParagraphOrLineBlock(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var inlineSyntaxNodesPerLine = [];
@@ -5580,13 +5693,13 @@
 	//# sourceMappingURL=parseParagraphOrLineBlock.js.map
 
 /***/ },
-/* 101 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var isWhitespace_1 = __webpack_require__(85);
-	var Link_1 = __webpack_require__(63);
-	var MediaSyntaxNode_1 = __webpack_require__(68);
+	var isWhitespace_1 = __webpack_require__(88);
+	var Link_1 = __webpack_require__(66);
+	var MediaSyntaxNode_1 = __webpack_require__(71);
 	function tryToPromoteMediaToOutline(args) {
 	    var inlineSyntaxNodes = args.inlineSyntaxNodes, then = args.then;
 	    var promotedNodes = [];
@@ -5626,12 +5739,12 @@
 	//# sourceMappingURL=tryToPromoteMediaToOutline.js.map
 
 /***/ },
-/* 102 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var InlineUpDocument_1 = __webpack_require__(103);
-	var getInlineSyntaxNodes_1 = __webpack_require__(47);
+	var InlineUpDocument_1 = __webpack_require__(106);
+	var getInlineSyntaxNodes_1 = __webpack_require__(50);
 	function parseInlineDocument(markup, config) {
 	    var children = getInlineSyntaxNodes_1.getInlineSyntaxNodesForInlineDocument(markup, config);
 	    return new InlineUpDocument_1.InlineUpDocument(children);
@@ -5640,7 +5753,7 @@
 	//# sourceMappingURL=parseInlineDocument.js.map
 
 /***/ },
-/* 103 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5649,7 +5762,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(19);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
 	var InlineUpDocument = (function (_super) {
 	    __extends(InlineUpDocument, _super);
 	    function InlineUpDocument() {
@@ -5662,11 +5775,11 @@
 	//# sourceMappingURL=InlineUpDocument.js.map
 
 /***/ },
-/* 104 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var HtmlRenderer_1 = __webpack_require__(105);
+	var HtmlRenderer_1 = __webpack_require__(108);
 	function getHtml(document, config) {
 	    return new HtmlRenderer_1.HtmlRenderer(document, config).result;
 	}
@@ -5678,7 +5791,7 @@
 	//# sourceMappingURL=getHtml.js.map
 
 /***/ },
-/* 105 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5687,16 +5800,16 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Renderer_1 = __webpack_require__(106);
-	var Link_1 = __webpack_require__(63);
-	var PlainText_1 = __webpack_require__(84);
-	var Italic_1 = __webpack_require__(52);
-	var UnorderedList_1 = __webpack_require__(35);
-	var OrderedList_1 = __webpack_require__(33);
-	var Heading_1 = __webpack_require__(18);
-	var ElementHelpers_1 = __webpack_require__(107);
-	var EscapingHelpers_1 = __webpack_require__(108);
-	var PatternHelpers_1 = __webpack_require__(12);
+	var Renderer_1 = __webpack_require__(109);
+	var Link_1 = __webpack_require__(66);
+	var PlainText_1 = __webpack_require__(87);
+	var Italic_1 = __webpack_require__(55);
+	var UnorderedList_1 = __webpack_require__(38);
+	var OrderedList_1 = __webpack_require__(36);
+	var Heading_1 = __webpack_require__(21);
+	var ElementHelpers_1 = __webpack_require__(110);
+	var EscapingHelpers_1 = __webpack_require__(111);
+	var PatternHelpers_1 = __webpack_require__(15);
 	var HtmlRenderer = (function (_super) {
 	    __extends(HtmlRenderer, _super);
 	    function HtmlRenderer() {
@@ -6077,12 +6190,12 @@
 	//# sourceMappingURL=HtmlRenderer.js.map
 
 /***/ },
-/* 106 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var UpDocument_1 = __webpack_require__(16);
-	var PatternPieces_1 = __webpack_require__(11);
+	var UpDocument_1 = __webpack_require__(19);
+	var PatternPieces_1 = __webpack_require__(14);
 	var Renderer = (function () {
 	    function Renderer(document, config) {
 	        this.document = document;
@@ -6126,11 +6239,11 @@
 	//# sourceMappingURL=Renderer.js.map
 
 /***/ },
-/* 107 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var EscapingHelpers_1 = __webpack_require__(108);
+	var EscapingHelpers_1 = __webpack_require__(111);
 	function htmlElement(tagName, unescapedContent, attrs) {
 	    if (attrs === void 0) { attrs = {}; }
 	    return htmlElementWithAlreadyEscapedChildren(tagName, [EscapingHelpers_1.escapeHtmlContent(unescapedContent)], attrs);
@@ -6180,7 +6293,7 @@
 	//# sourceMappingURL=ElementHelpers.js.map
 
 /***/ },
-/* 108 */
+/* 111 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6203,7 +6316,7 @@
 	//# sourceMappingURL=EscapingHelpers.js.map
 
 /***/ },
-/* 109 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -15168,6 +15281,12 @@
 	  return CodeMirror;
 	});
 
+
+/***/ },
+/* 113 */
+/***/ function(module, exports) {
+
+	module.exports = "[image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)\n\n\n############################################################\nUp (the easiest way to write structured content for the web)\n############################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts Up documents into HTML. This website uses that software library! And so could any website that wants to provide an easy way for users to contribute structured content.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to write and read, not for computers to process and parse.\n\n\n- Up supports *overlapping [highlight: inline* conventions]\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require inline conventions to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  For more information, see [topic: overlapping inline conventions].\n\n- Up has outrageously easy tables with automatic cell alignment\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n  \n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy;   PP\n  1;      Tackle;       Normal;   50;     100%;       35\n  3;      Growl;        Normal;   ;       100%;       40\n  7;      Leech Seed;   Grass;    ;       90%;        10\n  9;      Vine Whip;    Grass;    45;     100%;       25\n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Up helps you link to various sections within your document\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~\n\n  `````\n  For more information, see [topic: internal links].\n  `````\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example), and Up handles the rest.\n\n  For more information, see [topic: internal links].\n\n- Up is truly, actually, honestly readable as plain text markup\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! For more information, see [topic: custom terms].\n\n- Up produces fully accessible HTML\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nWait! No one likes feeling lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks on either side.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If you intend the reader to raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks on either side.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors use italics instead of quotation marks.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores on either side.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you merely want to highlight text, see [topic: highlights]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores on either side.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. Up recognizes the following bullet characters:\n\n  - Asterisks `*`\n  - Hyphens `-`\n  - Actual bullet characters `•`\n\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  List items can be followed by single blank lines. This does not affect the list:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.  \n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~="
 
 /***/ }
 /******/ ]);

@@ -1,5 +1,4 @@
 import 'normalize.css'
-
 import './style/lib/codemirror.css'
 import './style/app.scss'
 import './style/codemirror-changes.scss'
@@ -8,19 +7,25 @@ import { Up } from 'write-up'
 import CodeMirror from 'codemirror'
 
 
+const $ = document.getElementById.bind(document)
 
 document.addEventListener('DOMContentLoaded', () => {
-  const editorContainer = document.getElementById('editorContainer')
-  const renderedContainer = document.getElementById('renderedContainer')
-
-  const codeMirror = CodeMirror(editorContainer, {
+  const codeMirror = CodeMirror($('editorContainer'), {
     value: require('./editor.up'),
     lineNumbers: true,
     lineWrapping: true
   })
 
   configureSoftWrappedLinesToBeIndented(codeMirror)
+
+  codeMirror.on('change', debounce(onMarkupChange, 1000))
 })
+
+
+function onMarkupChange(codeMirror, args) {
+  const markup = codeMirror.getValue()
+  $('renderedDocumentContainer').innerHTML = Up.toHtml(markup)
+}
 
 
 // This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
@@ -32,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // TODO: Replace leading tab characters on-paste
 function configureSoftWrappedLinesToBeIndented(codeMirror) {
   const charWidth = codeMirror.defaultCharWidth()
-  
+
   // This value is taken from the "PADDING" section of `codemirror.css`
   const basePadding = 4
 
@@ -56,11 +61,15 @@ function configureSoftWrappedLinesToBeIndented(codeMirror) {
 function debounce(callback, delay) {
   let timeoutHandle
 
-  return () => {
+  return (...args) => {
     if (timeoutHandle) {
       clearTimeout(timeoutHandle)
     }
 
-    timeoutHandle = setTimeout(callback, delay)
+    const callbackWithArgs = () => {
+      callback.apply(this, args)
+    }
+
+    timeoutHandle = setTimeout(callbackWithArgs, delay)
   }
 }

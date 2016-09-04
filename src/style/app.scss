@@ -4,13 +4,13 @@ body {
   min-height: 100vh;
 }
 
-#renderedContainer {
-  flex-basis: 500px;
-  flex-grow: 2;
-  background: yellow;
-}
-
 #editorContainer {
   flex-basis: 400px;  
   flex-grow: 1;
+}
+
+#renderedDocumentContainer {
+  flex-basis: 500px;
+  flex-grow: 2;
+  background: yellow;
 }
