@@ -32,19 +32,16 @@ function configureSoftWrappedLinesToBeIndented(codeMirror) {
   const charWidth = codeMirror.defaultCharWidth()
 
   // This value is taken from the "PADDING" section of `codemirror.css`
-  const basePadding = 4
+  const BASE_PADDING = 4
 
   codeMirror.on('renderLine', (codeMirror, line, lineElement) => {
-    const indentation = charWidth * CodeMirror.countColumn(
-      line.text,
-      null,
-      codeMirror.getOption('tabSize'))
+    const indentation = charWidth * CodeMirror.countColumn(line.text)
 
     // First, let's eliminate the natural indentation provided by the leading spaces themselves.
     lineElement.style.textIndent = `-${indentation}px`
 
     // Now, let's use padding to indent the entire soft-wrapped line!
-    lineElement.style.paddingLeft = `${basePadding + indentation}px`
+    lineElement.style.paddingLeft = `${BASE_PADDING + indentation}px`
   })
 
   codeMirror.refresh()
