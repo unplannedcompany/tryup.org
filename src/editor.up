@@ -1,9 +1,9 @@
 [image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)
 
 
-############################################################
-Up (the easiest way to write structured content for the web)
-############################################################
+################################################
+Up (easily write structured content for the web)
+################################################
 
 
 Up is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.
@@ -17,23 +17,25 @@ What's so good about Up?
 Up is designed for humans to write and read, not for computers to process and parse.
 
 
-- Up supports *overlapping [highlight: inline* conventions]
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+- Up *supports [highlight: overlapping* styles]
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 
   Other lightweight markup languages require inline conventions to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
   For more information, see [topic: overlapping inline conventions].
 
-- Up has outrageously easy tables with automatic cell alignment
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+- Up makes tables outrageously easy
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
   
   Table: Moves learned by the Pokémon Bulbasaur
 
-  Level;  Move;         Type;     Power;  Accuracy;   PP
-  1;      Tackle;       Normal;   50;     100%;       35
-  3;      Growl;        Normal;   ;       100%;       40
-  7;      Leech Seed;   Grass;    ;       90%;        10
-  9;      Vine Whip;    Grass;    45;     100%;       25
+  Level;  Move;         Type;     Power;  Accuracy
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
+
+  For more information, see [topic: tables]. 
 
 - Up has effortless footnotes
   =~=~=~=~=~=~=~=~=~=~=~=~=~=

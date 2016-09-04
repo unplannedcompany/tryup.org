@@ -10,7 +10,7 @@ import CodeMirror from 'codemirror'
 const $ = document.getElementById.bind(document)
 
 document.addEventListener('DOMContentLoaded', () => {
-  const codeMirror = CodeMirror($('editorContainer'), {
+  const codeMirror = CodeMirror($('editor-container'), {
     value: require('./editor.up'),
     lineNumbers: true,
     lineWrapping: true
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function onMarkupChange(codeMirror, args) {
   const markup = codeMirror.getValue()
-  $('renderedDocumentContainer').innerHTML = Up.toHtml(markup)
+  $('rendered-document-container').innerHTML = Up.toHtml(markup)
 }
 
 

@@ -1,16 +1,52 @@
+/* Initially, we assume we're dealing with a narrow screan. */
+
 body {
   display: flex;
-  flex-flow: wrap row-reverse;
-  min-height: 100vh;
+  flex-flow: wrap column;
+  height: 100vh;
 }
 
-#editorContainer {
-  flex-basis: 400px;  
+$min-editor-height: 200px;
+$min-rendered-document-height: 280px;
+
+
+#editor-container,
+#rendered-document-container {
+  max-width: 100vw;
+}
+
+#editor-container {
+  flex-basis: 40%;
   flex-grow: 1;
+  min-height: 0px;
+  overflow-y: scroll;
 }
 
-#renderedDocumentContainer {
-  flex-basis: 500px;
+#rendered-document-container {
+  background: lightblue;
+  flex-basis: 60%;
   flex-grow: 2;
-  background: yellow;
+  min-height: 0px;
+  overflow-y: scroll;
+  padding: 0 15px;
+}
+
+$min-editor-width: 400px;
+$min-rendered-document-width: 500px;
+
+/* When both the editor and the rendered document are side-by-side... */
+@media (orientation: landscape) and (min-width: $min-editor-width + $min-rendered-document-width) {
+  body {
+    flex-direction: row-reverse;
+  }
+
+  #editor-container {
+    flex-basis: $min-editor-width;  
+    flex-grow: 1;
+  }
+
+  #rendered-document-container {
+    flex-basis: $min-rendered-document-width;
+    height: 100vh;
+  }
 }
