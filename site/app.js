@@ -52,6 +52,27 @@
 
 	var _writeUp = __webpack_require__(7);
 
+	document.addEventListener('DOMContentLoaded', function () {
+	  var markup = document.getElementById('markup');
+	  var rendered = document.getElementById('rendered');
+
+	  markup.onkeyup = debounce(function () {
+	    rendered.innerHTML = _writeUp.Up.toHtml(markup.value);
+	  }, 1000);
+	});
+
+	function debounce(callback, delay) {
+	  var timeoutHandle = void 0;
+
+	  return function () {
+	    if (timeoutHandle) {
+	      clearTimeout(timeoutHandle);
+	    }
+
+	    timeoutHandle = setTimeout(callback, delay);
+	  };
+	}
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
