@@ -17,6 +17,10 @@ body {
   flex-basis: 40%;
   flex-grow: 1;
   overflow-y: scroll;
+  
+  .CodeMirror {
+    height: 100vh!important;
+  }
 }
 
 #rendered-document-container {
