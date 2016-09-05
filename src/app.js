@@ -5,8 +5,8 @@ import './style/app.scss'
 import configureCodeMirror from './configureCodeMirror'
 
 
-const $ = document.getElementById.bind(document)
-
 document.addEventListener('DOMContentLoaded', () => {
-  configureCodeMirror($('editor-container'), $('rendered-document-container'))  
+  configureCodeMirror(
+    document.getElementById('editor-container'),
+    document.getElementById('rendered-document-container'))
 })
