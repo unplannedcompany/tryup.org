@@ -89,9 +89,7 @@ function render(markup, documentContainer, tableOfContentsContainer) {
 
 
 function configureSynchronizedScrolling(codeMirror, documentContainer) {
-  // Because we're syncing our scrolling with line numbers in the editor, not pixels, 15 FPS
-  // should be frequent enough.
-  const FPS_FOR_SCROLL_SYNCING = 15
+  const FPS_FOR_SCROLL_SYNCING = 60
   const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
 
   // Here, we kill two birds with one stone.
