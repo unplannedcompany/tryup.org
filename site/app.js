@@ -59,7 +59,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	document.addEventListener('DOMContentLoaded', function () {
-	  (0, _configureCodeMirror2.default)(document.getElementById('editor-container'), document.getElementById('rendered-document-container'));
+	  (0, _configureCodeMirror2.default)(document.getElementById('editor-container'), document.getElementById('document-container'));
 	});
 
 /***/ },
@@ -485,7 +485,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#editor-container,\n#rendered-document-container {\n  max-width: 100vw; }\n\n#editor-container {\n  -ms-flex-preferred-size: 40%;\n      flex-basis: 40%;\n  -ms-flex-positive: 1;\n      flex-grow: 1;\n  overflow-y: scroll; }\n  #editor-container .CodeMirror {\n    height: 100vh !important; }\n\n#rendered-document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 60%;\n      flex-basis: 60%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px;\n  overflow-y: scroll; }\n\n/* If we have enough room to show the editor side-by-side with the rendered document... */\n@media (orientation: landscape) and (min-width: 850px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n  #rendered-document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; } }\n", ""]);
+	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#editor-container,\n#document-container {\n  max-width: 100vw; }\n\n#editor-container {\n  -ms-flex-preferred-size: 40%;\n      flex-basis: 40%;\n  -ms-flex-positive: 1;\n      flex-grow: 1;\n  overflow-y: scroll; }\n  #editor-container .CodeMirror {\n    height: 100vh !important; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 60%;\n      flex-basis: 60%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px;\n  overflow-y: scroll; }\n\n@media (orientation: landscape) and (min-width: 850px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; } }\n", ""]);
 
 	// exports
 
@@ -516,7 +516,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function configureCodeMirror(editorContainer, renderedDocumentContainer) {
+	function configureCodeMirror(editorContainer, documentContainer) {
 	  var codeMirror = (0, _codemirror2.default)(editorContainer, {
 	    value: __webpack_require__(112),
 	    lineNumbers: true,
@@ -524,10 +524,10 @@
 	  });
 
 	  configureSoftWrappedLinesToBeIndented(codeMirror);
-	  syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocumentContainer);
+	  syncScrollingBetweenEditorAndRenderedDocument(codeMirror, documentContainer);
 
 	  // TODO: Remove this and include the rendered HTML directly in index.html
-	  render(codeMirror.getValue(), renderedDocumentContainer);
+	  render(codeMirror.getValue(), documentContainer);
 	}
 
 	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
@@ -686,8 +686,8 @@
 	  });
 	}
 
-	function render(markup, renderedDocumentContainer) {
-	  renderedDocumentContainer.innerHTML = _writeUp.Up.renderHtml(markup, {
+	function render(markup, documentContainer) {
+	  documentContainer.innerHTML = _writeUp.Up.renderHtml(markup, {
 	    createSourceMap: true
 	  });
 	}

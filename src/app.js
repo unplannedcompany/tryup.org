@@ -8,5 +8,5 @@ import configureCodeMirror from './configureCodeMirror'
 document.addEventListener('DOMContentLoaded', () => {
   configureCodeMirror(
     document.getElementById('editor-container'),
-    document.getElementById('rendered-document-container'))
+    document.getElementById('document-container'))
 })

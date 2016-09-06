@@ -3,7 +3,7 @@ import { Up } from 'write-up'
 import debounce from './debounce'
 
 
-export default function configureCodeMirror(editorContainer, renderedDocumentContainer) {
+export default function configureCodeMirror(editorContainer, documentContainer) {
   const codeMirror = CodeMirror(editorContainer, {
     value: require('./editor.up'),
     lineNumbers: true,
@@ -11,10 +11,10 @@ export default function configureCodeMirror(editorContainer, renderedDocumentCon
   })
 
   configureSoftWrappedLinesToBeIndented(codeMirror)
-  syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocumentContainer)
+  syncScrollingBetweenEditorAndRenderedDocument(codeMirror, documentContainer)
 
   // TODO: Remove this and include the rendered HTML directly in index.html
-  render(codeMirror.getValue(), renderedDocumentContainer)
+  render(codeMirror.getValue(), documentContainer)
 }
 
 
@@ -156,8 +156,8 @@ function syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocum
 }
 
 
-function render(markup, renderedDocumentContainer) {
-  renderedDocumentContainer.innerHTML = Up.renderHtml(markup, {
+function render(markup, documentContainer) {
+  documentContainer.innerHTML = Up.renderHtml(markup, {
     createSourceMap: true
   })
 }

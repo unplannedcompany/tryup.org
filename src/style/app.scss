@@ -9,7 +9,7 @@ body {
 /* TODO: Clean up */
 
 #editor-container,
-#rendered-document-container {
+#document-container {
   max-width: 100vw;
 }
 
@@ -23,7 +23,7 @@ body {
   }
 }
 
-#rendered-document-container {
+#document-container {
   background: lightblue;
   flex-basis: 60%;
   flex-grow: 2.5;
@@ -31,11 +31,12 @@ body {
   overflow-y: scroll;
 }
 
+// Here, "document" refers to the one produced by editor's markup, not the document element!
+$min-document-width: 400px;
 $min-editor-width: 450px;
-$min-rendered-document-width: 400px;
 
-/* If we have enough room to show the editor side-by-side with the rendered document... */
-@media (orientation: landscape) and (min-width: $min-editor-width + $min-rendered-document-width) {
+// If we have enough room to show the editor side-by-side with the rendered document...
+@media (orientation: landscape) and (min-width: $min-editor-width + $min-document-width) {
   body {
     flex-direction: row-reverse;
   }
@@ -45,8 +46,8 @@ $min-rendered-document-width: 400px;
     flex-grow: 1;
   }
 
-  #rendered-document-container {
-    flex-basis: $min-rendered-document-width;
+  #document-container {
+    flex-basis: $min-document-width;
     height: 100vh;
   }
 }
