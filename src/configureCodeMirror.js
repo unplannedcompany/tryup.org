@@ -12,6 +12,9 @@ export default function configureCodeMirror(editorContainer, renderedDocumentCon
 
   configureSoftWrappedLinesToBeIndented(codeMirror)
   syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocumentContainer)
+
+  // TODO: Remove this and include the rendered HTML directly in index.html
+  render(codeMirror.getValue(), renderedDocumentContainer)
 }
 
 
@@ -64,10 +67,7 @@ function syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocum
   const MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING = 1000
 
   codeMirror.on('change', debounce(codeMirror => {
-    renderedDocumentContainer.innerHTML = Up.renderHtml(codeMirror.getValue(), {
-      createSourceMap: true
-    })
-
+    render(codeMirror.getValue(), renderedDocumentContainer)
     sourceMappedElements = renderedDocumentContainer.querySelectorAll('[data-up-source-line]')
   }, MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING))
 
@@ -152,5 +152,12 @@ function syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocum
         return
       }
     }
+  })
+}
+
+
+function render(markup, renderedDocumentContainer) {
+  renderedDocumentContainer.innerHTML = Up.renderHtml(markup, {
+    createSourceMap: true
   })
 }

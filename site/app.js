@@ -525,6 +525,9 @@
 
 	  configureSoftWrappedLinesToBeIndented(codeMirror);
 	  syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocumentContainer);
+
+	  // TODO: Remove this and include the rendered HTML directly in index.html
+	  render(codeMirror.getValue(), renderedDocumentContainer);
 	}
 
 	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
@@ -575,10 +578,7 @@
 	  var MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING = 1000;
 
 	  codeMirror.on('change', (0, _debounce2.default)(function (codeMirror) {
-	    renderedDocumentContainer.innerHTML = _writeUp.Up.renderHtml(codeMirror.getValue(), {
-	      createSourceMap: true
-	    });
-
+	    render(codeMirror.getValue(), renderedDocumentContainer);
 	    sourceMappedElements = renderedDocumentContainer.querySelectorAll('[data-up-source-line]');
 	  }, MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING));
 
@@ -683,6 +683,12 @@
 
 	      if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
 	    }
+	  });
+	}
+
+	function render(markup, renderedDocumentContainer) {
+	  renderedDocumentContainer.innerHTML = _writeUp.Up.renderHtml(markup, {
+	    createSourceMap: true
 	  });
 	}
 
