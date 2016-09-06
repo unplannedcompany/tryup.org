@@ -69,19 +69,19 @@ function configureSynchronizedScrolling(codeMirror, documentContainer) {
 
   // Here, we kill two birds with one stone.
   //
-  // By disabling all scroll sync events for 1/15th of a second, we naturally throttle all
-  // scroll event listeners at 15 FPS. However, we also prevent nasty feedback loops!
+  // By disabling all scroll sync events for 1/60th of a second, we naturally throttle all
+  // scroll event listeners at 60 FPS. However, we also prevent nasty feedback loops!
   //
   // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
-  // the rendered element produced by that line, but line 100 didn't produce any syntax
-  // nodes! It's a blank line between paragraphs. So we do the next best thing: we scroll
-  // into view the first element produced after line 100: a paragraph produced on line 101.
+  // the rendered element produced by that line. However, let's also pretend that line 100
+  // didn't produce any syntax nodes! It's a blank line between paragraphs.
   //
-  // This triggers the rendered document's scroll event, which tragically determines that
-  // the editor should be scrolled to line 101: the line that produced the first visible
-  // element in the document. Uh-oh.
+  // So we do the next best thing: we scroll into view the first element produced *after*
+  // line 100: a paragraph produced by line 101. This unfortunately triggers the rendered
+  // document's scroll event, which in turn determines that the editor should be scrolled
+  // to line 101: the line that produced the paragraph.
   //
-  // Luckily for us, by disabling *all* sync scroll events, this feedback loop is prevented.
+  // Luckily for us, by disabling all sync scroll events, this feedback loop is prevented.
   let areScrollSyncEventsDisabled = false
 
   function syncScrolling(sync) {
