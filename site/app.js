@@ -485,7 +485,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n  #editor-container .CodeMirror {\n    height: 100vh !important; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; } }\n", ""]);
+	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  font-size: 70%;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n  #editor-container .CodeMirror {\n    height: 100%; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; } }\n", ""]);
 
 	// exports
 
@@ -527,34 +527,11 @@
 	  configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer);
 	  configureSynchronizedScrolling(codeMirror, documentContainer);
 
-	  // TODO: Remove this and include the rendered HTML directly in index.html
-	  render(codeMirror.getValue(), documentContainer);
-	}
-
-	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
-	//
-	// It does not work when tabs are used for indentation, because CodeMirror handles
-	// tab characters using a special `<span class="cm-tab">` element. Luckily, our
-	// editor is conigured (by default) to use spaces for indentation.
-	//
-	// TODO: Replace leading tab characters on-paste
-	function configureSoftWrappedLinesToBeIndented(codeMirror) {
-	  var charWidth = codeMirror.defaultCharWidth();
-
-	  // This value is taken from the "PADDING" section of `codemirror.css`
-	  var BASE_PADDING = 4;
-
-	  codeMirror.on('renderLine', function (codeMirror, line, lineElement) {
-	    var indentation = charWidth * _codemirror2.default.countColumn(line.text);
-
-	    // First, let's eliminate the natural indentation provided by the leading spaces themselves.
-	    lineElement.style.textIndent = '-' + indentation + 'px';
-
-	    // Now, let's use padding to indent the entire soft-wrapped line!
-	    lineElement.style.paddingLeft = BASE_PADDING + indentation + 'px';
-	  });
-
 	  codeMirror.refresh();
+
+	  // TODO: Remove this hack and include the rendered HTML directly in index.html
+	  render(codeMirror.getValue(), documentContainer, tableOfContentsContainer);
+	  sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]');
 	}
 
 	// NOTE: This collection represents shared state!
@@ -574,7 +551,7 @@
 	// line in the editor.
 	var sourceMappedElements = [];
 
-	function configureLivePreview(codeMirror, documentContainer) {
+	function configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer) {
 	  // We'll wait until the user is done typing before we re-render the document with their
 	  // changes. We consider the user to be done typing once 1 second has elapsed since their
 	  // last keystroke.
@@ -596,39 +573,28 @@
 	}
 
 	function configureSynchronizedScrolling(codeMirror, documentContainer) {
-	  // Let's say the user scrolls to line 100 in the editor. It's blank, and it didn't
-	  // produce any syntax nodes. However, line 102 produced a paragraph, so we scroll that
-	  // paragraph into view.
-	  //
-	  // The paragraph scrolls into view, which in turn triggers the rendered document's scroll
-	  // event, which determines that the editor should be scrolled to line 102. Uh-oh!
-	  //
-	  // To prevent all that, we disable our scroll events while we're syncing.
-	  var areScrollSyncEventsDisabled = false;
-
-	  // Because we're syncing our scrolling with line numbers in the editor, not pixels, 15 FPS
-	  // should be frequent enough.
-	  var FPS_FOR_SCROLL_SYNCING = 15;
+	  var FPS_FOR_SCROLL_SYNCING = 60;
 	  var SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING;
+
+	  // Here, we kill two birds with one stone.
+	  //
+	  // By disabling all scroll sync events for 1/15th of a second, we naturally throttle all
+	  // scroll event listeners at 15 FPS. However, we also prevent nasty feedback loops!
+	  //
+	  // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
+	  // the rendered element produced by that line, but line 100 didn't produce any syntax
+	  // nodes! It's a blank line between paragraphs. So we do the next best thing: we scroll
+	  // into view the first element produced after line 100: a paragraph produced on line 101.
+	  //
+	  // This triggers the rendered document's scroll event, which tragically determines that
+	  // the editor should be scrolled to line 101: the line that produced the first visible
+	  // element in the document. Uh-oh.
+	  //
+	  // Luckily for us, by disabling *all* sync scroll events, this feedback loop is prevented.
+	  var areScrollSyncEventsDisabled = false;
 
 	  function syncScrolling(sync) {
 	    sync();
-
-	    // Here, we kill two birds with one stone.
-	    //
-	    // By disabling all scroll sync events for 1/15th of a second, we naturally throttle all
-	    // scroll event listeners at 15 FPS. However, we also prevent nasty feedback loops!
-	    //
-	    // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
-	    // the rendered element produced by that line, but line 100 didn't produce any syntax
-	    // nodes! It's a blank line between paragraphs. So we do the next best thing: we scroll
-	    // into view the first element produced after line 100: a paragraph produced on line 101.
-	    //
-	    // This triggers the rendered document's scroll event, which tragically determines that
-	    // the editor should be scrolled to line 101: the line that produced the first visible
-	    // element in the document. Uh-oh.
-	    //
-	    // Luckily for us, by disabling *all* sync scroll events, this feedback loop is prevented.
 
 	    areScrollSyncEventsDisabled = true;
 	    setTimeout(function () {
@@ -695,6 +661,30 @@
 
 	      if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
 	    }
+	  });
+	}
+
+	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
+	//
+	// It does not work when tabs are used for indentation, because CodeMirror handles
+	// tab characters using a special `<span class="cm-tab">` element. Luckily, our
+	// editor is conigured (by default) to use spaces for indentation.
+	//
+	// TODO: Replace leading tab characters on-paste
+	function configureSoftWrappedLinesToBeIndented(codeMirror) {
+	  var charWidth = codeMirror.defaultCharWidth();
+
+	  // This value is taken from the "PADDING" section of `codemirror.css`
+	  var BASE_PADDING = 4;
+
+	  codeMirror.on('renderLine', function (codeMirror, line, lineElement) {
+	    var indentation = charWidth * _codemirror2.default.countColumn(line.text);
+
+	    // First, let's eliminate the natural indentation provided by the leading spaces themselves.
+	    lineElement.style.textIndent = '-' + indentation + 'px';
+
+	    // Now, let's use padding to indent the entire soft-wrapped line!
+	    lineElement.style.paddingLeft = BASE_PADDING + indentation + 'px';
 	  });
 	}
 
