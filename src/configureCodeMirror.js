@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror'
 import { Up } from 'write-up'
+import configureCodeMirrorToIndentSoftWrapedLines from './configureCodeMirrorToIndentSoftWrapedLines'
 import debounce from './debounce'
 import throttle from './throttle'
 
@@ -11,9 +12,9 @@ export default function configureCodeMirror(editorContainer, documentContainer, 
     lineWrapping: true
   })
 
-  configureSoftWrappedLinesToBeIndented(codeMirror)
+  configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
   configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer)
-  configureSynchronizedScrolling(codeMirror, documentContainer)
+  syncScrolling(codeMirror, documentContainer)
 
   codeMirror.refresh()
 
@@ -61,8 +62,11 @@ function render(markup, documentContainer, tableOfContentsContainer) {
   tableOfContentsContainer.innerHTML = result.tableOfContentsHtml
 }
 
+function addScrollEventListener(element, listener) {
+  element.addEventListener('scroll', listener)
+}
 
-function configureSynchronizedScrolling(codeMirror, documentContainer) {
+function syncScrolling(codeMirror, documentContainer) {
   const FPS_FOR_SCROLL_SYNCING = 60
   const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
 
@@ -78,89 +82,89 @@ function configureSynchronizedScrolling(codeMirror, documentContainer) {
   // to line 101: the line that produced the paragraph. Uh-oh!
   //
   // To prevent this, whenever our code scrolls a container, we ignore the scroll events
-  // from that container for a short window.
+  // from that container for a short period.
+
+  const PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS =
+    SCROLL_SYNC_INTERVAL * 2
+
+  function getEventReEnabler(callback) {
+    return debounce(callback, PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS)
+  }
+
   let ignoringScrollEventsFromEditor = false
   let ignoringScrollEventsFromDocument = false
 
-  const IGNORE_EVENT_PERIOD = SCROLL_SYNC_INTERVAL * 2
+  const eventuallyReEnableScrollEventsFromEditor = getEventReEnabler(() => {
+    ignoringScrollEventsFromEditor = false
+  })
 
-  // TODO: Ignore links
+  const eventuallyReEnableScrollEventsFromDocument = getEventReEnabler(() => {
+    ignoringScrollEventsFromDocument = false
+  })
 
-  addScrollEventListener(documentContainer, throttle(() => {
-    if (ignoringScrollEventsFromDocument) {
-      return
-    }
+  function getScrollSyncer(callback) {
+    return throttle(callback, SCROLL_SYNC_INTERVAL)
+  }
 
+  const syncScrollingFromDocument = getScrollSyncer(() => {
     for (let i = 0; i < sourceMappedElements.length; i++) {
       const element = sourceMappedElements[i]
 
-      // Is this the first outline element that's in view?
-      if (element.getBoundingClientRect().top >= 0) {
-        // Line numbers in Up start at 1.
-        const lineIndex = element.dataset.upSourceLine - 1
-        const editorLineY = codeMirror.charCoords({ line: lineIndex }, 'local').top
+      // Why -1 and not 0?
+      //
+      // When you click a link pointing to fragment URL (e.g. a table of contents entry),
+      // the browser scrolls the appropriate element into view. Oddly, in some browsers,
+      // the top of that element is a fraction of a pixel above the top of the viewport. 
+      const VIEWPORT_TOP = -1
 
-        codeMirror.scrollTo(null, editorLineY)
-        console.log('DOC')
-        ignoringScrollEventsFromEditor = true
-        setTimeout(() => ignoringScrollEventsFromEditor = false, IGNORE_EVENT_PERIOD)
+      // Is this the first document element starting within the viewport?
+      if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
+        // Line numbers in Up start at 1, not 0.
+        const editorLineIndex = element.dataset.upSourceLine - 1
+        
+        const editorCharToScrollTo = {
+          line: editorLineIndex,
+          ch: 0
+        }
 
+        const topOfEditorLine =
+          codeMirror.charCoords(editorCharToScrollTo, 'local').top
+        
+        codeMirror.scrollTo(null, topOfEditorLine)
         return
       }
     }
-  }, IGNORE_EVENT_PERIOD))
+  })
 
-  addScrollEventListener(codeMirror.getScrollerElement(), throttle(() => {
-    if (ignoringScrollEventsFromEditor) {
-      return
-    }
-
+  const syncScrollingFromEditor = getScrollSyncer(() => {
     // Line numbers in the CodeMirror editor start at 0. 
     const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
 
     for (let i = 0; i < sourceMappedElements.length; i++) {
       const element = sourceMappedElements[i]
 
-      // Is this the first outline element that was produced by (or after) the first visible
-      // line in the editor?
+      // Is this the first outline element that was produced by (or after) the first
+      // visible line in the editor?
       if (element.dataset.upSourceLine >= firstVisibleLineNumber) {
         element.scrollIntoView();
-
-        ignoringScrollEventsFromDocument = true
-        console.log('CM')
-        setTimeout(() => ignoringScrollEventsFromDocument = false, IGNORE_EVENT_PERIOD)
         return
       }
     }
- }, IGNORE_EVENT_PERIOD))
-}
+  })
 
+  addScrollEventListener(documentContainer, () => {
+    if (!ignoringScrollEventsFromDocument) {
+      syncScrollingFromDocument()
+      ignoringScrollEventsFromEditor = true
+      eventuallyReEnableScrollEventsFromEditor()
+    }
+  })
 
-// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
-//
-// It does not work when tabs are used for indentation, because CodeMirror handles
-// tab characters using a special `<span class="cm-tab">` element. Luckily, our
-// editor is conigured (by default) to use spaces for indentation.
-//
-// TODO: Replace leading tab characters on-paste
-function configureSoftWrappedLinesToBeIndented(codeMirror) {
-  const charWidth = codeMirror.defaultCharWidth()
-
-  // This value is taken from the "PADDING" section of `codemirror.css`
-  const BASE_PADDING = 4
-
-  codeMirror.on('renderLine', (codeMirror, line, lineElement) => {
-    const indentation = charWidth * CodeMirror.countColumn(line.text)
-
-    // First, let's eliminate the natural indentation provided by the leading spaces themselves.
-    lineElement.style.textIndent = `-${indentation}px`
-
-    // Now, let's use padding to indent the entire soft-wrapped line!
-    lineElement.style.paddingLeft = `${BASE_PADDING + indentation}px`
+  addScrollEventListener(codeMirror.getScrollerElement(), () => {
+    if (!ignoringScrollEventsFromEditor) {
+      syncScrollingFromEditor()
+      ignoringScrollEventsFromDocument = true
+      eventuallyReEnableScrollEventsFromDocument()
+    }
   })
 }
-
-
-  function addScrollEventListener(element, listener) {
-    element.addEventListener('scroll', listener)
-  }

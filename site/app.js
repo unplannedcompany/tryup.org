@@ -485,7 +485,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  font-size: 70%;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n  #editor-container .CodeMirror {\n    height: 100%; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; } }\n", ""]);
+	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  font-size: 70%;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n    #editor-container .CodeMirror {\n      height: 100vh; } }\n", ""]);
 
 	// exports
 
@@ -507,11 +507,15 @@
 
 	var _writeUp = __webpack_require__(11);
 
-	var _debounce = __webpack_require__(111);
+	var _configureCodeMirrorToIndentSoftWrapedLines = __webpack_require__(111);
+
+	var _configureCodeMirrorToIndentSoftWrapedLines2 = _interopRequireDefault(_configureCodeMirrorToIndentSoftWrapedLines);
+
+	var _debounce = __webpack_require__(112);
 
 	var _debounce2 = _interopRequireDefault(_debounce);
 
-	var _throttle = __webpack_require__(112);
+	var _throttle = __webpack_require__(113);
 
 	var _throttle2 = _interopRequireDefault(_throttle);
 
@@ -519,14 +523,14 @@
 
 	function configureCodeMirror(editorContainer, documentContainer, tableOfContentsContainer) {
 	  var codeMirror = (0, _codemirror2.default)(editorContainer, {
-	    value: __webpack_require__(113),
+	    value: __webpack_require__(114),
 	    lineNumbers: true,
 	    lineWrapping: true
 	  });
 
-	  configureSoftWrappedLinesToBeIndented(codeMirror);
+	  (0, _configureCodeMirrorToIndentSoftWrapedLines2.default)(codeMirror);
 	  configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer);
-	  configureSynchronizedScrolling(codeMirror, documentContainer);
+	  syncScrolling(codeMirror, documentContainer);
 
 	  codeMirror.refresh();
 
@@ -571,7 +575,11 @@
 	  tableOfContentsContainer.innerHTML = result.tableOfContentsHtml;
 	}
 
-	function configureSynchronizedScrolling(codeMirror, documentContainer) {
+	function addScrollEventListener(element, listener) {
+	  element.addEventListener('scroll', listener);
+	}
+
+	function syncScrolling(codeMirror, documentContainer) {
 	  var FPS_FOR_SCROLL_SYNCING = 60;
 	  var SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING;
 
@@ -587,95 +595,89 @@
 	  // to line 101: the line that produced the paragraph. Uh-oh!
 	  //
 	  // To prevent this, whenever our code scrolls a container, we ignore the scroll events
-	  // from that container for a short window.
+	  // from that container for a short period.
+
+	  var PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS = SCROLL_SYNC_INTERVAL * 2;
+
+	  function getEventReEnabler(callback) {
+	    return (0, _debounce2.default)(callback, PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS);
+	  }
+
 	  var ignoringScrollEventsFromEditor = false;
 	  var ignoringScrollEventsFromDocument = false;
 
-	  var IGNORE_EVENT_PERIOD = 500;
+	  var eventuallyReEnableScrollEventsFromEditor = getEventReEnabler(function () {
+	    ignoringScrollEventsFromEditor = false;
+	  });
 
-	  addScrollEventListener(documentContainer, function () {
-	    return (0, _throttle2.default)(function () {
-	      if (ignoringScrollEventsFromDocument) {
+	  var eventuallyReEnableScrollEventsFromDocument = getEventReEnabler(function () {
+	    ignoringScrollEventsFromDocument = false;
+	  });
+
+	  function getScrollSyncer(callback) {
+	    return (0, _throttle2.default)(callback, SCROLL_SYNC_INTERVAL);
+	  }
+
+	  var syncScrollingFromDocument = getScrollSyncer(function () {
+	    for (var i = 0; i < sourceMappedElements.length; i++) {
+	      var element = sourceMappedElements[i];
+
+	      // Why -1 and not 0?
+	      //
+	      // When you click a link pointing to fragment URL (e.g. a table of contents entry),
+	      // the browser scrolls the appropriate element into view. Oddly, in some browsers,
+	      // the top of that element is a fraction of a pixel above the top of the viewport. 
+	      var VIEWPORT_TOP = -1;
+
+	      // Is this the first document element starting within the viewport?
+	      if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
+	        // Line numbers in Up start at 1, not 0.
+	        var editorLineIndex = element.dataset.upSourceLine - 1;
+
+	        var editorCharToScrollTo = {
+	          line: editorLineIndex,
+	          ch: 0
+	        };
+
+	        var topOfEditorLine = codeMirror.charCoords(editorCharToScrollTo, 'local').top;
+
+	        codeMirror.scrollTo(null, topOfEditorLine);
 	        return;
 	      }
+	    }
+	  });
 
-	      for (var i = 0; i < sourceMappedElements.length; i++) {
-	        var element = sourceMappedElements[i];
+	  var syncScrollingFromEditor = getScrollSyncer(function () {
+	    // Line numbers in the CodeMirror editor start at 0. 
+	    var firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window');
 
-	        // Is this the first outline element that's in view?
-	        if (element.getBoundingClientRect().top >= 0) {
-	          // Line numbers in Up start at 1.
-	          var lineIndex = element.dataset.upSourceLine - 1;
-	          var editorLineY = codeMirror.charCoords({ line: lineIndex }, 'local').top;
+	    for (var i = 0; i < sourceMappedElements.length; i++) {
+	      var element = sourceMappedElements[i];
 
-	          codeMirror.scrollTo(null, editorLineY);
-	          console.log('DOC');
-	          ignoringScrollEventsFromEditor = true;
-	          setTimeout(function () {
-	            return ignoringScrollEventsFromEditor = false;
-	          }, IGNORE_EVENT_PERIOD);
-
-	          return;
-	        }
+	      // Is this the first outline element that was produced by (or after) the first
+	      // visible line in the editor?
+	      if (element.dataset.upSourceLine >= firstVisibleLineNumber) {
+	        element.scrollIntoView();
+	        return;
 	      }
-	    }, IGNORE_EVENT_PERIOD);
+	    }
+	  });
+
+	  addScrollEventListener(documentContainer, function () {
+	    if (!ignoringScrollEventsFromDocument) {
+	      syncScrollingFromDocument();
+	      ignoringScrollEventsFromEditor = true;
+	      eventuallyReEnableScrollEventsFromEditor();
+	    }
 	  });
 
 	  addScrollEventListener(codeMirror.getScrollerElement(), function () {
-	    return (0, _throttle2.default)(function () {
-	      if (ignoringScrollEventsFromEditor) {
-	        return;
-	      }
-
-	      // Line numbers in the CodeMirror editor start at 0. 
-	      var firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window');
-
-	      for (var i = 0; i < sourceMappedElements.length; i++) {
-	        var element = sourceMappedElements[i];
-
-	        // Is this the first outline element that was produced by (or after) the first visible
-	        // line in the editor?
-	        if (element.dataset.upSourceLine >= firstVisibleLineNumber) {
-	          element.scrollIntoView();
-
-	          ignoringScrollEventsFromDocument = true;
-	          console.log('CM');
-	          setTimeout(function () {
-	            return ignoringScrollEventsFromDocument = false;
-	          }, IGNORE_EVENT_PERIOD);
-	          return;
-	        }
-	      }
-	    }, IGNORE_EVENT_PERIOD);
+	    if (!ignoringScrollEventsFromEditor) {
+	      syncScrollingFromEditor();
+	      ignoringScrollEventsFromDocument = true;
+	      eventuallyReEnableScrollEventsFromDocument();
+	    }
 	  });
-	}
-
-	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
-	//
-	// It does not work when tabs are used for indentation, because CodeMirror handles
-	// tab characters using a special `<span class="cm-tab">` element. Luckily, our
-	// editor is conigured (by default) to use spaces for indentation.
-	//
-	// TODO: Replace leading tab characters on-paste
-	function configureSoftWrappedLinesToBeIndented(codeMirror) {
-	  var charWidth = codeMirror.defaultCharWidth();
-
-	  // This value is taken from the "PADDING" section of `codemirror.css`
-	  var BASE_PADDING = 4;
-
-	  codeMirror.on('renderLine', function (codeMirror, line, lineElement) {
-	    var indentation = charWidth * _codemirror2.default.countColumn(line.text);
-
-	    // First, let's eliminate the natural indentation provided by the leading spaces themselves.
-	    lineElement.style.textIndent = '-' + indentation + 'px';
-
-	    // Now, let's use padding to indent the entire soft-wrapped line!
-	    lineElement.style.paddingLeft = BASE_PADDING + indentation + 'px';
-	  });
-	}
-
-	function addScrollEventListener(element, listener) {
-	  element.addEventListener('scroll', listener);
 	}
 
 /***/ },
@@ -15340,6 +15342,47 @@
 
 /***/ },
 /* 111 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = configureCodeMirrorToIndentSoftWrapedLines;
+
+	var _codemirror = __webpack_require__(10);
+
+	var _codemirror2 = _interopRequireDefault(_codemirror);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
+	//
+	// It does not work when tabs are used for indentation, because CodeMirror handles
+	// tab characters using a special `<span class="cm-tab">` element. Luckily, our
+	// editor is conigured (by default) to use spaces for indentation.
+	//
+	// TODO: Replace leading tab characters on-paste
+	function configureCodeMirrorToIndentSoftWrapedLines(codeMirror) {
+	  var charWidth = codeMirror.defaultCharWidth();
+
+	  // This value is taken from the "PADDING" section of `codemirror.css`
+	  var BASE_PADDING = 4;
+
+	  codeMirror.on('renderLine', function (codeMirror, line, lineElement) {
+	    var indentation = charWidth * _codemirror2.default.countColumn(line.text);
+
+	    // First, let's eliminate the natural indentation provided by the leading spaces themselves.
+	    lineElement.style.textIndent = '-' + indentation + 'px';
+
+	    // Now, let's use padding to indent the entire soft-wrapped line!
+	    lineElement.style.paddingLeft = BASE_PADDING + indentation + 'px';
+	  });
+	}
+
+/***/ },
+/* 112 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15371,7 +15414,7 @@
 	}
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15406,7 +15449,7 @@
 	}
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports) {
 
 	module.exports = "[image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)\n\n\n################################################\nUp (easily write structured content for the web)\n################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts Up documents into HTML. This website uses that software library! And so could any website that wants to provide an easy way for users to contribute structured content.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to write and read, not for computers to process and parse.\n\n\n- Up *supports [highlight: overlapping* styles]\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  For more information, see [topic: overlapping styles].\n\n- Up makes tables outrageously easy\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n  \n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy\n  1;      Tackle;       Normal;   50;     100%\n  3;      Growl;        Normal;   ;       100%\n  7;      Leech Seed;   Grass;    ;       90%\n  9;      Vine Whip;    Grass;    45;     100%\n\n  For more information, see [topic: tables]. \n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Up helps you reference various sections in your document\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~\n\n  `````\n  For more information, see [topic: internal links].\n  `````\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example), and Up handles the rest.\n\n  For more information, see [topic: internal links].\n\n- Up is truly, actually, honestly readable\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! For more information, see [topic: custom terms].\n\n- Up produces fully accessible HTML\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nWait! No one likes feeling lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks on either side.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If you intend the reader to raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks on either side.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors use italics instead of quotation marks.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores on either side.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you merely want to highlight text, see [topic: highlights]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores on either side.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. Up recognizes the following bullet characters:\n\n  - Asterisks `*`\n  - Hyphens `-`\n  - Actual bullet characters `•`\n\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  List items can be followed by single blank lines. This does not affect the list:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.  \n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~="
