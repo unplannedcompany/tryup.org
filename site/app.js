@@ -59,7 +59,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	document.addEventListener('DOMContentLoaded', function () {
-	  (0, _configureCodeMirror2.default)(document.getElementById('editor-container'), document.getElementById('document-container'));
+	  (0, _configureCodeMirror2.default)(document.getElementById('editor-container'), document.getElementById('document-container'), document.getElementById('table-of-contents-container'));
 	});
 
 /***/ },
@@ -485,7 +485,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#editor-container,\n#document-container {\n  max-width: 100vw; }\n\n#editor-container {\n  -ms-flex-preferred-size: 40%;\n      flex-basis: 40%;\n  -ms-flex-positive: 1;\n      flex-grow: 1;\n  overflow-y: scroll; }\n  #editor-container .CodeMirror {\n    height: 100vh !important; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 60%;\n      flex-basis: 60%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px;\n  overflow-y: scroll; }\n\n@media (orientation: landscape) and (min-width: 850px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; } }\n", ""]);
+	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n  #editor-container .CodeMirror {\n    height: 100vh !important; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; } }\n", ""]);
 
 	// exports
 
@@ -516,7 +516,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function configureCodeMirror(editorContainer, documentContainer) {
+	function configureCodeMirror(editorContainer, documentContainer, tableOfContentsContainer) {
 	  var codeMirror = (0, _codemirror2.default)(editorContainer, {
 	    value: __webpack_require__(112),
 	    lineNumbers: true,
@@ -524,7 +524,8 @@
 	  });
 
 	  configureSoftWrappedLinesToBeIndented(codeMirror);
-	  syncScrollingBetweenEditorAndRenderedDocument(codeMirror, documentContainer);
+	  configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer);
+	  configureSynchronizedScrolling(codeMirror, documentContainer);
 
 	  // TODO: Remove this and include the rendered HTML directly in index.html
 	  render(codeMirror.getValue(), documentContainer);
@@ -556,40 +557,51 @@
 	  codeMirror.refresh();
 	}
 
-	function syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocumentContainer) {
-	  // This collection represents any element from the rendered document that has a source
-	  // line number. In practice, this is a collection of every HTML element produced by an
-	  // outline syntax node ("outline" essentially means "block-level").
-	  //
-	  // Every time we re-render the document, we'll update this collection.
-	  //
-	  // Whenever the user scrolls through the rendered document, we use this collection to
-	  // scroll the CodeMirror editor to the line corresponding to the first element from this
-	  // collection that is within the user's viewport.
-	  //
-	  // Likewise, whenever the user scrolls through the editor, we use this collection to
-	  // scroll to the first element in the document produced by (or before) the first visible
-	  // line in the editor.
-	  var sourceMappedElements = [];
+	// NOTE: This collection represents shared state!
+	//
+	// This collection represents any element from the rendered document that has a source
+	// line number. In practice, this is a collection of every HTML element produced by an
+	// outline syntax node ("outline" essentially means "block-level").
+	//
+	// Every time we re-render the document, we'll update this collection.
+	//
+	// Whenever the user scrolls through the rendered document, we use this collection to
+	// scroll the CodeMirror editor to the line corresponding to the first element from this
+	// collection that is within the user's viewport.
+	//
+	// Likewise, whenever the user scrolls through the editor, we use this collection to
+	// scroll to the first element in the document produced by (or before) the first visible
+	// line in the editor.
+	var sourceMappedElements = [];
 
+	function configureLivePreview(codeMirror, documentContainer) {
 	  // We'll wait until the user is done typing before we re-render the document with their
 	  // changes. We consider the user to be done typing once 1 second has elapsed since their
 	  // last keystroke.
 	  var MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING = 1000;
 
 	  codeMirror.on('change', (0, _debounce2.default)(function (codeMirror) {
-	    render(codeMirror.getValue(), renderedDocumentContainer);
-	    sourceMappedElements = renderedDocumentContainer.querySelectorAll('[data-up-source-line]');
+	    render(codeMirror.getValue(), documentContainer, tableOfContentsContainer);
+	    sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]');
 	  }, MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING));
+	}
 
-	  // Here's where things start to get messy.
-	  //
+	function render(markup, documentContainer, tableOfContentsContainer) {
+	  var result = _writeUp.Up.renderHtmlForDocumentAndTableOfContents(markup, {
+	    createSourceMap: true
+	  });
+
+	  documentContainer.innerHTML = result.documentHtml;
+	  tableOfContentsContainer.innerHTML = result.tableOfContentsHtml;
+	}
+
+	function configureSynchronizedScrolling(codeMirror, documentContainer) {
 	  // Let's say the user scrolls to line 100 in the editor. It's blank, and it didn't
 	  // produce any syntax nodes. However, line 102 produced a paragraph, so we scroll that
 	  // paragraph into view.
 	  //
-	  // That triggers the rendered document's scroll event, which determines that the editor
-	  // should be scrolled to line 102. Uh-oh!
+	  // The paragraph scrolls into view, which in turn triggers the rendered document's scroll
+	  // event, which determines that the editor should be scrolled to line 102. Uh-oh!
 	  //
 	  // To prevent all that, we disable our scroll events while we're syncing.
 	  var areScrollSyncEventsDisabled = false;
@@ -632,7 +644,7 @@
 	    });
 	  }
 
-	  addScrollEventListener(renderedDocumentContainer, function () {
+	  addScrollEventListener(documentContainer, function () {
 	    for (var i = 0; i < sourceMappedElements.length; i++) {
 	      var element = sourceMappedElements[i];
 
@@ -683,12 +695,6 @@
 
 	      if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
 	    }
-	  });
-	}
-
-	function render(markup, documentContainer) {
-	  documentContainer.innerHTML = _writeUp.Up.renderHtml(markup, {
-	    createSourceMap: true
 	  });
 	}
 
