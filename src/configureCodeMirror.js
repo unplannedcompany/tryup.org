@@ -64,7 +64,7 @@ function syncScrollingBetweenEditorAndRenderedDocument(codeMirror, renderedDocum
   const MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING = 1000
 
   codeMirror.on('change', debounce(codeMirror => {
-    renderedDocumentContainer.innerHTML = Up.toHtml(codeMirror.getValue(), {
+    renderedDocumentContainer.innerHTML = Up.renderHtml(codeMirror.getValue(), {
       createSourceMap: true
     })
 

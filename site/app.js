@@ -510,7 +510,7 @@
 
 	var _writeUp = __webpack_require__(11);
 
-	var _debounce = __webpack_require__(112);
+	var _debounce = __webpack_require__(111);
 
 	var _debounce2 = _interopRequireDefault(_debounce);
 
@@ -518,7 +518,7 @@
 
 	function configureCodeMirror(editorContainer, renderedDocumentContainer) {
 	  var codeMirror = (0, _codemirror2.default)(editorContainer, {
-	    value: __webpack_require__(113),
+	    value: __webpack_require__(112),
 	    lineNumbers: true,
 	    lineWrapping: true
 	  });
@@ -575,7 +575,7 @@
 	  var MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING = 1000;
 
 	  codeMirror.on('change', (0, _debounce2.default)(function (codeMirror) {
-	    renderedDocumentContainer.innerHTML = _writeUp.Up.toHtml(codeMirror.getValue(), {
+	    renderedDocumentContainer.innerHTML = _writeUp.Up.renderHtml(codeMirror.getValue(), {
 	      createSourceMap: true
 	    });
 
@@ -9757,22 +9757,42 @@
 	var Config_1 = __webpack_require__(13);
 	var parseDocument_1 = __webpack_require__(18);
 	var parseInlineDocument_1 = __webpack_require__(105);
-	var getHtml_1 = __webpack_require__(107);
+	var HtmlRenderer_1 = __webpack_require__(107);
 	var Up = (function () {
 	    function Up(settings) {
 	        this.config = new Config_1.Config(settings);
 	    }
-	    Up.prototype.toDocument = function (markup, extraSettings) {
-	        return toDocument(markup, this.config.withChanges(extraSettings));
+	    Up.prototype.parseDocument = function (markup, extraSettings) {
+	        return parseDocument_1.parseDocument(markup, this.config.withChanges(extraSettings));
 	    };
-	    Up.prototype.toHtml = function (markupOrDocument, extraSettings) {
-	        return toHtml(markupOrDocument, this.config.withChanges(extraSettings));
+	    Up.prototype.parseInlineDocument = function (markup, extraSettings) {
+	        return parseInlineDocument_1.parseInlineDocument(markup, this.config.withChanges(extraSettings));
 	    };
-	    Up.prototype.toInlineDocument = function (markup, extraSettings) {
-	        return toInlineDocument(markup, this.config.withChanges(extraSettings));
+	    Up.prototype.renderHtml = function (markupOrDocument, extraSettings) {
+	        var htmlRenderer = this.getHtmlRenderer(extraSettings);
+	        return htmlRenderer.document(this.getDocument(markupOrDocument, extraSettings));
 	    };
-	    Up.prototype.toInlineHtml = function (markupOrInlineDocument, extraSettings) {
-	        return toInlineHtml(markupOrInlineDocument, this.config.withChanges(extraSettings));
+	    Up.prototype.renderHtmlForDocumentAndTableOfContents = function (markupOrDocument, extraSettings) {
+	        var htmlRenderer = this.getHtmlRenderer(extraSettings);
+	        var document = this.getDocument(markupOrDocument, extraSettings);
+	        return {
+	            documentHtml: htmlRenderer.document(document),
+	            tableOfContentsHtml: htmlRenderer.tableOfContents(document.tableOfContents)
+	        };
+	    };
+	    Up.prototype.renderInlineHtml = function (markupOrInlineDocument, extraSettings) {
+	        var inlineDocument = typeof markupOrInlineDocument === 'string'
+	            ? this.parseInlineDocument(markupOrInlineDocument, extraSettings)
+	            : markupOrInlineDocument;
+	        return this.getHtmlRenderer(extraSettings).document(inlineDocument);
+	    };
+	    Up.prototype.getDocument = function (markupOrDocument, extraSettings) {
+	        return typeof markupOrDocument === 'string'
+	            ? this.parseDocument(markupOrDocument, extraSettings)
+	            : markupOrDocument;
+	    };
+	    Up.prototype.getHtmlRenderer = function (extraSettings) {
+	        return new HtmlRenderer_1.HtmlRenderer(this.config.withChanges(extraSettings));
 	    };
 	    return Up;
 	}());
@@ -9780,42 +9800,28 @@
 	var Up;
 	(function (Up) {
 	    var defaultUp = new Up();
-	    function toDocument(markup, settings) {
-	        return defaultUp.toDocument(markup, settings);
+	    function parseDocument(markup, settings) {
+	        return defaultUp.parseDocument(markup, settings);
 	    }
-	    Up.toDocument = toDocument;
-	    function toHtml(markupOrDocument, settings) {
-	        return defaultUp.toHtml(markupOrDocument, settings);
+	    Up.parseDocument = parseDocument;
+	    function parseInlineDocument(markup, settings) {
+	        return defaultUp.parseInlineDocument(markup, settings);
 	    }
-	    Up.toHtml = toHtml;
-	    function toInlineDocument(markup, settings) {
-	        return defaultUp.toInlineDocument(markup, settings);
+	    Up.parseInlineDocument = parseInlineDocument;
+	    function renderHtml(markupOrDocument, settings) {
+	        return defaultUp.renderHtml(markupOrDocument, settings);
 	    }
-	    Up.toInlineDocument = toInlineDocument;
-	    function toInlineHtml(markupOrInlineDocument, settings) {
-	        return defaultUp.toInlineHtml(markupOrInlineDocument, settings);
+	    Up.renderHtml = renderHtml;
+	    function renderHtmlForDocumentAndTableOfContents(markupOrDocument, settings) {
+	        return defaultUp.renderHtmlForDocumentAndTableOfContents(markupOrDocument, settings);
 	    }
-	    Up.toInlineHtml = toInlineHtml;
-	    Up.VERSION = '13.0.2';
+	    Up.renderHtmlForDocumentAndTableOfContents = renderHtmlForDocumentAndTableOfContents;
+	    function renderInlineHtml(markupOrInlineDocument, settings) {
+	        return defaultUp.renderInlineHtml(markupOrInlineDocument, settings);
+	    }
+	    Up.renderInlineHtml = renderInlineHtml;
+	    Up.VERSION = '14.0.0';
 	})(Up = exports.Up || (exports.Up = {}));
-	function toDocument(markup, config) {
-	    return parseDocument_1.parseDocument(markup, config);
-	}
-	function toHtml(markupOrDocument, config) {
-	    var document = typeof markupOrDocument === 'string'
-	        ? toDocument(markupOrDocument, config)
-	        : markupOrDocument;
-	    return getHtml_1.getHtml(document, config);
-	}
-	function toInlineDocument(markup, config) {
-	    return parseInlineDocument_1.parseInlineDocument(markup, config);
-	}
-	function toInlineHtml(markupOrInlineDocument, config) {
-	    var inlineDocument = typeof markupOrInlineDocument === 'string'
-	        ? toInlineDocument(markupOrInlineDocument, config)
-	        : markupOrInlineDocument;
-	    return getHtml_1.getInlineHtml(inlineDocument, config);
-	}
 	//# sourceMappingURL=Up.js.map
 
 /***/ },
@@ -14833,55 +14839,36 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var HtmlRenderer_1 = __webpack_require__(108);
-	function getHtml(document, config) {
-	    return new HtmlRenderer_1.HtmlRenderer(document, config).result;
-	}
-	exports.getHtml = getHtml;
-	function getInlineHtml(document, config) {
-	    return new HtmlRenderer_1.HtmlRenderer(document, config).result;
-	}
-	exports.getInlineHtml = getInlineHtml;
-	//# sourceMappingURL=getHtml.js.map
-
-/***/ },
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Renderer_1 = __webpack_require__(109);
+	var Renderer_1 = __webpack_require__(108);
 	var Link_1 = __webpack_require__(66);
 	var PlainText_1 = __webpack_require__(87);
 	var Italic_1 = __webpack_require__(55);
 	var UnorderedList_1 = __webpack_require__(38);
 	var OrderedList_1 = __webpack_require__(36);
 	var Heading_1 = __webpack_require__(21);
-	var ElementHelpers_1 = __webpack_require__(110);
-	var EscapingHelpers_1 = __webpack_require__(111);
+	var ElementHelpers_1 = __webpack_require__(109);
+	var EscapingHelpers_1 = __webpack_require__(110);
 	var PatternHelpers_1 = __webpack_require__(15);
 	var HtmlRenderer = (function (_super) {
 	    __extends(HtmlRenderer, _super);
 	    function HtmlRenderer() {
 	        _super.apply(this, arguments);
-	        this.spoilerCount = 0;
-	        this.nsfwCount = 0;
-	        this.nsflCount = 0;
-	        this.isInsideLink = false;
-	        this.isInsideTableOfContents = false;
 	    }
-	    HtmlRenderer.prototype.renderDocument = function (document) {
-	        var tableOfContents = document.tableOfContents.entries.length
-	            ? this.tableOfContents(document.tableOfContents)
-	            : '';
-	        return tableOfContents + this.renderAll(document.children);
+	    HtmlRenderer.prototype.document = function (document) {
+	        this.reset();
+	        return this.renderAll(document.children);
 	    };
-	    HtmlRenderer.prototype.renderInlineDocument = function (inlineDocument) {
-	        return this.renderAll(inlineDocument.children);
+	    HtmlRenderer.prototype.tableOfContents = function (tableOfContents) {
+	        this.reset({ isInsideTableOfContents: true });
+	        return ElementHelpers_1.htmlElementWithAlreadyEscapedChildren('nav', [
+	            this.tableOfContentsTitle(),
+	            this.tableOfContentsEntries(tableOfContents.entries)
+	        ], { class: ElementHelpers_1.classAttrValue("table-of-contents") });
 	    };
 	    HtmlRenderer.prototype.blockquote = function (blockquote) {
 	        return this.element('blockquote', blockquote.children, attrsFor(blockquote));
@@ -14948,7 +14935,7 @@
 	    HtmlRenderer.prototype.referenceToTableOfContentsEntry = function (reference) {
 	        var entry = reference.entry;
 	        var representation = entry
-	            ? new Link_1.Link(entry.representationOfContentWithinTableOfContents(), ElementHelpers_1.internalUrl(this.idOfActualEntryInDocument(entry)))
+	            ? this.linkToActualEntryInDocument(entry)
 	            : new Italic_1.Italic([new PlainText_1.PlainText(reference.snippetFromEntry)]);
 	        return representation.render(this);
 	    };
@@ -15025,15 +15012,16 @@
 	        if (this.isInsideTableOfContents) {
 	            return '';
 	        }
-	        var innerLink = this.footnoteReferenceInnerLink(footnote);
-	        return this.element('sup', [innerLink], {
+	        return this.element('sup', [this.footnoteReferenceInnerLink(footnote)], {
 	            id: this.footnoteReferenceId(footnote.referenceNumber),
 	            class: ElementHelpers_1.classAttrValue('footnote-reference')
 	        });
 	    };
 	    HtmlRenderer.prototype.footnoteBlock = function (footnoteBlock) {
 	        var _this = this;
-	        var attrs = attrsFor(footnoteBlock, { class: ElementHelpers_1.classAttrValue('footnotes') });
+	        var attrs = attrsFor(footnoteBlock, {
+	            class: ElementHelpers_1.classAttrValue('footnotes')
+	        });
 	        return ElementHelpers_1.htmlElementWithAlreadyEscapedChildren('dl', footnoteBlock.footnotes.map(function (footnote) { return _this.footnoteInFootnoteBlock(footnote); }), attrs);
 	    };
 	    HtmlRenderer.prototype.table = function (table) {
@@ -15073,28 +15061,6 @@
 	    HtmlRenderer.prototype.plainText = function (plainText) {
 	        return EscapingHelpers_1.escapeHtmlContent(plainText.content);
 	    };
-	    HtmlRenderer.prototype.parenthetical = function (parenthetical) {
-	        var extraCssClassNames = [];
-	        for (var _i = 1; _i < arguments.length; _i++) {
-	            extraCssClassNames[_i - 1] = arguments[_i];
-	        }
-	        var attrs = {
-	            class: ElementHelpers_1.classAttrValue.apply(void 0, ['parenthetical'].concat(extraCssClassNames))
-	        };
-	        return this.element('small', parenthetical.children, attrs);
-	    };
-	    HtmlRenderer.prototype.unorderedListItem = function (listItem) {
-	        return this.element('li', listItem.children);
-	    };
-	    HtmlRenderer.prototype.tableOfContents = function (tableOfContents) {
-	        this.isInsideTableOfContents = true;
-	        var html = ElementHelpers_1.htmlElementWithAlreadyEscapedChildren('nav', [
-	            this.tableOfContentsTitle(),
-	            this.tableOfContentsEntries(tableOfContents.entries)
-	        ], { class: ElementHelpers_1.classAttrValue("table-of-contents") });
-	        this.isInsideTableOfContents = false;
-	        return html;
-	    };
 	    HtmlRenderer.prototype.tableOfContentsTitle = function () {
 	        var title = new Heading_1.Heading([
 	            new PlainText_1.PlainText(this.config.terms.rendered.tableOfContents)], { level: 1 });
@@ -15102,6 +15068,9 @@
 	    };
 	    HtmlRenderer.prototype.tableOfContentsEntries = function (entries) {
 	        var _this = this;
+	        if (!entries.length) {
+	            return '';
+	        }
 	        var listItems = entries.map(function (entry) {
 	            return new UnorderedList_1.UnorderedList.Item([
 	                _this.tableOfContentsEntry(entry)
@@ -15114,6 +15083,19 @@
 	    };
 	    HtmlRenderer.prototype.linkToActualEntryInDocument = function (entry) {
 	        return new Link_1.Link(entry.representationOfContentWithinTableOfContents(), ElementHelpers_1.internalUrl(this.idOfActualEntryInDocument(entry)));
+	    };
+	    HtmlRenderer.prototype.parenthetical = function (parenthetical) {
+	        var extraCssClassNames = [];
+	        for (var _i = 1; _i < arguments.length; _i++) {
+	            extraCssClassNames[_i - 1] = arguments[_i];
+	        }
+	        var attrs = {
+	            class: ElementHelpers_1.classAttrValue.apply(void 0, ['parenthetical'].concat(extraCssClassNames))
+	        };
+	        return this.element('small', parenthetical.children, attrs);
+	    };
+	    HtmlRenderer.prototype.unorderedListItem = function (listItem) {
+	        return this.element('li', listItem.children);
 	    };
 	    HtmlRenderer.prototype.orderedListItem = function (listItem) {
 	        var attrs = {};
@@ -15166,13 +15148,17 @@
 	        return [new Link_1.Link([new PlainText_1.PlainText(content)], url)];
 	    };
 	    HtmlRenderer.prototype.revealable = function (args) {
-	        var checkboxId = this.idFor(args.conventionName, args.conventionCount);
-	        var label = ElementHelpers_1.htmlElement('label', args.termForTogglingVisibility, { for: checkboxId });
+	        var checkBoxIdParts = [args.conventionName, args.conventionCount];
+	        if (this.isInsideTableOfContents) {
+	            checkBoxIdParts.unshift('toc');
+	        }
+	        var checkboxId = this.idFor.apply(this, checkBoxIdParts);
 	        var checkbox = ElementHelpers_1.singleTagHtmlElement('input', {
 	            id: checkboxId,
 	            type: 'checkbox',
 	            role: 'button'
 	        });
+	        var label = ElementHelpers_1.htmlElement('label', args.termForTogglingVisibility, { for: checkboxId });
 	        var revealableContent = this.element(args.tagNameForGenericContainers, args.revealable.children, { role: 'alert' });
 	        var attrsForOuterContainer = args.attrsForOuterContainer || {};
 	        attrsForOuterContainer.class =
@@ -15230,6 +15216,13 @@
 	    HtmlRenderer.prototype.isUrlAllowed = function (url) {
 	        return this.config.renderUnsafeContent || !UNSAFE_URL_SCHEME.test(url);
 	    };
+	    HtmlRenderer.prototype.reset = function (args) {
+	        this.spoilerCount = 0;
+	        this.nsfwCount = 0;
+	        this.nsflCount = 0;
+	        this.isInsideLink = false;
+	        this.isInsideTableOfContents = args && args.isInsideTableOfContents;
+	    };
 	    return HtmlRenderer;
 	}(Renderer_1.Renderer));
 	exports.HtmlRenderer = HtmlRenderer;
@@ -15244,26 +15237,15 @@
 	//# sourceMappingURL=HtmlRenderer.js.map
 
 /***/ },
-/* 109 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var UpDocument_1 = __webpack_require__(19);
 	var PatternPieces_1 = __webpack_require__(14);
 	var Renderer = (function () {
-	    function Renderer(document, config) {
-	        this.document = document;
+	    function Renderer(config) {
 	        this.config = config;
 	    }
-	    Object.defineProperty(Renderer.prototype, "result", {
-	        get: function () {
-	            this._result =
-	                this._result || this.renderEitherTypeOfDocument(this.document);
-	            return this._result;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
 	    Renderer.prototype.renderEach = function (nodes) {
 	        var _this = this;
 	        return nodes.map(function (node) { return node.render(_this); });
@@ -15281,11 +15263,6 @@
 	            .trim()
 	            .replace(WHITESPACE_PATTERN, '-');
 	    };
-	    Renderer.prototype.renderEitherTypeOfDocument = function (document) {
-	        return (document instanceof UpDocument_1.UpDocument
-	            ? this.renderDocument(document)
-	            : this.renderInlineDocument(document));
-	    };
 	    return Renderer;
 	}());
 	exports.Renderer = Renderer;
@@ -15293,11 +15270,11 @@
 	//# sourceMappingURL=Renderer.js.map
 
 /***/ },
-/* 110 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var EscapingHelpers_1 = __webpack_require__(111);
+	var EscapingHelpers_1 = __webpack_require__(110);
 	function htmlElement(tagName, unescapedContent, attrs) {
 	    if (attrs === void 0) { attrs = {}; }
 	    return htmlElementWithAlreadyEscapedChildren(tagName, [EscapingHelpers_1.escapeHtmlContent(unescapedContent)], attrs);
@@ -15347,7 +15324,7 @@
 	//# sourceMappingURL=ElementHelpers.js.map
 
 /***/ },
-/* 111 */
+/* 110 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15370,7 +15347,7 @@
 	//# sourceMappingURL=EscapingHelpers.js.map
 
 /***/ },
-/* 112 */
+/* 111 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15402,7 +15379,7 @@
 	}
 
 /***/ },
-/* 113 */
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = "[image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)\n\n\n################################################\nUp (easily write structured content for the web)\n################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts Up documents into HTML. This website uses that software library! And so could any website that wants to provide an easy way for users to contribute structured content.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to write and read, not for computers to process and parse.\n\n\n- Up *supports [highlight: overlapping* styles]\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  For more information, see [topic: overlapping styles].\n\n- Up makes tables outrageously easy\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n  \n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy\n  1;      Tackle;       Normal;   50;     100%\n  3;      Growl;        Normal;   ;       100%\n  7;      Leech Seed;   Grass;    ;       90%\n  9;      Vine Whip;    Grass;    45;     100%\n\n  For more information, see [topic: tables]. \n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Up helps you reference various sections in your document\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~\n\n  `````\n  For more information, see [topic: internal links].\n  `````\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example), and Up handles the rest.\n\n  For more information, see [topic: internal links].\n\n- Up is truly, actually, honestly readable\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! For more information, see [topic: custom terms].\n\n- Up produces fully accessible HTML\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nWait! No one likes feeling lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks on either side.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If you intend the reader to raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks on either side.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors use italics instead of quotation marks.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores on either side.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you merely want to highlight text, see [topic: highlights]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores on either side.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. Up recognizes the following bullet characters:\n\n  - Asterisks `*`\n  - Hyphens `-`\n  - Actual bullet characters `•`\n\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  List items can be followed by single blank lines. This does not affect the list:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.  \n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~="
