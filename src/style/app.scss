@@ -37,10 +37,6 @@ body {
 #editor-container {
   flex-basis: 30%;
   flex-grow: 1;
-  
-  .CodeMirror {
-    height: 100%;
-  }
 }
 
 $min-table-of-contents-width: 250px;
@@ -66,5 +62,9 @@ $min-editor-width: 450px;
   #editor-container {
     flex-basis: $min-editor-width;  
     flex-grow: 1;
+
+    .CodeMirror {
+      height: 100vh;
+    }
   }
 }

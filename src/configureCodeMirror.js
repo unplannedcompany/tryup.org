@@ -1,6 +1,7 @@
 import CodeMirror from 'codemirror'
 import { Up } from 'write-up'
 import debounce from './debounce'
+import throttle from './throttle'
 
 
 export default function configureCodeMirror(editorContainer, documentContainer, tableOfContentsContainer) {
@@ -44,12 +45,10 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
   // We'll wait until the user is done typing before we re-render the document with their
   // changes. We consider the user to be done typing once 1 second has elapsed since their
   // last keystroke.
-  const MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING = 1000
-
   codeMirror.on('change', debounce(codeMirror => {
     render(codeMirror.getValue(), documentContainer, tableOfContentsContainer)
     sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]')
-  }, MS_SINCE_LAST_KEYSTROKE_INDICATING_USER_IS_DONE_TYPING))
+  }, 1000))
 }
 
 
@@ -67,10 +66,7 @@ function configureSynchronizedScrolling(codeMirror, documentContainer) {
   const FPS_FOR_SCROLL_SYNCING = 60
   const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
 
-  // Here, we kill two birds with one stone.
-  //
-  // By disabling all scroll sync events for 1/60th of a second, we naturally throttle all
-  // scroll event listeners at 60 FPS. However, we also prevent nasty feedback loops!
+  // We need to watch out for feedback loops.
   //
   // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
   // the rendered element produced by that line. However, let's also pretend that line 100
@@ -79,47 +75,46 @@ function configureSynchronizedScrolling(codeMirror, documentContainer) {
   // So we do the next best thing: we scroll into view the first element produced *after*
   // line 100: a paragraph produced by line 101. This unfortunately triggers the rendered
   // document's scroll event, which in turn determines that the editor should be scrolled
-  // to line 101: the line that produced the paragraph.
+  // to line 101: the line that produced the paragraph. Uh-oh!
   //
-  // Luckily for us, by disabling all sync scroll events, this feedback loop is prevented.
-  let areScrollSyncEventsDisabled = false
+  // To prevent this, whenever our code scrolls a container, we ignore the scroll events
+  // from that container for a short window.
+  let ignoringScrollEventsFromEditor = false
+  let ignoringScrollEventsFromDocument = false
 
-  function syncScrolling(sync) {
-    sync()
+  const IGNORE_EVENT_PERIOD = SCROLL_SYNC_INTERVAL * 2
 
-    areScrollSyncEventsDisabled = true
-    setTimeout(() => {
-      areScrollSyncEventsDisabled = false
-    }, SCROLL_SYNC_INTERVAL)
-  }
+  // TODO: Ignore links
 
-  function addScrollEventListener(element, listener) {
-    element.addEventListener('scroll', () => {
-      if (!areScrollSyncEventsDisabled) {
-        listener()
-      }
-    })
-  }
+  addScrollEventListener(documentContainer, throttle(() => {
+    if (ignoringScrollEventsFromDocument) {
+      return
+    }
 
-  addScrollEventListener(documentContainer, () => {
     for (let i = 0; i < sourceMappedElements.length; i++) {
       const element = sourceMappedElements[i]
 
       // Is this the first outline element that's in view?
       if (element.getBoundingClientRect().top >= 0) {
-        // Yes it is! Let's scroll to the appropriate line in the editor, then bail.
-        //
         // Line numbers in Up start at 1.
         const lineIndex = element.dataset.upSourceLine - 1
         const editorLineY = codeMirror.charCoords({ line: lineIndex }, 'local').top
 
-        syncScrolling(() => codeMirror.scrollTo(null, editorLineY))
+        codeMirror.scrollTo(null, editorLineY)
+        console.log('DOC')
+        ignoringScrollEventsFromEditor = true
+        setTimeout(() => ignoringScrollEventsFromEditor = false, IGNORE_EVENT_PERIOD)
+
         return
       }
     }
-  })
+  }, IGNORE_EVENT_PERIOD))
 
-  addScrollEventListener(codeMirror.getScrollerElement(), () => {
+  addScrollEventListener(codeMirror.getScrollerElement(), throttle(() => {
+    if (ignoringScrollEventsFromEditor) {
+      return
+    }
+
     // Line numbers in the CodeMirror editor start at 0. 
     const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
 
@@ -129,12 +124,15 @@ function configureSynchronizedScrolling(codeMirror, documentContainer) {
       // Is this the first outline element that was produced by (or after) the first visible
       // line in the editor?
       if (element.dataset.upSourceLine >= firstVisibleLineNumber) {
-        // Yes it is! Let's scroll to the appropriate line in the editor, then bail.
-        syncScrolling(() => element.scrollIntoView())
+        element.scrollIntoView();
+
+        ignoringScrollEventsFromDocument = true
+        console.log('CM')
+        setTimeout(() => ignoringScrollEventsFromDocument = false, IGNORE_EVENT_PERIOD)
         return
       }
     }
-  })
+ }, IGNORE_EVENT_PERIOD))
 }
 
 
@@ -161,3 +159,8 @@ function configureSoftWrappedLinesToBeIndented(codeMirror) {
     lineElement.style.paddingLeft = `${BASE_PADDING + indentation}px`
   })
 }
+
+
+  function addScrollEventListener(element, listener) {
+    element.addEventListener('scroll', listener)
+  }
