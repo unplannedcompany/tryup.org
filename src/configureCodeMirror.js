@@ -24,7 +24,7 @@ export default function configureCodeMirror(editorContainer, documentContainer, 
 }
 
 
-// NOTE: This collection represents shared state!
+// WARNING: This collection represents shared state!
 //
 // This collection represents any element from the rendered document that has a source
 // line number. In practice, this is a collection of every HTML element produced by an
@@ -62,15 +62,77 @@ function render(markup, documentContainer, tableOfContentsContainer) {
   tableOfContentsContainer.innerHTML = result.tableOfContentsHtml
 }
 
-function addScrollEventListener(element, listener) {
-  element.addEventListener('scroll', listener)
-}
 
 function syncScrolling(codeMirror, documentContainer) {
   const FPS_FOR_SCROLL_SYNCING = 60
   const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
 
-  // We need to watch out for feedback loops.
+  const getScrollSyncer = sync =>
+    throttle(sync, SCROLL_SYNC_INTERVAL)
+
+  addScrollSyncingEventListeners({
+    scrollSyncInterval: SCROLL_SYNC_INTERVAL,
+    codeMirror,
+    documentContainer,
+
+    syncScrollingFromDocument: getScrollSyncer(() => {
+      for (let i = 0; i < sourceMappedElements.length; i++) {
+        const element = sourceMappedElements[i]
+
+        // Why -1 and not 0?
+        //
+        // When you click a link pointing to fragment URL (e.g. a table of contents entry),
+        // the browser scrolls the appropriate element into view. Oddly, in some browsers,
+        // the top of that element is a fraction of a pixel above the top of the viewport. 
+        const VIEWPORT_TOP = -1
+
+        // Is this the first document element starting within the viewport?
+        if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
+          // Line numbers in Up start at 1, not 0.
+          const editorLineIndex = element.dataset.upSourceLine - 1
+
+          const editorCharToScrollTo = {
+            line: editorLineIndex,
+            ch: 0
+          }
+
+          const topOfEditorLine =
+            codeMirror.charCoords(editorCharToScrollTo, 'local').top
+
+          codeMirror.scrollTo(null, topOfEditorLine)
+          return
+        }
+      }
+    }),
+
+    syncScrollingFromEditor: getScrollSyncer(() => {
+      // Line numbers in the CodeMirror editor start at 0. 
+      const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
+
+      for (let i = 0; i < sourceMappedElements.length; i++) {
+        const element = sourceMappedElements[i]
+
+        // Is this the first outline element that was produced by (or after) the first
+        // visible line in the editor?
+        if (element.dataset.upSourceLine >= firstVisibleLineNumber) {
+          element.scrollIntoView();
+          return
+        }
+      }
+    })
+  })
+}
+
+
+function addScrollSyncingEventListeners(args) {
+  const {
+    scrollSyncInterval,
+    codeMirror,
+    documentContainer,
+    syncScrollingFromDocument,
+    syncScrollingFromEditor } = args
+
+  // We need to watch out for feedback loops!
   //
   // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
   // the rendered element produced by that line. However, let's also pretend that line 100
@@ -81,18 +143,16 @@ function syncScrolling(codeMirror, documentContainer) {
   // document's scroll event, which in turn determines that the editor should be scrolled
   // to line 101: the line that produced the paragraph. Uh-oh!
   //
-  // To prevent this, whenever our code scrolls a container, we ignore the scroll events
+  // To prevent this, whenever our *code* scrolls a container, we ignore the scroll events
   // from that container for a short period.
-
   const PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS =
-    SCROLL_SYNC_INTERVAL * 2
+    scrollSyncInterval * 2
 
-  function getEventReEnabler(callback) {
-    return debounce(callback, PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS)
-  }
-
-  let ignoringScrollEventsFromEditor = false
   let ignoringScrollEventsFromDocument = false
+  let ignoringScrollEventsFromEditor = false
+
+  const getEventReEnabler = reEnable =>
+    debounce(reEnable, PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS)
 
   const eventuallyReEnableScrollEventsFromEditor = getEventReEnabler(() => {
     ignoringScrollEventsFromEditor = false
@@ -102,69 +162,32 @@ function syncScrolling(codeMirror, documentContainer) {
     ignoringScrollEventsFromDocument = false
   })
 
-  function getScrollSyncer(callback) {
-    return throttle(callback, SCROLL_SYNC_INTERVAL)
+  function temporarilyIgnoreScrollEventsFromEditor() {
+    ignoringScrollEventsFromEditor = true
+    eventuallyReEnableScrollEventsFromEditor()
   }
 
-  const syncScrollingFromDocument = getScrollSyncer(() => {
-    for (let i = 0; i < sourceMappedElements.length; i++) {
-      const element = sourceMappedElements[i]
-
-      // Why -1 and not 0?
-      //
-      // When you click a link pointing to fragment URL (e.g. a table of contents entry),
-      // the browser scrolls the appropriate element into view. Oddly, in some browsers,
-      // the top of that element is a fraction of a pixel above the top of the viewport. 
-      const VIEWPORT_TOP = -1
-
-      // Is this the first document element starting within the viewport?
-      if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
-        // Line numbers in Up start at 1, not 0.
-        const editorLineIndex = element.dataset.upSourceLine - 1
-        
-        const editorCharToScrollTo = {
-          line: editorLineIndex,
-          ch: 0
-        }
-
-        const topOfEditorLine =
-          codeMirror.charCoords(editorCharToScrollTo, 'local').top
-        
-        codeMirror.scrollTo(null, topOfEditorLine)
-        return
-      }
-    }
-  })
-
-  const syncScrollingFromEditor = getScrollSyncer(() => {
-    // Line numbers in the CodeMirror editor start at 0. 
-    const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
-
-    for (let i = 0; i < sourceMappedElements.length; i++) {
-      const element = sourceMappedElements[i]
-
-      // Is this the first outline element that was produced by (or after) the first
-      // visible line in the editor?
-      if (element.dataset.upSourceLine >= firstVisibleLineNumber) {
-        element.scrollIntoView();
-        return
-      }
-    }
-  })
+  function temporarilyIgnoreScrollEventsFromDocument() {
+    ignoringScrollEventsFromDocument = true
+    eventuallyReEnableScrollEventsFromDocument()
+  }
 
   addScrollEventListener(documentContainer, () => {
     if (!ignoringScrollEventsFromDocument) {
       syncScrollingFromDocument()
-      ignoringScrollEventsFromEditor = true
-      eventuallyReEnableScrollEventsFromEditor()
+      temporarilyIgnoreScrollEventsFromEditor()
     }
   })
 
   addScrollEventListener(codeMirror.getScrollerElement(), () => {
     if (!ignoringScrollEventsFromEditor) {
       syncScrollingFromEditor()
-      ignoringScrollEventsFromDocument = true
-      eventuallyReEnableScrollEventsFromDocument()
+      temporarilyIgnoreScrollEventsFromDocument()
     }
   })
+}
+
+
+function addScrollEventListener(element, listener) {
+  element.addEventListener('scroll', listener)
 }
