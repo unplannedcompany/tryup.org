@@ -36,7 +36,6 @@ export default function configureEditor(editorContainer, documentContainer, tabl
   syncScrolling(codeMirror, documentContainer)
 
   codeMirror.refresh()
-
   refreshSourceMappedElements(documentContainer)
 }
 
@@ -70,12 +69,12 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
 
   function markDocumentAsDirty() {
     documentContainer.classList.remove('clean')
-    documentContainer.classList.remove('dirty')
+    documentContainer.classList.add('dirty')
   }
 
   function markDocumentAsClean() {
     documentContainer.classList.remove('dirty')
-    documentContainer.classList.remove('clean')
+    documentContainer.classList.add('clean')
   }
 }
 
