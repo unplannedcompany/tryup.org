@@ -5,7 +5,26 @@ import debounce from './debounce'
 import throttle from './throttle'
 
 
-export default function configureCodeMirror(editorContainer, documentContainer, tableOfContentsContainer) {
+// WARNING: This collection represents shared state!
+//
+// This is a collection  of every element from the rendered document that has a source
+// line number. Every time we re-render the document, we'll update this collection.
+//
+// Whenever the user scrolls through the rendered document, we use this collection to
+// scroll the CodeMirror editor to the line corresponding to the first element from this
+// collection that is within the user's viewport.
+//
+// Likewise, whenever the user scrolls through the editor, we use this collection to
+// scroll to the first element in the document produced by (or after) the first visible
+// line in the editor.
+let sourceMappedElements = []
+
+function refreshSourceMappedElements(documentContainer) {
+  sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]')
+}
+
+
+export default function configureEditor(editorContainer, documentContainer, tableOfContentsContainer) {
   const codeMirror = CodeMirror(editorContainer, {
     value: require('./editor.up'),
     lineNumbers: true,
@@ -18,48 +37,46 @@ export default function configureCodeMirror(editorContainer, documentContainer, 
 
   codeMirror.refresh()
 
-  // TODO: Remove this hack and include the rendered HTML directly in index.html
-  render(codeMirror.getValue(), documentContainer, tableOfContentsContainer)
-  sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]')
+  refreshSourceMappedElements(documentContainer)
 }
-
-
-// WARNING: This collection represents shared state!
-//
-// This collection represents any element from the rendered document that has a source
-// line number. In practice, this is a collection of every HTML element produced by an
-// outline syntax node ("outline" essentially means "block-level").
-//
-// Every time we re-render the document, we'll update this collection.
-//
-// Whenever the user scrolls through the rendered document, we use this collection to
-// scroll the CodeMirror editor to the line corresponding to the first element from this
-// collection that is within the user's viewport.
-//
-// Likewise, whenever the user scrolls through the editor, we use this collection to
-// scroll to the first element in the document produced by (or before) the first visible
-// line in the editor.
-let sourceMappedElements = []
 
 
 function configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer) {
   // We'll wait until the user is done typing before we re-render the document with their
-  // changes. We consider the user to be done typing once 1 second has elapsed since their
-  // last keystroke.
-  codeMirror.on('change', debounce(codeMirror => {
-    render(codeMirror.getValue(), documentContainer, tableOfContentsContainer)
-    sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]')
-  }, 1000))
-}
+  // changes. We consider the user to be done typing once 1.5 seconds has elapsed since
+  // their last keystroke.
+  //
+  // In the meantime, we'll fade the document (using the `dirty` CSS class) to indicate it's
+  // out of date.
+  const debouncedRender = debounce(codeMirror => {
+    const markup = codeMirror.getValue()
+    const { documentHtml, tableOfContentsHtml } =
+      Up.renderHtmlForDocumentAndTableOfContents(
+        markup, {
+          createSourceMap: true
+        })
 
+    documentContainer.innerHTML = documentHtml
+    tableOfContentsContainer.innerHTML = tableOfContentsHtml
 
-function render(markup, documentContainer, tableOfContentsContainer) {
-  const result = Up.renderHtmlForDocumentAndTableOfContents(markup, {
-    createSourceMap: true
+    refreshSourceMappedElements(documentContainer)
+    markDocumentAsClean()
+  }, 1000)
+
+  codeMirror.on('change', codeMirror => {
+    markDocumentAsDirty()
+    debouncedRender(codeMirror)
   })
 
-  documentContainer.innerHTML = result.documentHtml
-  tableOfContentsContainer.innerHTML = result.tableOfContentsHtml
+  function markDocumentAsDirty() {
+    documentContainer.classList.remove('clean')
+    documentContainer.classList.remove('dirty')
+  }
+
+  function markDocumentAsClean() {
+    documentContainer.classList.remove('dirty')
+    documentContainer.classList.remove('clean')
+  }
 }
 
 

@@ -6,6 +6,24 @@ body {
   height: 100vh;
 }
 
+@mixin dirty {
+  filter: grayscale(50%) brightness(80%);
+	transition: 0.5s;
+}
+
+@keyframes clean {
+  0% { @include dirty }
+  100% { filter: grayscale(0%) brightness(100%); }
+}
+
+.dirty, {
+	@include dirty 
+}
+
+.clean {
+	animation: 0.3s clean;
+}
+
 /* TODO: Clean up */
 
 #table-of-contents-container,

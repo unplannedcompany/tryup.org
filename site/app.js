@@ -52,14 +52,14 @@
 
 	__webpack_require__(7);
 
-	var _configureCodeMirror = __webpack_require__(9);
+	var _configureEditor = __webpack_require__(9);
 
-	var _configureCodeMirror2 = _interopRequireDefault(_configureCodeMirror);
+	var _configureEditor2 = _interopRequireDefault(_configureEditor);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	document.addEventListener('DOMContentLoaded', function () {
-	  (0, _configureCodeMirror2.default)(document.getElementById('editor-container'), document.getElementById('document-container'), document.getElementById('table-of-contents-container'));
+	  (0, _configureEditor2.default)(document.getElementById('editor-container'), document.getElementById('document-container'), document.getElementById('table-of-contents-container'));
 	});
 
 /***/ },
@@ -485,7 +485,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  font-size: 70%;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n    #editor-container .CodeMirror {\n      height: 100vh; } }\n", ""]);
+	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n@keyframes clean {\n  0% {\n    -webkit-filter: grayscale(50%) brightness(80%);\n            filter: grayscale(50%) brightness(80%);\n    transition: 0.5s; }\n  100% {\n    -webkit-filter: grayscale(0%) brightness(100%);\n            filter: grayscale(0%) brightness(100%); } }\n\n.dirty {\n  -webkit-filter: grayscale(50%) brightness(80%);\n          filter: grayscale(50%) brightness(80%);\n  transition: 0.5s; }\n\n.clean {\n  animation: 0.3s clean; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  font-size: 70%;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n    #editor-container .CodeMirror {\n      height: 100vh; } }\n", ""]);
 
 	// exports
 
@@ -499,7 +499,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = configureCodeMirror;
+	exports.default = configureEditor;
 
 	var _codemirror = __webpack_require__(10);
 
@@ -521,7 +521,25 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function configureCodeMirror(editorContainer, documentContainer, tableOfContentsContainer) {
+	// WARNING: This collection represents shared state!
+	//
+	// This is a collection  of every element from the rendered document that has a source
+	// line number. Every time we re-render the document, we'll update this collection.
+	//
+	// Whenever the user scrolls through the rendered document, we use this collection to
+	// scroll the CodeMirror editor to the line corresponding to the first element from this
+	// collection that is within the user's viewport.
+	//
+	// Likewise, whenever the user scrolls through the editor, we use this collection to
+	// scroll to the first element in the document produced by (or after) the first visible
+	// line in the editor.
+	var sourceMappedElements = [];
+
+	function refreshSourceMappedElements(documentContainer) {
+	  sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]');
+	}
+
+	function configureEditor(editorContainer, documentContainer, tableOfContentsContainer) {
 	  var codeMirror = (0, _codemirror2.default)(editorContainer, {
 	    value: __webpack_require__(114),
 	    lineNumbers: true,
@@ -534,45 +552,48 @@
 
 	  codeMirror.refresh();
 
-	  // TODO: Remove this hack and include the rendered HTML directly in index.html
-	  render(codeMirror.getValue(), documentContainer, tableOfContentsContainer);
-	  sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]');
+	  refreshSourceMappedElements(documentContainer);
 	}
-
-	// WARNING: This collection represents shared state!
-	//
-	// This collection represents any element from the rendered document that has a source
-	// line number. In practice, this is a collection of every HTML element produced by an
-	// outline syntax node ("outline" essentially means "block-level").
-	//
-	// Every time we re-render the document, we'll update this collection.
-	//
-	// Whenever the user scrolls through the rendered document, we use this collection to
-	// scroll the CodeMirror editor to the line corresponding to the first element from this
-	// collection that is within the user's viewport.
-	//
-	// Likewise, whenever the user scrolls through the editor, we use this collection to
-	// scroll to the first element in the document produced by (or before) the first visible
-	// line in the editor.
-	var sourceMappedElements = [];
 
 	function configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer) {
 	  // We'll wait until the user is done typing before we re-render the document with their
-	  // changes. We consider the user to be done typing once 1 second has elapsed since their
-	  // last keystroke.
-	  codeMirror.on('change', (0, _debounce2.default)(function (codeMirror) {
-	    render(codeMirror.getValue(), documentContainer, tableOfContentsContainer);
-	    sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]');
-	  }, 1000));
-	}
+	  // changes. We consider the user to be done typing once 1.5 seconds has elapsed since
+	  // their last keystroke.
+	  //
+	  // In the meantime, we'll fade the document (using the `dirty` CSS class) to indicate it's
+	  // out of date.
+	  var debouncedRender = (0, _debounce2.default)(function (codeMirror) {
+	    var markup = codeMirror.getValue();
 
-	function render(markup, documentContainer, tableOfContentsContainer) {
-	  var result = _writeUp.Up.renderHtmlForDocumentAndTableOfContents(markup, {
-	    createSourceMap: true
+	    var _Up$renderHtmlForDocu = _writeUp.Up.renderHtmlForDocumentAndTableOfContents(markup, {
+	      createSourceMap: true
+	    });
+
+	    var documentHtml = _Up$renderHtmlForDocu.documentHtml;
+	    var tableOfContentsHtml = _Up$renderHtmlForDocu.tableOfContentsHtml;
+
+
+	    documentContainer.innerHTML = documentHtml;
+	    tableOfContentsContainer.innerHTML = tableOfContentsHtml;
+
+	    refreshSourceMappedElements(documentContainer);
+	    markDocumentAsClean();
+	  }, 1000);
+
+	  codeMirror.on('change', function (codeMirror) {
+	    markDocumentAsDirty();
+	    debouncedRender(codeMirror);
 	  });
 
-	  documentContainer.innerHTML = result.documentHtml;
-	  tableOfContentsContainer.innerHTML = result.tableOfContentsHtml;
+	  function markDocumentAsDirty() {
+	    documentContainer.classList.remove('clean');
+	    documentContainer.classList.remove('dirty');
+	  }
+
+	  function markDocumentAsClean() {
+	    documentContainer.classList.remove('dirty');
+	    documentContainer.classList.remove('clean');
+	  }
 	}
 
 	function syncScrolling(codeMirror, documentContainer) {

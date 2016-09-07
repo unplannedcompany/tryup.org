@@ -2,11 +2,11 @@ import 'normalize.css'
 import './style/lib/codemirror.css'
 import './style/app.scss'
 
-import configureCodeMirror from './configureCodeMirror'
+import configureEditor from './configureEditor'
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  configureCodeMirror(
+  configureEditor(
     document.getElementById('editor-container'),
     document.getElementById('document-container'),
     document.getElementById('table-of-contents-container'))
