@@ -7,13 +7,13 @@ body {
 }
 
 @mixin dirty {
-  filter: grayscale(50%) brightness(80%);
+  filter: brightness(50%);
 	transition: 0.5s;
 }
 
 @keyframes clean {
   0% { @include dirty }
-  100% { filter: grayscale(0%) brightness(100%); }
+  100% { filter: brightness(100%); }
 }
 
 .dirty, {
@@ -21,7 +21,7 @@ body {
 }
 
 .clean {
-	animation: 0.3s clean;
+	animation: 0.2s clean;
 }
 
 /* TODO: Clean up */
