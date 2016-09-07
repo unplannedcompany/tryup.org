@@ -7,17 +7,17 @@ body {
 }
 
 @mixin dirty {
-  filter: brightness(50%);
+  opacity: 0.5;
 	transition: 0.5s;
 }
 
 @keyframes clean {
   0% { @include dirty }
-  100% { filter: brightness(100%); }
+  100% { opacity: 1 }
 }
 
 .dirty, {
-	@include dirty 
+	@include dirty;
 }
 
 .clean {
