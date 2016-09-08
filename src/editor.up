@@ -1,6 +1,3 @@
-[image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)
-
-
 ################################################
 Up (easily write structured content for the web)
 ################################################
@@ -14,7 +11,7 @@ For software developers, [Up is also a JavaScript library] (npmjs.com/package/wr
 What's so good about Up?
 ========================
 
-Up is designed for humans to read and write, not for computers to process and parse. At every turn, Up tries to offer convenience for humans.
+Up is designed for humans to read and write, not for computers to process and parse. At every turn, Up offers convenience for humans.
 
 
 - Up lets you overlap styles
@@ -542,3 +539,69 @@ Syntax
 
   Including other outline conventions within list items
   =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+
+
+
+
+  ####################
+  Using the Up Library
+  ####################
+
+
+  Configuration
+  =============
+  
+  Custom terms
+  =~=~=~=~=~=~
+
+  Terms found in markup
+  ~~~~~~~~~~~~~~~~~~~~~
+
+  You can provide unlimited variations for each markup term.
+  
+  Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
+
+  For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
+
+  Example
+    ````
+    const document = Up.parse(markup, {
+      terms: {
+        markup: {
+          audio: ["sound", "song"],
+          highlight: "mark"
+        }
+      }
+    })
+    ````
+
+  Discussion
+    In the above example, the `audio` term has two custom variations: `"sound"` and `"song"`. The audio convention will recognize both of those variations, plus the default: `"audio"`.
+
+    The `highlight` term has a single custom variation: `"mark"`. The highlighting convention will recognize that variation, plus the default: `"highlight"`.
+
+  
+  Okay! Let's get right to the terms!
+
+
+  `audio`
+    Convention
+      [topic: Audio]
+
+    Usage
+      ````
+      const document = Up.parse(markup, {
+        terms: {
+          markup: { audio: ["sound", "song"] }
+        }
+      })
+      ````
+
+    Default
+      `["audio"]`
+
+        
+
+
+  
+

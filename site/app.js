@@ -485,7 +485,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n@keyframes clean {\n  0% {\n    -webkit-filter: grayscale(50%) brightness(80%);\n            filter: grayscale(50%) brightness(80%);\n    transition: 0.5s; }\n  100% {\n    -webkit-filter: grayscale(0%) brightness(100%);\n            filter: grayscale(0%) brightness(100%); } }\n\n.dirty {\n  -webkit-filter: grayscale(50%) brightness(80%);\n          filter: grayscale(50%) brightness(80%);\n  transition: 0.5s; }\n\n.clean {\n  animation: 0.3s clean; }\n\n/* TODO: Clean up */\n#table-of-contents-container,\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#table-of-contents-container {\n  background: lightcoral;\n  -ms-flex-preferred-size: 20%;\n      flex-basis: 20%;\n  -ms-flex-positive: 0;\n      flex-grow: 0;\n  font-size: 70%;\n  padding: 0 15px; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 50%;\n      flex-basis: 50%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 30%;\n      flex-basis: 30%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n\n@media (orientation: landscape) and (min-width: 1100px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #table-of-contents-container {\n    -ms-flex-preferred-size: 250px;\n        flex-basis: 250px;\n    height: 100vh; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n    #editor-container .CodeMirror {\n      height: 100vh; } }\n", ""]);
+	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n#table-of-contents-container {\n  display: none; }\n\n@keyframes clean {\n  0% {\n    opacity: 0.5;\n    transition: 0.5s; }\n  100% {\n    opacity: 1; } }\n\n.dirty {\n  opacity: 0.5;\n  transition: 0.5s; }\n\n.clean {\n  animation: 0.2s clean; }\n\n/* TODO: Clean up */\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 40%;\n      flex-basis: 40%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 60%;\n      flex-basis: 60%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n\n@media (orientation: landscape) and (min-width: 850px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n    #editor-container .CodeMirror {\n      height: 100vh; } }\n", ""]);
 
 	// exports
 
@@ -551,7 +551,6 @@
 	  syncScrolling(codeMirror, documentContainer);
 
 	  codeMirror.refresh();
-
 	  refreshSourceMappedElements(documentContainer);
 	}
 
@@ -587,12 +586,12 @@
 
 	  function markDocumentAsDirty() {
 	    documentContainer.classList.remove('clean');
-	    documentContainer.classList.remove('dirty');
+	    documentContainer.classList.add('dirty');
 	  }
 
 	  function markDocumentAsClean() {
 	    documentContainer.classList.remove('dirty');
-	    documentContainer.classList.remove('clean');
+	    documentContainer.classList.add('clean');
 	  }
 	}
 
@@ -9792,18 +9791,18 @@
 
 	"use strict";
 	var Config_1 = __webpack_require__(13);
-	var parseDocument_1 = __webpack_require__(18);
-	var parseInlineDocument_1 = __webpack_require__(105);
+	var parse_1 = __webpack_require__(18);
+	var parseInline_1 = __webpack_require__(105);
 	var HtmlRenderer_1 = __webpack_require__(107);
 	var Up = (function () {
 	    function Up(settings) {
 	        this.config = new Config_1.Config(settings);
 	    }
-	    Up.prototype.parseDocument = function (markup, extraSettings) {
-	        return parseDocument_1.parseDocument(markup, this.config.withChanges(extraSettings));
+	    Up.prototype.parse = function (markup, extraSettings) {
+	        return parse_1.parse(markup, this.config.withChanges(extraSettings));
 	    };
-	    Up.prototype.parseInlineDocument = function (markup, extraSettings) {
-	        return parseInlineDocument_1.parseInlineDocument(markup, this.config.withChanges(extraSettings));
+	    Up.prototype.parseInline = function (markup, extraSettings) {
+	        return parseInline_1.parseInline(markup, this.config.withChanges(extraSettings));
 	    };
 	    Up.prototype.renderHtml = function (markupOrDocument, extraSettings) {
 	        var htmlRenderer = this.getHtmlRenderer(extraSettings);
@@ -9819,13 +9818,13 @@
 	    };
 	    Up.prototype.renderInlineHtml = function (markupOrInlineDocument, extraSettings) {
 	        var inlineDocument = typeof markupOrInlineDocument === 'string'
-	            ? this.parseInlineDocument(markupOrInlineDocument, extraSettings)
+	            ? this.parseInline(markupOrInlineDocument, extraSettings)
 	            : markupOrInlineDocument;
 	        return this.getHtmlRenderer(extraSettings).document(inlineDocument);
 	    };
 	    Up.prototype.getDocument = function (markupOrDocument, extraSettings) {
 	        return typeof markupOrDocument === 'string'
-	            ? this.parseDocument(markupOrDocument, extraSettings)
+	            ? this.parse(markupOrDocument, extraSettings)
 	            : markupOrDocument;
 	    };
 	    Up.prototype.getHtmlRenderer = function (extraSettings) {
@@ -9837,14 +9836,14 @@
 	var Up;
 	(function (Up) {
 	    var defaultUp = new Up();
-	    function parseDocument(markup, settings) {
-	        return defaultUp.parseDocument(markup, settings);
+	    function parse(markup, settings) {
+	        return defaultUp.parse(markup, settings);
 	    }
-	    Up.parseDocument = parseDocument;
-	    function parseInlineDocument(markup, settings) {
-	        return defaultUp.parseInlineDocument(markup, settings);
+	    Up.parse = parse;
+	    function parseInline(markup, settings) {
+	        return defaultUp.parseInline(markup, settings);
 	    }
-	    Up.parseInlineDocument = parseInlineDocument;
+	    Up.parseInline = parseInline;
 	    function renderHtml(markupOrDocument, settings) {
 	        return defaultUp.renderHtml(markupOrDocument, settings);
 	    }
@@ -9857,7 +9856,7 @@
 	        return defaultUp.renderInlineHtml(markupOrInlineDocument, settings);
 	    }
 	    Up.renderInlineHtml = renderInlineHtml;
-	    Up.VERSION = '14.0.0';
+	    Up.VERSION = '16.0.0';
 	})(Up = exports.Up || (exports.Up = {}));
 	//# sourceMappingURL=Up.js.map
 
@@ -10295,6 +10294,7 @@
 	exports.DIVIDER_STREAK_PATTERN = PatternHelpers_1.streakOf(PatternHelpers_1.anyCharFrom('#', '=', '-', '+', '~', '*', '@', ':'));
 	exports.BLANK_PATTERN = PatternHelpers_1.solely('');
 	exports.NON_BLANK_PATTERN = /\S/;
+	exports.WHITESPACE_CHAR_PATTERN = new RegExp(PatternPieces_1.WHITESPACE_CHAR);
 	exports.URL_SCHEME_PATTERN = PatternHelpers_1.patternStartingWith(PatternPieces_1.URL_SCHEME);
 	//# sourceMappingURL=Patterns.js.map
 
@@ -10362,7 +10362,7 @@
 	var HeadingLeveler_1 = __webpack_require__(44);
 	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
 	var Strings_1 = __webpack_require__(74);
-	function parseDocument(markup, config) {
+	function parse(markup, config) {
 	    var children = getOutlineSyntaxNodes_1.getOutlineSyntaxNodes({
 	        markupLines: markup.split(Strings_1.INPUT_LINE_BREAK),
 	        sourceLineNumber: 1,
@@ -10371,8 +10371,8 @@
 	    });
 	    return UpDocument_1.UpDocument.create(children);
 	}
-	exports.parseDocument = parseDocument;
-	//# sourceMappingURL=parseDocument.js.map
+	exports.parse = parse;
+	//# sourceMappingURL=parse.js.map
 
 /***/ },
 /* 19 */
@@ -11718,7 +11718,7 @@
 	exports.tokenizeForInlineDocument = tokenizeForInlineDocument;
 	var PARENTHESIS = new Bracket_1.Bracket('(', ')');
 	var SQUARE_BRACKET = new Bracket_1.Bracket('[', ']');
-	var PARENTHETICAL_BRACKETS = [
+	var NORMAL_BRACKETS = [
 	    PARENTHESIS,
 	    SQUARE_BRACKET
 	];
@@ -11727,7 +11727,7 @@
 	    function Tokenizer(markup, config, options) {
 	        var _this = this;
 	        this.config = config;
-	        this.textBuffer = '';
+	        this.bufferedContent = '';
 	        this.tokens = [];
 	        this.openContexts = [];
 	        this.failedConventionTracker = new FailedConventionTracker_1.FailedConventionTracker();
@@ -11799,7 +11799,7 @@
 	    };
 	    Tokenizer.prototype.getFootnoteConventions = function () {
 	        var _this = this;
-	        return PARENTHETICAL_BRACKETS.map(function (bracket) {
+	        return NORMAL_BRACKETS.map(function (bracket) {
 	            return _this.getTokenizableRichConvention({
 	                richConvention: RichConventions_1.FOOTNOTE,
 	                startsWith: PatternPieces_1.ANY_WHITESPACE + _this.getFootnoteStartDelimiter(bracket),
@@ -11809,16 +11809,16 @@
 	    };
 	    Tokenizer.prototype.getFootnoteConventionsForInlineDocuments = function () {
 	        var _this = this;
-	        return PARENTHETICAL_BRACKETS.map(function (bracket) {
+	        return NORMAL_BRACKETS.map(function (bracket) {
 	            return _this.getTokenizableRichConvention({
 	                richConvention: RichConventions_1.NORMAL_PARENTHETICAL,
 	                startsWith: _this.getFootnoteStartDelimiter(bracket),
 	                endsWith: _this.getFootnotEndDelimiter(bracket),
 	                whenOpening: function () {
-	                    _this.textBuffer += '(';
+	                    _this.bufferedContent += '(';
 	                },
 	                whenClosing: function () {
-	                    _this.textBuffer += ')';
+	                    _this.bufferedContent += ')';
 	                }
 	            });
 	        });
@@ -11831,7 +11831,7 @@
 	    };
 	    Tokenizer.prototype.getLinkContentConventions = function () {
 	        var _this = this;
-	        return PARENTHETICAL_BRACKETS.map(function (bracket) {
+	        return NORMAL_BRACKETS.map(function (bracket) {
 	            return _this.getTokenizableRichConvention({
 	                richConvention: RichConventions_1.LINK,
 	                startsWith: bracket.startPattern,
@@ -11843,7 +11843,7 @@
 	    Tokenizer.prototype.getConventionsForLabeledRichBrackets = function (args) {
 	        var _this = this;
 	        var richConvention = args.richConvention, term = args.term;
-	        return PARENTHETICAL_BRACKETS.map(function (bracket) {
+	        return NORMAL_BRACKETS.map(function (bracket) {
 	            return _this.getTokenizableRichConvention({
 	                richConvention: richConvention,
 	                startsWith: labeledBracketStartDelimiter(term, bracket),
@@ -11859,8 +11859,8 @@
 	            richConvention: richConvention,
 	            startsWith: bracket.startPattern + NOT_FOLLOWED_BY_WHITESPACE,
 	            endsWith: bracket.endPattern,
-	            whenOpening: function () { _this.textBuffer += bracket.open; },
-	            whenClosing: function () { _this.textBuffer += bracket.close; },
+	            whenOpening: function () { _this.bufferedContent += bracket.open; },
+	            whenClosing: function () { _this.bufferedContent += bracket.close; },
 	            insteadOfFailingWhenLeftUnclosed: function () { }
 	        });
 	    };
@@ -11900,10 +11900,10 @@
 	            startsWith: PatternPieces_1.FORWARD_SLASH,
 	            isCutShortByWhitespace: true,
 	            whenOpening: function () {
-	                _this.textBuffer += PatternPieces_1.FORWARD_SLASH;
+	                _this.bufferedContent += PatternPieces_1.FORWARD_SLASH;
 	            },
 	            canOnlyOpenIfDirectlyFollowing: [TokenRole_1.TokenRole.BareUrl],
-	            insteadOfOpeningNormalConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
+	            insteadOfOpeningRegularConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
 	            whenClosing: function () { return _this.appendBufferedUrlPathToCurrentBareUrl(); },
 	            insteadOfFailingWhenLeftUnclosed: function () { return _this.appendBufferedUrlPathToCurrentBareUrl(); }
@@ -11915,13 +11915,13 @@
 	            startsWith: startDelimiterNotFollowedByEndDelimiter(CURLY_BRACKET.startPattern, CURLY_BRACKET.endPattern),
 	            endsWith: CURLY_BRACKET.endPattern,
 	            beforeOpeningItFlushesNonEmptyBufferToPlainTextToken: true,
-	            insteadOfOpeningNormalConventionsWhileOpen: function () {
+	            insteadOfOpeningRegularConventionsWhileOpen: function () {
 	                _this.tryToOpen(_this.rawCurlyBracketConvention)
 	                    || _this.tryToTokenizeTypographicalConvention()
-	                    || _this.bufferCurrentChar();
+	                    || _this.addCurrentCharOrStreakOfWhitespaceToContentBuffer();
 	            },
 	            whenClosing: function () {
-	                var exampleInput = _this.flushBuffer().trim();
+	                var exampleInput = _this.flushBufferedContent().trim();
 	                _this.appendNewToken(TokenRole_1.TokenRole.ExampleInput, exampleInput);
 	            }
 	        });
@@ -11929,15 +11929,15 @@
 	    Tokenizer.prototype.getReferenceToTableOfContentsEntryConventions = function () {
 	        var _this = this;
 	        var term = this.config.terms.markup.referenceToTableOfContentsEntry;
-	        return PARENTHETICAL_BRACKETS.map(function (bracket) {
+	        return NORMAL_BRACKETS.map(function (bracket) {
 	            return new Convention_1.Convention({
 	                startsWith: startDelimiterNotFollowedByEndDelimiter(labeledBracketStartDelimiter(term, bracket), bracket.endPattern),
 	                startPatternContainsATerm: true,
 	                endsWith: bracket.endPattern,
 	                beforeOpeningItFlushesNonEmptyBufferToPlainTextToken: true,
-	                insteadOfOpeningNormalConventionsWhileOpen: function () { return _this.handleTextAwareOfTypographyAndRawParentheticalBrackets(); },
+	                insteadOfOpeningRegularConventionsWhileOpen: function () { return _this.handleTextAwareOfTypographyAndRawParentheticalBrackets(); },
 	                whenClosing: function () {
-	                    var snippetFromEntry = _this.flushBuffer().trim();
+	                    var snippetFromEntry = _this.flushBufferedContent().trim();
 	                    _this.appendNewToken(TokenRole_1.TokenRole.ReferenceToTableOfContentsEntry, snippetFromEntry);
 	                }
 	            });
@@ -11947,7 +11947,7 @@
 	        var _this = this;
 	        return CollectionHelpers_1.concat([MediaConventions_1.IMAGE, MediaConventions_1.VIDEO, MediaConventions_1.AUDIO].map(function (media) {
 	            var mediaTerm = media.term(_this.config.terms.markup);
-	            return PARENTHETICAL_BRACKETS.map(function (bracket) {
+	            return NORMAL_BRACKETS.map(function (bracket) {
 	                return new Convention_1.Convention({
 	                    startsWith: startDelimiterNotFollowedByEndDelimiter(labeledBracketStartDelimiter(mediaTerm, bracket), bracket.endPattern),
 	                    startPatternContainsATerm: true,
@@ -11963,14 +11963,14 @@
 	    };
 	    Tokenizer.prototype.getMediaUrlConventions = function () {
 	        var _this = this;
-	        return PARENTHETICAL_BRACKETS.map(function (bracket) { return new Convention_1.Convention({
+	        return NORMAL_BRACKETS.map(function (bracket) { return new Convention_1.Convention({
 	            startsWith: PatternPieces_1.ANY_WHITESPACE + _this.startPatternForBracketedUrlAssumedToBeAUrl(bracket),
 	            endsWith: bracket.endPattern,
 	            beforeOpeningItFlushesNonEmptyBufferToPlainTextToken: true,
 	            insteadOfClosingOuterConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
 	            whenClosing: function () {
-	                var url = _this.config.applySettingsToUrl(_this.flushBuffer());
+	                var url = _this.config.applySettingsToUrl(_this.flushBufferedContent());
 	                _this.appendNewToken(TokenRole_1.TokenRole.MediaEndAndUrl, url);
 	            }
 	        }); });
@@ -11980,7 +11980,7 @@
 	        var whenClosing = function (url) {
 	            _this.mostRecentToken.value = url;
 	        };
-	        return CollectionHelpers_1.concat(PARENTHETICAL_BRACKETS.map(function (bracket) { return [
+	        return CollectionHelpers_1.concat(NORMAL_BRACKETS.map(function (bracket) { return [
 	            _this.getConventionForBracketedUrl({ bracket: bracket, whenClosing: whenClosing }),
 	            _this.getConventionForBracketedUrlOffsetByWhitespace({ bracket: bracket, whenClosing: whenClosing })
 	        ]; }));
@@ -11994,7 +11994,7 @@
 	            RichConventions_1.NSFL,
 	            RichConventions_1.FOOTNOTE
 	        ].map(function (richConvention) { return richConvention.endTokenRole; });
-	        return CollectionHelpers_1.concat(PARENTHETICAL_BRACKETS.map(function (bracket) {
+	        return CollectionHelpers_1.concat(NORMAL_BRACKETS.map(function (bracket) {
 	            var argsForRichConventions = {
 	                bracket: bracket,
 	                canOnlyOpenIfDirectlyFollowing: LINKIFIABLE_RICH_CONVENTIONS,
@@ -12031,14 +12031,14 @@
 	            insteadOfClosingOuterConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
 	            whenClosing: function () {
-	                var url = _this.config.applySettingsToUrl(_this.flushBuffer());
+	                var url = _this.config.applySettingsToUrl(_this.flushBufferedContent());
 	                whenClosing(url);
 	            }
 	        });
 	    };
 	    Tokenizer.prototype.startPatternForBracketedUrlAssumedToBeAUrl = function (bracket) {
 	        return bracket.startPattern + PatternHelpers_1.notFollowedBy(PatternPieces_1.ANY_WHITESPACE
-	            + PatternHelpers_1.anyCharMatching(bracket.endPattern, PatternHelpers_1.escapeForRegex(Strings_1.ESCAPER_CHAR)));
+	            + PatternHelpers_1.anyCharMatching(bracket.endPattern, PatternHelpers_1.escapeForRegex(Strings_1.BACKSLASH)));
 	    };
 	    Tokenizer.prototype.getConventionForBracketedUrlOffsetByWhitespace = function (args) {
 	        var _this = this;
@@ -12047,12 +12047,12 @@
 	            canOnlyOpenIfDirectlyFollowing: canOnlyOpenIfDirectlyFollowing,
 	            startsWith: PatternPieces_1.SOME_WHITESPACE + bracket.startPattern + PatternHelpers_1.capture(PatternHelpers_1.either(EXPLICIT_URL_PREFIX, TOP_LEVEL_DOMAIN_WITH_AT_LEAST_ONE_SUBDOMAIN + PatternHelpers_1.either(PatternPieces_1.FORWARD_SLASH, PatternHelpers_1.followedBy(bracket.endPattern)))),
 	            endsWith: bracket.endPattern,
-	            whenOpening: function (_1, _2, urlPrefix) { _this.textBuffer += urlPrefix; },
+	            whenOpening: function (_1, _2, urlPrefix) { _this.bufferedContent += urlPrefix; },
 	            failsIfWhitespaceIsEnounteredBeforeClosing: true,
 	            insteadOfClosingOuterConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
 	            whenClosing: function (context) {
-	                var url = _this.config.applySettingsToUrl(_this.flushBuffer());
+	                var url = _this.config.applySettingsToUrl(_this.flushBufferedContent());
 	                if (_this.probablyWasNotIntendedToBeAUrl(url)) {
 	                    _this.backtrackToBeforeContext(context);
 	                }
@@ -12093,7 +12093,7 @@
 	    };
 	    Tokenizer.prototype.getRawParentheticalBracketConventions = function () {
 	        var _this = this;
-	        return PARENTHETICAL_BRACKETS.map(function (bracket) { return _this.getRawBracketConvention(bracket); });
+	        return NORMAL_BRACKETS.map(function (bracket) { return _this.getRawBracketConvention(bracket); });
 	    };
 	    Tokenizer.prototype.getRawCurlyBracketConvention = function () {
 	        return this.getRawBracketConvention(CURLY_BRACKET);
@@ -12103,8 +12103,8 @@
 	        return new Convention_1.Convention({
 	            startsWith: bracket.startPattern,
 	            endsWith: bracket.endPattern,
-	            whenOpening: function () { _this.textBuffer += bracket.open; },
-	            whenClosing: function () { _this.textBuffer += bracket.close; },
+	            whenOpening: function () { _this.bufferedContent += bracket.open; },
+	            whenClosing: function () { _this.bufferedContent += bracket.close; },
 	            insteadOfFailingWhenLeftUnclosed: function () { }
 	        });
 	    };
@@ -12128,14 +12128,19 @@
 	        });
 	    };
 	    Tokenizer.prototype.tokenize = function () {
-	        do {
-	            this.bufferContentThatCannotOpenOrCloseAnyConventions();
-	        } while (!this.isDone()
-	            && (this.tryToCollectEscapedChar()
+	        while (true) {
+	            this.bufferContentThatCanNeverServeAsDelimiter();
+	            if (this.isDone()) {
+	                break;
+	            }
+	            var didAnything = this.tryToEscapeCurrentChar()
 	                || this.tryToCloseAnyConvention()
 	                || this.performContextSpecificBehaviorInsteadOfTryingToOpenRegularConventions()
-	                || this.tryToOpenAnyConvention()
-	                || this.bufferCurrentChar()));
+	                || this.tryToOpenAnyConvention();
+	            if (!didAnything) {
+	                this.addCurrentCharOrStreakOfWhitespaceToContentBuffer();
+	            }
+	        }
 	    };
 	    Tokenizer.prototype.isDone = function () {
 	        return this.markupConsumer.done() && this.tryToResolveUnclosedContexts();
@@ -12155,29 +12160,40 @@
 	        }
 	        return true;
 	    };
-	    Tokenizer.prototype.tryToCollectEscapedChar = function () {
-	        if (this.markupConsumer.currentChar === Strings_1.ESCAPER_CHAR) {
-	            this.markupConsumer.index += 1;
-	            return this.markupConsumer.done() || this.bufferCurrentChar();
+	    Tokenizer.prototype.tryToEscapeCurrentChar = function () {
+	        if (this.markupConsumer.currentChar !== Strings_1.BACKSLASH) {
+	            return false;
 	        }
-	        return false;
+	        this.markupConsumer.index += 1;
+	        if (!this.markupConsumer.done()) {
+	            this.addCurrentCharToContentBuffer();
+	        }
+	        return true;
 	    };
-	    Tokenizer.prototype.bufferContentThatCannotOpenOrCloseAnyConventions = function () {
-	        var _this = this;
-	        var tryToBuffer = function (pattern) {
-	            return _this.markupConsumer.consume({
-	                pattern: pattern,
-	                thenBeforeConsumingText: function (match) { _this.textBuffer += match; }
-	            });
-	        };
+	    Tokenizer.prototype.bufferContentThatCanNeverServeAsDelimiter = function () {
 	        var canTryToBufferWhitespace = this.openContexts.every(function (context) {
 	            return !context.convention.isCutShortByWhitespace
 	                && !context.convention.failsIfWhitespaceIsEnounteredBeforeClosing;
 	        });
 	        do {
-	            tryToBuffer(CONTENT_WITH_NO_SPECIAL_MEANING);
+	            this.buffer(CONTENT_WITH_NO_SPECIAL_MEANING);
 	        } while (canTryToBufferWhitespace
-	            && tryToBuffer(WHITESPACE_THAT_NORMALLY_HAS_NO_SPECIAL_MEANING));
+	            && this.tryToBufferWhitespaceGuaranteedToBeRegularContent());
+	    };
+	    Tokenizer.prototype.tryToBufferWhitespaceGuaranteedToBeRegularContent = function () {
+	        var remainingMarkup = this.markupConsumer.remaining;
+	        var matchResult = LEADING_WHITESPACE.exec(remainingMarkup);
+	        if (!matchResult) {
+	            return false;
+	        }
+	        var leadingWhitespace = matchResult[0];
+	        var charFollowingLeadingWhitespace = remainingMarkup[leadingWhitespace.length];
+	        if (NORMAL_OPEN_BRACKET_PATTERN.test(charFollowingLeadingWhitespace)) {
+	            return false;
+	        }
+	        this.bufferedContent += leadingWhitespace;
+	        this.markupConsumer.index += leadingWhitespace.length;
+	        return true;
 	    };
 	    Tokenizer.prototype.tryToCloseAnyConvention = function () {
 	        for (var i = this.openContexts.length - 1; i >= 0; i--) {
@@ -12225,7 +12241,7 @@
 	            || this.tryToOpenSubsequentConventionRequiredBy(context));
 	    };
 	    Tokenizer.prototype.isCurrentCharWhitespace = function () {
-	        return WHITESPACE_CHAR_PATTERN.test(this.markupConsumer.currentChar);
+	        return Patterns_1.WHITESPACE_CHAR_PATTERN.test(this.markupConsumer.currentChar);
 	    };
 	    Tokenizer.prototype.tryToOpenSubsequentConventionRequiredBy = function (closedContext) {
 	        var _this = this;
@@ -12318,7 +12334,7 @@
 	                        handler.addOpenStartDelimiter(delimiter, _this.tokens.length);
 	                    }
 	                    else {
-	                        _this.textBuffer += delimiter;
+	                        _this.bufferedContent += delimiter;
 	                    }
 	                }
 	            });
@@ -12352,7 +12368,7 @@
 	        return this.markupConsumer.consume({
 	            pattern: EN_OR_EM_DASH_PATTERN,
 	            thenBeforeConsumingText: function (dashes) {
-	                _this.textBuffer +=
+	                _this.bufferedContent +=
 	                    dashes.length >= COUNT_DASHES_PER_EM_DASH
 	                        ? StringHelpers_1.repeat(EM_DASH, Math.floor(dashes.length / COUNT_DASHES_PER_EM_DASH))
 	                        : EN_DASH;
@@ -12364,7 +12380,7 @@
 	        return this.markupConsumer.consume({
 	            pattern: PLUS_MINUS_SIGN_PATTERN,
 	            thenBeforeConsumingText: function () {
-	                _this.textBuffer += '±';
+	                _this.bufferedContent += '±';
 	            }
 	        });
 	    };
@@ -12373,7 +12389,7 @@
 	        return this.markupConsumer.consume({
 	            pattern: ELLIPSIS_PATTERN,
 	            thenBeforeConsumingText: function () {
-	                _this.textBuffer += _this.config.ellipsis;
+	                _this.bufferedContent += _this.config.ellipsis;
 	            }
 	        });
 	    };
@@ -12381,10 +12397,26 @@
 	        this.tokens.push(token);
 	        this.mostRecentToken = token;
 	    };
-	    Tokenizer.prototype.bufferCurrentChar = function () {
-	        this.textBuffer += this.markupConsumer.currentChar;
+	    Tokenizer.prototype.addCurrentCharOrStreakOfWhitespaceToContentBuffer = function () {
+	        if (Patterns_1.WHITESPACE_CHAR_PATTERN.test(this.markupConsumer.currentChar)) {
+	            this.buffer(LEADING_WHITESPACE);
+	        }
+	        else {
+	            this.addCurrentCharToContentBuffer();
+	        }
+	    };
+	    Tokenizer.prototype.buffer = function (pattern) {
+	        var _this = this;
+	        this.markupConsumer.consume({
+	            pattern: pattern,
+	            thenBeforeConsumingText: function (match) {
+	                _this.bufferedContent += match;
+	            }
+	        });
+	    };
+	    Tokenizer.prototype.addCurrentCharToContentBuffer = function () {
+	        this.bufferedContent += this.markupConsumer.currentChar;
 	        this.markupConsumer.index += 1;
-	        return true;
 	    };
 	    Tokenizer.prototype.tryToOpen = function (convention) {
 	        var _this = this;
@@ -12417,7 +12449,7 @@
 	            tokens: this.tokens.slice(),
 	            openContexts: this.openContexts.map(function (context) { return context.clone(); }),
 	            inflectionHandlers: this.inflectionHandlers.map(function (handler) { return handler.clone(); }),
-	            textBuffer: this.textBuffer
+	            bufferedContent: this.bufferedContent
 	        };
 	    };
 	    Tokenizer.prototype.canTry = function (conventionToOpen) {
@@ -12435,7 +12467,7 @@
 	    };
 	    Tokenizer.prototype.isDirectlyFollowing = function (tokenRoles) {
 	        var _this = this;
-	        return (!this.textBuffer
+	        return (!this.bufferedContent
 	            && this.mostRecentToken
 	            && tokenRoles.some(function (tokenRole) { return _this.mostRecentToken.role === tokenRole; }));
 	    };
@@ -12443,7 +12475,7 @@
 	        this.failedConventionTracker.registerFailure(context);
 	        var snapshot = context.snapshot;
 	        this.tokens = snapshot.tokens;
-	        this.textBuffer = snapshot.textBuffer;
+	        this.bufferedContent = snapshot.bufferedContent;
 	        this.markupConsumer.index = snapshot.markupIndex;
 	        this.openContexts = snapshot.openContexts;
 	        this.inflectionHandlers = snapshot.inflectionHandlers;
@@ -12455,20 +12487,20 @@
 	        if (this.mostRecentToken.role !== TokenRole_1.TokenRole.BareUrl) {
 	            throw new Error('Most recent token is not a bare URL token');
 	        }
-	        this.mostRecentToken.value += this.flushBuffer();
+	        this.mostRecentToken.value += this.flushBufferedContent();
 	    };
-	    Tokenizer.prototype.flushBuffer = function () {
-	        var buffer = this.textBuffer;
-	        this.textBuffer = '';
+	    Tokenizer.prototype.flushBufferedContent = function () {
+	        var buffer = this.bufferedContent;
+	        this.bufferedContent = '';
 	        return buffer;
 	    };
 	    Tokenizer.prototype.flushNonEmptyBufferToToken = function (role) {
-	        if (this.textBuffer) {
-	            this.appendNewToken(role, this.flushBuffer());
+	        if (this.bufferedContent) {
+	            this.appendNewToken(role, this.flushBufferedContent());
 	        }
 	    };
 	    Tokenizer.prototype.flushBufferToToken = function (role) {
-	        this.appendNewToken(role, this.flushBuffer());
+	        this.appendNewToken(role, this.flushBufferedContent());
 	    };
 	    Tokenizer.prototype.insertToken = function (args) {
 	        var token = args.token, atIndex = args.atIndex;
@@ -12487,12 +12519,12 @@
 	        this.flushNonEmptyBufferToToken(TokenRole_1.TokenRole.PlainText);
 	    };
 	    Tokenizer.prototype.handleTextAwareOfRawBrackets = function () {
-	        this.tryToOpenRawParentheticalBracketConvention() || this.bufferCurrentChar();
+	        this.tryToOpenRawParentheticalBracketConvention() || this.addCurrentCharOrStreakOfWhitespaceToContentBuffer();
 	    };
 	    Tokenizer.prototype.handleTextAwareOfTypographyAndRawParentheticalBrackets = function () {
 	        this.tryToOpenRawParentheticalBracketConvention()
 	            || this.tryToTokenizeTypographicalConvention()
-	            || this.bufferCurrentChar();
+	            || this.addCurrentCharOrStreakOfWhitespaceToContentBuffer();
 	    };
 	    Tokenizer.prototype.tryToOpenRawParentheticalBracketConvention = function () {
 	        var _this = this;
@@ -12506,7 +12538,6 @@
 	function startDelimiterNotFollowedByEndDelimiter(startDelimiter, endDelimiter) {
 	    return startDelimiter + PatternHelpers_1.notFollowedBy(PatternPieces_1.ANY_WHITESPACE + endDelimiter);
 	}
-	var WHITESPACE_CHAR_PATTERN = new RegExp(PatternPieces_1.WHITESPACE_CHAR);
 	var NOT_FOLLOWED_BY_WHITESPACE = PatternHelpers_1.notFollowedBy(PatternPieces_1.WHITESPACE_CHAR);
 	var PERIOD = PatternHelpers_1.escapeForRegex('.');
 	var HYPHEN = PatternHelpers_1.escapeForRegex('-');
@@ -12524,10 +12555,10 @@
 	var BARE_URL_SCHEME = 'http' + PatternHelpers_1.optional('s') + '://';
 	var BARE_URL_SCHEME_AND_HOSTNAME = PatternHelpers_1.patternStartingWith(BARE_URL_SCHEME
 	    + PatternHelpers_1.everyOptional(URL_SUBDOMAIN) + URL_TOP_LEVEL_DOMAIN);
-	var PARENTHETICAL_BRACKET_START_PATTERNS = PARENTHETICAL_BRACKETS.map(function (bracket) { return bracket.startPattern; });
+	var NORMAL_OPEN_BRACKET_PATTERN = PatternHelpers_1.patternStartingWith(PatternHelpers_1.anyCharMatching.apply(void 0, NORMAL_BRACKETS.map(function (bracket) { return bracket.startPattern; })));
 	var ALL_BRACKETS = [PARENTHESIS, SQUARE_BRACKET, CURLY_BRACKET];
-	var BRACKET_START_PATTERNS = ALL_BRACKETS.map(function (bracket) { return bracket.startPattern; });
-	var BRACKET_END_PATTERNS = ALL_BRACKETS.map(function (bracket) { return bracket.endPattern; });
+	var OPEN_BRACKET_PATTERNS = ALL_BRACKETS.map(function (bracket) { return bracket.startPattern; });
+	var CLOSE_BRACKET_PATTERNS = ALL_BRACKETS.map(function (bracket) { return bracket.endPattern; });
 	var CHARACTERS_WITH_POTENTIAL_SPECIAL_MEANING = [
 	    PatternPieces_1.WHITESPACE_CHAR,
 	    PatternPieces_1.FORWARD_SLASH,
@@ -12538,9 +12569,9 @@
 	    '"',
 	    '_',
 	    '`'
-	].concat(BRACKET_START_PATTERNS, BRACKET_END_PATTERNS, [Strings_1.ESCAPER_CHAR, '*'].map(PatternHelpers_1.escapeForRegex));
+	].concat(OPEN_BRACKET_PATTERNS, CLOSE_BRACKET_PATTERNS, [Strings_1.BACKSLASH, '*'].map(PatternHelpers_1.escapeForRegex));
 	var CONTENT_WITH_NO_SPECIAL_MEANING = PatternHelpers_1.patternStartingWith(PatternHelpers_1.oneOrMore(PatternHelpers_1.either(PatternHelpers_1.anyCharNotMatching.apply(void 0, CHARACTERS_WITH_POTENTIAL_SPECIAL_MEANING), 'h' + PatternHelpers_1.notFollowedBy('ttp' + PatternHelpers_1.optional('s') + '://'), PERIOD + PatternHelpers_1.notFollowedBy(PERIOD), HYPHEN + PatternHelpers_1.notFollowedBy(HYPHEN), PLUS_SIGN + PatternHelpers_1.notFollowedBy(HYPHEN))));
-	var WHITESPACE_THAT_NORMALLY_HAS_NO_SPECIAL_MEANING = PatternHelpers_1.patternStartingWith(PatternPieces_1.SOME_WHITESPACE + PatternHelpers_1.notFollowedBy(PatternHelpers_1.anyCharMatching.apply(void 0, PARENTHETICAL_BRACKET_START_PATTERNS.concat([PatternPieces_1.WHITESPACE_CHAR]))));
+	var LEADING_WHITESPACE = PatternHelpers_1.patternStartingWith(PatternPieces_1.SOME_WHITESPACE);
 	//# sourceMappingURL=tokenize.js.map
 
 /***/ },
@@ -13192,7 +13223,7 @@
 	"use strict";
 	exports.INPUT_LINE_BREAK = '\n';
 	exports.OUTPUT_LINE_BREAK = exports.INPUT_LINE_BREAK;
-	exports.ESCAPER_CHAR = '\\';
+	exports.BACKSLASH = '\\';
 	//# sourceMappingURL=Strings.js.map
 
 /***/ },
@@ -13554,8 +13585,8 @@
 	        return false;
 	    };
 	    ConventionContext.prototype.doInsteadOfTryingToOpenRegularConventions = function () {
-	        if (this.convention.insteadOfOpeningNormalConventionsWhileOpen) {
-	            this.convention.insteadOfOpeningNormalConventionsWhileOpen(this);
+	        if (this.convention.insteadOfOpeningRegularConventionsWhileOpen) {
+	            this.convention.insteadOfOpeningRegularConventionsWhileOpen(this);
 	            return true;
 	        }
 	        return false;
@@ -13607,7 +13638,7 @@
 	        this.flushesBufferToPlainTextTokenBeforeOpening = args.beforeOpeningItFlushesNonEmptyBufferToPlainTextToken;
 	        this.whenOpening = args.whenOpening;
 	        this.insteadOfClosingOuterConventionsWhileOpen = args.insteadOfClosingOuterConventionsWhileOpen;
-	        this.insteadOfOpeningNormalConventionsWhileOpen = args.insteadOfOpeningNormalConventionsWhileOpen;
+	        this.insteadOfOpeningRegularConventionsWhileOpen = args.insteadOfOpeningRegularConventionsWhileOpen;
 	        this.failsIfWhitespaceIsEnounteredBeforeClosing = args.failsIfWhitespaceIsEnounteredBeforeClosing;
 	        this.beforeClosingItFlushesNonEmptyBufferTo = args.beforeClosingItFlushesNonEmptyBufferTo;
 	        this.beforeClosingItAlwaysFlushesBufferTo = args.beforeClosingItAlwaysFlushesBufferTo;
@@ -13799,21 +13830,29 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(15);
-	var PatternPieces_1 = __webpack_require__(14);
+	var Patterns_1 = __webpack_require__(16);
 	var Strings_1 = __webpack_require__(74);
 	function trimEscapedAndUnescapedOuterWhitespace(markup) {
-	    return markup
-	        .replace(ALL_LEADING_ESCAPED_AND_UNESCAPED_WHITESPACE_PATTERN, '')
-	        .replace(ALL_TRAILING_ESCAPED_AND_UNESCAPED_WHITESPACE_PATTERN, '');
+	    while (true) {
+	        markup = markup.trim();
+	        var length_1 = markup.length;
+	        var isFirstCharEscapingWhitespace = markup[0] === Strings_1.BACKSLASH
+	            && (markup.length === 1
+	                || Patterns_1.WHITESPACE_CHAR_PATTERN.test(markup[1]));
+	        if (isFirstCharEscapingWhitespace) {
+	            markup = markup.slice(2);
+	        }
+	        var secondToLastChar = markup[length_1 - 2];
+	        var lastChar = markup[length_1 - 1];
+	        if ((lastChar === Strings_1.BACKSLASH) && (secondToLastChar !== Strings_1.BACKSLASH)) {
+	            markup = markup.slice(0, -1);
+	        }
+	        if (markup.length === length_1) {
+	            return markup;
+	        }
+	    }
 	}
 	exports.trimEscapedAndUnescapedOuterWhitespace = trimEscapedAndUnescapedOuterWhitespace;
-	var ESCAPER = PatternHelpers_1.escapeForRegex(Strings_1.ESCAPER_CHAR);
-	var CHUNK_OF_POSSIBLY_ESCAPED_WHITESPACE = PatternHelpers_1.optional(ESCAPER) + PatternPieces_1.SOME_WHITESPACE;
-	var ALL_LEADING_ESCAPED_AND_UNESCAPED_WHITESPACE_PATTERN = PatternHelpers_1.patternStartingWith(PatternHelpers_1.oneOrMore(CHUNK_OF_POSSIBLY_ESCAPED_WHITESPACE));
-	var ALL_TRAILING_ESCAPED_AND_UNESCAPED_WHITESPACE_PATTERN = PatternHelpers_1.patternEndingWith(PatternPieces_1.WHITESPACE_CHAR
-	    + PatternHelpers_1.everyOptional(CHUNK_OF_POSSIBLY_ESCAPED_WHITESPACE)
-	    + PatternHelpers_1.optional(ESCAPER));
 	//# sourceMappingURL=trimEscapedAndUnescapedOuterWhitespace.js.map
 
 /***/ },
@@ -14551,27 +14590,28 @@
 	        return PatternHelpers_1.solelyAndIgnoringCapitalization(PatternHelpers_1.either.apply(void 0, labels.map(PatternHelpers_1.escapeForRegex)) + PatternHelpers_1.optional(':' + PatternHelpers_1.capture(PatternPieces_1.REST_OF_TEXT)));
 	    };
 	    var captionMarkup;
-	    var setRawCaptionContent = function (_, caption) {
+	    function setRawCaptionMarkup(_, caption) {
 	        captionMarkup = (caption || '').trim();
-	    };
+	    }
 	    var isTable = markupLineConsumer.consume({
 	        linePattern: getLabelPattern(config.terms.markup.table),
-	        thenBeforeConsumingLine: setRawCaptionContent
+	        thenBeforeConsumingLine: setRawCaptionMarkup
 	    });
 	    var isChart = !isTable && markupLineConsumer.consume({
 	        linePattern: getLabelPattern(config.terms.markup.chart),
-	        thenBeforeConsumingLine: setRawCaptionContent
+	        thenBeforeConsumingLine: setRawCaptionMarkup
 	    });
 	    if (!isTable && !isChart) {
 	        return false;
 	    }
+	    consumeBlankLine(markupLineConsumer);
 	    var headerCells;
-	    var hasHeader = !tryToTerminateTable(markupLineConsumer)
-	        && markupLineConsumer.consume({
-	            thenBeforeConsumingLine: function (line) {
-	                headerCells = getTableCells_1.getTableCells(line, config).map(toHeaderCell);
-	            }
-	        });
+	    var hasHeader = markupLineConsumer.consume({
+	        linePattern: Patterns_1.NON_BLANK_PATTERN,
+	        thenBeforeConsumingLine: function (line) {
+	            headerCells = getTableCells_1.getTableCells(line, config).map(toHeaderCell);
+	        }
+	    });
 	    if (!hasHeader) {
 	        return false;
 	    }
@@ -14583,28 +14623,26 @@
 	        ? new Table_1.Table.Caption(getInlineSyntaxNodes_1.getInlineSyntaxNodes(captionMarkup, config))
 	        : undefined;
 	    var rows = [];
-	    var countLinesConsumed;
-	    do {
+	    var countLinesConsumed = markupLineConsumer.countLinesConsumed;
+	    consumeBlankLine(markupLineConsumer);
+	    while (markupLineConsumer.consume({
+	        linePattern: Patterns_1.NON_BLANK_PATTERN,
+	        thenBeforeConsumingLine: function (line) {
+	            var cells = getTableCells_1.getTableCells(line, config);
+	            var rowHeaderCell = isChart
+	                ? toHeaderCell(cells.shift())
+	                : undefined;
+	            rows.push(new Table_1.Table.Row(cells.map(toRowCell), rowHeaderCell));
+	        }
+	    })) {
 	        countLinesConsumed = markupLineConsumer.countLinesConsumed;
-	    } while (!tryToTerminateTable(markupLineConsumer)
-	        && markupLineConsumer.consume({
-	            thenBeforeConsumingLine: function (line) {
-	                var cells = getTableCells_1.getTableCells(line, config);
-	                var rowHeaderCell = isChart
-	                    ? toHeaderCell(cells.shift())
-	                    : undefined;
-	                rows.push(new Table_1.Table.Row(cells.map(toRowCell), rowHeaderCell));
-	            }
-	        }));
+	    }
 	    args.then([new Table_1.Table(header, rows, caption)], countLinesConsumed);
 	    return true;
 	}
 	exports.tryToParseTableOrChart = tryToParseTableOrChart;
-	function tryToTerminateTable(markupLineConsumer) {
-	    function consumeBlankLine() {
-	        return markupLineConsumer.consume({ linePattern: Patterns_1.BLANK_PATTERN });
-	    }
-	    return consumeBlankLine() && consumeBlankLine();
+	function consumeBlankLine(markupLineConsumer) {
+	    return markupLineConsumer.consume({ linePattern: Patterns_1.BLANK_PATTERN });
 	}
 	var toHeaderCell = function (cell) {
 	    return new Table_1.Table.Header.Cell(cell.children, cell.countColumnsSpanned);
@@ -14649,7 +14687,7 @@
 	    }
 	    for (; charIndex < row.length; charIndex++) {
 	        var char = row[charIndex];
-	        if (char === Strings_1.ESCAPER_CHAR) {
+	        if (char === Strings_1.BACKSLASH) {
 	            charIndex++;
 	            continue;
 	        }
@@ -14842,12 +14880,12 @@
 	"use strict";
 	var InlineUpDocument_1 = __webpack_require__(106);
 	var getInlineSyntaxNodes_1 = __webpack_require__(50);
-	function parseInlineDocument(markup, config) {
+	function parseInline(markup, config) {
 	    var children = getInlineSyntaxNodes_1.getInlineSyntaxNodesForInlineDocument(markup, config);
 	    return new InlineUpDocument_1.InlineUpDocument(children);
 	}
-	exports.parseInlineDocument = parseInlineDocument;
-	//# sourceMappingURL=parseInlineDocument.js.map
+	exports.parseInline = parseInline;
+	//# sourceMappingURL=parseInline.js.map
 
 /***/ },
 /* 106 */
@@ -15495,7 +15533,7 @@
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "[image: Up's logo, a smiling boy triumphantly holding a crayon] (example.com/logo.svg)\n\n\n################################################\nUp (easily write structured content for the web)\n################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts Up documents into HTML. This website uses that software library! And so could any website that wants to provide an easy way for users to contribute structured content.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to write and read, not for computers to process and parse.\n\n\n- Up *supports [highlight: overlapping* styles]\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  For more information, see [topic: overlapping styles].\n\n- Up makes tables outrageously easy\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n  \n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy\n  1;      Tackle;       Normal;   50;     100%\n  3;      Growl;        Normal;   ;       100%\n  7;      Leech Seed;   Grass;    ;       90%\n  9;      Vine Whip;    Grass;    45;     100%\n\n  For more information, see [topic: tables]. \n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Up helps you reference various sections in your document\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~\n\n  `````\n  For more information, see [topic: internal links].\n  `````\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example), and Up handles the rest.\n\n  For more information, see [topic: internal links].\n\n- Up is truly, actually, honestly readable\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! For more information, see [topic: custom terms].\n\n- Up produces fully accessible HTML\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nWait! No one likes feeling lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks on either side.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If you intend the reader to raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks on either side.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors use italics instead of quotation marks.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores on either side.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you merely want to highlight text, see [topic: highlights]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores on either side.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. Up recognizes the following bullet characters:\n\n  - Asterisks `*`\n  - Hyphens `-`\n  - Actual bullet characters `•`\n\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  List items can be followed by single blank lines. This does not affect the list:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.  \n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~="
+	module.exports = "################################################\nUp (easily write structured content for the web)\n################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured documents in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to read and write, not for computers to process and parse. At every turn, Up offers convenience for humans.\n\n\n- Up lets you overlap styles\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  However, Up **supports [highlight: overlapping** styles]!\n\n  Even if you are content to nest your styles within one another, this feature helps if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].\n\n- Up supports outrageously easy tables\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~ \n\n  You'll want to use them everywhere.\n\n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy\n  1;      Tackle;       Normal;   50;     100%\n  3;      Growl;        Normal;   ;       100%\n  7;      Leech Seed;   Grass;    ;       90%\n  9;      Vine Whip;    Grass;    45;     100%\n\n  For more information, see [topic: tables]. \n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Linking to another section in your document is simple\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Markup\n    ````\n    For more information, see [topic: internal links].\n    ````\n\n  Output\n    For more information, see [topic: internal links].\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example).\n  \n  Up figures out which section you want to reference, and automatically produces a link to that section.\n\n- Up is actually readable in plain text\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: custom terms].\n\n- Up produces fully accessible HTML\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nDon't get lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If the reader should raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors also use italics for unfamiliar foreign words.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. The following characters can serve as a bullet:\n\n  - An asterisks: `*`\n  - A hyphen: `-`\n  - An actual bullet character: `•`\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Each list item can be followed by a single blank line. This has no impact on the list itself:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.\n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n\n\n\n  ####################\n  Using the Up Library\n  ####################\n\n\n  Configuration\n  =============\n  \n  Custom terms\n  =~=~=~=~=~=~\n\n  Terms found in markup\n  ~~~~~~~~~~~~~~~~~~~~~\n\n  You can provide unlimited variations for each markup term.\n  \n  Even when you provide custom term variations, Up always recognizes the defaults---they're never \"overwritten\".\n\n  For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.\n\n  Example\n    ````\n    const document = Up.parse(markup, {\n      terms: {\n        markup: {\n          audio: [\"sound\", \"song\"],\n          highlight: \"mark\"\n        }\n      }\n    })\n    ````\n\n  Discussion\n    In the above example, the `audio` term has two custom variations: `\"sound\"` and `\"song\"`. The audio convention will recognize both of those variations, plus the default: `\"audio\"`.\n\n    The `highlight` term has a single custom variation: `\"mark\"`. The highlighting convention will recognize that variation, plus the default: `\"highlight\"`.\n\n  \n  Okay! Let's get right to the terms!\n\n\n  `audio`\n    Convention\n      [topic: Audio]\n\n    Usage\n      ````\n      const document = Up.parse(markup, {\n        terms: {\n          markup: { audio: [\"sound\", \"song\"] }\n        }\n      })\n      ````\n\n    Default\n      `[\"audio\"]`\n\n        \n\n\n  \n\n"
 
 /***/ }
 /******/ ]);
