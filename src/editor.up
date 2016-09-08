@@ -6,27 +6,31 @@ Up (easily write structured content for the web)
 ################################################
 
 
-Up is a set of [highlight: human-friendly conventions] for writing structured content in plain text. This entire document was written in Up.
+Up is a set of [highlight: human-friendly conventions] for writing structured documents in plain text. This entire document was written in Up.
 
-For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts Up documents into HTML. This website uses that software library! And so could any website that wants to provide an easy way for users to contribute structured content.
+For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML.
 
 
 What's so good about Up?
 ========================
 
-Up is designed for humans to write and read, not for computers to process and parse.
+Up is designed for humans to read and write, not for computers to process and parse. At every turn, Up tries to offer convenience for humans.
 
 
-- Up *supports [highlight: overlapping* styles]
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+- Up lets you overlap styles
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=
 
   Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
-  For more information, see [topic: overlapping styles].
+  However, Up **supports [highlight: overlapping** styles]!
 
-- Up makes tables outrageously easy
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-  
+  Even if you are content to nest your styles within one another, this feature helps if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].
+
+- Up supports outrageously easy tables
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~ 
+
+  You'll want to use them everywhere.
+
   Table: Moves learned by the Pokémon Bulbasaur
 
   Level;  Move;         Type;     Power;  Accuracy
@@ -44,25 +48,29 @@ Up is designed for humans to write and read, not for computers to process and pa
 
   For more information, see [topic: footnotes].
 
-- Up helps you reference various sections in your document
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+- Linking to another section in your document is simple
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 
-  `````
-  For more information, see [topic: internal links].
-  `````
+  Markup
+    ````
+    For more information, see [topic: internal links].
+    ````
 
-  That's all it takes! Simply reference snippet of a text from the section's title ("internal links", in the above example), and Up handles the rest.
+  Output
+    For more information, see [topic: internal links].
 
-  For more information, see [topic: internal links].
+  That's all it takes! Simply reference snippet of a text from the section's title ("internal links", in the above example).
+  
+  Up figures out which section you want to reference, and automatically produces a link to that section.
 
-- Up is truly, actually, honestly readable
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+- Up is actually readable in plain text
+  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 
   Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
 
   When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.
 
-  These markup terms are fully customizable! For more information, see [topic: custom terms].
+  These markup terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: custom terms].
 
 - Up produces fully accessible HTML
   =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
@@ -76,7 +84,7 @@ Writing conventions (the rules and syntax of Up)
 ################################################
 
 
-Wait! No one likes feeling lost! The following terms are occasionally used in this section:
+Don't get lost! The following terms are occasionally used in this section:
 
 Inline convention
   Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. 
@@ -104,7 +112,7 @@ Example
     Only eat the *green* grapes. The red grapes are for Pikachu.
 
 Syntax
-  To emphasize text, enclose it within single asterisks on either side.
+  To emphasize text, enclose it within single asterisks.
   
 Notes
   Emphasized text is rendered using the `<em>` HTML element.
@@ -117,7 +125,7 @@ Stress
 Purpose
   Use the stress convention to indicate a word or phrase is particularly important.
 
-  If you intend the reader to raise their voice while reading a word or phrase, consider stressing it.
+  If the reader should raise their voice while reading a word or phrase, consider stressing it.
 
 Example
   Markup
@@ -129,7 +137,7 @@ Example
     Do **not** step on the dinosaur!
 
 Syntax
-  To stress text, enclose it within double asterisks on either side.
+  To stress text, enclose it within double asterisks.
   
 Notes
   Stressed text is rendered using the `<strong>` HTML element.
@@ -142,7 +150,7 @@ Italics
 Purpose
   Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
   
-  Some authors use italics instead of quotation marks.
+  Some authors also use italics for unfamiliar foreign words.
 
 Example
   Markup
@@ -154,7 +162,7 @@ Example
     My favorite video game is _Chrono Cross_.
 
 Syntax
-  To italicize text, enclose it within single underscores on either side.
+  To italicize text, enclose it within single underscores.
   
 Notes
   Italics are rendered using the `<i>` HTML element.
@@ -169,7 +177,7 @@ Purpose
   
   This convention should be used rarely. Usually, there's a more appropriate convention!
   
-  If you merely want to highlight text, see [topic: highlights]. If you want to indicate the importance of a word of phrase, see [topic: stress].
+  If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].
 
 Example
   Markup
@@ -181,7 +189,7 @@ Example
     Has anyone actually used  __KABOOM__ cleaning products? 
 
 Syntax
-  To make text bold, enclose it within double underscores on either side.
+  To make text bold, enclose it within double underscores.
   
 Notes
   Bold text is rendered using the `<b>` HTML element.
@@ -294,7 +302,7 @@ Example
     In HTML, you probably shouldn't use the `<font>` element.
 
 Syntax
-  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
+  To indicate text is a fragment of computer code, surround it with an equal number of backticks on either side.
 
   Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!
 
@@ -484,17 +492,16 @@ Syntax
   Bullets
   =~=~=~=~=~=~=~=~=
 
-  Each item in a bulleted list starts with a bullet followed by a space. Up recognizes the following bullet characters:
+  Each item in a bulleted list starts with a bullet followed by a space. The following characters can serve as a bullet:
 
-  - Asterisks `*`
-  - Hyphens `-`
-  - Actual bullet characters `•`
-
+  - An asterisks: `*`
+  - A hyphen: `-`
+  - An actual bullet character: `•`
 
   Spacing between list items
   =~=~=~=~=~=~=~=~=~=~=~=~=~=
 
-  List items can be followed by single blank lines. This does not affect the list:
+  Each list item can be followed by a single blank line. This has no impact on the list itself:
 
   Markup
     ````
@@ -512,7 +519,7 @@ Syntax
 
     - Buy happiness
 
-  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.  
+  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.
 
     Markup
     ````
