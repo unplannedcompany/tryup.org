@@ -557,7 +557,7 @@ Syntax
   Terms found in markup
   ~~~~~~~~~~~~~~~~~~~~~
 
-  You can provide unlimited variations for each markup term.
+  Markup terms are always case-insensitive, and you can provide unlimited variations for each one.
   
   Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
 
@@ -576,32 +576,215 @@ Syntax
     ````
 
   Discussion
-    In the above example, the `audio` term has two custom variations: `"sound"` and `"song"`. The audio convention will recognize both of those variations, plus the default: `"audio"`.
+    In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
 
-    The `highlight` term has a single custom variation: `"mark"`. The highlighting convention will recognize that variation, plus the default: `"highlight"`.
+    The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
 
   
   Okay! Let's get right to the terms!
 
 
-  `audio`
-    Convention
-      [topic: Audio]
+------------
+`audio` term
+------------
 
-    Usage
-      ````
-      const document = Up.parse(markup, {
-        terms: {
-          markup: { audio: ["sound", "song"] }
-        }
-      })
-      ````
+Convention
+  [topic: Audio]
 
-    Default
-      `["audio"]`
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { audio: ["sound", "song"] }
+    }
+  })
+  ````
 
-        
+Default
+  "audio"
 
 
-  
+------------
+`chart` term
+------------
+
+Convention
+  [topic: Charts]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { chart: ["data", "figure"] }
+    }
+  })
+  ````
+
+Default
+  "chart"
+
+
+----------------
+`highlight` term
+----------------
+
+Convention
+  [topic: Highlighting]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { highlight: ["mark", "spotlight"] }
+    }
+  })
+  ````
+
+Default
+  "highlight"
+
+
+------------
+`image` term
+------------
+
+Convention
+  [topic: Images]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { image: ["picture", "pic"] }
+    }
+  })
+  ````
+
+Default
+  "image" and "img"
+
+
+-----------
+`nsfl` term
+-----------
+
+Convention
+  [topic: NSFL]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { nsfl: ["horrible", "vile"] }
+    }
+  })
+  ````
+
+Default
+  "nsfl"
+
+
+-----------
+`nsfw` term
+-----------
+
+Convention
+  [topic: NSFW]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { nsfw: ["nudity", "inappropriate"] }
+    }
+  })
+  ````
+
+Default
+  "nsfw"
+
+
+--------------------------------------
+`referenceToTableOfContentsEntry` term
+--------------------------------------
+
+Convention
+  [topic: Internal links]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { referenceToTableOfContentsEntry: ["reference", "heading"] }
+    }
+  })
+  ````
+
+Default
+  "topic" and "section"
+
+
+--------------
+`spoiler` term
+--------------
+
+Convention
+  [topic: Spoilers]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { spoiler: ["ending", "reveal"] }
+    }
+  })
+  ````
+
+Default
+  "spoiler"
+
+
+--------------
+`table` term
+--------------
+
+Convention
+  [topic: Tables]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { table: ["data", "figure"] }
+    }
+  })
+  ````
+
+Default
+  "table"
+
+
+--------------
+`video` term
+--------------
+
+Convention
+  [topic: Video]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    terms: {
+      markup: { video: ["movie", "clip"] }
+    }
+  })
+  ````
+
+Default
+  "video" and "vid"
+
+    
+
+
+
 
