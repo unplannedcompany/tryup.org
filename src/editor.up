@@ -704,9 +704,9 @@ Default
   "nsfw"
 
 
---------------------------------------
-`referenceToTableOfContentsEntry` term
---------------------------------------
+------------------
+`sectionLink` term
+------------------
 
 Convention
   [topic: Internal links]
@@ -715,7 +715,7 @@ Usage
   ````
   const config = {
     terms: {
-      markup: { referenceToTableOfContentsEntry: ["reference", "heading"] }
+      markup: { sectionLink: ["reference", "heading"] }
     }
   }
   ````
@@ -804,7 +804,7 @@ Usage
   ````
   const config = {
     terms: {
-      output: {
+      rendered: {
         footnote: "fn"
       }
     }
@@ -828,7 +828,7 @@ Usage
   ````
   const config = {
     terms: {
-      output: {
+      rendered: {
         footnoteReference: "fn ref"
       }
     }
@@ -839,9 +839,9 @@ Default
   "footnote reference"
 
 
----------------------------------------
-`itemReferencedByTableOfContents` term
---------------------------------------
+-----------------------------------------
+`sectionReferencedByTableOfContents` term
+-----------------------------------------
 
 Purpose
   This term does not appear in content of the document, but it does appear in the URLs of headings referenced by the table of contents.
@@ -852,8 +852,8 @@ Usage
   ````
   const config = {
     terms: {
-      output: {
-        itemReferencedByTableOfContents: "heading"
+      rendered: {
+        sectionReferencedByTableOfContents: "item"
       }
     }
   }
@@ -874,7 +874,7 @@ Usage
   ````
   const config = {
     terms: {
-      output: {
+      rendered: {
         tableOfContents: "In This Article"
       }
     }
@@ -896,7 +896,7 @@ Usage
   ````
   const config = {
     terms: {
-      output: {
+      rendered: {
         toggleNsfl: "Ruin me"
       }
     }
@@ -918,7 +918,7 @@ Usage
   ````
   const config = {
     terms: {
-      output: {
+      rendered: {
         toggleNsfw: "I'm a grownup"
       }
     }
@@ -940,7 +940,7 @@ Usage
   ````
   const config = {
     terms: {
-      output: {
+      rendered: {
         toggleSpoiler: "Ruin it"
       }
     }
