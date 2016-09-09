@@ -565,14 +565,14 @@ Syntax
 
   Example
     ````
-    const document = Up.parse(markup, {
+    const config = {
       terms: {
         markup: {
           audio: ["sound", "song"],
           highlight: "mark"
         }
       }
-    })
+    }
     ````
 
   Discussion
@@ -593,11 +593,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { audio: ["sound", "song"] }
     }
-  })
+  }
   ````
 
 Default
@@ -613,11 +613,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { chart: ["data", "figure"] }
     }
-  })
+  }
   ````
 
 Default
@@ -633,11 +633,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { highlight: ["mark", "spotlight"] }
     }
-  })
+  }
   ````
 
 Default
@@ -653,11 +653,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { image: ["picture", "pic"] }
     }
-  })
+  }
   ````
 
 Default
@@ -673,11 +673,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { nsfl: ["horrible", "vile"] }
     }
-  })
+  }
   ````
 
 Default
@@ -693,11 +693,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { nsfw: ["nudity", "inappropriate"] }
     }
-  })
+  }
   ````
 
 Default
@@ -713,11 +713,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { referenceToTableOfContentsEntry: ["reference", "heading"] }
     }
-  })
+  }
   ````
 
 Default
@@ -733,11 +733,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { spoiler: ["ending", "reveal"] }
     }
-  })
+  }
   ````
 
 Default
@@ -753,11 +753,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { table: ["data", "figure"] }
     }
-  })
+  }
   ````
 
 Default
@@ -773,11 +773,11 @@ Convention
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const config = {
     terms: {
       markup: { video: ["movie", "clip"] }
     }
-  })
+  }
   ````
 
 Default
@@ -785,6 +785,168 @@ Default
 
     
 
+Terms appearing in the rendered document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The terms appearing in the rendered document are fully customizable. You don't need to worry about escaping anything for HTML---Up handles that for you.
 
 
+---------------
+`footnote` term
+---------------
+
+Purpose
+  This term does not appear in content of the document, but it does appear in the URLs of footnote definitions (e.g. footnotes in their respective footnote blocks).
+  
+  If this term contains any spaces, they are automatically converted to hyphens.
+
+Usage
+  ````
+  const config = {
+    terms: {
+      output: {
+        footnote: "fn"
+      }
+    }
+  }
+  ````
+
+Default
+  "footnote"
+
+
+------------------------
+`footnoteReference` term
+------------------------
+
+Purpose
+  This term does not appear in content of the document, but it does appear in the URLs of footnote references (e.g. the superscripts within paragraphs).
+  
+  If this term contains any spaces, they are automatically converted to hyphens.
+
+Usage
+  ````
+  const config = {
+    terms: {
+      output: {
+        footnoteReference: "fn ref"
+      }
+    }
+  }
+  ````
+
+Default
+  "footnote reference"
+
+
+---------------------------------------
+`itemReferencedByTableOfContents` term
+--------------------------------------
+
+Purpose
+  This term does not appear in content of the document, but it does appear in the URLs of headings referenced by the table of contents.
+  
+  If this term contains any spaces, they are automatically converted to hyphens.
+
+Usage
+  ````
+  const config = {
+    terms: {
+      output: {
+        itemReferencedByTableOfContents: "heading"
+      }
+    }
+  }
+  ````
+
+Default
+  "topic"
+
+
+----------------------
+`tableOfContents` term
+----------------------
+
+Purpose
+  This term appears at the top of the table of contents.
+
+Usage
+  ````
+  const config = {
+    terms: {
+      output: {
+        tableOfContents: "In This Article"
+      }
+    }
+  }
+  ````
+
+Default
+  "Table of Contents"
+
+
+-----------------
+`toggleNsfl` term
+-----------------
+
+Purpose
+  This term appears on the button that toggles the visibility of NSFL content.
+
+Usage
+  ````
+  const config = {
+    terms: {
+      output: {
+        toggleNsfl: "Ruin me"
+      }
+    }
+  }
+  ````
+
+Default
+  "toggle NSFL"
+
+
+-----------------
+`toggleNsfw` term
+-----------------
+
+Purpose
+  This term appears on the button that toggles the visibility of NSFW content.
+
+Usage
+  ````
+  const config = {
+    terms: {
+      output: {
+        toggleNsfw: "I'm a grownup"
+      }
+    }
+  }
+  ````
+
+Default
+  "toggle NSFW"
+
+
+--------------------
+`toggleSpoiler` term
+--------------------
+
+Purpose
+  This term appears on the button that toggles the visibility of spoiler content.
+
+Usage
+  ````
+  const config = {
+    terms: {
+      output: {
+        toggleSpoiler: "Ruin it"
+      }
+    }
+  }
+  ````
+
+Default
+  "toggle spoiiler"
 
