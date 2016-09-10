@@ -26,7 +26,7 @@ function refreshSourceMappedElements(documentContainer) {
 
 export default function configureEditor(editorContainer, documentContainer, tableOfContentsContainer) {
   const codeMirror = CodeMirror(editorContainer, {
-    value: require('./editor.up'),
+    value: require('./documentation.up'),
     lineNumbers: true,
     lineWrapping: true
   })
