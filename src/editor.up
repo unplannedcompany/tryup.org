@@ -543,45 +543,147 @@ Syntax
 
 
 
-  ####################
-  Using the Up Library
-  ####################
+####################
+Using the Up library
+####################
 
 
-  Configuration
-  =============
+Configuration
+=============
+
+-------------------------------------
+Source mapping with `createSourceMap`
+-------------------------------------
+
+Summary
+  When this setting is enabled, each outline syntax node is associated with the first line of markup that produced it.
   
-  Custom terms
-  =~=~=~=~=~=~
+  This document uses source mapping to synchronize the scrolling between itself and its markup.
 
-  Terms found in markup
-  ~~~~~~~~~~~~~~~~~~~~~
+Usage
+  ````
+  const settings = {
+    parsing: {
+      createSourceMap: true
+    }Ï
+  }
+  ````
 
-  Markup terms are always case-insensitive, and you can provide unlimited variations for each one.
+Details
+  This settings works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.
+
+  When these syntax nodes are rendered to HTML, the HTML elements they produce each have a `data-up-source-line` attribute set the appropriate line number.
+
+Default
+  `false`
+
+
+--------------------------------------
+Avoiding ID collisions with `idPrefix`
+--------------------------------------
+
+Summary
+  If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
+
+  By default, `idPrefix` is "up" to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string. 
+
+Usage
+  ````
+  const settings = {
+    rendering: {
+      idPrefix: 'article'
+    }
+  }
+  ````
+
+Details
+  You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
+
   
-  Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
 
-  For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
+Default
+  "up"
 
-  Example
-    ````
-    const config = {
+
+------------------------------------
+Using custom elipses with `idPrefix`
+------------------------------------
+
+Summary
+  If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
+
+  By default, `idPrefix` is "up" to prevent ID collisions with any HTML elements *not* rendered by Up. If you don't want an ID prefix, you can set `idPrefix` to an empty string. 
+
+Usage
+  ````
+  const settings = {
+    rendering: {
+      idPrefix: 'article'
+    }
+  }
+  ````
+
+Details
+  You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
+
+Default
+  "up"
+
+
+-----------------------------------------------
+Living dangerously with `renderDangerousContent`
+-----------------------------------------------
+
+Summary
+  Normally, Up will not render links or media elements with potentially exploitable URI schemes (`javascript`, `vbscript`, `data`, and `file`).
+
+  When this setting is enabled, Up will dutifully render all links and media elements.
+
+Usage
+  ````
+  const settings = {
+    rendering: {
+      renderDangerousContent: true
+    }
+  }
+  ````
+
+Details
+  By default, unsafe media elements produce no HTML. Unsafe links produce no HTML of their own, though their child elements are rendered.
+
+Default
+  `false`
+
+
+
+Custom terms
+=~=~=~=~=~=~
+
+Terms found in markup
+~~~~~~~~~~~~~~~~~~~~~
+
+Markup terms are always case-insensitive, and you can provide unlimited variations for each one.
+
+Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
+
+For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
+
+Example
+  ````
+  const settings = {
+    parsing: {
       terms: {
-        markup: {
-          audio: ["sound", "song"],
-          highlight: "mark"
-        }
+        audio: ["sound", "song"],
+        highlight: "mark"
       }
     }
-    ````
+  }
+  ````
 
-  Discussion
-    In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
+Discussion
+  In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
 
-    The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
-
-  
-  Okay! Let's get right to the terms!
+  The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
 
 
 ------------
@@ -593,9 +695,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { audio: ["sound", "song"] }
+  const settings = {
+    parsing: {
+      terms: { audio: ["sound", "song"] }
     }
   }
   ````
@@ -613,9 +715,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { chart: ["data", "figure"] }
+  const settings = {
+    parsing: {
+      terms: { chart: ["data", "figure"] }
     }
   }
   ````
@@ -633,9 +735,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { highlight: ["mark", "spotlight"] }
+  const settings = {
+    parsing: {
+      terms: { highlight: ["mark", "spotlight"] }
     }
   }
   ````
@@ -653,9 +755,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { image: ["picture", "pic"] }
+  const settings = {
+    parsing: {
+      terms: { image: ["picture", "pic"] }
     }
   }
   ````
@@ -673,9 +775,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { nsfl: ["horrible", "vile"] }
+  const settings = {
+    parsing: {
+      terms: { nsfl: ["horrible", "vile"] }
     }
   }
   ````
@@ -693,9 +795,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { nsfw: ["nudity", "inappropriate"] }
+  const settings = {
+    parsing: {
+      terms: { nsfw: ["nudity", "inappropriate"] }
     }
   }
   ````
@@ -713,9 +815,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { sectionLink: ["reference", "heading"] }
+  const settings = {
+    parsing: {
+      terms: { sectionLink: ["reference", "heading"] }
     }
   }
   ````
@@ -733,9 +835,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { spoiler: ["ending", "reveal"] }
+  const settings = {
+    parsing: {
+      terms: { spoiler: ["ending", "reveal"] }
     }
   }
   ````
@@ -753,9 +855,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { table: ["data", "figure"] }
+  const settings = {
+    parsing: {
+      terms: { table: ["data", "figure"] }
     }
   }
   ````
@@ -773,9 +875,9 @@ Convention
 
 Usage
   ````
-  const config = {
-    terms: {
-      markup: { video: ["movie", "clip"] }
+  const settings = {
+    parsing: {
+      terms: { video: ["movie", "clip"] }
     }
   }
   ````
@@ -783,7 +885,7 @@ Usage
 Default
   "video" and "vid"
 
-    
+
 
 Terms appearing in the rendered document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -802,9 +904,9 @@ Purpose
 
 Usage
   ````
-  const config = {
-    terms: {
-      rendered: {
+  const settings = {
+    rendering: {
+      terms: {
         footnote: "fn"
       }
     }
@@ -826,9 +928,9 @@ Purpose
 
 Usage
   ````
-  const config = {
-    terms: {
-      rendered: {
+  const settings = {
+    rendering: {
+      terms: {
         footnoteReference: "fn ref"
       }
     }
@@ -850,9 +952,9 @@ Purpose
 
 Usage
   ````
-  const config = {
-    terms: {
-      rendered: {
+  const settings = {
+    rendering: {
+      terms: {
         sectionReferencedByTableOfContents: "item"
       }
     }
@@ -872,9 +974,9 @@ Purpose
 
 Usage
   ````
-  const config = {
-    terms: {
-      rendered: {
+  const settings = {
+    rendering: {
+      terms: {
         tableOfContents: "In This Article"
       }
     }
@@ -894,9 +996,9 @@ Purpose
 
 Usage
   ````
-  const config = {
-    terms: {
-      rendered: {
+  const settings = {
+    rendering: {
+      terms: {
         toggleNsfl: "Ruin me"
       }
     }
@@ -916,9 +1018,9 @@ Purpose
 
 Usage
   ````
-  const config = {
-    terms: {
-      rendered: {
+  const settings = {
+    rendering: {
+      terms: {
         toggleNsfw: "I'm a grownup"
       }
     }
@@ -938,9 +1040,9 @@ Purpose
 
 Usage
   ````
-  const config = {
-    terms: {
-      rendered: {
+  const settings = {
+    rendering: {
+      terms: {
         toggleSpoiler: "Ruin it"
       }
     }

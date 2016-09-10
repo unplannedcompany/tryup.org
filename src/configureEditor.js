@@ -50,9 +50,9 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
   const debouncedRender = debounce(codeMirror => {
     const markup = codeMirror.getValue()
     const { documentHtml, tableOfContentsHtml } =
-      Up.renderHtmlForDocumentAndTableOfContents(
+      Up.parseAndRenderDocumentAndTableOfContents(
         markup, {
-          createSourceMap: true
+          parsing: { createSourceMap: true }
         })
 
     documentContainer.innerHTML = documentHtml

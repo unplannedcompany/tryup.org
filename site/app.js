@@ -564,12 +564,12 @@
 	  var debouncedRender = (0, _debounce2.default)(function (codeMirror) {
 	    var markup = codeMirror.getValue();
 
-	    var _Up$renderHtmlForDocu = _writeUp.Up.renderHtmlForDocumentAndTableOfContents(markup, {
-	      createSourceMap: true
+	    var _Up$parseAndRenderDoc = _writeUp.Up.parseAndRenderDocumentAndTableOfContents(markup, {
+	      parsing: { createSourceMap: true }
 	    });
 
-	    var documentHtml = _Up$renderHtmlForDocu.documentHtml;
-	    var tableOfContentsHtml = _Up$renderHtmlForDocu.tableOfContentsHtml;
+	    var documentHtml = _Up$parseAndRenderDoc.documentHtml;
+	    var tableOfContentsHtml = _Up$parseAndRenderDoc.tableOfContentsHtml;
 
 
 	    documentContainer.innerHTML = documentHtml;
@@ -9790,73 +9790,104 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Config_1 = __webpack_require__(13);
+	var Settings_1 = __webpack_require__(13);
 	var parse_1 = __webpack_require__(18);
 	var parseInline_1 = __webpack_require__(105);
 	var HtmlRenderer_1 = __webpack_require__(107);
 	var Up = (function () {
 	    function Up(settings) {
-	        this.config = new Config_1.Config(settings);
+	        this.settings = new Settings_1.Settings(settings);
 	    }
-	    Up.prototype.parse = function (markup, extraSettings) {
-	        return parse_1.parse(markup, this.config.withChanges(extraSettings));
+	    Up.prototype.parseAndRender = function (markup, extraSettings) {
+	        var _a = getParsingAndRenderingSettings(extraSettings), parsing = _a.parsing, rendering = _a.rendering;
+	        var document = this.parse(markup, parsing);
+	        return this.render(document, rendering);
 	    };
-	    Up.prototype.parseInline = function (markup, extraSettings) {
-	        return parseInline_1.parseInline(markup, this.config.withChanges(extraSettings));
+	    Up.prototype.parseAndRenderDocumentAndTableOfContents = function (markup, extraSettings) {
+	        var _a = getParsingAndRenderingSettings(extraSettings), parsing = _a.parsing, rendering = _a.rendering;
+	        var document = this.parse(markup, parsing);
+	        return this.renderDocumentAndTableOfContents(document, rendering);
 	    };
-	    Up.prototype.renderHtml = function (markupOrDocument, extraSettings) {
-	        var htmlRenderer = this.getHtmlRenderer(extraSettings);
-	        return htmlRenderer.document(this.getDocument(markupOrDocument, extraSettings));
+	    Up.prototype.parseAndRenderInline = function (markup, extraSettings) {
+	        var _a = getParsingAndRenderingSettings(extraSettings), parsing = _a.parsing, rendering = _a.rendering;
+	        var inlineDocument = this.parseInline(markup, parsing);
+	        return this.renderInline(inlineDocument, rendering);
 	    };
-	    Up.prototype.renderHtmlForDocumentAndTableOfContents = function (markupOrDocument, extraSettings) {
-	        var htmlRenderer = this.getHtmlRenderer(extraSettings);
-	        var document = this.getDocument(markupOrDocument, extraSettings);
+	    Up.prototype.parse = function (markup, extraParsingSettings) {
+	        return parse_1.parse(markup, this.getParsingConfig(extraParsingSettings));
+	    };
+	    Up.prototype.parseInline = function (markup, extraParsingSettings) {
+	        return parseInline_1.parseInline(markup, this.getParsingConfig(extraParsingSettings));
+	    };
+	    Up.prototype.render = function (document, extraRenderingSettings) {
+	        var htmlRenderer = this.getHtmlRenderer(extraRenderingSettings);
+	        return htmlRenderer.renderDocument(document);
+	    };
+	    Up.prototype.renderDocumentAndTableOfContents = function (document, extraRenderingSettings) {
+	        var htmlRenderer = this.getHtmlRenderer(extraRenderingSettings);
 	        return {
-	            documentHtml: htmlRenderer.document(document),
-	            tableOfContentsHtml: htmlRenderer.tableOfContents(document.tableOfContents)
+	            documentHtml: htmlRenderer.renderDocument(document),
+	            tableOfContentsHtml: htmlRenderer.renderTableOfContents(document.tableOfContents)
 	        };
 	    };
-	    Up.prototype.renderInlineHtml = function (markupOrInlineDocument, extraSettings) {
-	        var inlineDocument = typeof markupOrInlineDocument === 'string'
-	            ? this.parseInline(markupOrInlineDocument, extraSettings)
-	            : markupOrInlineDocument;
-	        return this.getHtmlRenderer(extraSettings).document(inlineDocument);
+	    Up.prototype.renderInline = function (inlineDocument, extraRenderingSettings) {
+	        var htmlRenderer = this.getHtmlRenderer(extraRenderingSettings);
+	        return htmlRenderer.renderInlineDocument(inlineDocument);
 	    };
-	    Up.prototype.getDocument = function (markupOrDocument, extraSettings) {
-	        return typeof markupOrDocument === 'string'
-	            ? this.parse(markupOrDocument, extraSettings)
-	            : markupOrDocument;
+	    Up.prototype.getParsingConfig = function (changes) {
+	        return this.settings.withChanges({ parsing: changes }).parsing;
 	    };
-	    Up.prototype.getHtmlRenderer = function (extraSettings) {
-	        return new HtmlRenderer_1.HtmlRenderer(this.config.withChanges(extraSettings));
+	    Up.prototype.getRenderingConfig = function (changes) {
+	        return this.settings.withChanges({ rendering: changes }).rendering;
+	    };
+	    Up.prototype.getHtmlRenderer = function (extraRenderingSettings) {
+	        return new HtmlRenderer_1.HtmlRenderer(this.getRenderingConfig(extraRenderingSettings));
 	    };
 	    return Up;
 	}());
 	exports.Up = Up;
+	function getParsingAndRenderingSettings(settings) {
+	    return settings || {
+	        parsing: null,
+	        rendering: null
+	    };
+	}
 	var Up;
 	(function (Up) {
 	    var defaultUp = new Up();
-	    function parse(markup, settings) {
-	        return defaultUp.parse(markup, settings);
+	    function parseAndRender(markup, settings) {
+	        return defaultUp.parseAndRender(markup, settings);
+	    }
+	    Up.parseAndRender = parseAndRender;
+	    function parseAndRenderDocumentAndTableOfContents(markup, settings) {
+	        return defaultUp.parseAndRenderDocumentAndTableOfContents(markup, settings);
+	    }
+	    Up.parseAndRenderDocumentAndTableOfContents = parseAndRenderDocumentAndTableOfContents;
+	    function parseAndRenderInline(markup, settings) {
+	        return defaultUp.parseAndRenderInline(markup, settings);
+	    }
+	    Up.parseAndRenderInline = parseAndRenderInline;
+	    function parse(markup, parsingSettings) {
+	        return defaultUp.parse(markup, parsingSettings);
 	    }
 	    Up.parse = parse;
-	    function parseInline(markup, settings) {
-	        return defaultUp.parseInline(markup, settings);
+	    function parseInline(markup, parsingSettings) {
+	        return defaultUp.parseInline(markup, parsingSettings);
 	    }
 	    Up.parseInline = parseInline;
-	    function renderHtml(markupOrDocument, settings) {
-	        return defaultUp.renderHtml(markupOrDocument, settings);
+	    function render(document, renderingSettings) {
+	        return defaultUp.render(document, renderingSettings);
 	    }
-	    Up.renderHtml = renderHtml;
-	    function renderHtmlForDocumentAndTableOfContents(markupOrDocument, settings) {
-	        return defaultUp.renderHtmlForDocumentAndTableOfContents(markupOrDocument, settings);
+	    Up.render = render;
+	    function renderDocumentAndTableOfContents(document, renderingSettings) {
+	        return defaultUp.renderDocumentAndTableOfContents(document, renderingSettings);
 	    }
-	    Up.renderHtmlForDocumentAndTableOfContents = renderHtmlForDocumentAndTableOfContents;
-	    function renderInlineHtml(markupOrInlineDocument, settings) {
-	        return defaultUp.renderInlineHtml(markupOrInlineDocument, settings);
+	    Up.renderDocumentAndTableOfContents = renderDocumentAndTableOfContents;
+	    function renderInline(inlineDocument, renderingSettings) {
+	        return defaultUp.renderInline(inlineDocument, renderingSettings);
 	    }
-	    Up.renderInlineHtml = renderInlineHtml;
-	    Up.VERSION = '18.0.0';
+	    Up.renderInline = renderInline;
+	    Up.VERSION = '19.0.0';
 	})(Up = exports.Up || (exports.Up = {}));
 	//# sourceMappingURL=Up.js.map
 
@@ -9868,94 +9899,85 @@
 	var PatternPieces_1 = __webpack_require__(14);
 	var Patterns_1 = __webpack_require__(16);
 	var CollectionHelpers_1 = __webpack_require__(17);
-	var Config = (function () {
-	    function Config(settings) {
-	        this.createSourceMap = false;
-	        this.renderUnsafeContent = false;
-	        this.idPrefix = 'up';
-	        this.ellipsis = '…';
-	        this.terms = new Config.Terms();
-	        this.defaultUrlScheme = 'https://';
-	        this.baseForUrlsStartingWithSlash = '';
-	        this.baseForUrlsStartingWithHashMark = '';
-	        if (settings) {
-	            this.applyUserProvidedSettings(settings);
-	        }
+	var Settings = (function () {
+	    function Settings(settings) {
+	        this.parsing = new Settings.Parsing();
+	        this.rendering = new Settings.Rendering();
+	        this.applyUserProvidedSettings(settings);
 	    }
-	    Config.prototype.applySettingsToUrl = function (url) {
-	        url = url.trim();
-	        switch (url[0]) {
-	            case PatternPieces_1.FORWARD_SLASH:
-	                return this.baseForUrlsStartingWithSlash + url;
-	            case PatternPieces_1.HASH_MARK:
-	                return this.baseForUrlsStartingWithHashMark + url;
-	        }
-	        return (Patterns_1.URL_SCHEME_PATTERN.test(url)
-	            ? url
-	            : this.defaultUrlScheme + url);
-	    };
-	    Config.prototype.withChanges = function (changes) {
-	        var clone = new Config();
-	        clone.createSourceMap = this.createSourceMap;
-	        clone.renderUnsafeContent = this.renderUnsafeContent;
-	        clone.idPrefix = this.idPrefix;
-	        clone.ellipsis = this.ellipsis;
-	        clone.defaultUrlScheme = this.defaultUrlScheme;
-	        clone.baseForUrlsStartingWithSlash = this.baseForUrlsStartingWithSlash;
-	        clone.baseForUrlsStartingWithHashMark = this.baseForUrlsStartingWithHashMark;
-	        clone.terms = this.terms.clone();
-	        if (changes) {
-	            clone.applyUserProvidedSettings(changes);
-	        }
+	    Settings.prototype.withChanges = function (changes) {
+	        var clone = new Settings();
+	        clone.parsing = this.parsing.clone();
+	        clone.rendering = this.rendering.clone();
+	        clone.applyUserProvidedSettings(changes);
 	        return clone;
 	    };
-	    Config.prototype.applyUserProvidedSettings = function (settings) {
-	        this.createSourceMap =
-	            CollectionHelpers_1.coalesce(settings.createSourceMap, this.createSourceMap);
-	        this.renderUnsafeContent =
-	            CollectionHelpers_1.coalesce(settings.renderUnsafeContent, this.renderUnsafeContent);
-	        this.idPrefix =
-	            CollectionHelpers_1.coalesce(settings.idPrefix, this.idPrefix);
-	        this.ellipsis =
-	            CollectionHelpers_1.coalesce(settings.ellipsis, this.ellipsis);
-	        this.defaultUrlScheme =
-	            CollectionHelpers_1.coalesce(settings.defaultUrlScheme, this.defaultUrlScheme);
-	        this.baseForUrlsStartingWithSlash =
-	            CollectionHelpers_1.coalesce(settings.baseForUrlsStartingWithSlash, this.baseForUrlsStartingWithSlash);
-	        this.baseForUrlsStartingWithHashMark =
-	            CollectionHelpers_1.coalesce(settings.baseForUrlsStartingWithHashMark, this.baseForUrlsStartingWithHashMark);
-	        this.terms.applyUserProvidedSettings(settings.terms);
-	    };
-	    return Config;
-	}());
-	exports.Config = Config;
-	var Config;
-	(function (Config) {
-	    var Terms = (function () {
-	        function Terms() {
-	            this.markup = new Terms.Markup();
-	            this.rendered = new Terms.Rendered();
+	    Settings.prototype.applyUserProvidedSettings = function (settings) {
+	        if (!settings) {
+	            return;
 	        }
-	        Terms.prototype.clone = function () {
-	            var clone = new Terms();
-	            clone.markup = this.markup.clone();
-	            clone.rendered = this.rendered.clone();
+	        this.parsing.applyUserProvidedSettings(settings.parsing);
+	        this.rendering.applyUserProvidedSettings(settings.rendering);
+	    };
+	    return Settings;
+	}());
+	exports.Settings = Settings;
+	var Settings;
+	(function (Settings) {
+	    var Parsing = (function () {
+	        function Parsing() {
+	            this.createSourceMap = false;
+	            this.fancyEllipsis = '…';
+	            this.terms = new Parsing.Terms();
+	            this.defaultUrlScheme = 'https://';
+	            this.baseForUrlsStartingWithSlash = '';
+	            this.baseForUrlsStartingWithHashMark = '';
+	        }
+	        Parsing.prototype.clone = function () {
+	            var clone = new Parsing();
+	            clone.createSourceMap = this.createSourceMap;
+	            clone.fancyEllipsis = this.fancyEllipsis;
+	            clone.defaultUrlScheme = this.defaultUrlScheme;
+	            clone.baseForUrlsStartingWithSlash = this.baseForUrlsStartingWithSlash;
+	            clone.baseForUrlsStartingWithHashMark = this.baseForUrlsStartingWithHashMark;
+	            clone.terms = this.terms.clone();
 	            return clone;
 	        };
-	        Terms.prototype.applyUserProvidedSettings = function (terms) {
-	            if (!terms) {
+	        Parsing.prototype.applyUserProvidedSettings = function (settings) {
+	            if (!settings) {
 	                return;
 	            }
-	            this.markup.applyUserProvidedSettings(terms.markup);
-	            this.rendered.applyUserProvidedSettings(terms.rendered);
+	            this.createSourceMap =
+	                CollectionHelpers_1.coalesce(settings.createSourceMap, this.createSourceMap);
+	            this.fancyEllipsis =
+	                CollectionHelpers_1.coalesce(settings.fancyEllipsis, this.fancyEllipsis);
+	            this.defaultUrlScheme =
+	                CollectionHelpers_1.coalesce(settings.defaultUrlScheme, this.defaultUrlScheme);
+	            this.baseForUrlsStartingWithSlash =
+	                CollectionHelpers_1.coalesce(settings.baseForUrlsStartingWithSlash, this.baseForUrlsStartingWithSlash);
+	            this.baseForUrlsStartingWithHashMark =
+	                CollectionHelpers_1.coalesce(settings.baseForUrlsStartingWithHashMark, this.baseForUrlsStartingWithHashMark);
+	            this.terms.applyUserProvidedSettings(settings.terms);
 	        };
-	        return Terms;
+	        Parsing.prototype.applySettingsToUrl = function (url) {
+	            url = url.trim();
+	            switch (url[0]) {
+	                case PatternPieces_1.FORWARD_SLASH:
+	                    return this.baseForUrlsStartingWithSlash + url;
+	                case PatternPieces_1.HASH_MARK:
+	                    return this.baseForUrlsStartingWithHashMark + url;
+	            }
+	            return (Patterns_1.URL_SCHEME_PATTERN.test(url)
+	                ? url
+	                : this.defaultUrlScheme + url);
+	        };
+	        return Parsing;
 	    }());
-	    Config.Terms = Terms;
-	    var Terms;
-	    (function (Terms) {
-	        var Markup = (function () {
-	            function Markup() {
+	    Settings.Parsing = Parsing;
+	    var Parsing;
+	    (function (Parsing) {
+	        var Terms = (function () {
+	            function Terms() {
 	                this._audio = [];
 	                this._chart = [];
 	                this._highlight = [];
@@ -9967,78 +9989,78 @@
 	                this._table = [];
 	                this._video = [];
 	            }
-	            Object.defineProperty(Markup.prototype, "audio", {
+	            Object.defineProperty(Terms.prototype, "audio", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['audio'].concat(this._audio));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "chart", {
+	            Object.defineProperty(Terms.prototype, "chart", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['chart'].concat(this._chart));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "highlight", {
+	            Object.defineProperty(Terms.prototype, "highlight", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['highlight'].concat(this._highlight));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "image", {
+	            Object.defineProperty(Terms.prototype, "image", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['image', 'img'].concat(this._image));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "nsfl", {
+	            Object.defineProperty(Terms.prototype, "nsfl", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['nsfl'].concat(this._nsfl));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "nsfw", {
+	            Object.defineProperty(Terms.prototype, "nsfw", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['nsfw'].concat(this._nsfw));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "sectionLink", {
+	            Object.defineProperty(Terms.prototype, "sectionLink", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['section', 'topic'].concat(this._sectionLink));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "spoiler", {
+	            Object.defineProperty(Terms.prototype, "spoiler", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['spoiler'].concat(this._spoiler));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "table", {
+	            Object.defineProperty(Terms.prototype, "table", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['table'].concat(this._table));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Object.defineProperty(Markup.prototype, "video", {
+	            Object.defineProperty(Terms.prototype, "video", {
 	                get: function () {
 	                    return CollectionHelpers_1.distinct.apply(void 0, ['video', 'vid'].concat(this._video));
 	                },
 	                enumerable: true,
 	                configurable: true
 	            });
-	            Markup.prototype.clone = function () {
-	                var clone = new Markup();
+	            Terms.prototype.clone = function () {
+	                var clone = new Terms();
 	                clone._audio = this._audio;
 	                clone._chart = this._chart;
 	                clone._highlight = this._highlight;
@@ -10051,7 +10073,7 @@
 	                clone._video = this._video;
 	                return clone;
 	            };
-	            Markup.prototype.applyUserProvidedSettings = function (terms) {
+	            Terms.prototype.applyUserProvidedSettings = function (terms) {
 	                if (!terms) {
 	                    return;
 	                }
@@ -10076,11 +10098,40 @@
 	                this._video =
 	                    sanitizeVariations(terms.video);
 	            };
-	            return Markup;
+	            return Terms;
 	        }());
-	        Terms.Markup = Markup;
-	        var Rendered = (function () {
-	            function Rendered() {
+	        Parsing.Terms = Terms;
+	    })(Parsing = Settings.Parsing || (Settings.Parsing = {}));
+	    var Rendering = (function () {
+	        function Rendering() {
+	            this.idPrefix = 'up';
+	            this.renderDangerousContent = false;
+	            this.terms = new Rendering.Terms();
+	        }
+	        Rendering.prototype.clone = function () {
+	            var clone = new Rendering();
+	            clone.idPrefix = this.idPrefix;
+	            clone.renderDangerousContent = this.renderDangerousContent;
+	            clone.terms = this.terms.clone();
+	            return clone;
+	        };
+	        Rendering.prototype.applyUserProvidedSettings = function (settings) {
+	            if (!settings) {
+	                return;
+	            }
+	            this.idPrefix =
+	                CollectionHelpers_1.coalesce(settings.idPrefix, this.idPrefix);
+	            this.renderDangerousContent =
+	                CollectionHelpers_1.coalesce(settings.renderDangerousContent, this.renderDangerousContent);
+	            this.terms.applyUserProvidedSettings(settings.terms);
+	        };
+	        return Rendering;
+	    }());
+	    Settings.Rendering = Rendering;
+	    var Rendering;
+	    (function (Rendering) {
+	        var Terms = (function () {
+	            function Terms() {
 	                this.footnote = 'footnote';
 	                this.footnoteReference = 'footnote reference';
 	                this.sectionReferencedByTableOfContents = 'topic';
@@ -10089,8 +10140,8 @@
 	                this.toggleNsfw = 'toggle NSFW';
 	                this.toggleSpoiler = 'toggle spoiler';
 	            }
-	            Rendered.prototype.clone = function () {
-	                var clone = new Rendered();
+	            Terms.prototype.clone = function () {
+	                var clone = new Terms();
 	                clone.footnote = this.footnote;
 	                clone.footnoteReference = this.footnoteReference;
 	                clone.sectionReferencedByTableOfContents = this.sectionReferencedByTableOfContents;
@@ -10100,7 +10151,7 @@
 	                clone.toggleSpoiler = this.toggleSpoiler;
 	                return clone;
 	            };
-	            Rendered.prototype.applyUserProvidedSettings = function (terms) {
+	            Terms.prototype.applyUserProvidedSettings = function (terms) {
 	                if (!terms) {
 	                    return;
 	                }
@@ -10119,11 +10170,11 @@
 	                this.toggleSpoiler =
 	                    CollectionHelpers_1.coalesce(terms.toggleSpoiler, this.toggleSpoiler);
 	            };
-	            return Rendered;
+	            return Terms;
 	        }());
-	        Terms.Rendered = Rendered;
-	    })(Terms = Config.Terms || (Config.Terms = {}));
-	})(Config = exports.Config || (exports.Config = {}));
+	        Rendering.Terms = Terms;
+	    })(Rendering = Settings.Rendering || (Settings.Rendering = {}));
+	})(Settings = exports.Settings || (exports.Settings = {}));
 	function sanitizeVariations(variations) {
 	    if (variations == null) {
 	        return [];
@@ -10134,7 +10185,7 @@
 	        .filter(function (variation) { return !!variation; });
 	    return CollectionHelpers_1.distinct.apply(void 0, normalizedVariations);
 	}
-	//# sourceMappingURL=Config.js.map
+	//# sourceMappingURL=Settings.js.map
 
 /***/ },
 /* 14 */
@@ -10362,12 +10413,12 @@
 	var HeadingLeveler_1 = __webpack_require__(44);
 	var getOutlineSyntaxNodes_1 = __webpack_require__(45);
 	var Strings_1 = __webpack_require__(74);
-	function parse(markup, config) {
+	function parse(markup, settings) {
 	    var children = getOutlineSyntaxNodes_1.getOutlineSyntaxNodes({
 	        markupLines: markup.split(Strings_1.INPUT_LINE_BREAK),
 	        sourceLineNumber: 1,
 	        headingLeveler: new HeadingLeveler_1.HeadingLeveler(),
-	        config: config
+	        settings: settings
 	    });
 	    return UpDocument_1.UpDocument.create(children);
 	}
@@ -11436,8 +11487,8 @@
 	var Patterns_1 = __webpack_require__(16);
 	var CollectionHelpers_1 = __webpack_require__(17);
 	function getOutlineSyntaxNodes(args) {
-	    var markupLines = args.markupLines, headingLeveler = args.headingLeveler, config = args.config;
-	    var terms = config.terms;
+	    var markupLines = args.markupLines, headingLeveler = args.headingLeveler, settings = args.settings;
+	    var terms = settings.terms;
 	    var outlineConventions = [
 	        tryToParseBlankLineSeparation_1.tryToParseBlankLineSeparation,
 	        tryToParseUnorderedList_1.tryToParseUnorderedList,
@@ -11447,9 +11498,9 @@
 	        tryToParseCodeBlock_1.tryToParseCodeBlock,
 	        tryToParseBlockquote_1.tryToParseBlockquote,
 	        tryToParseTableOrChart_1.tryToParseTableOrChart,
-	        getLabeledBlockParser_1.getLabeledBlockParser(terms.markup.spoiler, SpoilerBlock_1.SpoilerBlock),
-	        getLabeledBlockParser_1.getLabeledBlockParser(terms.markup.nsfw, NsfwBlock_1.NsfwBlock),
-	        getLabeledBlockParser_1.getLabeledBlockParser(terms.markup.nsfl, NsflBlock_1.NsflBlock),
+	        getLabeledBlockParser_1.getLabeledBlockParser(terms.spoiler, SpoilerBlock_1.SpoilerBlock),
+	        getLabeledBlockParser_1.getLabeledBlockParser(terms.nsfw, NsfwBlock_1.NsfwBlock),
+	        getLabeledBlockParser_1.getLabeledBlockParser(terms.nsfl, NsflBlock_1.NsflBlock),
 	        tryToParseDescriptionList_1.tryToParseDescriptionList
 	    ];
 	    var markupWithoutLeadingBlankLines = withoutLeadingBlankLines(markupLines);
@@ -11464,9 +11515,9 @@
 	            markupLines: markupLineConsumer.remaining(),
 	            sourceLineNumber: sourceLineNumber,
 	            headingLeveler: headingLeveler,
-	            config: config,
+	            settings: settings,
 	            then: function (newNodes, countLinesConsumed) {
-	                if (config.createSourceMap) {
+	                if (settings.createSourceMap) {
 	                    for (var _i = 0, newNodes_1 = newNodes; _i < newNodes_1.length; _i++) {
 	                        var node = newNodes_1[_i];
 	                        node.sourceLineNumber = sourceLineNumber;
@@ -11654,11 +11705,11 @@
 	                underline = line;
 	            }
 	        })
-	        && !isLineFancyOutlineConvention_1.isLineFancyOutlineConvention(contentMarkup, args.config));
+	        && !isLineFancyOutlineConvention_1.isLineFancyOutlineConvention(contentMarkup, args.settings));
 	    if (!hasContentAndUnderline) {
 	        return false;
 	    }
-	    var children = getInlineSyntaxNodes_1.getInlineSyntaxNodes(contentMarkup, args.config);
+	    var children = getInlineSyntaxNodes_1.getInlineSyntaxNodes(contentMarkup, args.settings);
 	    var level = args.headingLeveler.registerHeadingAndGetLevel(underline, optionalOverline);
 	    args.then([new Heading_1.Heading(children, { level: level })], markupLineConsumer.countLinesConsumed);
 	    return true;
@@ -11673,12 +11724,12 @@
 	"use strict";
 	var tokenize_1 = __webpack_require__(51);
 	var parse_1 = __webpack_require__(86);
-	function getInlineSyntaxNodes(markup, config) {
-	    return parse_1.parse(tokenize_1.tokenize(markup, config));
+	function getInlineSyntaxNodes(markup, settings) {
+	    return parse_1.parse(tokenize_1.tokenize(markup, settings));
 	}
 	exports.getInlineSyntaxNodes = getInlineSyntaxNodes;
-	function getInlineSyntaxNodesForInlineDocument(markup, config) {
-	    return parse_1.parse(tokenize_1.tokenizeForInlineDocument(markup, config));
+	function getInlineSyntaxNodesForInlineDocument(markup, settings) {
+	    return parse_1.parse(tokenize_1.tokenizeForInlineDocument(markup, settings));
 	}
 	exports.getInlineSyntaxNodesForInlineDocument = getInlineSyntaxNodesForInlineDocument;
 	//# sourceMappingURL=getInlineSyntaxNodes.js.map
@@ -11707,12 +11758,12 @@
 	var Convention_1 = __webpack_require__(82);
 	var InflectionHandler_1 = __webpack_require__(83);
 	var trimEscapedAndUnescapedOuterWhitespace_1 = __webpack_require__(85);
-	function tokenize(markup, config) {
-	    return new Tokenizer(markup, config).result;
+	function tokenize(markup, settings) {
+	    return new Tokenizer(markup, settings).result;
 	}
 	exports.tokenize = tokenize;
-	function tokenizeForInlineDocument(markup, config) {
-	    var result = (new Tokenizer(markup, config, { isTokenizingInlineDocument: true })).result;
+	function tokenizeForInlineDocument(markup, settings) {
+	    var result = (new Tokenizer(markup, settings, { isTokenizingInlineDocument: true })).result;
 	    return result;
 	}
 	exports.tokenizeForInlineDocument = tokenizeForInlineDocument;
@@ -11724,9 +11775,9 @@
 	];
 	var CURLY_BRACKET = new Bracket_1.Bracket('{', '}');
 	var Tokenizer = (function () {
-	    function Tokenizer(markup, config, options) {
+	    function Tokenizer(markup, settings, options) {
 	        var _this = this;
-	        this.config = config;
+	        this.settings = settings;
 	        this.bufferedContent = '';
 	        this.tokens = [];
 	        this.openContexts = [];
@@ -11771,16 +11822,16 @@
 	        this.conventions = CollectionHelpers_1.concat([
 	            {
 	                richConvention: RichConventions_1.HIGHLIGHT,
-	                term: this.config.terms.markup.highlight
+	                term: this.settings.terms.highlight
 	            }, {
 	                richConvention: RichConventions_1.SPOILER,
-	                term: this.config.terms.markup.spoiler
+	                term: this.settings.terms.spoiler
 	            }, {
 	                richConvention: RichConventions_1.NSFW,
-	                term: this.config.terms.markup.nsfw
+	                term: this.settings.terms.nsfw
 	            }, {
 	                richConvention: RichConventions_1.NSFL,
-	                term: this.config.terms.markup.nsfl
+	                term: this.settings.terms.nsfl
 	            }
 	        ].map(function (args) { return _this.getConventionsForLabeledRichBrackets(args); })).concat(this.getMediaDescriptionConventions(), (isTokenizingInlineDocument
 	            ? this.getFootnoteConventionsForInlineDocuments()
@@ -11928,7 +11979,7 @@
 	    };
 	    Tokenizer.prototype.getInternalTopicLinkConventions = function () {
 	        var _this = this;
-	        var term = this.config.terms.markup.sectionLink;
+	        var term = this.settings.terms.sectionLink;
 	        return NORMAL_BRACKETS.map(function (bracket) {
 	            return new Convention_1.Convention({
 	                startsWith: startDelimiterNotFollowedByEndDelimiter(labeledBracketStartDelimiter(term, bracket), bracket.endPattern),
@@ -11946,7 +11997,7 @@
 	    Tokenizer.prototype.getMediaDescriptionConventions = function () {
 	        var _this = this;
 	        return CollectionHelpers_1.concat([MediaConventions_1.IMAGE, MediaConventions_1.VIDEO, MediaConventions_1.AUDIO].map(function (media) {
-	            var mediaTerm = media.term(_this.config.terms.markup);
+	            var mediaTerm = media.term(_this.settings.terms);
 	            return NORMAL_BRACKETS.map(function (bracket) {
 	                return new Convention_1.Convention({
 	                    startsWith: startDelimiterNotFollowedByEndDelimiter(labeledBracketStartDelimiter(mediaTerm, bracket), bracket.endPattern),
@@ -11970,7 +12021,7 @@
 	            insteadOfClosingOuterConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
 	            whenClosing: function () {
-	                var url = _this.config.applySettingsToUrl(_this.flushBufferedContent());
+	                var url = _this.settings.applySettingsToUrl(_this.flushBufferedContent());
 	                _this.appendNewToken(TokenRole_1.TokenRole.MediaEndAndUrl, url);
 	            }
 	        }); });
@@ -12031,7 +12082,7 @@
 	            insteadOfClosingOuterConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
 	            whenClosing: function () {
-	                var url = _this.config.applySettingsToUrl(_this.flushBufferedContent());
+	                var url = _this.settings.applySettingsToUrl(_this.flushBufferedContent());
 	                whenClosing(url);
 	            }
 	        });
@@ -12052,7 +12103,7 @@
 	            insteadOfClosingOuterConventionsWhileOpen: function () { return _this.handleTextAwareOfRawBrackets(); },
 	            whenClosingItAlsoClosesInnerConventions: true,
 	            whenClosing: function (context) {
-	                var url = _this.config.applySettingsToUrl(_this.flushBufferedContent());
+	                var url = _this.settings.applySettingsToUrl(_this.flushBufferedContent());
 	                if (_this.probablyWasNotIntendedToBeAUrl(url)) {
 	                    _this.backtrackToBeforeContext(context);
 	                }
@@ -12389,7 +12440,7 @@
 	        return this.markupConsumer.consume({
 	            pattern: ELLIPSIS_PATTERN,
 	            thenBeforeConsumingText: function () {
-	                _this.bufferedContent += _this.config.ellipsis;
+	                _this.bufferedContent += _this.settings.fancyEllipsis;
 	            }
 	        });
 	    };
@@ -14130,13 +14181,13 @@
 	];
 	var DUMMY_HEADING_LEVELER = new HeadingLeveler_1.HeadingLeveler();
 	var DUMMY_SOURCE_LINE_NUMBER = 1;
-	function isLineFancyOutlineConvention(markupLine, config) {
+	function isLineFancyOutlineConvention(markupLine, settings) {
 	    var markupLines = [markupLine];
 	    return OUTLINE_CONVENTIONS_POSSIBLY_ONE_LINE_LONG.some(function (parse) { return parse({
 	        markupLines: markupLines,
+	        settings: settings,
 	        sourceLineNumber: DUMMY_SOURCE_LINE_NUMBER,
 	        headingLeveler: DUMMY_HEADING_LEVELER,
-	        config: config,
 	        then: function () { }
 	    }); });
 	}
@@ -14182,7 +14233,7 @@
 	            markupLines: linesOfMarkupInCurrentListItem,
 	            sourceLineNumber: sourceLineNumberForCurrentListItem,
 	            headingLeveler: args.headingLeveler,
-	            config: args.config
+	            settings: args.settings
 	        })));
 	        if (shouldTerminateList) {
 	            return "break";
@@ -14309,7 +14360,7 @@
 	            markupLines: unparsedListItem.markupLines,
 	            sourceLineNumber: unparsedListItem.sourceLineNumber,
 	            headingLeveler: args.headingLeveler,
-	            config: args.config
+	            settings: args.settings
 	        });
 	        var ordinal = getExplicitOrdinal(unparsedListItem);
 	        return new OrderedList_1.OrderedList.Item(itemChildren, { ordinal: ordinal });
@@ -14372,7 +14423,7 @@
 	        markupLines: blockquotedLines,
 	        sourceLineNumber: sourceLineNumber,
 	        headingLeveler: headingLeveler,
-	        config: args.config
+	        settings: args.settings
 	    });
 	    args.then([new Blockquote_1.Blockquote(blockquoteChildren)], markupLineConsumer.countLinesConsumed);
 	    return true;
@@ -14510,7 +14561,7 @@
 	        while (!markupLineConsumer.done()) {
 	            var isSubject = markupLineConsumer.consume({
 	                linePattern: Patterns_1.NON_BLANK_PATTERN,
-	                if: function (line) { return !Patterns_1.INDENTED_PATTERN.test(line) && !isLineFancyOutlineConvention_1.isLineFancyOutlineConvention(line, args.config); },
+	                if: function (line) { return !Patterns_1.INDENTED_PATTERN.test(line) && !isLineFancyOutlineConvention_1.isLineFancyOutlineConvention(line, args.settings); },
 	                thenBeforeConsumingLine: function (line) {
 	                    markupPerTerm.push(line);
 	                }
@@ -14545,13 +14596,13 @@
 	        });
 	        countLinesConsumed = markupLineConsumer.countLinesConsumed;
 	        var subjects = markupPerTerm.map(function (subject) {
-	            return new DescriptionList_1.DescriptionList.Item.Subject(getInlineSyntaxNodes_1.getInlineSyntaxNodes(subject, args.config));
+	            return new DescriptionList_1.DescriptionList.Item.Subject(getInlineSyntaxNodes_1.getInlineSyntaxNodes(subject, args.settings));
 	        });
 	        var description = new DescriptionList_1.DescriptionList.Item.Description(getOutlineSyntaxNodes_1.getOutlineSyntaxNodes({
 	            markupLines: descriptionLines,
 	            sourceLineNumber: sourceLineNumberForDescription,
 	            headingLeveler: args.headingLeveler,
-	            config: args.config
+	            settings: args.settings
 	        }));
 	        listItems.push(new DescriptionList_1.DescriptionList.Item(subjects, description));
 	        if (shouldTerminateList) {
@@ -14585,7 +14636,7 @@
 	var getTableCells_1 = __webpack_require__(101);
 	function tryToParseTableOrChart(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
-	    var config = args.config;
+	    var settings = args.settings;
 	    var getLabelPattern = function (labels) {
 	        return PatternHelpers_1.solelyAndIgnoringCapitalization(PatternHelpers_1.either.apply(void 0, labels.map(PatternHelpers_1.escapeForRegex)) + PatternHelpers_1.optional(':' + PatternHelpers_1.capture(PatternPieces_1.REST_OF_TEXT)));
 	    };
@@ -14594,11 +14645,11 @@
 	        captionMarkup = (caption || '').trim();
 	    }
 	    var isTable = markupLineConsumer.consume({
-	        linePattern: getLabelPattern(config.terms.markup.table),
+	        linePattern: getLabelPattern(settings.terms.table),
 	        thenBeforeConsumingLine: setRawCaptionMarkup
 	    });
 	    var isChart = !isTable && markupLineConsumer.consume({
-	        linePattern: getLabelPattern(config.terms.markup.chart),
+	        linePattern: getLabelPattern(settings.terms.chart),
 	        thenBeforeConsumingLine: setRawCaptionMarkup
 	    });
 	    if (!isTable && !isChart) {
@@ -14609,7 +14660,7 @@
 	    var hasHeader = markupLineConsumer.consume({
 	        linePattern: Patterns_1.NON_BLANK_PATTERN,
 	        thenBeforeConsumingLine: function (line) {
-	            headerCells = getTableCells_1.getTableCells(line, config).map(toHeaderCell);
+	            headerCells = getTableCells_1.getTableCells(line, settings).map(toHeaderCell);
 	        }
 	    });
 	    if (!hasHeader) {
@@ -14620,7 +14671,7 @@
 	    }
 	    var header = new Table_1.Table.Header(headerCells);
 	    var caption = captionMarkup
-	        ? new Table_1.Table.Caption(getInlineSyntaxNodes_1.getInlineSyntaxNodes(captionMarkup, config))
+	        ? new Table_1.Table.Caption(getInlineSyntaxNodes_1.getInlineSyntaxNodes(captionMarkup, settings))
 	        : undefined;
 	    var rows = [];
 	    var countLinesConsumed = markupLineConsumer.countLinesConsumed;
@@ -14628,7 +14679,7 @@
 	    while (markupLineConsumer.consume({
 	        linePattern: Patterns_1.NON_BLANK_PATTERN,
 	        thenBeforeConsumingLine: function (line) {
-	            var cells = getTableCells_1.getTableCells(line, config);
+	            var cells = getTableCells_1.getTableCells(line, settings);
 	            var rowHeaderCell = isChart
 	                ? toHeaderCell(cells.shift())
 	                : undefined;
@@ -14675,14 +14726,14 @@
 	    return TableCell;
 	}(Table_1.Table.Cell));
 	exports.TableCell = TableCell;
-	function getTableCells(row, config) {
+	function getTableCells(row, settings) {
 	    row = row.trim();
 	    var cells = [];
 	    var charIndexOfStartOfNextCell = 0;
 	    var charIndex = 0;
 	    function collectCell(args) {
 	        var cellMarkup = row.slice(charIndexOfStartOfNextCell, charIndex);
-	        var cellChildren = getInlineSyntaxNodes_1.getInlineSyntaxNodes(cellMarkup.trim(), config);
+	        var cellChildren = getInlineSyntaxNodes_1.getInlineSyntaxNodes(cellMarkup.trim(), settings);
 	        cells.push(new TableCell(cellChildren, args.countColumnsSpanned));
 	    }
 	    for (; charIndex < row.length; charIndex++) {
@@ -14744,7 +14795,7 @@
 	            markupLines: contentLines,
 	            sourceLineNumber: args.sourceLineNumber + 1,
 	            headingLeveler: args.headingLeveler,
-	            config: args.config
+	            settings: args.settings
 	        });
 	        args.then([new SyntaxNodeType(children)], markupLineConsumer.countLinesConsumed);
 	        return true;
@@ -14773,9 +14824,9 @@
 	        var inlineSyntaxNodes;
 	        var wasLineConsumed = markupLineConsumer.consume({
 	            linePattern: Patterns_1.NON_BLANK_PATTERN,
-	            if: function (line) { return isOnFirstLine || !isLineFancyOutlineConvention_1.isLineFancyOutlineConvention(line, args.config); },
+	            if: function (line) { return isOnFirstLine || !isLineFancyOutlineConvention_1.isLineFancyOutlineConvention(line, args.settings); },
 	            thenBeforeConsumingLine: function (line) {
-	                inlineSyntaxNodes = getInlineSyntaxNodes_1.getInlineSyntaxNodes(line, args.config);
+	                inlineSyntaxNodes = getInlineSyntaxNodes_1.getInlineSyntaxNodes(line, args.settings);
 	            }
 	        });
 	        isOnFirstLine = false;
@@ -14880,8 +14931,8 @@
 	"use strict";
 	var InlineUpDocument_1 = __webpack_require__(106);
 	var getInlineSyntaxNodes_1 = __webpack_require__(50);
-	function parseInline(markup, config) {
-	    var children = getInlineSyntaxNodes_1.getInlineSyntaxNodesForInlineDocument(markup, config);
+	function parseInline(markup, settings) {
+	    var children = getInlineSyntaxNodes_1.getInlineSyntaxNodesForInlineDocument(markup, settings);
 	    return new InlineUpDocument_1.InlineUpDocument(children);
 	}
 	exports.parseInline = parseInline;
@@ -14934,11 +14985,15 @@
 	    function HtmlRenderer() {
 	        _super.apply(this, arguments);
 	    }
-	    HtmlRenderer.prototype.document = function (document) {
+	    HtmlRenderer.prototype.renderDocument = function (document) {
 	        this.reset();
 	        return this.renderAll(document.children);
 	    };
-	    HtmlRenderer.prototype.tableOfContents = function (tableOfContents) {
+	    HtmlRenderer.prototype.renderInlineDocument = function (inlineDocument) {
+	        this.reset();
+	        return this.renderAll(inlineDocument.children);
+	    };
+	    HtmlRenderer.prototype.renderTableOfContents = function (tableOfContents) {
 	        this.reset({ isInsideTableOfContents: true });
 	        return ElementHelpers_1.htmlElementWithAlreadyEscapedChildren('nav', [
 	            this.tableOfContentsTitle(),
@@ -15029,7 +15084,7 @@
 	    HtmlRenderer.prototype.inlineSpoiler = function (inlineSpoiler) {
 	        return this.revealable({
 	            conventionName: 'spoiler',
-	            termForTogglingVisibility: this.config.terms.rendered.toggleSpoiler,
+	            termForTogglingVisibility: this.settings.terms.toggleSpoiler,
 	            conventionCount: ++this.spoilerCount,
 	            revealable: inlineSpoiler,
 	            tagNameForGenericContainers: 'span'
@@ -15038,7 +15093,7 @@
 	    HtmlRenderer.prototype.inlineNsfw = function (inlineNsfw) {
 	        return this.revealable({
 	            conventionName: 'nsfw',
-	            termForTogglingVisibility: this.config.terms.rendered.toggleNsfw,
+	            termForTogglingVisibility: this.settings.terms.toggleNsfw,
 	            conventionCount: ++this.nsfwCount,
 	            revealable: inlineNsfw,
 	            tagNameForGenericContainers: 'span'
@@ -15047,7 +15102,7 @@
 	    HtmlRenderer.prototype.inlineNsfl = function (inlineNsfl) {
 	        return this.revealable({
 	            conventionName: 'nsfl',
-	            termForTogglingVisibility: this.config.terms.rendered.toggleNsfl,
+	            termForTogglingVisibility: this.settings.terms.toggleNsfl,
 	            conventionCount: ++this.nsflCount,
 	            revealable: inlineNsfl,
 	            tagNameForGenericContainers: 'span'
@@ -15056,7 +15111,7 @@
 	    HtmlRenderer.prototype.spoilerBlock = function (spoilerBlock) {
 	        return this.revealable({
 	            conventionName: 'spoiler',
-	            termForTogglingVisibility: this.config.terms.rendered.toggleSpoiler,
+	            termForTogglingVisibility: this.settings.terms.toggleSpoiler,
 	            conventionCount: ++this.spoilerCount,
 	            revealable: spoilerBlock,
 	            tagNameForGenericContainers: 'div',
@@ -15066,7 +15121,7 @@
 	    HtmlRenderer.prototype.nsfwBlock = function (nsfwBlock) {
 	        return this.revealable({
 	            conventionName: 'nsfw',
-	            termForTogglingVisibility: this.config.terms.rendered.toggleNsfw,
+	            termForTogglingVisibility: this.settings.terms.toggleNsfw,
 	            conventionCount: ++this.nsfwCount,
 	            revealable: nsfwBlock,
 	            tagNameForGenericContainers: 'div',
@@ -15076,7 +15131,7 @@
 	    HtmlRenderer.prototype.nsflBlock = function (nsflBlock) {
 	        return this.revealable({
 	            conventionName: 'nsfl',
-	            termForTogglingVisibility: this.config.terms.rendered.toggleNsfl,
+	            termForTogglingVisibility: this.settings.terms.toggleNsfl,
 	            conventionCount: ++this.nsflCount,
 	            revealable: nsflBlock,
 	            tagNameForGenericContainers: 'div',
@@ -15138,7 +15193,7 @@
 	    };
 	    HtmlRenderer.prototype.tableOfContentsTitle = function () {
 	        var title = new Heading_1.Heading([
-	            new PlainText_1.PlainText(this.config.terms.rendered.tableOfContents)], { level: 1 });
+	            new PlainText_1.PlainText(this.settings.terms.tableOfContents)], { level: 1 });
 	        return title.render(this);
 	    };
 	    HtmlRenderer.prototype.tableOfContentsEntries = function (entries) {
@@ -15280,16 +15335,16 @@
 	        return ElementHelpers_1.htmlElementWithAlreadyEscapedChildren(tagName, this.renderEach(children), attrs);
 	    };
 	    HtmlRenderer.prototype.idOfActualEntryInDocument = function (entry) {
-	        return this.idFor(this.config.terms.rendered.sectionReferencedByTableOfContents, entry.ordinalInTableOfContents);
+	        return this.idFor(this.settings.terms.sectionReferencedByTableOfContents, entry.ordinalInTableOfContents);
 	    };
 	    HtmlRenderer.prototype.footnoteId = function (referenceNumber) {
-	        return this.idFor(this.config.terms.rendered.footnote, referenceNumber);
+	        return this.idFor(this.settings.terms.footnote, referenceNumber);
 	    };
 	    HtmlRenderer.prototype.footnoteReferenceId = function (referenceNumber) {
-	        return this.idFor(this.config.terms.rendered.footnoteReference, referenceNumber);
+	        return this.idFor(this.settings.terms.footnoteReference, referenceNumber);
 	    };
 	    HtmlRenderer.prototype.isUrlAllowed = function (url) {
-	        return this.config.renderUnsafeContent || !UNSAFE_URL_SCHEME.test(url);
+	        return this.settings.renderDangerousContent || !UNSAFE_URL_SCHEME.test(url);
 	    };
 	    HtmlRenderer.prototype.reset = function (args) {
 	        this.spoilerCount = 0;
@@ -15318,8 +15373,8 @@
 	"use strict";
 	var PatternPieces_1 = __webpack_require__(14);
 	var Renderer = (function () {
-	    function Renderer(config) {
-	        this.config = config;
+	    function Renderer(settings) {
+	        this.settings = settings;
 	    }
 	    Renderer.prototype.renderEach = function (nodes) {
 	        var _this = this;
@@ -15333,7 +15388,7 @@
 	        for (var _i = 0; _i < arguments.length; _i++) {
 	            parts[_i - 0] = arguments[_i];
 	        }
-	        var rawId = [this.config.idPrefix].concat(parts).join(' ');
+	        var rawId = [this.settings.idPrefix].concat(parts).join(' ');
 	        return rawId
 	            .trim()
 	            .replace(WHITESPACE_PATTERN, '-');
@@ -15533,7 +15588,7 @@
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "################################################\nUp (easily write structured content for the web)\n################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured documents in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to read and write, not for computers to process and parse. At every turn, Up offers convenience for humans.\n\n\n- Up lets you overlap styles\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  However, Up **supports [highlight: overlapping** styles]!\n\n  Even if you are content to nest your styles within one another, this feature helps if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].\n\n- Up supports outrageously easy tables\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~ \n\n  You'll want to use them everywhere.\n\n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy\n  1;      Tackle;       Normal;   50;     100%\n  3;      Growl;        Normal;   ;       100%\n  7;      Leech Seed;   Grass;    ;       90%\n  9;      Vine Whip;    Grass;    45;     100%\n\n  For more information, see [topic: tables]. \n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Linking to another section in your document is simple\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Markup\n    ````\n    For more information, see [topic: internal links].\n    ````\n\n  Output\n    For more information, see [topic: internal links].\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example).\n  \n  Up figures out which section you want to reference, and automatically produces a link to that section.\n\n- Up is actually readable in plain text\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: custom terms].\n\n- Up produces fully accessible HTML\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nDon't get lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If the reader should raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors also use italics for unfamiliar foreign words.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. The following characters can serve as a bullet:\n\n  - An asterisks: `*`\n  - A hyphen: `-`\n  - An actual bullet character: `•`\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Each list item can be followed by a single blank line. This has no impact on the list itself:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.\n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n\n\n\n  ####################\n  Using the Up Library\n  ####################\n\n\n  Configuration\n  =============\n  \n  Custom terms\n  =~=~=~=~=~=~\n\n  Terms found in markup\n  ~~~~~~~~~~~~~~~~~~~~~\n\n  Markup terms are always case-insensitive, and you can provide unlimited variations for each one.\n  \n  Even when you provide custom term variations, Up always recognizes the defaults---they're never \"overwritten\".\n\n  For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.\n\n  Example\n    ````\n    const config = {\n      terms: {\n        markup: {\n          audio: [\"sound\", \"song\"],\n          highlight: \"mark\"\n        }\n      }\n    }\n    ````\n\n  Discussion\n    In the above example, the `audio` term has two custom variations: \"sound\" and \"song\". The audio convention will recognize both of those variations, plus the default: \"audio\".\n\n    The `highlight` term has a single custom variation: \"mark\". The highlighting convention will recognize that variation, plus the default: \"highlight\".\n\n  \n  Okay! Let's get right to the terms!\n\n\n------------\n`audio` term\n------------\n\nConvention\n  [topic: Audio]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { audio: [\"sound\", \"song\"] }\n    }\n  }\n  ````\n\nDefault\n  \"audio\"\n\n\n------------\n`chart` term\n------------\n\nConvention\n  [topic: Charts]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { chart: [\"data\", \"figure\"] }\n    }\n  }\n  ````\n\nDefault\n  \"chart\"\n\n\n----------------\n`highlight` term\n----------------\n\nConvention\n  [topic: Highlighting]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { highlight: [\"mark\", \"spotlight\"] }\n    }\n  }\n  ````\n\nDefault\n  \"highlight\"\n\n\n------------\n`image` term\n------------\n\nConvention\n  [topic: Images]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { image: [\"picture\", \"pic\"] }\n    }\n  }\n  ````\n\nDefault\n  \"image\" and \"img\"\n\n\n-----------\n`nsfl` term\n-----------\n\nConvention\n  [topic: NSFL]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { nsfl: [\"horrible\", \"vile\"] }\n    }\n  }\n  ````\n\nDefault\n  \"nsfl\"\n\n\n-----------\n`nsfw` term\n-----------\n\nConvention\n  [topic: NSFW]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { nsfw: [\"nudity\", \"inappropriate\"] }\n    }\n  }\n  ````\n\nDefault\n  \"nsfw\"\n\n\n------------------\n`sectionLink` term\n------------------\n\nConvention\n  [topic: Internal links]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { sectionLink: [\"reference\", \"heading\"] }\n    }\n  }\n  ````\n\nDefault\n  \"topic\" and \"section\"\n\n\n--------------\n`spoiler` term\n--------------\n\nConvention\n  [topic: Spoilers]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { spoiler: [\"ending\", \"reveal\"] }\n    }\n  }\n  ````\n\nDefault\n  \"spoiler\"\n\n\n--------------\n`table` term\n--------------\n\nConvention\n  [topic: Tables]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { table: [\"data\", \"figure\"] }\n    }\n  }\n  ````\n\nDefault\n  \"table\"\n\n\n--------------\n`video` term\n--------------\n\nConvention\n  [topic: Video]\n\nUsage\n  ````\n  const config = {\n    terms: {\n      markup: { video: [\"movie\", \"clip\"] }\n    }\n  }\n  ````\n\nDefault\n  \"video\" and \"vid\"\n\n    \n\nTerms appearing in the rendered document\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe terms appearing in the rendered document are fully customizable. You don't need to worry about escaping anything for HTML---Up handles that for you.\n\n\n---------------\n`footnote` term\n---------------\n\nPurpose\n  This term does not appear in content of the document, but it does appear in the URLs of footnote definitions (e.g. footnotes in their respective footnote blocks).\n  \n  If this term contains any spaces, they are automatically converted to hyphens.\n\nUsage\n  ````\n  const config = {\n    terms: {\n      rendered: {\n        footnote: \"fn\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"footnote\"\n\n\n------------------------\n`footnoteReference` term\n------------------------\n\nPurpose\n  This term does not appear in content of the document, but it does appear in the URLs of footnote references (e.g. the superscripts within paragraphs).\n  \n  If this term contains any spaces, they are automatically converted to hyphens.\n\nUsage\n  ````\n  const config = {\n    terms: {\n      rendered: {\n        footnoteReference: \"fn ref\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"footnote reference\"\n\n\n-----------------------------------------\n`sectionReferencedByTableOfContents` term\n-----------------------------------------\n\nPurpose\n  This term does not appear in content of the document, but it does appear in the URLs of headings referenced by the table of contents.\n  \n  If this term contains any spaces, they are automatically converted to hyphens.\n\nUsage\n  ````\n  const config = {\n    terms: {\n      rendered: {\n        sectionReferencedByTableOfContents: \"item\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"topic\"\n\n\n----------------------\n`tableOfContents` term\n----------------------\n\nPurpose\n  This term appears at the top of the table of contents.\n\nUsage\n  ````\n  const config = {\n    terms: {\n      rendered: {\n        tableOfContents: \"In This Article\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"Table of Contents\"\n\n\n-----------------\n`toggleNsfl` term\n-----------------\n\nPurpose\n  This term appears on the button that toggles the visibility of NSFL content.\n\nUsage\n  ````\n  const config = {\n    terms: {\n      rendered: {\n        toggleNsfl: \"Ruin me\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"toggle NSFL\"\n\n\n-----------------\n`toggleNsfw` term\n-----------------\n\nPurpose\n  This term appears on the button that toggles the visibility of NSFW content.\n\nUsage\n  ````\n  const config = {\n    terms: {\n      rendered: {\n        toggleNsfw: \"I'm a grownup\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"toggle NSFW\"\n\n\n--------------------\n`toggleSpoiler` term\n--------------------\n\nPurpose\n  This term appears on the button that toggles the visibility of spoiler content.\n\nUsage\n  ````\n  const config = {\n    terms: {\n      rendered: {\n        toggleSpoiler: \"Ruin it\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"toggle spoiiler\"\n\n"
+	module.exports = "################################################\nUp (easily write structured content for the web)\n################################################\n\n\nUp is a set of [highlight: human-friendly conventions] for writing structured documents in plain text. This entire document was written in Up.\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML.\n\n\nWhat's so good about Up?\n========================\n\nUp is designed for humans to read and write, not for computers to process and parse. At every turn, Up offers convenience for humans.\n\n\n- Up lets you overlap styles\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).\n\n  However, Up **supports [highlight: overlapping** styles]!\n\n  Even if you are content to nest your styles within one another, this feature helps if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].\n\n- Up supports outrageously easy tables\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~ \n\n  You'll want to use them everywhere.\n\n  Table: Moves learned by the Pokémon Bulbasaur\n\n  Level;  Move;         Type;     Power;  Accuracy\n  1;      Tackle;       Normal;   50;     100%\n  3;      Growl;        Normal;   ;       100%\n  7;      Leech Seed;   Grass;    ;       90%\n  9;      Vine Whip;    Grass;    45;     100%\n\n  For more information, see [topic: tables]. \n\n- Up has effortless footnotes\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]\n\n  For more information, see [topic: footnotes].\n\n- Linking to another section in your document is simple\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Markup\n    ````\n    For more information, see [topic: internal links].\n    ````\n\n  Output\n    For more information, see [topic: internal links].\n\n  That's all it takes! Simply reference snippet of a text from the section's title (\"internal links\", in the above example).\n  \n  Up figures out which section you want to reference, and automatically produces a link to that section.\n\n- Up is actually readable in plain text\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.\n\n  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.\n\n  These markup terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: custom terms].\n\n- Up produces fully accessible HTML\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n\n################################################\nWriting conventions (the rules and syntax of Up)\n################################################\n\n\nDon't get lost! The following terms are occasionally used in this section:\n\nInline convention\n  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. \n\nOutline convention\n  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  \n\n\n\nEmphasis\n===================\n\nPurpose\n  Use the emphasis convention to emphasize a word or phrase.\n  \n  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nSyntax\n  To emphasize text, enclose it within single asterisks.\n  \nNotes\n  Emphasized text is rendered using the `<em>` HTML element.\n\n\n\nStress\n===================\n\nPurpose\n  Use the stress convention to indicate a word or phrase is particularly important.\n\n  If the reader should raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nSyntax\n  To stress text, enclose it within double asterisks.\n  \nNotes\n  Stressed text is rendered using the `<strong>` HTML element.\n  \n  \n\nItalics\n===================\n\nPurpose\n  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n  \n  Some authors also use italics for unfamiliar foreign words.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nSyntax\n  To italicize text, enclose it within single underscores.\n  \nNotes\n  Italics are rendered using the `<i>` HTML element.\n\n\n  \nBold\n===================\n\nPurpose\n  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n  \n  This convention should be used rarely. Usually, there's a more appropriate convention!\n  \n  If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products? \n\nSyntax\n  To make text bold, enclose it within double underscores.\n  \nNotes\n  Bold text is rendered using the `<b>` HTML element.\n\n\n\nParentheticals (parentheses and square brackets)\n================================================\n\nPurpose\n  Up automatically recognizes parenthetical text!\n  \n  You don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. \n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  \n\nSyntax\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\nNotes\n  Parenthetical text is rendered using the `<small>` HTML element.\n\n\n\nHighlighting\n===================\n\nPurpose\n  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.\n\n  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. \n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     \n\nSyntax\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your open bracket.\n  \nNotes\n  Highlighted text is rendered using the `<mark>` HTML element.\n\n\n  \nExample input\n===================\n\nPurpose\n  Use the example input convention to represent user input, including:\n  \n  - Keys the user should press\n  - Buttons the user should click\n  - Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nSyntax\n  To indicate text represents user input, enclose the text within curly brackets.\n  \n  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready. \n    ```` \n  Output\n    Press { Start Game(s) } when you are ready. \n    \n  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.\n  \nNotes\n  Example input is rendered using the `<kbd>` HTML element.\n\n\n  \nInline code\n===================\n\nPurpose\n  Use the inline code convention to represent a small fragment of computer code.\n\n  If you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nSyntax\n  To indicate text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including backticks in your inline code\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.\n  \n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n  \n  Markup\n    `````\n    `let display = ``score:`` + 5`\n    `````\n\n  Output\n    `let display = ``score:`` + 5`\n    \n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n  \n  Markup\n    `````\n    ``let display = `score:` + 5``\n    `````\n\n  Output\n    ``let display = `score:` + 5``\n\n\n  But my inline code starts (or ends) with backticks! \n  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:\n\n  Markup\n    `` `inline_code` ``\n  \n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    `` (`inline_code`) ``\n  \n  Output\n    `` (`inline_code`) ``    \n  \nNotes\n  Inline code is rendered using the `<code>` HTML element.\n\n\n  \nFootnotes\n===================\n\nPurpose\n  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\n  Footnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" was probably a misspelling of \"palette\".] where Professor Oak gives Red his first Pokémon.\n\nSyntax\n  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.\n\nNotes\n  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n  \nCode blocks\n===================\n\nPurpose\n  Use the code block convention to represent a block of computer code.\n\n  If you need to reference only a small fragment of computer code, use [topic: inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1 \n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nSyntax\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).\n\n  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!\n\n\n  Including streaks of backticks within your code block\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n  \n  Output\n    ``````\n    A code block:\n    \n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\nNotes\n  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.\n\n\n\nBulleted lists\n===================\n\nPurpose\n  Use the bulleted list convention to represent lists whose order is *not* particularly important.\n\n  Bulleted lists can contain any outline convention, even other bulleted lists!\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nSyntax\n  Bullets\n  =~=~=~=~=~=~=~=~=\n\n  Each item in a bulleted list starts with a bullet followed by a space. The following characters can serve as a bullet:\n\n  - An asterisks: `*`\n  - A hyphen: `-`\n  - An actual bullet character: `•`\n\n  Spacing between list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n  Each list item can be followed by a single blank line. This has no impact on the list itself:\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.\n\n    Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  Including other outline conventions within list items\n  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=\n\n\n\n\n####################\nUsing the Up library\n####################\n\n\nConfiguration\n=============\n\n-------------------------------------\nSource mapping with `createSourceMap`\n-------------------------------------\n\nSummary\n  When this setting is enabled, each outline syntax node is associated with the first line of markup that produced it.\n  \n  This document uses source mapping to synchronize the scrolling between itself and its markup.\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      createSourceMap: true\n    }Ï\n  }\n  ````\n\nDetails\n  This settings works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.\n\n  When these syntax nodes are rendered to HTML, the HTML elements they produce each have a `data-up-source-line` attribute set the appropriate line number.\n\nDefault\n  `false`\n\n\n--------------------------------------\nAvoiding ID collisions with `idPrefix`\n--------------------------------------\n\nSummary\n  If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.\n\n  By default, `idPrefix` is \"up\" to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string. \n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      idPrefix: 'article'\n    }\n  }\n  ````\n\nDetails\n  You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.\n\n  \n\nDefault\n  \"up\"\n\n\n------------------------------------\nUsing custom elipses with `idPrefix`\n------------------------------------\n\nSummary\n  If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.\n\n  By default, `idPrefix` is \"up\" to prevent ID collisions with any HTML elements *not* rendered by Up. If you don't want an ID prefix, you can set `idPrefix` to an empty string. \n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      idPrefix: 'article'\n    }\n  }\n  ````\n\nDetails\n  You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.\n\nDefault\n  \"up\"\n\n\n-----------------------------------------------\nLiving dangerously with `renderDangerousContent`\n-----------------------------------------------\n\nSummary\n  Normally, Up will not render links or media elements with potentially exploitable URI schemes (`javascript`, `vbscript`, `data`, and `file`).\n\n  When this setting is enabled, Up will dutifully render all links and media elements.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      renderDangerousContent: true\n    }\n  }\n  ````\n\nDetails\n  By default, unsafe media elements produce no HTML. Unsafe links produce no HTML of their own, though their child elements are rendered.\n\nDefault\n  `false`\n\n\n\nCustom terms\n=~=~=~=~=~=~\n\nTerms found in markup\n~~~~~~~~~~~~~~~~~~~~~\n\nMarkup terms are always case-insensitive, and you can provide unlimited variations for each one.\n\nEven when you provide custom term variations, Up always recognizes the defaults---they're never \"overwritten\".\n\nFor a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.\n\nExample\n  ````\n  const settings = {\n    parsing: {\n      terms: {\n        audio: [\"sound\", \"song\"],\n        highlight: \"mark\"\n      }\n    }\n  }\n  ````\n\nDiscussion\n  In the above example, the `audio` term has two custom variations: \"sound\" and \"song\". The audio convention will recognize both of those variations, plus the default: \"audio\".\n\n  The `highlight` term has a single custom variation: \"mark\". The highlighting convention will recognize that variation, plus the default: \"highlight\".\n\n\n------------\n`audio` term\n------------\n\nConvention\n  [topic: Audio]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { audio: [\"sound\", \"song\"] }\n    }\n  }\n  ````\n\nDefault\n  \"audio\"\n\n\n------------\n`chart` term\n------------\n\nConvention\n  [topic: Charts]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { chart: [\"data\", \"figure\"] }\n    }\n  }\n  ````\n\nDefault\n  \"chart\"\n\n\n----------------\n`highlight` term\n----------------\n\nConvention\n  [topic: Highlighting]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { highlight: [\"mark\", \"spotlight\"] }\n    }\n  }\n  ````\n\nDefault\n  \"highlight\"\n\n\n------------\n`image` term\n------------\n\nConvention\n  [topic: Images]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { image: [\"picture\", \"pic\"] }\n    }\n  }\n  ````\n\nDefault\n  \"image\" and \"img\"\n\n\n-----------\n`nsfl` term\n-----------\n\nConvention\n  [topic: NSFL]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { nsfl: [\"horrible\", \"vile\"] }\n    }\n  }\n  ````\n\nDefault\n  \"nsfl\"\n\n\n-----------\n`nsfw` term\n-----------\n\nConvention\n  [topic: NSFW]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { nsfw: [\"nudity\", \"inappropriate\"] }\n    }\n  }\n  ````\n\nDefault\n  \"nsfw\"\n\n\n------------------\n`sectionLink` term\n------------------\n\nConvention\n  [topic: Internal links]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { sectionLink: [\"reference\", \"heading\"] }\n    }\n  }\n  ````\n\nDefault\n  \"topic\" and \"section\"\n\n\n--------------\n`spoiler` term\n--------------\n\nConvention\n  [topic: Spoilers]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { spoiler: [\"ending\", \"reveal\"] }\n    }\n  }\n  ````\n\nDefault\n  \"spoiler\"\n\n\n--------------\n`table` term\n--------------\n\nConvention\n  [topic: Tables]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { table: [\"data\", \"figure\"] }\n    }\n  }\n  ````\n\nDefault\n  \"table\"\n\n\n--------------\n`video` term\n--------------\n\nConvention\n  [topic: Video]\n\nUsage\n  ````\n  const settings = {\n    parsing: {\n      terms: { video: [\"movie\", \"clip\"] }\n    }\n  }\n  ````\n\nDefault\n  \"video\" and \"vid\"\n\n\n\nTerms appearing in the rendered document\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nThe terms appearing in the rendered document are fully customizable. You don't need to worry about escaping anything for HTML---Up handles that for you.\n\n\n---------------\n`footnote` term\n---------------\n\nPurpose\n  This term does not appear in content of the document, but it does appear in the URLs of footnote definitions (e.g. footnotes in their respective footnote blocks).\n  \n  If this term contains any spaces, they are automatically converted to hyphens.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      terms: {\n        footnote: \"fn\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"footnote\"\n\n\n------------------------\n`footnoteReference` term\n------------------------\n\nPurpose\n  This term does not appear in content of the document, but it does appear in the URLs of footnote references (e.g. the superscripts within paragraphs).\n  \n  If this term contains any spaces, they are automatically converted to hyphens.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      terms: {\n        footnoteReference: \"fn ref\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"footnote reference\"\n\n\n-----------------------------------------\n`sectionReferencedByTableOfContents` term\n-----------------------------------------\n\nPurpose\n  This term does not appear in content of the document, but it does appear in the URLs of headings referenced by the table of contents.\n  \n  If this term contains any spaces, they are automatically converted to hyphens.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      terms: {\n        sectionReferencedByTableOfContents: \"item\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"topic\"\n\n\n----------------------\n`tableOfContents` term\n----------------------\n\nPurpose\n  This term appears at the top of the table of contents.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      terms: {\n        tableOfContents: \"In This Article\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"Table of Contents\"\n\n\n-----------------\n`toggleNsfl` term\n-----------------\n\nPurpose\n  This term appears on the button that toggles the visibility of NSFL content.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      terms: {\n        toggleNsfl: \"Ruin me\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"toggle NSFL\"\n\n\n-----------------\n`toggleNsfw` term\n-----------------\n\nPurpose\n  This term appears on the button that toggles the visibility of NSFW content.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      terms: {\n        toggleNsfw: \"I'm a grownup\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"toggle NSFW\"\n\n\n--------------------\n`toggleSpoiler` term\n--------------------\n\nPurpose\n  This term appears on the button that toggles the visibility of spoiler content.\n\nUsage\n  ````\n  const settings = {\n    rendering: {\n      terms: {\n        toggleSpoiler: \"Ruin it\"\n      }\n    }\n  }\n  ````\n\nDefault\n  \"toggle spoiiler\"\n\n"
 
 /***/ }
 /******/ ]);
