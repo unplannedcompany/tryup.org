@@ -7,7 +7,7 @@ Up is a set of [highlight: human-friendly conventions] for writing structured do
 
 For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML.
 
-
+========================
 What's so good about Up?
 ========================
 
@@ -15,7 +15,7 @@ Up is designed for humans to read and write, not for computers to process and pa
 
 
 - Up lets you overlap styles
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=
+  ===========================
 
   Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
@@ -24,7 +24,7 @@ Up is designed for humans to read and write, not for computers to process and pa
   Even if you are content to nest your styles within one another, this feature helps if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].
 
 - Up supports outrageously easy tables
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~ 
+  ====================================
 
   You'll want to use them everywhere.
 
@@ -36,17 +36,17 @@ Up is designed for humans to read and write, not for computers to process and pa
   7;      Leech Seed;   Grass;    ;       90%
   9;      Vine Whip;    Grass;    45;     100%
 
-  For more information, see [topic: tables]. 
+  Tables can have For more information, see [topic: tables]. 
 
 - Up has effortless footnotes
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=
+  ===========================
 
   You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
 
   For more information, see [topic: footnotes].
 
 - Linking to another section in your document is simple
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =====================================================
 
   Markup
     ````
@@ -61,16 +61,16 @@ Up is designed for humans to read and write, not for computers to process and pa
   Up figures out which section you want to reference, and automatically produces a link to that section.
 
 - Up is actually readable in plain text
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =====================================
 
   Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
 
   When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.
 
-  These markup terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: custom terms].
+  These markup terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: terms found in markup].
 
 - Up produces fully accessible HTML
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =================================
 
   From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
 
@@ -90,9 +90,9 @@ Outline convention
   Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  
 
 
-
+========
 Emphasis
-===================
+========
 
 Purpose
   Use the emphasis convention to emphasize a word or phrase.
@@ -115,9 +115,9 @@ Notes
   Emphasized text is rendered using the `<em>` HTML element.
 
 
-
+======
 Stress
-===================
+======
 
 Purpose
   Use the stress convention to indicate a word or phrase is particularly important.
@@ -140,9 +140,9 @@ Notes
   Stressed text is rendered using the `<strong>` HTML element.
   
   
-
+=======
 Italics
-===================
+=======
 
 Purpose
   Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
@@ -165,9 +165,9 @@ Notes
   Italics are rendered using the `<i>` HTML element.
 
 
-  
+====  
 Bold
-===================
+====
 
 Purpose
   If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.
@@ -192,7 +192,7 @@ Notes
   Bold text is rendered using the `<b>` HTML element.
 
 
-
+================================================
 Parentheticals (parentheses and square brackets)
 ================================================
 
@@ -217,9 +217,9 @@ Notes
   Parenthetical text is rendered using the `<small>` HTML element.
 
 
-
+============
 Highlighting
-===================
+============
 
 Purpose
   Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.
@@ -242,9 +242,9 @@ Notes
   Highlighted text is rendered using the `<mark>` HTML element.
 
 
-  
+=============
 Example input
-===================
+=============
 
 Purpose
   Use the example input convention to represent user input, including:
@@ -280,9 +280,9 @@ Notes
   Example input is rendered using the `<kbd>` HTML element.
 
 
-  
+===========  
 Inline code
-===================
+===========
 
 Purpose
   Use the inline code convention to represent a small fragment of computer code.
@@ -305,7 +305,7 @@ Syntax
 
 
   Including backticks in your inline code
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =======================================
 
   Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.
   
@@ -329,11 +329,11 @@ Syntax
   Output
     ``let display = `score:` + 5``
 
-
+  ---------------------------------------------------
   But my inline code starts (or ends) with backticks! 
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ---------------------------------------------------
 
-  If your inline code needs to start or end with backticks, those backticks can be separated from the outer delimiters by a single space. This single space is trimmed away:
+  If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
 
   Markup
     `` `inline_code` ``
@@ -355,9 +355,9 @@ Notes
   Inline code is rendered using the `<code>` HTML element.
 
 
-  
+=========  
 Footnotes
-===================
+=========
 
 Purpose
   Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.
@@ -380,9 +380,9 @@ Notes
   Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
 
 
-  
+===========
 Code blocks
-===================
+===========
 
 Purpose
   Use the code block convention to represent a block of computer code.
@@ -421,7 +421,7 @@ Syntax
 
 
   Including streaks of backticks within your code block
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =====================================================
 
   Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.
 
@@ -463,9 +463,9 @@ Notes
   Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.
 
 
-
+==============
 Bulleted lists
-===================
+==============
 
 Purpose
   Use the bulleted list convention to represent lists whose order is *not* particularly important.
@@ -487,7 +487,7 @@ Example
 
 Syntax
   Bullets
-  =~=~=~=~=~=~=~=~=
+  =======
 
   Each item in a bulleted list starts with a bullet followed by a space. The following characters can serve as a bullet:
 
@@ -496,7 +496,7 @@ Syntax
   - An actual bullet character: `•`
 
   Spacing between list items
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=
+  ===========================
 
   Each list item can be followed by a single blank line. This has no impact on the list itself:
 
@@ -538,7 +538,7 @@ Syntax
 
 
   Including other outline conventions within list items
-  =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+  =====================================================
 
 
 
@@ -547,16 +547,20 @@ Syntax
 Using the Up library
 ####################
 
-
+=============
 Configuration
 =============
 
--------------------------------------
+
+Settings for Parsing
+=====================
+
+------------------------------------
 Source mapping with `createSourceMap`
--------------------------------------
+------------------------------------
 
 Summary
-  When this setting is enabled, each outline syntax node is associated with the first line of markup that produced it.
+  When `createSourceMap` is enabled, Up keeps track of the original line number for every outline convention.
   
   This document uses source mapping to synchronize the scrolling between itself and its markup.
 
@@ -570,13 +574,268 @@ Usage
   ````
 
 Details
-  This settings works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.
+  `createSourceMap` works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.
 
   When these syntax nodes are rendered to HTML, the HTML elements they produce each have a `data-up-source-line` attribute set the appropriate line number.
 
 Default
   `false`
 
+
+---------------------------------
+Trailing off with `fancyEllipsis`
+---------------------------------
+
+Summary
+  Up automatically replaces consecutive periods with `fancyEllipsis`.
+
+  By default, `fancyEllipsis` is `…`. If you you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.   
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      fancyEllipsis: '⋯'
+    }
+  }
+  ````
+
+Default
+  `"…"`
+  
+
+
+Customizing terms found in markup
+=================================
+
+You can provide unlimited variations for every markup term! Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
+
+For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
+
+Example
+  ````
+  const settings = {
+    parsing: {
+      terms: {
+        audio: ["sound", "song"],
+        highlight: "mark"
+      }
+    }
+  }
+  ````
+
+Discussion
+  In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
+
+  The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
+
+
+Keep in mind that markup terms are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
+
+
+------------
+`audio` term
+------------
+
+Convention
+  [topic: Audio]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { audio: ["sound", "song"] }
+    }
+  }
+  ````
+
+Default
+  `"audio"`
+
+
+------------
+`chart` term
+------------
+
+Convention
+  [topic: Charts]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { chart: ["data", "figure"] }
+    }
+  }
+  ````
+
+Default
+  `"chart"`
+
+
+----------------
+`highlight` term
+----------------
+
+Convention
+  [topic: Highlighting]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { highlight: ["mark", "spotlight"] }
+    }
+  }
+  ````
+
+Default
+  `"highlight"`
+
+
+------------
+`image` term
+------------
+
+Convention
+  [topic: Images]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { image: ["picture", "pic"] }
+    }
+  }
+  ````
+
+Default
+  `"image"` and `"img"`
+
+
+-----------
+`nsfl` term
+-----------
+
+Convention
+  [topic: NSFL]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { nsfl: ["horrible", "vile"] }
+    }
+  }
+  ````
+
+Default
+  `"nsfl"`
+
+
+-----------
+`nsfw` term
+-----------
+
+Convention
+  [topic: NSFW]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { nsfw: ["nudity", "inappropriate"] }
+    }
+  }
+  ````
+
+Default
+  `"nsfw"`
+
+
+------------------
+`sectionLink` term
+------------------
+
+Convention
+  [topic: Internal links]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { sectionLink: ["reference", "heading"] }
+    }
+  }
+  ````
+
+Default
+  `"topic"` and `"section"`
+
+
+--------------
+`spoiler` term
+--------------
+
+Convention
+  [topic: Spoilers]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { spoiler: ["ending", "reveal"] }
+    }
+  }
+  ````
+
+Default
+  `"spoiler"`
+
+
+--------------
+`table` term
+--------------
+
+Convention
+  [topic: Tables]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { table: ["data", "figure"] }
+    }
+  }
+  ````
+
+Default
+  `"table"`
+
+
+--------------
+`video` term
+--------------
+
+Convention
+  [topic: Video]
+
+Usage
+  ````
+  const settings = {
+    parsing: {
+      terms: { video: ["movie", "clip"] }
+    }
+  }
+  ````
+
+Default
+  `"video"` and `"vid"`
+
+
+
+Settings for Rendering
+=======================
 
 --------------------------------------
 Avoiding ID collisions with `idPrefix`
@@ -599,40 +858,13 @@ Usage
 Details
   You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
 
-  
-
 Default
-  "up"
+  `"up"`
 
 
-------------------------------------
-Using custom elipses with `idPrefix`
-------------------------------------
-
-Summary
-  If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
-
-  By default, `idPrefix` is "up" to prevent ID collisions with any HTML elements *not* rendered by Up. If you don't want an ID prefix, you can set `idPrefix` to an empty string. 
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      idPrefix: 'article'
-    }
-  }
-  ````
-
-Details
-  You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
-
-Default
-  "up"
-
-
------------------------------------------------
+------------------------------------------------
 Living dangerously with `renderDangerousContent`
------------------------------------------------
+------------------------------------------------
 
 Summary
   Normally, Up will not render links or media elements with potentially exploitable URI schemes (`javascript`, `vbscript`, `data`, and `file`).
@@ -649,246 +881,15 @@ Usage
   ````
 
 Details
-  By default, unsafe media elements produce no HTML. Unsafe links produce no HTML of their own, though their child elements are rendered.
+  By default, dangerous media elements produce no HTML at all. Dangerous links produce no HTML of their own, though their child elements are rendered.
 
 Default
   `false`
 
 
 
-Custom terms
-=~=~=~=~=~=~
-
-Terms found in markup
-~~~~~~~~~~~~~~~~~~~~~
-
-Markup terms are always case-insensitive, and you can provide unlimited variations for each one.
-
-Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
-
-For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
-
-Example
-  ````
-  const settings = {
-    parsing: {
-      terms: {
-        audio: ["sound", "song"],
-        highlight: "mark"
-      }
-    }
-  }
-  ````
-
-Discussion
-  In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
-
-  The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
-
-
-------------
-`audio` term
-------------
-
-Convention
-  [topic: Audio]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { audio: ["sound", "song"] }
-    }
-  }
-  ````
-
-Default
-  "audio"
-
-
-------------
-`chart` term
-------------
-
-Convention
-  [topic: Charts]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { chart: ["data", "figure"] }
-    }
-  }
-  ````
-
-Default
-  "chart"
-
-
-----------------
-`highlight` term
-----------------
-
-Convention
-  [topic: Highlighting]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { highlight: ["mark", "spotlight"] }
-    }
-  }
-  ````
-
-Default
-  "highlight"
-
-
-------------
-`image` term
-------------
-
-Convention
-  [topic: Images]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { image: ["picture", "pic"] }
-    }
-  }
-  ````
-
-Default
-  "image" and "img"
-
-
------------
-`nsfl` term
------------
-
-Convention
-  [topic: NSFL]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { nsfl: ["horrible", "vile"] }
-    }
-  }
-  ````
-
-Default
-  "nsfl"
-
-
------------
-`nsfw` term
------------
-
-Convention
-  [topic: NSFW]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { nsfw: ["nudity", "inappropriate"] }
-    }
-  }
-  ````
-
-Default
-  "nsfw"
-
-
-------------------
-`sectionLink` term
-------------------
-
-Convention
-  [topic: Internal links]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { sectionLink: ["reference", "heading"] }
-    }
-  }
-  ````
-
-Default
-  "topic" and "section"
-
-
---------------
-`spoiler` term
---------------
-
-Convention
-  [topic: Spoilers]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { spoiler: ["ending", "reveal"] }
-    }
-  }
-  ````
-
-Default
-  "spoiler"
-
-
---------------
-`table` term
---------------
-
-Convention
-  [topic: Tables]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { table: ["data", "figure"] }
-    }
-  }
-  ````
-
-Default
-  "table"
-
-
---------------
-`video` term
---------------
-
-Convention
-  [topic: Video]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { video: ["movie", "clip"] }
-    }
-  }
-  ````
-
-Default
-  "video" and "vid"
-
-
-
-Terms appearing in the rendered document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Customizing terms that appear in the rendered document
+======================================================
 
 The terms appearing in the rendered document are fully customizable. You don't need to worry about escaping anything for HTML---Up handles that for you.
 
@@ -914,7 +915,7 @@ Usage
   ````
 
 Default
-  "footnote"
+  `"footnote"`
 
 
 ------------------------
@@ -938,7 +939,7 @@ Usage
   ````
 
 Default
-  "footnote reference"
+  `"footnote reference"`
 
 
 -----------------------------------------
@@ -962,7 +963,7 @@ Usage
   ````
 
 Default
-  "topic"
+  `"topic"`
 
 
 ----------------------
@@ -984,7 +985,7 @@ Usage
   ````
 
 Default
-  "Table of Contents"
+  `"Table of Contents"`
 
 
 -----------------
@@ -1006,7 +1007,7 @@ Usage
   ````
 
 Default
-  "toggle NSFL"
+  `"toggle NSFL"`
 
 
 -----------------
@@ -1028,7 +1029,7 @@ Usage
   ````
 
 Default
-  "toggle NSFW"
+  `"toggle NSFW"`
 
 
 --------------------
@@ -1050,5 +1051,5 @@ Usage
   ````
 
 Default
-  "toggle spoiiler"
+  `"toggle spoiiler"`
 
