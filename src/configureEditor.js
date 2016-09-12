@@ -1,6 +1,5 @@
 import CodeMirror from 'codemirror'
 import { Up } from 'write-up'
-import configureCodeMirrorToIndentSoftWrapedLines from './configureCodeMirrorToIndentSoftWrapedLines'
 import debounce from './debounce'
 import throttle from './throttle'
 
@@ -42,7 +41,7 @@ export default function configureEditor(editorContainer, documentContainer, tabl
 
 function configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer) {
   // We'll wait until the user is done typing before we re-render the document with their
-  // changes. We consider the user to be done typing once 1.5 seconds has elapsed since
+  // changes. We consider the user to be done typing once 1.2 seconds has elapsed since
   // their last keystroke.
   //
   // In the meantime, we'll fade the document (using the `dirty` CSS class) to indicate it's
@@ -60,7 +59,7 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
 
     refreshSourceMappedElements(documentContainer)
     markDocumentAsClean()
-  }, 1000)
+  }, 1200)
 
   codeMirror.on('change', codeMirror => {
     markDocumentAsDirty()
@@ -206,4 +205,29 @@ function addScrollSyncingEventListeners(args) {
 
 function addScrollEventListener(element, listener) {
   element.addEventListener('scroll', listener)
+}
+
+
+// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
+//
+// It does not work when tabs are used for indentation, because CodeMirror handles
+// tab characters using a special `<span class="cm-tab">` element. Luckily, our
+// editor is conigured (by default) to use spaces for indentation.
+//
+// TODO: Replace leading tab characters on-paste
+function configureCodeMirrorToIndentSoftWrapedLines(codeMirror) {
+  const charWidth = codeMirror.defaultCharWidth()
+
+  // This value is taken from the "PADDING" section of `codemirror.css`
+  const BASE_PADDING = 4
+
+  codeMirror.on('renderLine', (codeMirror, line, lineElement) => {
+    const indentation = charWidth * CodeMirror.countColumn(line.text)
+
+    // First, let's eliminate the natural indentation provided by the leading spaces themselves.
+    lineElement.style.textIndent = `-${indentation}px`
+
+    // Now, let's use padding to indent the entire soft-wrapped line!
+    lineElement.style.paddingLeft = `${BASE_PADDING + indentation}px`
+  })
 }
