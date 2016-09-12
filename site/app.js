@@ -637,6 +637,21 @@
 	      // Line numbers in the CodeMirror editor start at 0. 
 	      var firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window');
 
+	      if (firstVisibleLineNumber === 1) {
+	        // When browsers scroll an element into view, the element's top margin is ignored.
+	        // It is not scrolled into view along with element.
+	        //
+	        // Normally, this is exactly what we want.
+	        //
+	        // However, if the first element in the document has a top margin, its odd that
+	        // scrolling the editor to its top fails to scroll the document to its top.
+	        //
+	        // To fix this, if the editor is scrolled to its top, we automatically scroll the
+	        // document to its top, too.
+	        documentContainer.scrollTop = 0;
+	        return;
+	      }
+
 	      for (var i = 0; i < sourceMappedElements.length; i++) {
 	        var element = sourceMappedElements[i];
 
