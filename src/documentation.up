@@ -15,7 +15,7 @@ Up is designed for humans to read and write, not for computers to process and pa
 
 
 - Up lets you overlap styles
-  ===========================
+  ==========================
 
   Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
@@ -547,9 +547,27 @@ Syntax
 Using the Up library
 ####################
 
+The Up library can be found [on NPM] (npmjs.com/package/write-up).
+
+============
+Installation
+============
+
+````
+npm install write-up --save-dev
+````
+
+======
+Useage
+======
+
+
 =============
 Configuration
 =============
+
+
+As dis
 
 
 Settings for Parsing
