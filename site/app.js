@@ -15524,8 +15524,6 @@
 	});
 	exports.default = debounce;
 	function debounce(callback, delay) {
-	  var _this = this;
-
 	  var timeoutHandle = void 0;
 
 	  return function () {
@@ -15537,11 +15535,9 @@
 	      clearTimeout(timeoutHandle);
 	    }
 
-	    var callbackWithArgs = function callbackWithArgs() {
-	      callback.apply(_this, args);
-	    };
-
-	    timeoutHandle = setTimeout(callbackWithArgs, delay);
+	    timeoutHandle = setTimeout(function () {
+	      callback.apply(undefined, args);
+	    }, delay);
 	  };
 	}
 
@@ -15556,21 +15552,11 @@
 	});
 	exports.default = throttle;
 	function throttle(callback, cooldown) {
-	  var _this = this;
-
 	  var isInCooldown = false;
 
 	  return function () {
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    var callbackWithArgs = function callbackWithArgs() {
-	      callback.apply(_this, args);
-	    };
-
 	    if (!isInCooldown) {
-	      callbackWithArgs();
+	      callback.apply(undefined, arguments);
 	      isInCooldown = true;
 
 	      setTimeout(function () {

@@ -6,10 +6,7 @@ export default function debounce(callback, delay) {
       clearTimeout(timeoutHandle)
     }
 
-    const callbackWithArgs = () => {
-      callback.apply(this, args)
-    }
-
-    timeoutHandle = setTimeout(callbackWithArgs, delay)
+    timeoutHandle =
+      setTimeout(() => { callback(...args) }, delay)
   }
 }
