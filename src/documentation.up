@@ -489,9 +489,9 @@ Syntax
   Bullets
   =======
 
-  Each item in a bulleted list starts with a bullet followed by a space. The following characters can serve as a bullet:
+  Every item in a bulleted list starts with a bullet followed by a space. The following markup characters can serve as a bullet:
 
-  - An asterisks: `*`
+  - An asterisk: `*`
   - A hyphen: `-`
   - An actual bullet character: `•`
 
@@ -800,9 +800,40 @@ When inline documents are rendered to HTML, their HTML is *not* enclosed within 
 Configuration
 =============
 
+Every Up method accepts (optional!) custom settings. For a full description of Up's methods, see [topic: methods].
 
-Settings for Parsing
+
+`UserProvidedSettings`
 =====================
+
+Summary
+  The `UserProvidedSettings` interface includes both parsing settings and rendering settings.
+
+  Use this interface to provide settings to Up methods that both parse Up markup *and* render the result to HTML:
+
+  - [topic: parseAndRender]
+  - [topic: parseAndRenderDocumentAndTableOfContents]
+  - [topic: parseAndRenderInline]
+
+Members
+  `parsing` (optional): [topic: UserProvidedSettings.Parsing]
+    The custom parsing settings.
+  `rendering` (optional): [topic: UserProvidedSettings.Rendering]
+    The custom rendering settings.
+
+Usage
+  ````
+  const html = Up.parseAndRender(markup, {
+    parsing: {
+      createSourceMap: true,
+      terms: { highlight: 'mark' }
+    },
+    rendering: {
+      idPrefix: 'article'
+    }
+  })
+  ````
+
 
 -----------------
 `createSourceMap`
