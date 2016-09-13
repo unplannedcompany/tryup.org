@@ -593,7 +593,6 @@ Now that we've required `Up`, there are a couple of ways to use it.
 Methods
 =======
 
-
 `parseAndRender`
 ================
 
@@ -742,58 +741,6 @@ Arguments
 
 Return value
   This method returns a `string` of HTML representing the rendered inline document.
-
-
-================
-Inline documents
-================
-
-In Up, documents can consist of many lines.
-
-However, in certain contexts, you might want to restrict a document to just a single line:
-
-- An online chat message
-- The title of a thread on a message board
-- The byline for a user's profile
-
-That's what inline documents are for! To take advantage of inline documents, use one of the following methods:
-
-- [topic: parseAndRenderInline]
-- [topic: parseInline]
-- [topic: renderInline]
-
-
-Parsing differences
-===================
-
-Within inline documents: 
-
-- Up ignores all outline conventions.
-- Up supports all inline conventions except for [topic: footnotes] and [topic: section links].
-
-When Up encounters a footnote in an inline document, it pretends the author had used parentheses instead:
-
-Inline markup
-  ````
-  My dad [^ Professor Oak] is very wise.
-  ````
-Output
-  My dad (Professor Oak) is very wise.
-
-Within inline documents, Up doesn't recognize the syntax for section links. Consequently, their markup is instead treated as regular old text enclosed within brackets:
-
-Inline markup
-  ````
-  I enjoyed our conversation [topic: the weather].
-  ````
-Output
-  I enjoyed our conversation [\topic: the weather].
-
-
-Rendering differences
-=====================
-
-When inline documents are rendered to HTML, their HTML is *not* enclosed within a `<p>` element (or within any container HTML element).
 
 
 =============
@@ -1333,3 +1280,61 @@ Usage
 Default
   `"toggle spoiiler"`
 
+
+
+================
+Inline documents
+================
+
+In certain contexts, you might want to restrict a document to just a single line:
+
+- An online chat message
+- The title of a thread on a message board
+- The byline for a user's profile
+
+That's what inline documents are for! To take advantage of inline documents, use one of the following methods:
+
+- [topic: parseAndRenderInline]
+- [topic: parseInline]
+- [topic: renderInline]
+
+
+Syntax differences
+==================
+
+Within inline documents: 
+
+- Up ignores all outline conventions.
+- Up supports all inline conventions except for [topic: footnotes] and [topic: section links].
+
+When Up encounters a footnote in an inline document, it pretends the author had used parentheses instead:
+
+Inline markup
+  ````
+  My dad [^ Professor Oak] is very wise.
+  ````
+Output
+  My dad (Professor Oak) is very wise.
+
+Within inline documents, Up doesn't recognize the syntax for section links. Consequently, their markup is instead treated as regular old text enclosed within brackets:
+
+Inline markup
+  ````
+  I enjoyed our conversation [topic: the weather].
+  ````
+Output
+  I enjoyed our conversation [\topic: the weather].
+
+
+Rendered HTML
+=============
+
+When inline documents are rendered, the resulting HTML is not enclosed within any container element.
+
+Inline markup:
+  I *really* like Starcraft.
+
+Rendered inline HTML:
+  ````
+  I <em>really</em> like Starcraft.
+  ````
