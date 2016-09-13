@@ -50,18 +50,18 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   Markup
     ````
-    For more information, see [topic: internal links].
+    For more information, see [topic: section links].
     ````
 
   Output
-    For more information, see [topic: internal links].
+    For more information, see [topic: section links].
 
-  That's all it takes! Simply reference snippet of a text from the section's title ("internal links", in the above example).
+  That's all it takes! Simply reference snippet of a text from the section's title ("section links", in the above example).
   
   Up figures out which section you want to reference, and automatically produces a link to that section.
 
-- Up is actually readable in plain text
-  =====================================
+- Up is actually, honestly readable in plain text
+  ===============================================
 
   Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
 
@@ -956,7 +956,7 @@ Default
 ------------------
 
 Convention
-  [topic: Internal links]
+  [topic: Section links]
 
 Usage
   ````
