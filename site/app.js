@@ -15555,17 +15555,37 @@
 	exports.default = throttle;
 	// Returns a version of `callback` that won't execute more than
 	// once per `cooldown` period (in milliseconds).
+	//
+	// If the returned function is invoked during the cooldown period,
+	// it will execute as soon as the cooldown period ends.
 	function throttle(callback, cooldown) {
-	  var isInCooldown = false;
+	  var isInCooldown = false,
+	      wasInvokedDuringCooldown = false;
 
 	  return function () {
-	    if (!isInCooldown) {
-	      callback.apply(undefined, arguments);
-	      isInCooldown = true;
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	      setTimeout(function () {
+	    if (isInCooldown) {
+	      wasInvokedDuringCooldown = true;
+	    } else {
+	      isInCooldown = true;
+	      executeAndScheduleEndOfCooldown();
+	    }
+
+	    function executeAndScheduleEndOfCooldown() {
+	      callback.apply(undefined, args);
+	      setTimeout(onEndOfCooldown, cooldown);
+	    }
+
+	    function onEndOfCooldown() {
+	      if (wasInvokedDuringCooldown) {
+	        executeAndScheduleEndOfCooldown();
+	        wasInvokedDuringCooldown = false;
+	      } else {
 	        isInCooldown = false;
-	      }, cooldown);
+	      }
 	    }
 	  };
 	}
