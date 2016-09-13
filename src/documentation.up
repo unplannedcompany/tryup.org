@@ -943,7 +943,29 @@ Members (all of which are optional)
   [topic: baseForUrlsStartingWithHashMark]: `string`
     The base for URLs starting with `#`.
   [topic: fancyEllipsis]: `string`
-    Up replaces consecutive periods with this fancy ellipsis. 
+    Up replaces consecutive periods with this fancy ellipsis.
+
+  `terms` (all of which are optional)
+    [topic: audio term]: `string` or `string[]`
+      Recognized by the [topic: audio] convention.
+    [topic: chart term]: `string` or `string[]`
+      Recognized by the [topic: chart] convention.
+    [topic: highlight term]: `string` or `string[]`
+      Recognized by the [topic: highlight] convention.
+    [topic: image term]: `string` or `string[]`
+      Recognized by the [topic: image] convention.
+    [topic: nsfl term]: `string` or `string[]`
+      Recognized by the [topic: NSFL] convention.
+    [topic: nsfw term]: `string` or `string[]`
+      Recognized by the [topic: NSFW] convention.
+    [topic: sectionLink term]: `string` or `string[]`
+      Recognized by the [topic: sectionLink] convention.
+    [topic: spoiler term]: `string` or `string[]`
+      Recognized by the [topic: spoilers] convention.
+    [topic: table term]: `string` or `string[]`
+      Recognized by the [topic: table] convention.
+    [topic: video term]: `string` or `string[]`Ï
+      Recognized by the [topic: video] convention.
 
 Usage
   ````
