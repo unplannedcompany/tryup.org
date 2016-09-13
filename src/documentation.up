@@ -598,7 +598,7 @@ Methods
 ================
 
 Summary
-  This method converts Up markup into HTML, then returns the result.
+  This method converts Up markup into HTML and returns the result.
 
 Arguments
   `markup`: `string`
@@ -614,7 +614,7 @@ Return value
 ==========================================
 
 Summary
-  This method converts Up markup into two pieces of HTML:
+  This method converts Up markup into two pieces of HTML, both of which are returned:
 
   1. A table of contents
   2. The document itself
@@ -638,7 +638,7 @@ Return value
 ======================
 
 Summary
-  This method converts inline Up markup into inline HTML, then returns the result.
+  This method converts inline Up markup into inline HTML and returns the result.
 
   For more information about inline documents, see [topic: inline documents].
 
@@ -690,7 +690,7 @@ Return value
 ========
 
 Summary
-  This method converts a syntax tree into HTML, then returns the result.
+  This method converts a syntax tree into HTML and returns the result.
 
 Arguments
   `document`: [topic: Document]
@@ -706,7 +706,7 @@ Return value
 ==================================
 
 Summary
-  This method converts a syntax tree into two pieces of HTML:
+  This method converts a syntax tree into two pieces of HTML, both of which are returned:
 
   1. A table of contents
   2. The document itself
@@ -730,7 +730,7 @@ Return value
 ==============
 
 Summary
-  This method converts an inline syntax tree into inline HTML, then results the result.
+  This method converts an inline syntax tree into inline HTML and returns the result.
 
   For more information about inline documents, see [topic: inline documents].
 
