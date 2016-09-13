@@ -907,10 +907,10 @@ Summary
   - [topic: parseAndRenderDocumentAndTableOfContents]
   - [topic: parseAndRenderInline]
 
-Members
-  `parsing` (optional): [topic: UserProvidedSettings.Parsing]
+Members (both of which are optional)
+  `parsing`: [topic: UserProvidedSettings.Parsing]
     The custom parsing settings.
-  `rendering` (optional): [topic: UserProvidedSettings.Rendering]
+  `rendering`: [topic: UserProvidedSettings.Rendering]
     The custom rendering settings.
 
 Usage
@@ -923,6 +923,33 @@ Usage
     rendering: {
       idPrefix: 'article'
     }
+  })
+  ````
+
+
+`UserProvidedSettings.Parsing`
+==============================
+
+Summary
+  The `UserProvidedSettings.Parsing` interface includes all parsing settings.
+ 
+Members (all of which are optional)
+  [topic: createSourceMap]: `boolean`
+    Enables source mapping.
+  [topic: defaultUrlScheme]: `string`
+    The default URL scheme for URLs without one.
+  [topic: baseForUrlsStartingWithSlash]: `string`
+    The base for URLs starting with `/`.
+  [topic: baseForUrlsStartingWithHashMark]: `string`
+    The base for URLs starting with `#`.
+  [topic: fancyEllipsis]: `string`
+    Up replaces consecutive periods with this fancy ellipsis. 
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    createSourceMap: true,
+    terms: { highlight: 'mark' }
   })
   ````
 
