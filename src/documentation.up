@@ -557,9 +557,192 @@ Installation
 npm install write-up --save-dev
 ````
 
-======
-Useage
-======
+==============
+Usage Overview
+==============
+
+First, `require` the library:
+
+````
+const Up = require('write-up')
+````
+
+Now that we've required `Up`, there are a couple of ways to use it.
+
+1. You can treat `Up` as a namespace:
+
+  ```
+  const html = Up.parseAndRender(markup, settings)
+  ```
+
+  Simply call methods direclty on `Up`! For a description of the methods you can use, please see [topic: methods].
+
+2. You can treat `Up` as a class:
+
+  ```
+  const up = new Up(settings)
+  const html = up.parseAndRender(markup, settingsChanges)
+  ```
+
+  It's never necessary to treat `Up` as a class, but it can be helpful if you need to parse and/or render several documents all sharing custom settings.
+  
+  Those shared settings can be provided just once---when you create your `Up` object. Then, when calling methods on your `Up` object, you only need to provide settings that overwrite (or supplement) the ones you provided to its constructor.
+
+
+=======
+Methods
+=======
+
+
+`parseAndRender`
+================
+
+Summary
+  This method converts Up markup into HTML, then returns the result.
+
+Arguments
+  `markup`: `string`
+    The Up markup to convert into HTML.
+  `settings` (optional): [topic: UserProvidedSettings]
+    The custom parsing and/or rendering settings to apply.
+
+Return value
+  This method returns a `string` of HTML representing the rendered document.
+
+
+`parseAndRenderDocumentAndTableOfContents`
+==========================================
+
+Summary
+  This method converts Up markup into two pieces of HTML:
+
+  1. A table of contents
+  2. The document itself
+
+Arguments
+  `markup`: `string`
+    The Up markup to parse and render.
+  `settings` (optional): [topic: UserProvidedSettings]
+    The custom parsing and/or rendering settings to apply.
+
+Return value
+  This method returns an object with two fields:
+
+  `tableOfContentsHtml`
+    The HTML for the table of contents.
+  `documentHtml`
+    The HTML for the document itself.
+
+
+`parseAndRenderInline`
+======================
+
+Summary
+  This method converts inline Up markup into inline HTML, then returns the result.
+
+  For more information about inline documents, see [topic: inline documents].
+
+Arguments
+  `inlineMarkup`: `string`
+    The inline Up markup to convert into inline HTML.
+  `parsingSettings` (optional): [topic: UserProvidedSettings]
+    The custom parsing and/or rendering settings to apply.
+
+Return value
+  This method returns a `string` of HTML representing the rendered inline document.
+
+
+`parse`
+=======
+
+Summary
+  This method parses Up markup and returns the resulting syntax tree.
+
+Arguments
+  `markup`: `string`
+    The Up markup to parse.
+  `parsingSettings` (optional): [topic: UserProvidedSettings.Parsing]
+    The custom parsing settings to apply.
+
+Return value
+  This method returns a [topic: Document] representing the syntax tree.
+
+
+`parseInline`
+=============
+
+Summary
+  This method parses inline Up markup and returns the resulting inline syntax tree.
+
+  For more information about inline documents, see [topic: inline documents].
+
+Arguments
+  `inlineMarkup`: `string`
+    The Up markup to parse.
+  `parsingSettings` (optional): [topic: UserProvidedSettings.Parsing]
+    The custom parsing settings to apply.
+
+Return value
+  This method returns an [topic: InlineDocument] representing the syntax tree.
+
+
+`render`
+========
+
+Summary
+  This method converts a syntax tree into HTML, then returns the result.
+
+Arguments
+  `document`: [topic: Document]
+    The Up markup to convert into HTML.
+  `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
+    The custom rendering settings to apply.
+
+Return value
+  This method returns a `string` of HTML representing the rendered document.
+
+
+`renderDocumentAndTableOfContents`
+==================================
+
+Summary
+  This method converts a syntax tree into two pieces of HTML:
+
+  1. A table of contents
+  2. The document itself
+
+Arguments
+  `document`: [topic: Document]
+    The Up markup to convert into HTML.
+  `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
+    The custom rendering settings to apply.
+
+Return value
+  This method returns an object with two fields:
+
+  `tableOfContentsHtml`
+    The HTML for the table of contents.
+  `documentHtml`
+    The HTML for the document itself.
+
+
+`renderInline`
+==============
+
+Summary
+  This method converts an inline syntax tree into inline HTML, then results the result.
+
+  For more information about inline documents, see [topic: inline documents].
+
+Arguments
+  `inlineDocument`: [topic: InlineDocument]
+    The Up markup to convert into HTML.
+  `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
+    The custom rendering settings to apply.
+
+Return value
+  This method returns a `string` of HTML representing the rendered inline document.
+
 
 
 =============
@@ -567,15 +750,12 @@ Configuration
 =============
 
 
-As dis
-
-
 Settings for Parsing
 =====================
 
-------------------------------------
-Source mapping with `createSourceMap`
-------------------------------------
+-----------------
+`createSourceMap`
+-----------------
 
 Summary
   When `createSourceMap` is enabled, Up keeps track of the original line number for every outline convention.
@@ -600,9 +780,9 @@ Default
   `false`
 
 
----------------------------------
-Trailing off with `fancyEllipsis`
----------------------------------
+---------------
+`fancyEllipsis`
+---------------
 
 Summary
   Up automatically replaces consecutive periods with `fancyEllipsis`.
