@@ -57,7 +57,7 @@ Up is designed for humans to read and write, not for computers to process and pa
     For more information, see [topic: section links].
 
   That's all it takes! Simply reference snippet of a text from the section's title ("section links", in the above example).
-  
+
   Up figures out which section you want to reference, and automatically produces a link to that section.
 
 - Up is actually, honestly readable in plain text
@@ -96,7 +96,7 @@ Emphasis
 
 Purpose
   Use the emphasis convention to emphasize a word or phrase.
-  
+
   If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.
 
 Example
@@ -110,7 +110,7 @@ Example
 
 Syntax
   To emphasize text, enclose it within single asterisks.
-  
+
 Notes
   Emphasized text is rendered using the `<em>` HTML element.
 
@@ -135,18 +135,18 @@ Example
 
 Syntax
   To stress text, enclose it within double asterisks.
-  
+
 Notes
   Stressed text is rendered using the `<strong>` HTML element.
-  
-  
+
+
 =======
 Italics
 =======
 
 Purpose
   Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
-  
+
   Some authors also use italics for unfamiliar foreign words.
 
 Example
@@ -160,7 +160,7 @@ Example
 
 Syntax
   To italicize text, enclose it within single underscores.
-  
+
 Notes
   Italics are rendered using the `<i>` HTML element.
 
@@ -171,9 +171,9 @@ Bold
 
 Purpose
   If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.
-  
+
   This convention should be used rarely. Usually, there's a more appropriate convention!
-  
+
   If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].
 
 Example
@@ -187,7 +187,7 @@ Example
 
 Syntax
   To make text bold, enclose it within double underscores.
-  
+
 Notes
   Bold text is rendered using the `<b>` HTML element.
 
@@ -198,7 +198,7 @@ Parentheticals (parentheses and square brackets)
 
 Purpose
   Up automatically recognizes parenthetical text!
-  
+
   You don't need to change how you use parentheses or square brackets.
 
 Example
@@ -237,7 +237,7 @@ Example
 
 Syntax
   To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your open bracket.
-  
+
 Notes
   Highlighted text is rendered using the `<mark>` HTML element.
 
@@ -248,7 +248,7 @@ Example input
 
 Purpose
   Use the example input convention to represent user input, including:
-  
+
   - Keys the user should press
   - Buttons the user should click
   - Menu items the user should access
@@ -264,7 +264,7 @@ Example
 
 Syntax
   To indicate text represents user input, enclose the text within curly brackets.
-  
+
   To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.
 
   Markup
@@ -273,9 +273,9 @@ Syntax
     ```` 
   Output
     Press { Start Game(s) } when you are ready. 
-    
+
   Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.
-  
+
 Notes
   Example input is rendered using the `<kbd>` HTML element.
 
@@ -308,9 +308,9 @@ Syntax
   =======================================
 
   Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.
-  
+
   In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:
-  
+
   Markup
     `````
     `let display = ``score:`` + 5`
@@ -318,9 +318,9 @@ Syntax
 
   Output
     `let display = ``score:`` + 5`
-    
+
   In this example, the delimiters are **2** backticks long, so the inline code can contain "streaks" of **1** backtick:
-  
+
   Markup
     `````
     ``let display = `score:` + 5``
@@ -337,7 +337,7 @@ Syntax
 
   Markup
     `` `inline_code` ``
-  
+
   Output
     `` `inline_code` ``
 
@@ -347,10 +347,10 @@ Syntax
 
   Markup
     `` (`inline_code`) ``
-  
+
   Output
     `` (`inline_code`) ``    
-  
+
 Notes
   Inline code is rendered using the `<code>` HTML element.
 
@@ -429,7 +429,7 @@ Syntax
     `````````
     ``````
     A code block:
-    
+
     ```
     function factorial(n: number): number {
       return (
@@ -442,11 +442,11 @@ Syntax
     See? Not so hard!
     ``````
     `````````
-  
+
   Output
     ``````
     A code block:
-    
+
     ```
     function factorial(n: number): number {
       return (
@@ -585,7 +585,7 @@ Now that we've required `Up`, there are a couple of ways to use it.
   ```
 
   It's never necessary to treat `Up` as a class, but it can be helpful if you need to parse and/or render several documents all sharing custom settings.
-  
+
   Those shared settings can be provided just once---when you create your `Up` object. Then, when calling methods on your `Up` object, you only need to provide settings that overwrite (or supplement) the ones you provided to its constructor.
 
 
@@ -607,6 +607,25 @@ Arguments
 
 Return value
   This method returns a `string` of HTML representing the rendered document.
+
+Usage
+  Without custom settings
+    ````
+    const html = Up.parseAndRender(markup)
+    ````
+
+  With custom settings
+    ````
+    const html = Up.parseAndRender(markup, {
+      parsing: {
+        createSourceMap: true,
+        terms: { highlight: 'mark' }
+      },
+      rendering: {
+        idPrefix: 'article'
+      }
+    })
+    ````
 
 
 `parseAndRenderDocumentAndTableOfContents`
@@ -632,6 +651,28 @@ Return value
   `documentHtml`
     The HTML for the document itself.
 
+Usage
+  Without custom settings
+    ````
+    const { tableOfContentsHtml, documentHtml } =
+      Up.parseAndRenderDocumentAndTableOfContents(markup)
+    ````
+
+  With custom settings
+    ````
+    const { tableOfContentsHtml, documentHtml } =
+      Up.parseAndRenderDocumentAndTableOfContents(markup, {
+        parsing: {
+          createSourceMap: true,
+          terms: { highlight: 'mark' }
+        },
+        rendering: {
+          idPrefix: 'article',
+          terms: { tableOfContents: 'In This Article' }
+        }
+      })
+    ````
+
 
 `parseAndRenderInline`
 ======================
@@ -650,6 +691,30 @@ Arguments
 Return value
   This method returns a `string` of HTML representing the rendered inline document.
 
+Usage
+  Without custom settings
+    ````
+    const html = Up.parseAndRenderInline(markup)
+    ````
+
+  With custom settings
+    ````
+    const html = Up.parseAndRenderInline(markup, {
+      parsing: {
+        baseForUrlsStartingWithSlash: 'https://example.com/en-us',',
+        terms: { highlight: 'mark' }
+      },
+      rendering: {
+        idPrefix: 'byline',
+        terms: {
+          toggleSpoiler: 'toggle',
+          toggleNsfw: 'toggle',
+          toggleNsfl: 'toggle'
+        }
+      }
+    })
+    ````
+
 
 `parse`
 =======
@@ -665,6 +730,20 @@ Arguments
 
 Return value
   This method returns a [topic: Document] representing the syntax tree.
+
+Usage
+  Without custom settings
+    ````
+    const html = Up.parse(markup)
+    ````
+
+  With custom settings
+    ````
+    const document = Up.parse(markup, {
+      createSourceMap: true,
+      terms: { highlight: 'mark' }
+    })
+    ````
 
 
 `parseInline`
@@ -684,6 +763,20 @@ Arguments
 Return value
   This method returns an [topic: InlineDocument] representing the syntax tree.
 
+Usage
+  Without custom settings
+    ````
+    const html = Up.parseInline(markup)
+    ````
+
+  With custom settings
+    ````
+    const html = Up.parseInline(markup, {
+      baseForUrlsStartingWithSlash: 'https://example.com/en-us',',
+      terms: { highlight: 'mark' }
+    })
+    ````
+
 
 `render`
 ========
@@ -699,6 +792,24 @@ Arguments
 
 Return value
   This method returns a `string` of HTML representing the rendered document.
+
+Usage
+  Without custom settings
+    ````
+    const html = Up.render(document)
+    ````
+
+  With custom settings
+    ````
+    const html = Up.render(markup, {
+      idPrefix: 'article',
+      terms: {
+        toggleSpoiler: 'toggle',
+        toggleNsfw: 'toggle',
+        toggleNsfl: 'toggle'
+      }
+    })
+    ````
 
 
 `renderDocumentAndTableOfContents`
@@ -724,6 +835,22 @@ Return value
   `documentHtml`
     The HTML for the document itself.
 
+Usage
+  Without custom settings
+    ````
+    const { tableOfContentsHtml, documentHtml } =
+      Up.renderDocumentAndTableOfContents(markup)
+    ````
+
+  With custom settings
+    ````
+    const { tableOfContentsHtml, documentHtml } =
+      Up.renderDocumentAndTableOfContents(markup, {
+        idPrefix: 'article',
+        terms: { tableOfContents: 'In This Article' }
+      })
+    ````
+
 
 `renderInline`
 ==============
@@ -741,6 +868,24 @@ Arguments
 
 Return value
   This method returns a `string` of HTML representing the rendered inline document.
+
+Usage
+  Without custom settings
+    ````
+    const html = Up.renderInline(markup)
+    ````
+
+  With custom settings
+    ````
+    const html = Up.renderInline(markup, {
+      idPrefix: 'byline',
+      terms: {
+        toggleSpoiler: 'toggle',
+        toggleNsfw: 'toggle',
+        toggleNsfl: 'toggle'
+      }
+    })
+    ````
 
 
 =============
@@ -788,7 +933,7 @@ Usage
 
 Summary
   When `createSourceMap` is enabled, Up keeps track of the original line number for every outline convention.
-  
+
   This document uses source mapping to synchronize the scrolling between itself and its markup.
 
 Usage
@@ -829,7 +974,7 @@ Usage
 
 Default
   `"…"`
-  
+
 
 
 Customizing terms found in markup
@@ -1127,7 +1272,7 @@ The terms appearing in the rendered document are fully customizable. You don't n
 
 Purpose
   This term does not appear in content of the document, but it does appear in the URLs of footnote definitions (e.g. footnotes in their respective footnote blocks).
-  
+
   If this term contains any spaces, they are automatically converted to hyphens.
 
 Usage
@@ -1151,7 +1296,7 @@ Default
 
 Purpose
   This term does not appear in content of the document, but it does appear in the URLs of footnote references (e.g. the superscripts within paragraphs).
-  
+
   If this term contains any spaces, they are automatically converted to hyphens.
 
 Usage
@@ -1175,7 +1320,7 @@ Default
 
 Purpose
   This term does not appear in content of the document, but it does appear in the URLs of headings referenced by the table of contents.
-  
+
   If this term contains any spaces, they are automatically converted to hyphens.
 
 Usage
