@@ -15535,9 +15535,7 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    if (timeoutHandle) {
-	      clearTimeout(timeoutHandle);
-	    }
+	    clearTimeout(timeoutHandle);
 
 	    timeoutHandle = setTimeout(function () {
 	      callback.apply(undefined, args);
