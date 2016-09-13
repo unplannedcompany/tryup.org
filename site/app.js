@@ -58,8 +58,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var getElementById = document.getElementById.bind(document);
+
 	document.addEventListener('DOMContentLoaded', function () {
-	  (0, _configureEditor2.default)(document.getElementById('editor-container'), document.getElementById('document-container'), document.getElementById('table-of-contents-container'));
+	  (0, _configureEditor2.default)(getElementById('editor-container'), getElementById('document-container'), getElementById('table-of-contents-container'));
 	});
 
 /***/ },

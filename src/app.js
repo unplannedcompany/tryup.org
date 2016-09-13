@@ -1,13 +1,14 @@
 import 'normalize.css'
 import './style/lib/codemirror.css'
 import './style/app.scss'
-
 import configureEditor from './configureEditor'
 
 
+const getElementById = document.getElementById.bind(document)
+
 document.addEventListener('DOMContentLoaded', () => {
   configureEditor(
-    document.getElementById('editor-container'),
-    document.getElementById('document-container'),
-    document.getElementById('table-of-contents-container'))
+    getElementById('editor-container'),
+    getElementById('document-container'),
+    getElementById('table-of-contents-container'))
 })
