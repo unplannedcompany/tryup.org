@@ -36,7 +36,7 @@ Up is designed for humans to read and write, not for computers to process and pa
   7;      Leech Seed;   Grass;    ;       90%
   9;      Vine Whip;    Grass;    45;     100%
 
-  For more information, see [topic: tables]. 
+  For more information, see [topic: tables].
 
 - Up has effortless footnotes
   ===========================
@@ -67,7 +67,7 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.
 
-  These markup terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: terms found in markup].
+  These syntax terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: terms found in markup].
 
 - Up produces fully accessible HTML
   =================================
@@ -84,10 +84,10 @@ Writing conventions (the rules and syntax of Up)
 Don't get lost! The following terms are occasionally used in this section:
 
 Inline convention
-  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting]. 
+  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting].
 
 Outline convention
-  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].  
+  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].
 
 
 ========
@@ -165,7 +165,7 @@ Notes
   Italics are rendered using the `<i>` HTML element.
 
 
-====  
+====
 Bold
 ====
 
@@ -183,7 +183,7 @@ Example
     ````
 
   Output
-    Has anyone actually used  __KABOOM__ cleaning products? 
+    Has anyone actually used  __KABOOM__ cleaning products?
 
 Syntax
   To make text bold, enclose it within double underscores.
@@ -204,11 +204,11 @@ Purpose
 Example
   Markup
     ````
-    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon. 
+    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
     ````
 
   Output
-    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.  
+    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
 Syntax
   You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.
@@ -229,11 +229,11 @@ Purpose
 Example
   Markup
     ````
-    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients. 
+    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
     ````
 
   Output
-    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.     
+    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
 
 Syntax
   To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your open bracket.
@@ -269,10 +269,10 @@ Syntax
 
   Markup
     ````
-    Press { Start Game(s) } when you are ready. 
-    ```` 
+    Press { Start Game(s) } when you are ready.
+    ````
   Output
-    Press { Start Game(s) } when you are ready. 
+    Press { Start Game(s) } when you are ready.
 
   Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.
 
@@ -280,7 +280,7 @@ Notes
   Example input is rendered using the `<kbd>` HTML element.
 
 
-===========  
+===========
 Inline code
 ===========
 
@@ -330,7 +330,7 @@ Syntax
     ``let display = `score:` + 5``
 
   ---------------------------------------------------
-  But my inline code starts (or ends) with backticks! 
+  But my inline code starts (or ends) with backticks!
   ---------------------------------------------------
 
   If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
@@ -349,13 +349,13 @@ Syntax
     `` (`inline_code`) ``
 
   Output
-    `` (`inline_code`) ``    
+    `` (`inline_code`) ``
 
 Notes
   Inline code is rendered using the `<code>` HTML element.
 
 
-=========  
+=========
 Footnotes
 =========
 
@@ -396,7 +396,7 @@ Example
     function nthFibonacci(n: number): number {
       return (
         n <= 2
-        ? n - 1 
+        ? n - 1
         : nthFibonacci(n - 1) + nthFibonacci(n - 2))
     }
     ```
@@ -407,7 +407,7 @@ Example
     function nthFibonacci(n: number): number {
       return (
         n <= 2
-        ? n - 1 
+        ? n - 1
         : nthFibonacci(n - 1) + nthFibonacci(n - 2))
     }
     ```
@@ -575,7 +575,7 @@ Now that we've required `Up`, there are a couple of ways to use it.
   const html = Up.parseAndRender(markup, settings)
   ```
 
-  Simply call methods direclty on `Up`! For a description of the methods you can use, please see [topic: methods].
+  Simply call methods direclty on `Up`! For a full description of the methods you can use, please see [topic: methods].
 
 2. You can treat `Up` as a class:
 
@@ -593,8 +593,8 @@ Now that we've required `Up`, there are a couple of ways to use it.
 Methods
 =======
 
-`parseAndRender`
-================
+`parseAndRender` (method)
+=========================
 
 Summary
   This method converts Up markup into HTML and returns the result.
@@ -628,8 +628,8 @@ Usage
     ````
 
 
-`parseAndRenderDocumentAndTableOfContents`
-==========================================
+`parseAndRenderDocumentAndTableOfContents` (method)
+===================================================
 
 Summary
   This method converts Up markup into two pieces of HTML, both of which are returned:
@@ -674,8 +674,8 @@ Usage
     ````
 
 
-`parseAndRenderInline`
-======================
+`parseAndRenderInline` (method)
+===============================
 
 Summary
   This method converts inline Up markup into inline HTML and returns the result.
@@ -747,8 +747,8 @@ Usage
     ````
 
 
-`parseInline`
-=============
+`parseInline` (method)
+======================
 
 Summary
   This method parses inline Up markup and returns the resulting inline syntax tree.
@@ -780,8 +780,8 @@ Usage
     ````
 
 
-`render`
-========
+`render` (method)
+=================
 
 Summary
   This method converts a syntax tree into HTML and returns the result.
@@ -815,8 +815,8 @@ Usage
     ````
 
 
-`renderDocumentAndTableOfContents`
-==================================
+`renderDocumentAndTableOfContents` (method)
+===========================================
 
 Summary
   This method converts a syntax tree into two pieces of HTML, both of which are returned:
@@ -856,8 +856,8 @@ Usage
     ````
 
 
-`renderInline`
-==============
+`renderInline` (method)
+=======================
 
 Summary
   This method converts an inline syntax tree into inline HTML and returns the result.
@@ -900,13 +900,13 @@ Configuration
 Every Up method accepts (optional!) custom settings. For a full description of Up's methods, see [topic: methods].
 
 
-`UserProvidedSettings`
-=====================
+`UserProvidedSettings` (interface)
+==================================
 
 Summary
-  The `UserProvidedSettings` interface includes both parsing settings and rendering settings.
+  The `UserProvidedSettings` interface includes both parsing settings and rendering settings
 
-  Use this interface to provide settings to Up methods that both parse Up markup *and* render the result to HTML:
+  Use this interface to provide custom settings to methods that both parse markup *and* render the result to HTML:
 
   - [topic: parseAndRender]
   - [topic: parseAndRenderDocumentAndTableOfContents]
@@ -933,8 +933,8 @@ Usage
   ````
 
 
-`UserProvidedSettings.Parsing`
-==============================
+`UserProvidedSettings.Parsing` (interface)
+==========================================
 
 Summary
   The `UserProvidedSettings.Parsing` interface includes all parsing settings.
@@ -956,96 +956,81 @@ Members (all of which are optional)
     Up replaces consecutive periods with this fancy ellipsis.
 
   `terms` (all of which are optional)
-    [topic: audio term]: `string` or `string[]`
-      Recognized by the [topic: audio] convention.
 
-    [topic: chart term]: `string` or `string[]`
-      Recognized by the [topic: chart] convention.
+    ------------------------
+    Customizing syntax terms
+    ------------------------
 
-    [topic: highlight term]: `string` or `string[]`
-      Recognized by the [topic: highlight] convention.
+    You can provide unlimited variations for every syntax term! Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
 
-    [topic: image term]: `string` or `string[]`
-      Recognized by the [topic: image] convention.
+    For a given syntax term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
 
-    [topic: nsfl term]: `string` or `string[]`
-      Recognized by the [topic: NSFL] convention.
+    Example
+      ````
+      const document = Up.parse(markup, {
+        terms: {
+          audio: ["sound", "song"],
+          highlight: "mark"
+        }
+      })
+      ````
 
-    [topic: nsfw term]: `string` or `string[]`
-      Recognized by the [topic: NSFW] convention.
+    Discussion
+      In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
 
-    [topic: sectionLink term]: `string` or `string[]`
-      Recognized by the [topic: sectionLink] convention.
+      The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
 
-    [topic: spoiler term]: `string` or `string[]`
-      Recognized by the [topic: spoilers] convention.
+      For a full description of the methods you can use, please see [topic: methods].
 
-    [topic: table term]: `string` or `string[]`
-      Recognized by the [topic: table] convention.
 
-    [topic: video term]: `string` or `string[]`
-      Recognized by the [topic: video] convention.
+    Keep in mind that syntax terms are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
+
+
+    `audio`: `string` or `string[]`
+      Recognized by [topic: audio].
+
+    `chart`: `string` or `string[]`
+      Recognized by [topic: chart].
+
+    `highlight`: `string` or `string[]`
+      Recognized by [topic: highlight].
+
+    `image`: `string` or `string[]`
+      Recognized by [topic: image].
+
+    `nsfl`: `string` or `string[]`
+      Recognized by [topic: NSFL].
+
+    `nsfw`: `string` or `string[]`
+      Recognized by [topic: NSFW].
+
+    `sectionLink`: `string` or `string[]`
+      Recognized by [topic: sectionLink].
+
+    `spoiler`: `string` or `string[]`
+      Recognized by [topic: spoilers].
+
+    `table`: `string` or `string[]`
+      Recognized by [topic: table].
+
+    `video`: `string` or `string[]`
+      Recognized by [topic: video].
 
 Usage
   ````
   const document = Up.parse(markup, {
     createSourceMap: true,
-    terms: { highlight: 'mark' }
-  })
-  ````
-
-
-`UserProvidedSettings.Rendering`
-==============================
-
-Summary
-  The `UserProvidedSettings.Parsing` interface includes all rendering settings.
-
-Members (all of which are optional)
-  [topic: idPrefix]: `string`
-    The prefix to apply to HTML IDs.
-
-  [topic: renderDangerousContent]: `boolean`
-    Enables the rendering of dangerous content. Enabling this setting is not recommended! 
-
-  `terms` (all of which are optional)
-    [topic: footnote term]: `string`
-      Appears in the URLs of footnotes definitions (i.e. in their respective footnote blocks).
-
-    [topic: footnoteReference term]: `string`
-      Appears in the URLs of footnotes references (i.e. the superscripts within paragraphs).
-
-    [topic: sectionReferencedByTableOfContents term]: `string`
-      Appears in the URLs of headings referenced by the table of contents.
-
-    [topic: tableOfContents term]: `string`
-      Appears at the top of the table of contents.
-
-    [topic: toggleNsfl term]: `string`
-      Appears on the button that toggles the visibility of NSFL content.
-
-    [topic: toggleNsfw term]: `string`
-      Appears on the button that toggles the visibility of NSFW content.
-
-    [topic: toggleSpoiler term]: `string`
-      Appears on the button that toggles the visibility of spoiler content.
-
-Usage
-  ````
-  const html = Up.render(document, {
-    idPrefix: 'article',
     terms: {
-      toggleSpoiler: 'toggle',
-      toggleNsfw: 'toggle',
-      toggleNsfl: 'toggle'
+      audio: ["sound", "song"],
+      highlight: "mark"
     }
   })
   ````
 
 
------------------
-`createSourceMap`
------------------
+---------------------------
+`createSourceMap` (setting)
+---------------------------
 
 Summary
   When `createSourceMap` is enabled, Up keeps track of the original line number for every outline convention.
@@ -1070,14 +1055,14 @@ Default
   `false`
 
 
----------------
-`fancyEllipsis`
----------------
+-------------------------
+`fancyEllipsis` (setting)
+-------------------------
 
 Summary
   Up automatically replaces consecutive periods with `fancyEllipsis`.
 
-  By default, `fancyEllipsis` is `…`. If you you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.   
+  By default, `fancyEllipsis` is `…`. If you you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.
 
 Usage
   ````
@@ -1092,247 +1077,70 @@ Default
   `"…"`
 
 
+`UserProvidedSettings.Rendering` (interface)
+============================================
 
-Customizing terms found in markup
-=================================
+Summary
+  The `UserProvidedSettings.Parsing` interface includes all rendering settings.
 
-You can provide unlimited variations for every markup term! Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
+Members (all of which are optional)
+  [topic: idPrefix]: `string`
+    The prefix to apply to HTML IDs.
 
-For a given markup term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
+  [topic: renderDangerousContent]: `boolean`
+    Enables the rendering of dangerous content. Enabling this setting is not recommended!
 
-Example
-  ````
-  const settings = {
-    parsing: {
-      terms: {
-        audio: ["sound", "song"],
-        highlight: "mark"
-      }
-    }
-  }
-  ````
+  `terms` (all of which are optional)
 
-Discussion
-  In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
+    --------------------------
+    Customizing rendered terms
+    --------------------------
 
-  The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
+    You don't need to worry about escaping any characters in your custom terms! Up handles that for you.
 
 
-Keep in mind that markup terms are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
+    `footnote`: `string`
+      Appears in the URLs of footnotes definitions (i.e. in their respective footnote blocks).
 
+    `footnoteReference`: `string`
+      Appears in the URLs of footnotes references (i.e. the superscripts within paragraphs).
 
-------------
-`audio` term
-------------
+    `sectionReferencedByTableOfContents`: `string`
+      Appears in the URLs of headings referenced by the table of contents.
 
-Convention
-  [topic: Audio]
+    `tableOfContents`: `string`
+      Appears at the top of the table of contents.
 
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { audio: ["sound", "song"] }
-    }
-  }
-  ````
+    `toggleNsfl`: `string`
+      Appears on the button that toggles the visibility of NSFL content.
 
-Default
-  `"audio"`
+    `toggleNsfw`: `string`
+      Appears on the button that toggles the visibility of NSFW content.
 
-
-------------
-`chart` term
-------------
-
-Convention
-  [topic: Charts]
+    `toggleSpoiler`: `string`
+      Appears on the button that toggles the visibility of spoiler content.
 
 Usage
   ````
-  const settings = {
-    parsing: {
-      terms: { chart: ["data", "figure"] }
+  const html = Up.render(document, {
+    idPrefix: 'article',
+    terms: {
+      toggleSpoiler: 'toggle',
+      toggleNsfw: 'toggle',
+      toggleNsfl: 'toggle'
     }
-  }
+  })
   ````
 
-Default
-  `"chart"`
 
-
-----------------
-`highlight` term
-----------------
-
-Convention
-  [topic: Highlighting]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { highlight: ["mark", "spotlight"] }
-    }
-  }
-  ````
-
-Default
-  `"highlight"`
-
-
-------------
-`image` term
-------------
-
-Convention
-  [topic: Images]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { image: ["picture", "pic"] }
-    }
-  }
-  ````
-
-Default
-  `"image"` and `"img"`
-
-
------------
-`nsfl` term
------------
-
-Convention
-  [topic: NSFL]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { nsfl: ["horrible", "vile"] }
-    }
-  }
-  ````
-
-Default
-  `"nsfl"`
-
-
------------
-`nsfw` term
------------
-
-Convention
-  [topic: NSFW]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { nsfw: ["nudity", "inappropriate"] }
-    }
-  }
-  ````
-
-Default
-  `"nsfw"`
-
-
-------------------
-`sectionLink` term
-------------------
-
-Convention
-  [topic: Section links]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { sectionLink: ["reference", "heading"] }
-    }
-  }
-  ````
-
-Default
-  `"topic"` and `"section"`
-
-
---------------
-`spoiler` term
---------------
-
-Convention
-  [topic: Spoilers]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { spoiler: ["ending", "reveal"] }
-    }
-  }
-  ````
-
-Default
-  `"spoiler"`
-
-
---------------
-`table` term
---------------
-
-Convention
-  [topic: Tables]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { table: ["data", "figure"] }
-    }
-  }
-  ````
-
-Default
-  `"table"`
-
-
---------------
-`video` term
---------------
-
-Convention
-  [topic: Video]
-
-Usage
-  ````
-  const settings = {
-    parsing: {
-      terms: { video: ["movie", "clip"] }
-    }
-  }
-  ````
-
-Default
-  `"video"` and `"vid"`
-
-
-
-Settings for Rendering
-=======================
-
---------------------------------------
-Avoiding ID collisions with `idPrefix`
---------------------------------------
+--------------------
+`idPrefix` (setting)
+--------------------
 
 Summary
   If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
 
-  By default, `idPrefix` is "up" to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string. 
+  By default, `idPrefix` is "up" to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.
 
 Usage
   ````
@@ -1350,9 +1158,9 @@ Default
   `"up"`
 
 
-------------------------------------------------
-Living dangerously with `renderDangerousContent`
-------------------------------------------------
+----------------------------------
+`renderDangerousContent` (setting)
+----------------------------------
 
 Summary
   Normally, Up will not render links or media elements with potentially exploitable URI schemes (`javascript`, `vbscript`, `data`, and `file`).
@@ -1376,173 +1184,6 @@ Default
 
 
 
-Customizing terms that appear in the rendered document
-======================================================
-
-The terms appearing in the rendered document are fully customizable. You don't need to worry about escaping anything for HTML---Up handles that for you.
-
-
----------------
-`footnote` term
----------------
-
-Purpose
-  This term does not appear in content of the document, but it does appear in the URLs of footnote definitions (i.e. footnotes in their respective footnote blocks).
-
-  If this term contains any spaces, they are automatically converted to hyphens.
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      terms: {
-        footnote: "fn"
-      }
-    }
-  }
-  ````
-
-Default
-  `"footnote"`
-
-
-------------------------
-`footnoteReference` term
-------------------------
-
-Purpose
-  This term does not appear in content of the document, but it does appear in the URLs of footnote references (i.e. the superscripts within paragraphs).
-
-  If this term contains any spaces, they are automatically converted to hyphens.
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      terms: {
-        footnoteReference: "fn ref"
-      }
-    }
-  }
-  ````
-
-Default
-  `"footnote reference"`
-
-
------------------------------------------
-`sectionReferencedByTableOfContents` term
------------------------------------------
-
-Purpose
-  This term does not appear in content of the document, but it does appear in the URLs of headings referenced by the table of contents.
-
-  If this term contains any spaces, they are automatically converted to hyphens.
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      terms: {
-        sectionReferencedByTableOfContents: "item"
-      }
-    }
-  }
-  ````
-
-Default
-  `"topic"`
-
-
-----------------------
-`tableOfContents` term
-----------------------
-
-Purpose
-  This term appears at the top of the table of contents.
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      terms: {
-        tableOfContents: "In This Article"
-      }
-    }
-  }
-  ````
-
-Default
-  `"Table of Contents"`
-
-
------------------
-`toggleNsfl` term
------------------
-
-Purpose
-  This term appears on the button that toggles the visibility of NSFL content.
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      terms: {
-        toggleNsfl: "Ruin me"
-      }
-    }
-  }
-  ````
-
-Default
-  `"toggle NSFL"`
-
-
------------------
-`toggleNsfw` term
------------------
-
-Purpose
-  This term appears on the button that toggles the visibility of NSFW content.
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      terms: {
-        toggleNsfw: "I'm a grownup"
-      }
-    }
-  }
-  ````
-
-Default
-  `"toggle NSFW"`
-
-
---------------------
-`toggleSpoiler` term
---------------------
-
-Purpose
-  This term appears on the button that toggles the visibility of spoiler content.
-
-Usage
-  ````
-  const settings = {
-    rendering: {
-      terms: {
-        toggleSpoiler: "Ruin it"
-      }
-    }
-  }
-  ````
-
-Default
-  `"toggle spoiiler"`
-
-
-
 ================
 Inline documents
 ================
@@ -1563,12 +1204,9 @@ That's what inline documents are for! To take advantage of inline documents, use
 Syntax differences
 ==================
 
-Within inline documents: 
+Within inline documents, Up ignores all outline conventions. Furthermore, [topic: footnotes] and [topic: section links] aren't supported.
 
-- Up ignores all outline conventions.
-- Up supports all inline conventions except for [topic: footnotes] and [topic: section links].
-
-When Up encounters a footnote in an inline document, it pretends the author had used parentheses instead:
+When Up encounters a footnote in an inline document, it pretends the author had used parentheses instead of a footnote:
 
 Inline markup
   ````
