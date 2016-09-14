@@ -549,6 +549,7 @@ Using the Up library
 
 The Up library can be found [on NPM] (npmjs.com/package/write-up).
 
+
 ============
 Installation
 ============
@@ -556,6 +557,7 @@ Installation
 ````
 npm install write-up --save-dev
 ````
+
 
 ==============
 Usage Overview
@@ -575,7 +577,7 @@ Now that we've required `Up`, there are a couple of ways to use it.
   const html = Up.parseAndRender(markup, settings)
   ```
 
-  Simply call methods direclty on `Up`! For a full description of the methods you can use, please see [topic: methods].
+  Simply call methods direclty on `Up`! For a full description of the various methods you can use, please see [topic: methods].
 
 2. You can treat `Up` as a class:
 
@@ -593,8 +595,9 @@ Now that we've required `Up`, there are a couple of ways to use it.
 Methods
 =======
 
-`parseAndRender` (method)
-=========================
+
+`parseAndRender`
+================
 
 Summary
   This method converts Up markup into HTML and returns the result.
@@ -628,8 +631,8 @@ Usage
     ````
 
 
-`parseAndRenderDocumentAndTableOfContents` (method)
-===================================================
+`parseAndRenderDocumentAndTableOfContents`
+==========================================
 
 Summary
   This method converts Up markup into two pieces of HTML, both of which are returned:
@@ -674,8 +677,8 @@ Usage
     ````
 
 
-`parseAndRenderInline` (method)
-===============================
+`parseAndRenderInline`
+======================
 
 Summary
   This method converts inline Up markup into inline HTML and returns the result.
@@ -747,8 +750,8 @@ Usage
     ````
 
 
-`parseInline` (method)
-======================
+`parseInline`
+=============
 
 Summary
   This method parses inline Up markup and returns the resulting inline syntax tree.
@@ -780,8 +783,8 @@ Usage
     ````
 
 
-`render` (method)
-=================
+`render`
+========
 
 Summary
   This method converts a syntax tree into HTML and returns the result.
@@ -815,8 +818,8 @@ Usage
     ````
 
 
-`renderDocumentAndTableOfContents` (method)
-===========================================
+`renderDocumentAndTableOfContents`
+==================================
 
 Summary
   This method converts a syntax tree into two pieces of HTML, both of which are returned:
@@ -856,8 +859,8 @@ Usage
     ````
 
 
-`renderInline` (method)
-=======================
+`renderInline`
+==============
 
 Summary
   This method converts an inline syntax tree into inline HTML and returns the result.
@@ -897,14 +900,16 @@ Usage
 Configuration
 =============
 
-Every Up method accepts (optional!) custom settings. For a full description of Up's methods, see [topic: methods].
+All methods accept custom settings!
+
+For a full description of Up's methods, see [topic: methods].
 
 
-`UserProvidedSettings` (interface)
-==================================
+`UserProvidedSettings`
+======================
 
 Summary
-  The `UserProvidedSettings` interface includes both parsing settings and rendering settings
+  The `UserProvidedSettings` interface includes both parsing settings and rendering settings.
 
   Use this interface to provide custom settings to methods that both parse markup *and* render the result to HTML:
 
@@ -914,10 +919,10 @@ Summary
 
 Members (both of which are optional)
   `parsing`: [topic: UserProvidedSettings.Parsing]
-    The custom parsing settings.
+    The custom parsing settings to apply.
 
   `rendering`: [topic: UserProvidedSettings.Rendering]
-    The custom rendering settings.
+    The custom rendering settings to apply.
 
 Usage
   ````
@@ -933,11 +938,22 @@ Usage
   ````
 
 
-`UserProvidedSettings.Parsing` (interface)
-==========================================
+`UserProvidedSettings.Parsing`
+==============================
 
 Summary
   The `UserProvidedSettings.Parsing` interface includes all parsing settings.
+
+  Use this interface to provide custom settings to methods that parse markup and return the resulting syntax tree:
+
+  - [topic: parse]
+  - [topic: parseInline]
+
+  As part of [topic: UserProvidedSettings], this interface also provides custom settings to methods that both parse markup *and* render the result to HTML:
+
+  - [topic: parseAndRender]
+  - [topic: parseAndRenderDocumentAndTableOfContents]
+  - [topic: parseAndRenderInline]
 
 Members (all of which are optional)
   [topic: createSourceMap]: `boolean`
@@ -980,11 +996,9 @@ Members (all of which are optional)
 
       The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
 
-      For a full description of the methods you can use, please see [topic: methods].
-
+      For a full description of the various methods you can use, please see [topic: methods].
 
     Keep in mind that syntax terms are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
-
 
     `audio`: `string` or `string[]`
       Recognized by [topic: audio].
@@ -1028,9 +1042,12 @@ Usage
   ````
 
 
----------------------------
-`createSourceMap` (setting)
----------------------------
+Parsing settings
+================
+
+-----------------
+`createSourceMap`
+-----------------
 
 Summary
   When `createSourceMap` is enabled, Up keeps track of the original line number for every outline convention.
@@ -1039,12 +1056,15 @@ Summary
 
 Usage
   ````
-  const settings = {
+  const html = Up.parseAndRender(markup, {
     parsing: {
       createSourceMap: true
     }
-  }
+  })
   ````
+
+Context
+  This setting belongs to [topic: UserProvidedSettings.Parsing].
 
 Details
   `createSourceMap` works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.
@@ -1055,9 +1075,80 @@ Default
   `false`
 
 
--------------------------
-`fancyEllipsis` (setting)
--------------------------
+------------------
+`defaultUrlScheme`
+------------------
+
+Summary
+  The `defaultUrlScheme` is prefixed to any link URL or media URL without a [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax).
+  
+  For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: baseForUrlsStartingWithSlash] or [topic: baseForUrlsStartingWithHashMark].
+
+Usage
+  ````
+  const html = Up.parseAndRender(markup, {
+    parsing: {
+      defaultUrlScheme: 'my-app://'
+    }
+  })
+  ````
+
+Context
+  This setting belongs to [topic: UserProvidedSettings.Parsing]. 
+
+Default
+  `"https://"`
+
+
+------------------------------
+`baseForUrlsStartingWithSlash`
+------------------------------
+
+Summary
+  The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `/`.
+  
+Usage
+  ````
+  const html = Up.parseAndRender(markup, {
+    parsing: {
+      baseForUrlsStartingWithSlash: 'https://example.com/blog/'
+    }
+  })
+  ````
+
+Context
+  This setting belongs to [topic: UserProvidedSettings.Parsing]. 
+
+Default
+  `""` (an empty string)
+
+
+---------------------------------
+`baseForUrlsStartingWithHashMark`
+---------------------------------
+
+Summary
+  The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `#`.
+
+Usage
+  ````
+  const html = Up.parseAndRender(markup, {
+    parsing: {
+      baseForUrlsStartingWithHashMark: 'https://example.com/blog/post/28'
+    }
+  })
+  ````
+
+Context
+  This setting belongs to [topic: UserProvidedSettings.Parsing].
+
+Default
+  `""` (an empty string)
+
+
+---------------
+`fancyEllipsis`
+---------------
 
 Summary
   Up automatically replaces consecutive periods with `fancyEllipsis`.
@@ -1066,22 +1157,37 @@ Summary
 
 Usage
   ````
-  const settings = {
+  const html = Up.parseAndRender(markup, {
     parsing: {
       fancyEllipsis: '⋯'
     }
-  }
+  })
   ````
+
+Context
+  This setting belongs to [topic: UserProvidedSettings.Parsing]. 
 
 Default
   `"…"`
 
 
-`UserProvidedSettings.Rendering` (interface)
+`UserProvidedSettings.Rendering`
 ============================================
 
 Summary
   The `UserProvidedSettings.Parsing` interface includes all rendering settings.
+
+  Use this interface to provide custom settings to methods that render syntax trees to HTML:
+
+  - [topic: render]
+  - [topic: renderDocumentAndTableOfContents]
+  - [topic: renderInline]
+
+  As part of [topic: UserProvidedSettings], this interface also provides custom settings to methods that both parse markup *and* render the result to HTML:
+
+  - [topic: parseAndRender]
+  - [topic: parseAndRenderDocumentAndTableOfContents]
+  - [topic: parseAndRenderInline]
 
 Members (all of which are optional)
   [topic: idPrefix]: `string`
@@ -1097,7 +1203,6 @@ Members (all of which are optional)
     --------------------------
 
     You don't need to worry about escaping any characters in your custom terms! Up handles that for you.
-
 
     `footnote`: `string`
       Appears in the URLs of footnotes definitions (i.e. in their respective footnote blocks).
@@ -1133,9 +1238,12 @@ Usage
   ````
 
 
---------------------
-`idPrefix` (setting)
---------------------
+Rendering settings
+==================
+
+----------
+`idPrefix`
+----------
 
 Summary
   If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
@@ -1144,12 +1252,15 @@ Summary
 
 Usage
   ````
-  const settings = {
+  const html = Up.parseAndRender(markup, {
     rendering: {
-      idPrefix: 'article'
+      idPrefix: 'article',
     }
-  }
+  })
   ````
+
+Context
+  This setting belongs to [topic: UserProvidedSettings.Rendering].
 
 Details
   You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
@@ -1158,9 +1269,9 @@ Default
   `"up"`
 
 
-----------------------------------
-`renderDangerousContent` (setting)
-----------------------------------
+------------------------
+`renderDangerousContent`
+------------------------
 
 Summary
   Normally, Up will not render links or media elements with potentially exploitable URI schemes (`javascript`, `vbscript`, `data`, and `file`).
@@ -1169,12 +1280,15 @@ Summary
 
 Usage
   ````
-  const settings = {
+  const html = Up.parseAndRender(markup, {
     rendering: {
       renderDangerousContent: true
     }
-  }
+  })
   ````
+
+Context
+  This setting belongs to [topic: UserProvidedSettings.Rendering].
 
 Details
   By default, dangerous media elements produce no HTML at all. Dangerous links produce no HTML of their own, though their child elements are rendered.
