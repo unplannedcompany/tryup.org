@@ -596,8 +596,8 @@ Methods
 =======
 
 
-`parseAndRender`
-================
+`Up.parseAndRender`
+==================
 
 Summary
   This method converts Up markup into HTML and returns the result.
@@ -631,8 +631,8 @@ Usage
     ````
 
 
-`parseAndRenderDocumentAndTableOfContents`
-==========================================
+`Up.parseAndRenderDocumentAndTableOfContents`
+=============================================
 
 Summary
   This method converts Up markup into two pieces of HTML, both of which are returned:
@@ -677,8 +677,8 @@ Usage
     ````
 
 
-`parseAndRenderInline`
-======================
+`Up.parseAndRenderInline`
+=========================
 
 Summary
   This method converts inline Up markup into inline HTML and returns the result.
@@ -719,8 +719,8 @@ Usage
     ````
 
 
-`parse`
-=======
+`Up.parse`
+==========
 
 Summary
   This method parses Up markup and returns the resulting syntax tree.
@@ -733,7 +733,7 @@ Arguments
     The custom parsing settings to apply.
 
 Return value
-  This method returns a [topic: Document] representing the syntax tree.
+  This method returns a [topic: Up.Document] representing the syntax tree.
 
 Usage
   Without custom settings
@@ -750,8 +750,8 @@ Usage
     ````
 
 
-`parseInline`
-=============
+`Up.parseInline`
+================
 
 Summary
   This method parses inline Up markup and returns the resulting inline syntax tree.
@@ -760,13 +760,13 @@ Summary
 
 Arguments
   `inlineMarkup`: `string`
-    The Up markup to parse.
+    The inline Up markup to parse.
 
   `parsingSettings` (optional): [topic: UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
 Return value
-  This method returns an [topic: InlineDocument] representing the syntax tree.
+  This method returns an [topic: Up.InlineDocument] representing the syntax tree.
 
 Usage
   Without custom settings
@@ -783,15 +783,15 @@ Usage
     ````
 
 
-`render`
-========
+`Up.render`
+===========
 
 Summary
   This method converts a syntax tree into HTML and returns the result.
 
 Arguments
-  `document`: [topic: Document]
-    The Up markup to convert into HTML.
+  `document`: [topic: Up.Document]
+    The syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
@@ -818,8 +818,8 @@ Usage
     ````
 
 
-`renderDocumentAndTableOfContents`
-==================================
+`Up.renderDocumentAndTableOfContents`
+=====================================
 
 Summary
   This method converts a syntax tree into two pieces of HTML, both of which are returned:
@@ -828,8 +828,8 @@ Summary
   2. The document itself
 
 Arguments
-  `document`: [topic: Document]
-    The Up markup to convert into HTML.
+  `document`: [topic: Up.Document]
+    The syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
@@ -859,8 +859,8 @@ Usage
     ````
 
 
-`renderInline`
-==============
+`Up.renderInline`
+================
 
 Summary
   This method converts an inline syntax tree into inline HTML and returns the result.
@@ -868,8 +868,8 @@ Summary
   For more information about inline documents, see [topic: inline documents].
 
 Arguments
-  `inlineDocument`: [topic: InlineDocument]
-    The Up markup to convert into HTML.
+  `inlineDocument`: [topic: Up.InlineDocument]
+    The inline synta tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
@@ -913,9 +913,9 @@ Summary
 
   Use this interface to provide custom settings to methods that both parse markup *and* render the result to HTML:
 
-  - [topic: parseAndRender]
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: parseAndRenderInline]
+  - [topic: Up.parseAndRender]
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.parseAndRenderInline]
 
 Members (both of which are optional)
   `parsing`: [topic: UserProvidedSettings.Parsing]
@@ -951,9 +951,9 @@ Summary
 
   As part of [topic: UserProvidedSettings], this interface also provides custom settings to methods that both parse markup *and* render the result to HTML:
 
-  - [topic: parseAndRender]
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: parseAndRenderInline]
+  - [topic: Up.parseAndRender]
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.parseAndRenderInline]
 
 Members (all of which are optional)
   [topic: createSourceMap]: `boolean`
@@ -1179,15 +1179,15 @@ Summary
 
   Use this interface to provide custom settings to methods that render syntax trees to HTML:
 
-  - [topic: render]
-  - [topic: renderDocumentAndTableOfContents]
-  - [topic: renderInline]
+  - [topic: Up.render]
+  - [topic: Up.renderDocumentAndTableOfContents]
+  - [topic: Up.renderInline]
 
   As part of [topic: UserProvidedSettings], this interface also provides custom settings to methods that both parse markup *and* render the result to HTML:
 
-  - [topic: parseAndRender]
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: parseAndRenderInline]
+  - [topic: Up.parseAndRender]
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.parseAndRenderInline]
 
 Members (all of which are optional)
   [topic: idPrefix]: `string`
@@ -1310,9 +1310,9 @@ In certain contexts, you might want to restrict a document to just a single line
 
 That's what inline documents are for! To take advantage of inline documents, use one of the following methods:
 
-- [topic: parseAndRenderInline]
+- [topic: Up.parseAndRenderInline]
 - [topic: parseInline]
-- [topic: renderInline]
+- [topic: Up.renderInline]
 
 
 Syntax differences
@@ -1351,3 +1351,115 @@ Rendered inline HTML:
   ````
   I <em>really</em> like Starcraft.
   ````
+
+
+
+===================
+Syntax node classes
+===================
+
+Unless you're fiddling with the syntax tree, you don't need to wory any of the syntax node classes.
+
+
+`Up.Document`
+=============
+
+Purpose
+  Represents the syntax tree for a parsed document.
+
+Members
+  `children`: array of [topic: Up.OutlineSyntaxNode]
+    A collection of outline syntax nodes representing the top-level conventions in the document.
+  
+  `tableOfContents`: [topic: Document.TableOfContents]
+    An object representing the document's table of contents.
+
+  `create` method (`static`)
+    Purpose
+      This method produces a ready-to-render syntax tree from a collection of outline syntax nodes.
+
+    Arguments
+      `children`: array of [topic: Up.OutlineSyntaxNode]
+        A collection of outline syntax nodes representing the top-level conventions in the document.
+
+    Return value
+      This method creates and returns a ready-to-render `Document` object.
+      
+      To prepare the document for rendering, this method: 
+  
+      - Assigns footnotes their reference numbers
+      - Extracts footnotes into footnote blocks 
+      - Produces a table of contents
+      - Associates section links with the apprioriate table of contents entries
+    
+Constructor arguments
+  `children`: array of [topic: Up.OutlineSyntaxNode]
+    A collection of outline syntax nodes representing the top-level conventions in the document.
+
+
+`Up.Document.TableOfContents`
+=============================
+
+Purpose
+  Represents the table of contents for a document. The table of contents contains every heading except those found within [topic: revealable content].
+
+Members
+  `entries`: array of [topic: TableOfContents.Entry]
+    A collection of entries representing headings in the document.
+    
+Constructor arguments
+  `entries`:  array of [topic: TableOfContents.Entry]
+    A collection of entries representing headings in the document.
+
+
+`TableOfContents.Entry`
+=======================
+
+Purpose
+  Represents an entry in the table of contents.
+
+Members
+  `ordinal`: `number`
+    Represents the entry's ordinal in the table of contents. The first ordinal is `1`, not `0`.
+
+  `level`: `number`
+    Represents the outline level of the entry. This correspondings to the level of the heading the entry represents. 
+  
+Constructor arguments
+  `children`: [topic: Up.OutlineSyntaxNode]
+    A collection of outline syntax nodes representing the top-level outline conventions in the document.
+
+
+`Up.InlineDocument`
+==================
+
+Purpose
+  Represents the syntax tree for a parsed inline document.
+
+Members
+  `children`: array of [topic: Up.InlineSyntaxNode]
+    A collection of inline syntax nodes representing the top-level conventions in the inline document.
+  
+Constructor arguments
+  `children`: [topic: Up.OutlineSyntaxNode]
+    A collection of outline syntax nodes representing the top-level outline conventions in the document.
+
+
+`Up.InlineSyntaxNode`
+=====================
+
+Purpose
+  Represents inline conventions.
+  
+Members
+  None of its members are relevant to users of the Up library.
+
+
+`Up.OutlineSyntaxNode`
+======================
+
+Purpose
+  Represents outline conventions.
+  
+Members
+  None of its members are relevant to users of the Up library.
