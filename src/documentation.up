@@ -725,6 +725,7 @@ Summary
 Arguments
   `markup`: `string`
     The Up markup to parse.
+
   `parsingSettings` (optional): [topic: UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
@@ -757,6 +758,7 @@ Summary
 Arguments
   `inlineMarkup`: `string`
     The Up markup to parse.
+
   `parsingSettings` (optional): [topic: UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
@@ -787,6 +789,7 @@ Summary
 Arguments
   `document`: [topic: Document]
     The Up markup to convert into HTML.
+
   `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
@@ -801,7 +804,7 @@ Usage
 
   With custom settings
     ````
-    const html = Up.render(markup, {
+    const html = Up.render(document, {
       idPrefix: 'article',
       terms: {
         toggleSpoiler: 'toggle',
@@ -824,6 +827,7 @@ Summary
 Arguments
   `document`: [topic: Document]
     The Up markup to convert into HTML.
+
   `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
@@ -839,13 +843,13 @@ Usage
   Without custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      Up.renderDocumentAndTableOfContents(markup)
+      Up.renderDocumentAndTableOfContents(document)
     ````
 
   With custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      Up.renderDocumentAndTableOfContents(markup, {
+      Up.renderDocumentAndTableOfContents(document, {
         idPrefix: 'article',
         terms: { tableOfContents: 'In This Article' }
       })
@@ -863,6 +867,7 @@ Summary
 Arguments
   `inlineDocument`: [topic: InlineDocument]
     The Up markup to convert into HTML.
+
   `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
@@ -872,12 +877,12 @@ Return value
 Usage
   Without custom settings
     ````
-    const html = Up.renderInline(markup)
+    const html = Up.renderInline(inlineDocument)
     ````
 
   With custom settings
     ````
-    const html = Up.renderInline(markup, {
+    const html = Up.renderInline(inlineDocument, {
       idPrefix: 'byline',
       terms: {
         toggleSpoiler: 'toggle',
@@ -910,6 +915,7 @@ Summary
 Members (both of which are optional)
   `parsing`: [topic: UserProvidedSettings.Parsing]
     The custom parsing settings.
+
   `rendering`: [topic: UserProvidedSettings.Rendering]
     The custom rendering settings.
 
@@ -932,39 +938,52 @@ Usage
 
 Summary
   The `UserProvidedSettings.Parsing` interface includes all parsing settings.
- 
+
 Members (all of which are optional)
   [topic: createSourceMap]: `boolean`
     Enables source mapping.
+
   [topic: defaultUrlScheme]: `string`
     The default URL scheme for URLs without one.
+
   [topic: baseForUrlsStartingWithSlash]: `string`
     The base for URLs starting with `/`.
+
   [topic: baseForUrlsStartingWithHashMark]: `string`
     The base for URLs starting with `#`.
+
   [topic: fancyEllipsis]: `string`
     Up replaces consecutive periods with this fancy ellipsis.
 
   `terms` (all of which are optional)
     [topic: audio term]: `string` or `string[]`
       Recognized by the [topic: audio] convention.
+
     [topic: chart term]: `string` or `string[]`
       Recognized by the [topic: chart] convention.
+
     [topic: highlight term]: `string` or `string[]`
       Recognized by the [topic: highlight] convention.
+
     [topic: image term]: `string` or `string[]`
       Recognized by the [topic: image] convention.
+
     [topic: nsfl term]: `string` or `string[]`
       Recognized by the [topic: NSFL] convention.
+
     [topic: nsfw term]: `string` or `string[]`
       Recognized by the [topic: NSFW] convention.
+
     [topic: sectionLink term]: `string` or `string[]`
       Recognized by the [topic: sectionLink] convention.
+
     [topic: spoiler term]: `string` or `string[]`
       Recognized by the [topic: spoilers] convention.
+
     [topic: table term]: `string` or `string[]`
       Recognized by the [topic: table] convention.
-    [topic: video term]: `string` or `string[]`Ï
+
+    [topic: video term]: `string` or `string[]`
       Recognized by the [topic: video] convention.
 
 Usage
@@ -972,6 +991,54 @@ Usage
   const document = Up.parse(markup, {
     createSourceMap: true,
     terms: { highlight: 'mark' }
+  })
+  ````
+
+
+`UserProvidedSettings.Rendering`
+==============================
+
+Summary
+  The `UserProvidedSettings.Parsing` interface includes all rendering settings.
+
+Members (all of which are optional)
+  [topic: idPrefix]: `string`
+    The prefix to apply to HTML IDs.
+
+  [topic: renderDangerousContent]: `boolean`
+    Enables the rendering of dangerous content. Enabling this setting is not recommended! 
+
+  `terms` (all of which are optional)
+    [topic: footnote term]: `string`
+      Appears in the URLs of footnotes definitions (i.e. in their respective footnote blocks).
+
+    [topic: footnoteReference term]: `string`
+      Appears in the URLs of footnotes references (i.e. the superscripts within paragraphs).
+
+    [topic: sectionReferencedByTableOfContents term]: `string`
+      Appears in the URLs of headings referenced by the table of contents.
+
+    [topic: tableOfContents term]: `string`
+      Appears at the top of the table of contents.
+
+    [topic: toggleNsfl term]: `string`
+      Appears on the button that toggles the visibility of NSFL content.
+
+    [topic: toggleNsfw term]: `string`
+      Appears on the button that toggles the visibility of NSFW content.
+
+    [topic: toggleSpoiler term]: `string`
+      Appears on the button that toggles the visibility of spoiler content.
+
+Usage
+  ````
+  const html = Up.render(document, {
+    idPrefix: 'article',
+    terms: {
+      toggleSpoiler: 'toggle',
+      toggleNsfw: 'toggle',
+      toggleNsfl: 'toggle'
+    }
   })
   ````
 
@@ -990,7 +1057,7 @@ Usage
   const settings = {
     parsing: {
       createSourceMap: true
-    }Ï
+    }
   }
   ````
 
@@ -1320,7 +1387,7 @@ The terms appearing in the rendered document are fully customizable. You don't n
 ---------------
 
 Purpose
-  This term does not appear in content of the document, but it does appear in the URLs of footnote definitions (e.g. footnotes in their respective footnote blocks).
+  This term does not appear in content of the document, but it does appear in the URLs of footnote definitions (i.e. footnotes in their respective footnote blocks).
 
   If this term contains any spaces, they are automatically converted to hyphens.
 
@@ -1344,7 +1411,7 @@ Default
 ------------------------
 
 Purpose
-  This term does not appear in content of the document, but it does appear in the URLs of footnote references (e.g. the superscripts within paragraphs).
+  This term does not appear in content of the document, but it does appear in the URLs of footnote references (i.e. the superscripts within paragraphs).
 
   If this term contains any spaces, they are automatically converted to hyphens.
 
