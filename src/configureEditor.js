@@ -1,5 +1,5 @@
 import CodeMirror from 'codemirror'
-import Up from 'write-up'
+import * as Up from 'write-up'
 import debounce from './debounce'
 import throttle from './throttle'
 

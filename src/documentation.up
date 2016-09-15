@@ -554,6 +554,8 @@ The Up library can be found [on NPM] (npmjs.com/package/write-up).
 Installation
 ============
 
+There's nothing special about installing Up:
+
 ````
 npm install write-up --save-dev
 ````
@@ -569,31 +571,28 @@ First, `require` the library:
 const Up = require('write-up')
 ````
 
-Now that we've required `Up`, there are a couple of ways to use it.
+If you are using [TypeScript] (typescriptlang.org), use:
 
-1. You can treat `Up` as a namespace:
+````
+import * as Up from 'write-up'
+````
 
-  ```
-  const html = Up.parseAndRender(markup, settings)
-  ```
+Okay! `Up` now serves as the namespace for the library.
 
-  Simply call methods direclty on `Up`! For a full description of the various methods you can use, please see [topic: methods].
+Typically, you'll want to call the various functions in within that namespace: 
 
-2. You can treat `Up` as a class:
+``` 
+const html = Up.parseAndRender(markup, settings)
+```
 
-  ```
-  const up = new Up(settings)
-  const html = up.parseAndRender(markup, settingsChanges)
-  ```
+For a full description of the functions you can use, please see [topic: functions].
 
-  It's never necessary to treat `Up` as a class, but it can be helpful if you need to parse and/or render several documents all sharing custom settings.
-
-  Those shared settings can be provided just once---when you create your `Up` object. Then, when calling methods on your `Up` object, you only need to provide settings that overwrite (or supplement) the ones you provided to its constructor.
+Alternatively, you can create an instance of the `Up.Transformer` class. This can be useful if you need to parse or render several documents all sharing custom settings. For more information, see [topic: Up.Transformer].
 
 
-=======
-Methods
-=======
+=========
+Functions
+=========
 
 
 `Up.parseAndRender`
@@ -605,7 +604,7 @@ Summary
 Arguments
   `markup`: `string`
     The Up markup to convert into HTML.
-  `settings` (optional): [topic: UserProvidedSettings]
+  `settings` (optional): [topic: Up.UserProvidedSettings]
     The custom parsing and/or rendering settings to apply.
 
 Return value
@@ -643,7 +642,7 @@ Summary
 Arguments
   `markup`: `string`
     The Up markup to parse and render.
-  `settings` (optional): [topic: UserProvidedSettings]
+  `settings` (optional): [topic: Up.UserProvidedSettings]
     The custom parsing and/or rendering settings to apply.
 
 Return value
@@ -688,7 +687,7 @@ Summary
 Arguments
   `inlineMarkup`: `string`
     The inline Up markup to convert into inline HTML.
-  `parsingSettings` (optional): [topic: UserProvidedSettings]
+  `parsingSettings` (optional): [topic: Up.UserProvidedSettings]
     The custom parsing and/or rendering settings to apply.
 
 Return value
@@ -729,11 +728,11 @@ Arguments
   `markup`: `string`
     The Up markup to parse.
 
-  `parsingSettings` (optional): [topic: UserProvidedSettings.Parsing]
+  `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
 Return value
-  This method returns a [topic: Up.Document] representing the syntax tree.
+  This method returns a [topic: Document] representing the syntax tree.
 
 Usage
   Without custom settings
@@ -762,11 +761,11 @@ Arguments
   `inlineMarkup`: `string`
     The inline Up markup to parse.
 
-  `parsingSettings` (optional): [topic: UserProvidedSettings.Parsing]
+  `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
 Return value
-  This method returns an [topic: Up.InlineDocument] representing the syntax tree.
+  This method returns an [topic: InlineDocument] representing the syntax tree.
 
 Usage
   Without custom settings
@@ -790,10 +789,10 @@ Summary
   This method converts a syntax tree into HTML and returns the result.
 
 Arguments
-  `document`: [topic: Up.Document]
+  `document`: [topic: Document]
     The syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
+  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
 Return value
@@ -828,10 +827,10 @@ Summary
   2. The document itself
 
 Arguments
-  `document`: [topic: Up.Document]
+  `document`: [topic: Document]
     The syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
+  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
 Return value
@@ -868,10 +867,10 @@ Summary
   For more information about inline documents, see [topic: inline documents].
 
 Arguments
-  `inlineDocument`: [topic: Up.InlineDocument]
+  `inlineDocument`: [topic: InlineDocument]
     The inline synta tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: UserProvidedSettings.Rendering]
+  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
 Return value
@@ -900,9 +899,9 @@ Usage
 Configuration
 =============
 
-All methods accept custom settings!
+All functions accept custom settings!
 
-For a full description of Up's methods, see [topic: methods].
+For a full description of Up's functions, see [topic: functions].
 
 
 `UserProvidedSettings`
@@ -911,17 +910,17 @@ For a full description of Up's methods, see [topic: methods].
 Summary
   The `UserProvidedSettings` interface includes both parsing settings and rendering settings.
 
-  Use this interface to provide custom settings to methods that both parse markup *and* render the result to HTML:
+  Use this interface to provide custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
   - [topic: Up.parseAndRenderInline]
 
 Members (both of which are optional)
-  `parsing`: [topic: UserProvidedSettings.Parsing]
+  `parsing`: [topic: Up.UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
-  `rendering`: [topic: UserProvidedSettings.Rendering]
+  `rendering`: [topic: Up.UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
 Usage
@@ -944,12 +943,12 @@ Usage
 Summary
   The `UserProvidedSettings.Parsing` interface includes all parsing settings.
 
-  Use this interface to provide custom settings to methods that parse markup and return the resulting syntax tree:
+  Use this interface to provide custom settings to functions that parse markup and return the resulting syntax tree:
 
-  - [topic: parse]
-  - [topic: parseInline]
+  - [topic: Up.parse]
+  - [topic: Up.parseInline]
 
-  As part of [topic: UserProvidedSettings], this interface also provides custom settings to methods that both parse markup *and* render the result to HTML:
+  As part of [topic: Up.UserProvidedSettings], this interface also provides custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -996,7 +995,7 @@ Members (all of which are optional)
 
       The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
 
-      For a full description of the various methods you can use, please see [topic: methods].
+      For a full description of the various functions you can use, please see [topic: functions].
 
     Keep in mind that syntax terms are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
 
@@ -1064,7 +1063,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: UserProvidedSettings.Parsing].
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
 Details
   `createSourceMap` works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.
@@ -1088,13 +1087,13 @@ Usage
   ````
   const html = Up.parseAndRender(markup, {
     parsing: {
-      defaultUrlScheme: 'my-app://'
+      defaultUrlScheme: "my-app://"
     }
   })
   ````
 
 Context
-  This setting belongs to [topic: UserProvidedSettings.Parsing]. 
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing]. 
 
 Default
   `"https://"`
@@ -1111,13 +1110,13 @@ Usage
   ````
   const html = Up.parseAndRender(markup, {
     parsing: {
-      baseForUrlsStartingWithSlash: 'https://example.com/blog/'
+      baseForUrlsStartingWithSlash: "https://example.com/blog/"
     }
   })
   ````
 
 Context
-  This setting belongs to [topic: UserProvidedSettings.Parsing]. 
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing]. 
 
 Default
   `""` (an empty string)
@@ -1134,13 +1133,13 @@ Usage
   ````
   const html = Up.parseAndRender(markup, {
     parsing: {
-      baseForUrlsStartingWithHashMark: 'https://example.com/blog/post/28'
+      baseForUrlsStartingWithHashMark: "https://example.com/blog/post/28"
     }
   })
   ````
 
 Context
-  This setting belongs to [topic: UserProvidedSettings.Parsing].
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
 Default
   `""` (an empty string)
@@ -1159,13 +1158,13 @@ Usage
   ````
   const html = Up.parseAndRender(markup, {
     parsing: {
-      fancyEllipsis: '⋯'
+      fancyEllipsis: "⋯"
     }
   })
   ````
 
 Context
-  This setting belongs to [topic: UserProvidedSettings.Parsing]. 
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing]. 
 
 Default
   `"…"`
@@ -1177,13 +1176,13 @@ Default
 Summary
   The `UserProvidedSettings.Parsing` interface includes all rendering settings.
 
-  Use this interface to provide custom settings to methods that render syntax trees to HTML:
+  Use this interface to provide custom settings to functions that render syntax trees to HTML:
 
   - [topic: Up.render]
   - [topic: Up.renderDocumentAndTableOfContents]
   - [topic: Up.renderInline]
 
-  As part of [topic: UserProvidedSettings], this interface also provides custom settings to methods that both parse markup *and* render the result to HTML:
+  As part of [topic: Up.UserProvidedSettings], this interface also provides custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -1193,7 +1192,7 @@ Members (all of which are optional)
   [topic: idPrefix]: `string`
     The prefix to apply to HTML IDs.
 
-  [topic: renderDangerousContent]: `boolean`
+  [topic: Up.renderDangerousContent]: `boolean`
     Enables the rendering of dangerous content. Enabling this setting is not recommended!
 
   `terms` (all of which are optional)
@@ -1254,13 +1253,13 @@ Usage
   ````
   const html = Up.parseAndRender(markup, {
     rendering: {
-      idPrefix: 'article',
+      idPrefix: "article",
     }
   })
   ````
 
 Context
-  This setting belongs to [topic: UserProvidedSettings.Rendering].
+  This setting belongs to [topic: Up.UserProvidedSettings.Rendering].
 
 Details
   You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
@@ -1288,7 +1287,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: UserProvidedSettings.Rendering].
+  This setting belongs to [topic: Up.UserProvidedSettings.Rendering].
 
 Details
   By default, dangerous media elements produce no HTML at all. Dangerous links produce no HTML of their own, though their child elements are rendered.
@@ -1308,10 +1307,10 @@ In certain contexts, you might want to restrict a document to just a single line
 - The title of a thread on a message board
 - The byline for a user's profile
 
-That's what inline documents are for! To take advantage of inline documents, use one of the following methods:
+That's what inline documents are for! To take advantage of inline documents, use one of the following functions:
 
 - [topic: Up.parseAndRenderInline]
-- [topic: parseInline]
+- [topic: Up.parseInline]
 - [topic: Up.renderInline]
 
 
@@ -1353,12 +1352,94 @@ Rendered inline HTML:
   ````
 
 
+================
+`Up.Transformer`
+================
+
+Purpose
+  The `Up.Transformer` class can be useful if you need to parse or render several documents all sharing custom settings.
+
+  Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
+
+  ````
+  const Up = require('write-up')
+
+  const up = new Up.Transformer(settings)
+  const html = up.parseAndRender(markup, settingsChanges)
+
+Constructor arguments
+  `settings` (optional): [topic: Up.UserProvidedSettings]
+    The custom parsing and/or rendering settings to apply for all subsequent method calls.
+
+Members
+  This class's methods have the same names and aruments as the functions in the Up library:
+
+  - [topic: Up.parseAndRender]
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.parseAndRenderInline]
+  - [topic: Up.parse]
+  - [topic: Up.parseInline]
+  - [topic: Up.render]
+  - [topic: Up.renderDocumentAndTableOfContents]
+  - [topic: Up.renderInline]
+
+  The only difference: When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
+
+  Here's an example of merging settings:
+
+  ````
+  const up = new Up.Transformer({
+    parsing: {
+      createSourceMap: true,
+      fancyEllipsis: "⋯",
+      terms: {
+        audio: ["sound", "song"],
+        highlight: "mark"
+      }
+    },
+    rendering: {
+      terms: { tableOfContents: "Contents" }
+    }
+  })
+  
+  const html = up.parseAndRender(markup, {
+    parsing: {
+      createSourceMap: false,
+      terms: {
+        audio: "listen",
+      }
+    },
+    rendering: {
+      idPrefix: "article"
+    }
+  })
+  ````
+
+  In the above example, the following settings are ultimately applied:
+
+  ````
+  {
+    parsing: {
+      createSourceMap: false,
+      fancyEllipsis: "⋯",
+      terms: {
+        audio: "listen"
+        highlight: "mark"
+      }
+    },
+    rendering: {
+      idPrefix: "article",
+      terms: { tableOfContents: "Contents" }
+    }
+  }
+  ````
+  
 
 ===================
 Syntax node classes
 ===================
 
-Unless you're fiddling with the syntax tree, you don't need to wory any of the syntax node classes.
+Unless you're fiddling with the syntax tree, you don't need to worry about any of the syntax node classes.
 
 
 `Up.Document`
@@ -1368,7 +1449,7 @@ Purpose
   Represents the syntax tree for a parsed document.
 
 Members
-  `children`: array of [topic: Up.OutlineSyntaxNode]
+  `children`: array of [topic: OutlineSyntaxNode]
     A collection of outline syntax nodes representing the top-level conventions in the document.
   
   `tableOfContents`: [topic: Document.TableOfContents]
@@ -1379,7 +1460,7 @@ Members
       This method produces a ready-to-render syntax tree from a collection of outline syntax nodes.
 
     Arguments
-      `children`: array of [topic: Up.OutlineSyntaxNode]
+      `children`: array of [topic: OutlineSyntaxNode]
         A collection of outline syntax nodes representing the top-level conventions in the document.
 
     Return value
@@ -1393,7 +1474,7 @@ Members
       - Associates section links with the apprioriate table of contents entries
     
 Constructor arguments
-  `children`: array of [topic: Up.OutlineSyntaxNode]
+  `children`: array of [topic: OutlineSyntaxNode]
     A collection of outline syntax nodes representing the top-level conventions in the document.
 
 
@@ -1412,8 +1493,8 @@ Constructor arguments
     A collection of entries representing headings in the document.
 
 
-`TableOfContents.Entry`
-=======================
+`Up.Document.TableOfContents.Entry`
+===================================
 
 Purpose
   Represents an entry in the table of contents.
@@ -1426,7 +1507,7 @@ Members
     Represents the outline level of the entry. This correspondings to the level of the heading the entry represents. 
   
 Constructor arguments
-  `children`: [topic: Up.OutlineSyntaxNode]
+  `children`: [topic: OutlineSyntaxNode]
     A collection of outline syntax nodes representing the top-level outline conventions in the document.
 
 
@@ -1437,11 +1518,11 @@ Purpose
   Represents the syntax tree for a parsed inline document.
 
 Members
-  `children`: array of [topic: Up.InlineSyntaxNode]
+  `children`: array of [topic: InlineSyntaxNode]
     A collection of inline syntax nodes representing the top-level conventions in the inline document.
   
 Constructor arguments
-  `children`: [topic: Up.OutlineSyntaxNode]
+  `children`: [topic: OutlineSyntaxNode]
     A collection of outline syntax nodes representing the top-level outline conventions in the document.
 
 
@@ -1459,7 +1540,7 @@ Members
 ======================
 
 Purpose
-  Represents outline conventions.
+  This abstract class represents media conventions.
   
 Members
   None of its members are relevant to users of the Up library.
