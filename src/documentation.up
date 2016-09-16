@@ -387,7 +387,7 @@ Code blocks
 Purpose
   Use the code block convention to represent a block of computer code.
 
-  If you need to reference only a small fragment of computer code, use [topic: inline code].
+  If you need to reference only a small fragment of computer code, use [topic: Up.Inline code].
 
 Example
   Markup
@@ -682,7 +682,7 @@ Usage
 Summary
   This method converts inline Up markup into inline HTML and returns the result.
 
-  For more information about inline documents, see [topic: inline documents].
+  For more information about inline documents, see [topic: Up.Inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -755,7 +755,7 @@ Usage
 Summary
   This method parses inline Up markup and returns the resulting inline syntax tree.
 
-  For more information about inline documents, see [topic: inline documents].
+  For more information about inline documents, see [topic: Up.Inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -765,7 +765,7 @@ Arguments
     The custom parsing settings to apply.
 
 Return value
-  This method returns an [topic: InlineDocument] representing the syntax tree.
+  This method returns an [topic: Up.InlineDocument] representing the syntax tree.
 
 Usage
   Without custom settings
@@ -864,10 +864,10 @@ Usage
 Summary
   This method converts an inline syntax tree into inline HTML and returns the result.
 
-  For more information about inline documents, see [topic: inline documents].
+  For more information about inline documents, see [topic: Up.Inline documents].
 
 Arguments
-  `inlineDocument`: [topic: InlineDocument]
+  `inlineDocument`: [topic: Up.InlineDocument]
     The inline synta tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
@@ -1448,10 +1448,10 @@ Unless you're fiddling with the syntax tree, you don't need to worry about any o
 Purpose
   This class represents the syntax tree for a parsed document.
 
-Members
-  `children`: array of [topic: OutlineSyntaxNode]
-    A collection of outline syntax nodes representing the top-level conventions in the document.
-  
+Extends
+  [topic: UP.OutlineSyntaxNodeContainer]
+
+Unique members
   `tableOfContents`: [topic: Document.TableOfContents]
     An object representing the document's table of contents.
 
@@ -1472,10 +1472,6 @@ Members
       - Extracts footnotes into footnote blocks 
       - Produces a table of contents
       - Associates section links with the apprioriate table of contents entries
-    
-Constructor arguments
-  `children`: array of [topic: OutlineSyntaxNode]
-    A collection of outline syntax nodes representing the top-level conventions in the document.
 
 
 `Up.Document.TableOfContents`
@@ -1486,10 +1482,6 @@ Purpose
 
 Members
   `entries`: array of [topic: TableOfContents.Entry]
-    A collection of entries representing headings in the document.
-    
-Constructor arguments
-  `entries`:  array of [topic: TableOfContents.Entry]
     A collection of entries representing headings in the document.
 
 
@@ -1513,10 +1505,10 @@ Members
     
     This is used to help [topic: section links] match the most appropriate table of content entry.
 
-  `representationOfContentWithinTableOfContents()`: array of [topic: InlineSyntaxNode]
-    The inline syntax nodes that should represent the entry within the table of contents itself.
+  `representationOfContentWithinTableOfContents()`: array of [topic: Up.InlineSyntaxNode]
+    Within the table of contents, the inline syntax nodes that represent this entry's contents.
 
-  `inlineDescendants()`: array of [topic: InlineSyntaxNode]
+  `inlineDescendants()`: array of [topic: Up.InlineSyntaxNode]
     The inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
   
 
@@ -1526,20 +1518,15 @@ Members
 Purpose
   This class represents the syntax tree for a parsed inline document.
 
-Members
-  `children`: array of [topic: InlineSyntaxNode]
-    A collection of inline syntax nodes representing the top-level conventions in the inline document.
-  
-Constructor arguments
-  `children`: [topic: OutlineSyntaxNode]
-    A collection of outline syntax nodes representing the top-level outline conventions in the document.
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]  
 
 
 `Up.InlineSyntaxNode`
 =====================
 
 Purpose
-  Inline syntax node classes implement this interface. 
+  Inline syntax node classes must implement this interface. 
   
 Members
   `textAppearingInline()` method: string
@@ -1557,7 +1544,7 @@ Members
 ======================
 
 Purpose
-  Outline syntax nodes implement this interface.
+  Outline syntax nodes must implement this interface.
   
 Members
   `sourceLineNumber`: `number`
@@ -1565,3 +1552,58 @@ Members
 
   `descendantsToIncludeInTableOfContents()`: array of [topic: Up.Document.TableOfContents.Entry]
     Any descendants (at any nesting level) to include in the table of contents.
+
+
+`Up.InlineSyntaxNodeContainer`
+==============================
+
+Purpose
+  This abstract class represents a container of inline syntax nodes.
+  
+Members
+  `children`: array of [topic: Up.InlineSyntaxNode]
+    A collection of inline syntax nodes representing the top-level content of the container.
+
+  `inlineDescendants()`: array of [topic: Up.InlineSyntaxNode]
+    All inline descendants (including `children`, grandchildren, etc.)
+
+
+`Up.OutlineSyntaxNodeContainer`
+==============================
+
+Purpose
+  This abstract class represents a container of inline syntax nodes.
+  
+Members
+  `children`: array of [topic: Up.InlineSyntaxNode]
+    A collection of outline syntax nodes representing the top-level content of the container.
+
+  `descendantsToIncludeInTableOfContents()`: array of [topic: Document.TableOfContents.Entry]
+    Any descendants (children, grandchildren, etc.) to include in the table of contents.
+
+  `inlineDescendants()`: array of [topic: Up.InlineSyntaxNode]
+    All inline descendants of `children`. 
+
+
+`Up.MediaSyntaxNode`
+====================
+
+Purpose
+  This abstract class represents a media convention.
+
+Implements
+  [topic: Up.InlineSyntaxNode]
+    Media conventions can appear inline.
+  [topic: Up.OutlineSyntaxNode]
+    If a line consists solely of media conventions, those media conventions are placed directly into the outline.
+
+Unique members
+  `description`: `string`
+    The media's description.
+
+  `url`: `string`
+    The media's URL after the following settings are applied:
+
+    - [topic: defaultUrlScheme]
+    - [topic: baseForUrlsStartingWithSlash]
+    - [topic: baseForUrlsStartingWithHashmark]
