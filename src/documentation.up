@@ -1474,8 +1474,9 @@ Unique members
       - Associates section links with the apprioriate table of contents entries
 
 
+-----------------------------
 `Up.Document.TableOfContents`
-=============================
+-----------------------------
 
 Purpose
   This class represents the table of contents for a document. The table of contents includes every heading except those found within [topic: revealable content].
@@ -1486,7 +1487,7 @@ Members
 
 
 `Up.Document.TableOfContents.Entry`
-===================================
+-----------------------------------
 
 Purpose
   This interface represents an entry in the table of contents.
@@ -1498,13 +1499,21 @@ Members
   `level`: `number`
     Represents the heading level of the entry.
 
-  `searchableText()` method: string
-    Represents the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+  `searchableText` method: string
+    Return value
+      The searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+      
+      This is used to help [topic: section links] match the most appropriate table of content entry.
     
-    This is used to help [topic: section links] match the most appropriate table of content entry.
+    Arguments
+      None.
 
-  `representationOfContentWithinTableOfContents()`: array of [topic: Up.InlineSyntaxNode]
-    Within the table of contents, the inline syntax nodes that represent this entry's contents.
+  `contentWithinTableOfContents` method: array of [topic: Up.InlineSyntaxNode]
+    Return value
+      The inline syntax nodes that should represent this entry's content inside the table of contents itself.
+
+    Arguments
+      None.
 
   `inlineDescendants()`: array of [topic: Up.InlineSyntaxNode]
     The inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
@@ -1527,15 +1536,23 @@ Purpose
   Inline syntax node classes must implement this interface. 
   
 Members
-  `textAppearingInline()` method: string
-    Represents the text of the syntax node as it should appear inline. Some inline conventions don't have any, including [topic: footnotes] and [topic: images].
+  `textAppearingInline` method: string
+    Return value
+      The text of the syntax node as it should appear inline. Some inline conventions don't have any, including [topic: footnotes] and [topic: images].
 
-    This method is used to help determine whether cells in [topic: tables] and [topic: charts] are numeric.
-
-  `searchableText()` method: string
-    Represents the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+      This method is used to help determine whether cells in [topic: tables] and [topic: charts] are numeric.
     
-    This method is used to help [topic: section links] match the most appropriate table of content entry.
+    Arguments
+      None.
+
+  `searchableText` method: string
+    Return value
+      The searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+    
+      This method is used to help [topic: section links] match the most appropriate table of content entry.
+    
+    Arguments
+      None.
 
 
 `Up.OutlineSyntaxNode`
@@ -1548,8 +1565,12 @@ Members
   `sourceLineNumber`: `number`
     The first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
 
-  `descendantsToIncludeInTableOfContents()`: array of [topic: Up.Document.TableOfContents.Entry]
-    Any descendants (at any nesting level) to include in the table of contents.
+  `descendantsToIncludeInTableOfContents` method: array of [topic: Up.Document.TableOfContents.Entry]
+    Return value
+      Any descendants (at any nesting level) to include in the table of contents.
+    
+    Arguments
+      None.
 
 
 `Up.RichInlineSyntaxNode`
@@ -1588,8 +1609,12 @@ Members
   `children`: array of [topic: Up.InlineSyntaxNode]
     A collection of inline syntax nodes representing the top-level content of the container.
 
-  `inlineDescendants()`: array of [topic: Up.InlineSyntaxNode]
-    All inline descendants (including `children`, grandchildren, etc.)
+  `inlineDescendants` method: array of [topic: Up.InlineSyntaxNode]
+    Return value
+      All inline descendants (including `children`, grandchildren, etc.)
+
+    Arguments
+      None.
 
 
 `Up.OutlineSyntaxNodeContainer`
@@ -1602,11 +1627,19 @@ Members
   `children`: array of [topic: Up.InlineSyntaxNode]
     A collection of outline syntax nodes representing the top-level content of the container.
 
-  `descendantsToIncludeInTableOfContents()`: array of [topic: Document.TableOfContents.Entry]
-    Any descendants (children, grandchildren, etc.) to include in the table of contents.
+  `descendantsToIncludeInTableOfContents` method: array of [topic: Document.TableOfContents.Entry]
+    Return value
+      Any descendants (children, grandchildren, etc.) to include in the table of contents.
+    
+    Arguments
+      None.
 
-  `inlineDescendants()`: array of [topic: Up.InlineSyntaxNode]
-    All inline descendants of `children`. 
+  `inlineDescendants` methof: array of [topic: Up.InlineSyntaxNode]
+    Return value
+      All inline descendants of `children`. 
+    
+    Arguments
+      None.
 
 
 `Up.MediaSyntaxNode`
@@ -1637,7 +1670,7 @@ Unique members
 ===============================
 
 Purpose
-  This abstract class represents an inline revealable convention. It exists solely to improve the strictness of the type system.
+  This abstract class represents an inline revealable convention. It exists solely to improve the expressiveness of the type system.
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
@@ -1654,6 +1687,17 @@ Purpose
 Extends
   [topic: Up.RichOutlineSyntaxNode]
 
+
+`Up.ParentheticalSyntaxNode`
+===============================
+
+Purpose
+  This abstract class represents a parenthetical convention. It exists solely to improve the expressiveness of the type system.
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+  Unlike most `Up.RichInlineSyntaxNode`s, every `Up.Parentheti
 
 
 `Up.Audio`
@@ -1714,35 +1758,36 @@ Unique members
     The collection of items comprising the description list.
 
 
+-------------------------
 `Up.DescriptionList.Item`
-=========================
+-------------------------
 
 Purpose
-  Represents a collection of subjects and their corresponding description.
+  This class represents a collection of subjects and their corresponding description.
 
 Unique members
   `subjects`: array of [topic: Up.DescriptionList.Item.Subject]
-    The set of subjects described by `description`
+    The subjects described by `description`.
   
   `description`: array of [topic: DescriptionList.Item.Description]
-    A description of `subjects`
+    The description of `subjects`.
 
 
 `Up.DescriptionList.Item.Subject`
-=================================
+---------------------------------
 
 Purpose
-  Represents the set of subjects described by a given description within a description list item.
+  This class represents the collection of subjects described by a given description within a description list item.
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
 
 
 `Up.DescriptionList.Item.Description`
-=====================================
+-------------------------------------
 
 Purpose
-  Represents the description of a given set of subjects within a description list item.
+  This class represents the description of a given collection of subjects within a description list item.
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
@@ -1759,7 +1804,7 @@ Extends
 
 
 `Up.ExampleInput`
-=============
+=================
 
 Convention
   [topic: Example input]
@@ -1886,7 +1931,7 @@ Extends
 
 
 `Up.InlineQuote`
-==============
+================
 
 Convention
   [topic: Inline quotes]
@@ -1896,7 +1941,7 @@ Extends
 
 
 `Up.Italic`
-==============
+===========
 
 Convention
   [topic: Italics]
@@ -1906,7 +1951,7 @@ Extends
 
 
 `Up.LineBlock`
-====================
+==============
 
 Convention
   [topic: Line blocks]
@@ -1919,11 +1964,12 @@ Unique members
     The collection of lines comprising the line block.
 
 
+-------------------
 `Up.LineBlock.Line`
-===================
+-------------------
 
 Purpose
-  Represents a line in a line block.
+  This class represents a line in a line block.
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
@@ -1944,7 +1990,7 @@ Implements
 
 Unique members
   `url`: `string`
-    Represents this links's URL after the following settings are applied:
+    This links's URL after the following settings are applied:
 
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
@@ -1969,6 +2015,278 @@ Convention
 
 Extends
   [topic: Up.RevealableOutlineSyntaxNode]
+
+
+`Up.OrderedList`
+================
+
+Convention
+  [topic: Ordered lists]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `items`: array of [topic: Up.OrderedList.Item]
+    The collection of items comprising ordered list.
+
+  `start` method: `number`
+    Return value
+      The starting ordinal, if one was explicitly defined. Otherwise, this method returns `undefined`.
+    
+    Arguments
+      None.
+
+  `order` method: `Up.OrderedList.Order`
+    Return value
+      The order of the ordered list (ascending or descending).
+
+    Arguments
+      None.
+
+
+---------------------
+`Up.OrderedList.Item`
+---------------------
+
+Purpose
+  This class represents an item in an ordered list.
+
+Extends
+  [topic: Up.OutlineSyntaxNodeContainer]
+
+
+----------------------
+`Up.OrderedList.Order`
+----------------------
+
+Purpose
+  This enum represents the order of an ordered list.
+
+Values
+  - `Ascending` (default)
+  - `Descending`
+
+
+`Up.Paragraph`
+==============
+
+Convention
+  [topic: Paragraphs]
+
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+    Paragraphs are outline syntax nodes.
+
+
+`Up.UnorderedList`
+==================
+
+Convention
+  [topic: Bulleted lists]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `items`: array of [topic: Up.UnorderedList.Item]
+    The collection of items comprising the bulleted list.
+
+
+-----------------------
+`Up.UnorderedList.Item`
+-----------------------
+
+Purpose
+  This class represents an item in an bulleted list.
+
+Extends
+  [topic: Up.OutlineSyntaxNodeContainer]
+
+
+`Up.NormalParenthetical`
+========================
+
+Convention
+  [topic: Parentheticals]
+
+Extends
+  [topic: Up.ParentheticalSyntaxNode]
+
+Notes
+  This class represents a parenthetical produced by regular parentheses.
+
+
+`Up.Text`
+=========
+
+Purpose
+  This class represents any regular text content. 
+
+Implements
+  [topic: Up.InlineSyntaxNode]
+
+Unique members
+  `text`: `string`
+    The content of this syntax node.
+
+
+`Up.SectionLink`
+================
+
+Convention
+  [topic: Section links]
+
+Implements
+  [topic: Up.InlineSyntaxNode]
+
+Unique members
+  `sectionTitleSnippet`: `string`
+    A snippet of text from the matching table of contents entry.
+
+
+`Up.SpoilerBlock`
+=================
+
+Convention
+  [topic: Spoiler blocks]
+
+Extends
+  [topic: Up.RevealableOutlineSyntaxNode]
+
+
+`Up.SquareParenthetical`
+========================
+
+Convention
+  [topic: Parentheticals]
+
+Extends
+  [topic: Up.ParentheticalSyntaxNode]
+
+Notes
+  This class represents a parenthetical produced by square brackets.
+
+
+`Up.Stress`
+===========
+
+Convention
+  [topic: Stress]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+
+`Up.Table`
+==========
+
+Conventions
+  [topic: Tables] and [topic: Charts]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `header`: [topic: Up.Table.Header]
+    The header row of the table or chart.
+
+  `rows`: array of [topic: Up.Table.Row]
+    The content rows of the table or chart.
+
+  `caption`: [topic: Up.Table.Caption]
+    The optional caption of the table or chart.
+
+
+---------------
+`Up.Table.Cell`
+---------------
+
+Purpose
+  This abstract class represents a cell in a table or chart.
+
+Extends 
+  [topic: Up.InlineSyntaxNodeContainer]
+
+
+-----------------
+`Up.Table.Header`
+-----------------
+
+Purpose
+  This class contains the cells of the header row of a table or chart.
+
+Unique members
+  `cells`: array of [topic: Up.Table.Header.Cell]
+    The cells in this header row.
+
+
+`Up.Table.Header.Cell`
+----------------------
+
+Purpose
+  This class represents a cell in the header row of a table or chart.
+
+Extends 
+  [topic: Up.Table.Cell]
+
+
+--------------
+`Up.Table.Row`
+--------------
+
+Purpose
+  This class contains the cells in a content row of a table or chart.
+
+Unique members
+  `cells`: array of [topic: Up.Table.Header.Cell]
+    The content cells in this row.
+
+  `headerCell`: [topic: Up.Table.Header.Cell]
+    The header cell in this row.
+    
+    This field is only used by charts. Table rows do not have any header cells.
+
+  `allCellsStartingWithRowHeaderCell` method: array of [topic: Up.Table.Cell]
+    Return value
+      Returns every cell in this row. If this row has a `headerCell`, it's the first item in the returned collection. 
+
+
+`Up.Table.Row.Cell`
+-------------------
+
+Purpose
+  This class represents a regular (non-header) cell in a content row of a table or chart.
+
+Extends 
+  [topic: Up.Table.Cell]
+
+
+`Up.ThematicBreak`
+=================
+
+Convention
+  [topic: Thematic breaks]
+
+Extends
+  [topic: Up.OutlineSyntaxNode]
+
+
+`Up.UnorderedList`
+==================
+
+Convention
+  [topic: Bulleted lists]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `items`: array of [topic: Up.UnorderedList.Item]
+    The collection of items comprising the bulleted list.
 
 
 `Up.Video`
