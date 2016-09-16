@@ -579,9 +579,9 @@ import * as Up from 'write-up'
 
 Okay! `Up` now serves as the namespace for the library.
 
-Typically, you'll want to call the various functions in within that namespace: 
+Typically, you'll want to call the various functions in within that namespace:
 
-``` 
+```
 const html = Up.parseAndRender(markup, settings)
 ```
 
@@ -1080,7 +1080,7 @@ Default
 
 Summary
   The `defaultUrlScheme` is prefixed to any link URL or media URL without a [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax).
-  
+
   For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: baseForUrlsStartingWithSlash] or [topic: baseForUrlsStartingWithHashMark].
 
 Usage
@@ -1093,7 +1093,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing]. 
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
 Default
   `"https://"`
@@ -1105,7 +1105,7 @@ Default
 
 Summary
   The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `/`.
-  
+
 Usage
   ````
   const html = Up.parseAndRender(markup, {
@@ -1116,7 +1116,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing]. 
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
 Default
   `""` (an empty string)
@@ -1164,7 +1164,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing]. 
+  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
 Default
   `"…"`
@@ -1401,7 +1401,7 @@ Members
       terms: { tableOfContents: "Contents" }
     }
   })
-  
+
   const html = up.parseAndRender(markup, {
     parsing: {
       createSourceMap: false,
@@ -1433,7 +1433,7 @@ Members
     }
   }
   ````
-  
+
 
 ===================
 Syntax node classes
@@ -1457,19 +1457,19 @@ Unique members
 
   `create` method (`static`)
     Purpose
-      This method produces and returns a ready-to-render syntax tree from a collection of outline syntax nodes.
+      This method returns a ready-to-render syntax tree from a collection of outline syntax nodes.
 
     Arguments
       `children`: array of [topic: OutlineSyntaxNode]
         A collection of outline syntax nodes representing the top-level conventions in the document.
 
-    Return value
-      This method returns a ready-to-render `Document` object.
-      
-      To prepare the document for rendering, this method: 
-  
+    Returns [topic: Up.Document]
+      This method creates and returns a ready-to-render `Document` object.
+
+      To prepare the document for rendering, this method:
+
       - Assigns footnotes their reference numbers
-      - Extracts footnotes into footnote blocks 
+      - Extracts footnotes into footnote blocks
       - Produces a table of contents
       - Associates section links with the apprioriate table of contents entries
 
@@ -1499,25 +1499,26 @@ Members
   `level`: `number`
     Represents the heading level of the entry.
 
-  `searchableText` method: string
-    Return value
-      The searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
-      
+  `searchableText` method
+    Returns `string`
+      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+
       This is used to help [topic: section links] match the most appropriate table of content entry.
-    
-    Arguments
-      None.
-
-  `contentWithinTableOfContents` method: array of [topic: Up.InlineSyntaxNode]
-    Return value
-      The inline syntax nodes that should represent this entry's content inside the table of contents itself.
 
     Arguments
       None.
 
-  `inlineDescendants()`: array of [topic: Up.InlineSyntaxNode]
-    The inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
-  
+  `contentWithinTableOfContents` method
+    Returns array of [topic: Up.InlineSyntaxNode]
+      This method returns the inline syntax nodes that should represent this entry's content inside the table of contents itself.
+
+    Arguments
+      None.
+
+  `inlineDescendants`
+    Returns array of [topic: Up.InlineSyntaxNode]
+      This method returns the inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
+
 
 `Up.InlineDocument`
 ==================
@@ -1526,31 +1527,31 @@ Purpose
   This class represents the syntax tree for a parsed inline document.
 
 Extends
-  [topic: Up.InlineSyntaxNodeContainer]  
+  [topic: Up.InlineSyntaxNodeContainer]
 
 
 `Up.InlineSyntaxNode`
 =====================
 
 Purpose
-  Inline syntax node classes must implement this interface. 
-  
+  Inline syntax node classes must implement this interface.
+
 Members
-  `textAppearingInline` method: string
-    Return value
-      The text of the syntax node as it should appear inline. Some inline conventions don't have any, including [topic: footnotes] and [topic: images].
+  `textAppearingInline` method
+    Returns `string`
+      This method returns the text of the syntax node as it should appear inline. Some inline conventions don't have any, including [topic: footnotes] and [topic: images].
 
       This method is used to help determine whether cells in [topic: tables] and [topic: charts] are numeric.
-    
+
     Arguments
       None.
 
-  `searchableText` method: string
-    Return value
-      The searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
-    
+  `searchableText` method
+    Return `string`
+      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+
       This method is used to help [topic: section links] match the most appropriate table of content entry.
-    
+
     Arguments
       None.
 
@@ -1560,15 +1561,15 @@ Members
 
 Purpose
   Outline syntax node classes must implement this interface.
-  
+
 Members
   `sourceLineNumber`: `number`
     The first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
 
-  `descendantsToIncludeInTableOfContents` method: array of [topic: Up.Document.TableOfContents.Entry]
-    Return value
-      Any descendants (at any nesting level) to include in the table of contents.
-    
+  `descendantsToIncludeInTableOfContents` method
+    Returns array of [topic: Up.Document.TableOfContents.Entry]
+      This method returns any descendants (at any nesting level) to include in the table of contents.
+
     Arguments
       None.
 
@@ -1604,14 +1605,14 @@ Implements
 
 Purpose
   This abstract class represents a container of inline syntax nodes.
-  
+
 Members
   `children`: array of [topic: Up.InlineSyntaxNode]
     A collection of inline syntax nodes representing the top-level content of the container.
 
-  `inlineDescendants` method: array of [topic: Up.InlineSyntaxNode]
-    Return value
-      All inline descendants (including `children`, grandchildren, etc.)
+  `inlineDescendants` method
+    Returns array of [topic: Up.InlineSyntaxNode]
+      This method returns all inline descendants (including `children`, grandchildren, etc.)
 
     Arguments
       None.
@@ -1622,22 +1623,22 @@ Members
 
 Purpose
   This abstract class represents a container of inline syntax nodes.
-  
+
 Members
   `children`: array of [topic: Up.InlineSyntaxNode]
     A collection of outline syntax nodes representing the top-level content of the container.
 
-  `descendantsToIncludeInTableOfContents` method: array of [topic: Document.TableOfContents.Entry]
-    Return value
-      Any descendants (children, grandchildren, etc.) to include in the table of contents.
-    
+  `descendantsToIncludeInTableOfContents` method
+    Returns array of [topic: Document.TableOfContents.Entry]
+      This method returns any descendants (children, grandchildren, etc.) to include in the table of contents.
+
     Arguments
       None.
 
-  `inlineDescendants` methof: array of [topic: Up.InlineSyntaxNode]
-    Return value
-      All inline descendants of `children`. 
-    
+  `inlineDescendants` method
+    Returns array of [topic: Up.InlineSyntaxNode]
+      This method returns all inline descendants of `children`.
+
     Arguments
       None.
 
@@ -1681,7 +1682,7 @@ Extends
 
 Purpose
   This abstract class represents an revealable outline convention.
-  
+
   Headings within revealable outline conventions are not included in the table of contents.
 
 Extends
@@ -1768,7 +1769,7 @@ Purpose
 Unique members
   `subjects`: array of [topic: Up.DescriptionList.Item.Subject]
     The subjects described by `description`.
-  
+
   `description`: array of [topic: DescriptionList.Item.Description]
     The description of `subjects`.
 
@@ -1842,7 +1843,7 @@ Extends
 
 Unique members
   `referenceNumber`: `number`
-    The number that appears in superscript. 
+    The number that appears in superscript.
 
 
 `Up.Heading`
@@ -1857,7 +1858,7 @@ Extends
 Implements
   [topic: Up.OutlineSyntaxNode]
     Headings are outline syntax nodes.
-  
+
   [topic: Up.Document.TableOfContents.Entry]
     Headings can also be in the table of contents!
 
@@ -1874,7 +1875,7 @@ Convention
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
-  
+
 
 `Up.Image`
 ==========
@@ -2030,16 +2031,16 @@ Unique members
   `items`: array of [topic: Up.OrderedList.Item]
     The collection of items comprising ordered list.
 
-  `start` method: `number`
-    Return value
-      The starting ordinal, if one was explicitly defined. Otherwise, this method returns `undefined`.
-    
+  `start` method
+    Returns `number`
+      This method returns the starting ordinal of this list, if one was explicitly defined. Otherwise, this method returns `undefined`.
+
     Arguments
       None.
 
-  `order` method: `Up.OrderedList.Order`
-    Return value
-      The order of the ordered list (ascending or descending).
+  `order` method
+    Returns [topic: Up.OrderedList.Order]
+      This method returns the order of the ordered list (ascending or descending).
 
     Arguments
       None.
@@ -2124,7 +2125,7 @@ Notes
 =========
 
 Purpose
-  This class represents any regular text content. 
+  This class represents any regular text content.
 
 Implements
   [topic: Up.InlineSyntaxNode]
@@ -2208,7 +2209,7 @@ Unique members
 Purpose
   This abstract class represents a cell in a table or chart.
 
-Extends 
+Extends
   [topic: Up.InlineSyntaxNodeContainer]
 
 
@@ -2217,7 +2218,7 @@ Extends
 -----------------
 
 Purpose
-  This class contains the cells of the header row of a table or chart.
+  This class represents the header row of a table or chart.
 
 Unique members
   `cells`: array of [topic: Up.Table.Header.Cell]
@@ -2230,7 +2231,7 @@ Unique members
 Purpose
   This class represents a cell in the header row of a table or chart.
 
-Extends 
+Extends
   [topic: Up.Table.Cell]
 
 
@@ -2239,30 +2240,40 @@ Extends
 --------------
 
 Purpose
-  This class contains the cells in a content row of a table or chart.
+  This class represents a content row in a table or chart.
 
 Unique members
   `cells`: array of [topic: Up.Table.Header.Cell]
     The content cells in this row.
 
   `headerCell`: [topic: Up.Table.Header.Cell]
-    The header cell in this row.
-    
-    This field is only used by charts. Table rows do not have any header cells.
+    The single header cell for this row, if there is one.
 
-  `allCellsStartingWithRowHeaderCell` method: array of [topic: Up.Table.Cell]
-    Return value
-      Returns every cell in this row. If this row has a `headerCell`, it's the first item in the returned collection. 
+    This field is only used by charts! Table rows do not have header cells.
+
+  `allCellsStartingWithRowHeaderCell` method
+    Returns an array of [topic: Up.Table.Cell]
+      This method returns every cell in this row.
+
+      If this row has a `headerCell`, it's the first item in the returned collection.
 
 
 `Up.Table.Row.Cell`
 -------------------
 
 Purpose
-  This class represents a regular (non-header) cell in a content row of a table or chart.
+  This class represents a regular (non-header) cell in a content row in a table or chart.
 
-Extends 
+Extends
   [topic: Up.Table.Cell]
+
+Unique members
+  `isNumeric` method
+    Returns `boolean`
+      This method returns a boolean indicating whether the content of this cell is numeric.
+
+    Arguments
+      None.
 
 
 `Up.ThematicBreak`
