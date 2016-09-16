@@ -1626,7 +1626,7 @@ Unique members
     The media's description.
 
   `url`: `string`
-    The media's URL after the following settings are applied:
+    Represents this media convention's URL after the following settings are applied:
 
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
@@ -1647,7 +1647,9 @@ Extends
 ===============================
 
 Purpose
-  This abstract class represents an outline revealable convention. Headings within outline revealable conventions are not included in the table of contents.
+  This abstract class represents an revealable outline convention.
+  
+  Headings within revealable outline conventions are not included in the table of contents.
 
 Extends
   [topic: Up.RichOutlineSyntaxNode]
@@ -1942,7 +1944,7 @@ Implements
 
 Unique members
   `url`: `string`
-    The links's URL after the following settings are applied:
+    Represents this links's URL after the following settings are applied:
 
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
