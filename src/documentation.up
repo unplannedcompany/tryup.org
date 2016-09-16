@@ -1693,12 +1693,10 @@ Extends
 ===============================
 
 Purpose
-  This abstract class represents a parenthetical convention. It exists solely to improve the expressiveness of the type system.
+  This abstract class represents [topic: parentheticals]. It exists solely to improve the expressiveness of the type system.
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
-
-  Unlike most `Up.RichInlineSyntaxNode`s, every `Up.Parentheti
 
 
 `Up.Audio`
@@ -1742,7 +1740,7 @@ Implements
 
 Unique members
   `code`: `string`
-    The content of the code block.
+    The code represented by this syntax node.
 
 
 `Up.DescriptionList`
@@ -1756,7 +1754,7 @@ Implements
 
 Unique members
   `items`: array of [topic: Up.DescriptionList.Item]
-    The collection of items comprising the description list.
+    The collection of items comprising this description list.
 
 
 -------------------------
@@ -1822,14 +1820,14 @@ Unique members
 ==================
 
 Purpose
-  Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This syntax node represents those blocks.
+  Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This class represents one of those footnote blocks.
 
 Implements
   [topic: Up.OutlineSyntaxNode]
 
 Unique members
   `footnotes`: array of [topic: Up.Footnote]
-    The collection of footnotes comprising the footnote block.
+    The collection of footnotes comprising this footnote block.
 
 
 `Up.Footnote`
@@ -1843,7 +1841,7 @@ Extends
 
 Unique members
   `referenceNumber`: `number`
-    The number that appears in superscript.
+    The number that appears in superscript for this footnote.
 
 
 `Up.Heading`
@@ -1898,7 +1896,7 @@ Implements
 
 Unique members
   `code`: `string`
-    The content of the inline code.
+    The inline code represented by this syntax node.
 
 
 `Up.InlineNsfl`
@@ -1962,7 +1960,7 @@ Implements
 
 Unique members
   `lines`: array of [topic: Up.LineBlock.Line]
-    The collection of lines comprising the line block.
+    The collection of lines comprising this line block.
 
 
 -------------------
@@ -1987,7 +1985,7 @@ Extends
 
 Implements
   [topic: Up.OutlineSyntaxNode]
-    If a line consists solely of media conventions *or media conventions within links*, those media conventions are placed directly into the outline.
+    If a line consists solely of media conventions or media conventions within links, those media conventions are placed directly into the outline. Therefore, links must be able to serve as outline syntax nodes.
 
 Unique members
   `url`: `string`
@@ -2029,7 +2027,7 @@ Implements
 
 Unique members
   `items`: array of [topic: Up.OrderedList.Item]
-    The collection of items comprising ordered list.
+    The collection of items comprising this ordered list.
 
   `start` method
     Returns `number`
@@ -2083,31 +2081,6 @@ Implements
     Paragraphs are outline syntax nodes.
 
 
-`Up.UnorderedList`
-==================
-
-Convention
-  [topic: Bulleted lists]
-
-Implements
-  [topic: Up.OutlineSyntaxNode]
-
-Unique members
-  `items`: array of [topic: Up.UnorderedList.Item]
-    The collection of items comprising the bulleted list.
-
-
------------------------
-`Up.UnorderedList.Item`
------------------------
-
-Purpose
-  This class represents an item in an bulleted list.
-
-Extends
-  [topic: Up.OutlineSyntaxNodeContainer]
-
-
 `Up.NormalParenthetical`
 ========================
 
@@ -2132,7 +2105,7 @@ Implements
 
 Unique members
   `text`: `string`
-    The content of this syntax node.
+    The text represented by this syntax node.
 
 
 `Up.SectionLink`
@@ -2146,7 +2119,7 @@ Implements
 
 Unique members
   `sectionTitleSnippet`: `string`
-    A snippet of text from the matching table of contents entry.
+    A snippet of text (provided by the author) from the matching table of contents entry.
 
 
 `Up.SpoilerBlock`
@@ -2200,6 +2173,17 @@ Unique members
 
   `caption`: [topic: Up.Table.Caption]
     The optional caption of the table or chart.
+
+
+------------------
+`Up.Table.Caption`
+------------------
+
+Purpose
+  This class represents the caption of a table or chart.
+
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]
 
 
 ---------------
@@ -2297,7 +2281,18 @@ Implements
 
 Unique members
   `items`: array of [topic: Up.UnorderedList.Item]
-    The collection of items comprising the bulleted list.
+    The collection of items comprising this bulleted list.
+
+
+-----------------------
+`Up.UnorderedList.Item`
+-----------------------
+
+Purpose
+  This class represents an item in a bulleted list.
+
+Extends
+  [topic: Up.OutlineSyntaxNodeContainer]
 
 
 `Up.Video`
