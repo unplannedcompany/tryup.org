@@ -5,13 +5,13 @@ Up (easily write structured content for the web)
 
 Up is a set of [highlight: human-friendly conventions] for writing structured documents in plain text. This entire document was written in Up.
 
-For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML.
+For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. For more information, see [topic: using the Up library].
 
 ========================
 What's so good about Up?
 ========================
 
-Up is designed for humans to read and write, not for computers to process and parse. At every turn, Up offers convenience for humans.
+Up is designed for humans to read and write, not for computers to process and parse.
 
 
 - Up lets you overlap styles
@@ -26,22 +26,39 @@ Up is designed for humans to read and write, not for computers to process and pa
 - Up supports outrageously easy tables
   ====================================
 
-  You'll want to use them everywhere.
+  Markup
+    ````
+    Table: Moves learned by the Pokémon Bulbasaur
 
-  Table: Moves learned by the Pokémon Bulbasaur
+    Level;  Move;         Type;     Power;  Accuracy
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+    ````
 
-  Level;  Move;         Type;     Power;  Accuracy
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Output
+    Table: Moves learned by the Pokémon Bulbasaur
+
+    Level;  Move;         Type;     Power;  Accuracy
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
 
   For more information, see [topic: tables].
 
 - Up has effortless footnotes
   ===========================
 
-  You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
+  Markup
+    ````
+    You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
+    ````
+
+  Output
+    You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
+
 
   For more information, see [topic: footnotes].
 
@@ -76,18 +93,60 @@ Up is designed for humans to read and write, not for computers to process and pa
 
 
 
-################################################
-Writing conventions (the rules and syntax of Up)
-################################################
+############################
+Writing conventions (syntax)
+############################
 
 
 Don't get lost! The following terms are occasionally used in this section:
 
 Inline convention
-  Any writing convention that can be used inside paragraphs, including [topic: emphasis] and [topic: highlighting].
+  Any writing convention that can be used inside paragraphs.
+  
+  This includes [topic: emphasis] and [topic: highlighting].
 
 Outline convention
-  Any *non-inline* writing convention, incuding [topic: paragraphs] and [topic: tables].
+  Any non-inline writing convention.
+  
+  This includes [topic: paragraphs] and [topic: tables].
+
+
+===========
+Basic rules
+===========
+
+[topic: Paragraphs] are separated by one or two blank lines.
+
+Markup
+  ````
+  I wear glasses.
+
+  Are you jealous?
+  ````
+
+Output
+  I wear glasses.
+
+  Are you jealous?
+
+
+Three or more blank lines represent a [topic: thematic break].
+
+Markup
+  ````
+  I vowed never to eat apples again.
+
+
+
+  By mid-March, a second flock of birds had moved into my dining room.
+  ````
+
+Output
+  I vowed never to eat apples again.
+
+
+
+  By mid-March, a second flock of birds had moved into my dining room.
 
 
 ========
@@ -468,7 +527,9 @@ Bulleted lists
 ==============
 
 Purpose
-  Use the bulleted list convention to represent lists whose order is *not* particularly important.
+  You already know what a bulleted list is!
+
+  Use the bulleted list convention to represent lists whose order or length is *not* particularly important.
 
   Bulleted lists can contain any outline convention, even other bulleted lists!
 
@@ -489,7 +550,7 @@ Syntax
   Bullets
   =======
 
-  Every item in a bulleted list starts with a bullet followed by a space. The following markup characters can serve as a bullet:
+  Every bulleted list item starts with a bullet followed by a space. The following markup characters can serve as a bullet:
 
   - An asterisk: `*`
   - A hyphen: `-`
@@ -518,7 +579,7 @@ Syntax
 
   On the other hand, if a list item is followed by 2 blank lines, it terminates the list.
 
-    Markup
+  Markup
     ````
     - Buy milk
     - Buy bread
@@ -537,9 +598,48 @@ Syntax
     - Fix self-esteem
 
 
-  Including other outline conventions within list items
-  =====================================================
+  List items with multiple lines
+  ==============================
 
+  List items aren't limited to a single line!
+  
+  If your list item contains more than one line, subsequent lines should be indented 2 spaces (or a tab).
+
+  Markup
+    ````
+    - Buy milk.
+    
+      If whole milk is on sale, buy that. Otherwise, buy 2% milk.
+
+    - Buy bread.
+
+      One buy bread from one of the following brands:
+
+      * Little Northern Bakehouse
+      * Udi's
+      * Canyon Bakehouse
+
+    - Buy happiness.
+
+      Don't spend more than a few dollars on this! It's not worth it.
+    ````
+  
+  Output
+    - Buy milk.
+    
+      If whole milk is on sale, buy that. Otherwise, buy 2% milk.
+
+    - Buy bread.
+
+      Only buy bread from the following brands:
+
+      * Little Northern Bakehouse
+      * Udi's
+      * Canyon Bakehouse
+
+    - Buy happiness.
+
+      Don't spend more than a few dollars on this! It's not worth it.
 
 
 
