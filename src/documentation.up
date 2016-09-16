@@ -1496,9 +1496,7 @@ Members
     Represents the entry's ordinal in the table of contents. The first ordinal is `1`, not `0`.
 
   `level`: `number`
-    Represents the outline level of the entry. This correspondings to the level of the heading the entry represents.
-
-    Up.Document.TableOfContents
+    Represents the heading level of the entry.
 
   `searchableText()` method: string
     Represents the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
@@ -1544,7 +1542,7 @@ Members
 ======================
 
 Purpose
-  Outline syntax nodes must implement this interface.
+  Outline syntax node classes must implement this interface.
   
 Members
   `sourceLineNumber`: `number`
@@ -1552,6 +1550,32 @@ Members
 
   `descendantsToIncludeInTableOfContents()`: array of [topic: Up.Document.TableOfContents.Entry]
     Any descendants (at any nesting level) to include in the table of contents.
+
+
+`Up.RichInlineSyntaxNode`
+=========================
+
+Purpose
+  This abstract class represents an inline syntax node that can contain other inline syntax nodes.
+
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]
+
+Implements
+  [topic: Up.InlineSyntaxNode]
+
+
+`Up.RichOutlineSyntaxNode`
+=========================
+
+Purpose
+  This abstract class represents an outline syntax node that can contain other outline syntax nodes.
+
+Extends
+  [topic: Up.OutlineSyntaxNodeContainer]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
 
 
 `Up.InlineSyntaxNodeContainer`
@@ -1595,7 +1619,7 @@ Implements
   [topic: Up.InlineSyntaxNode]
     Media conventions can appear inline.
   [topic: Up.OutlineSyntaxNode]
-    If a line consists solely of media conventions, those media conventions are placed directly into the outline.
+    If a line consists solely of media conventions (or media conventions within links), those media conventions are placed directly into the outline.
 
 Unique members
   `description`: `string`
@@ -1607,3 +1631,349 @@ Unique members
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
     - [topic: baseForUrlsStartingWithHashmark]
+
+
+`Up.RevealableInlineSyntaxNode`
+===============================
+
+Purpose
+  This abstract class represents an inline revealable convention. It exists solely to improve the strictness of the type system.
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+
+`Up.RevealableOutlineSyntaxNode`
+===============================
+
+Purpose
+  This abstract class represents an outline revealable convention. Headings within outline revealable conventions are not included in the table of contents.
+
+Extends
+  [topic: Up.RichOutlineSyntaxNode]
+
+
+
+`Up.Audio`
+==========
+
+Convention
+  [topic: Audio]
+
+Extends
+  [topic: Up.MediaSyntaxNode]
+
+
+`Up.Bold`
+=========
+
+Convention
+  [topic: Audio]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+
+`Up.Blockquote`
+===============
+
+Convention
+  [topic: Blockquote]
+
+Extends
+  [topic: Up.RichOutlineSyntaxNode]
+
+
+`Up.CodeBlock`
+==============
+
+Convention
+  [topic: Code blocks]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `code`: `string`
+    The content of the code block.
+
+
+`Up.DescriptionList`
+====================
+
+Convention
+  [topic: Description lists]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `items`: array of [topic: Up.DescriptionList.Item]
+    The collection of items comprising the description list.
+
+
+`Up.DescriptionList.Item`
+=========================
+
+Purpose
+  Represents a collection of subjects and their corresponding description.
+
+Unique members
+  `subjects`: array of [topic: Up.DescriptionList.Item.Subject]
+    The set of subjects described by `description`
+  
+  `description`: array of [topic: DescriptionList.Item.Description]
+    A description of `subjects`
+
+
+`Up.DescriptionList.Item.Subject`
+=================================
+
+Purpose
+  Represents the set of subjects described by a given description within a description list item.
+
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]
+
+
+`Up.DescriptionList.Item.Description`
+=====================================
+
+Purpose
+  Represents the description of a given set of subjects within a description list item.
+
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]
+
+
+`Up.Emphasis`
+=============
+
+Convention
+  [topic: Emphasis]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+
+`Up.ExampleInput`
+=============
+
+Convention
+  [topic: Example input]
+
+Implements
+  [topic: Up.InlineSyntaxNode]
+
+Unique members
+  `input`: `string`
+    The example of user input.
+
+
+`Up.FootnoteBlock`
+==================
+
+Purpose
+  Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This syntax node represents those blocks.
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `footnotes`: array of [topic: Up.Footnote]
+    The collection of footnotes comprising the footnote block.
+
+
+`Up.Footnote`
+=============
+
+Convention
+  [topic: Footnotes]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+Unique members
+  `referenceNumber`: `number`
+    The number that appears in superscript. 
+
+
+`Up.Heading`
+=============
+
+Convention
+  [topic: Headings]
+
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+    Headings are outline syntax nodes.
+  
+  [topic: Up.Document.TableOfContents.Entry]
+    Headings can also be in the table of contents!
+
+Unique members
+  `level`: `number`
+    Represents the significance of the heading. Like HTML heading levels, a `level` of `1` is considered the most significant.
+
+
+`Up.Highlight`
+==============
+
+Convention
+  [topic: Highlighting]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+  
+
+`Up.Image`
+==========
+
+Convention
+  [topic: Images]
+
+Extends
+  [topic: Up.MediaSyntaxNode]
+
+
+`Up.InlineCode`
+===============
+
+Convention
+  [topic: Inline code]
+
+Implements
+  [topic: Up.InlineSyntaxNode]
+
+Unique members
+  `code`: `string`
+    The content of the inline code.
+
+
+`Up.InlineNsfl`
+==============
+
+Convention
+  [topic: Inline NSFL]
+
+Extends
+  [topic: Up.RevealableInlineSyntaxNode]
+
+
+`Up.InlineNsfw`
+==============
+
+Convention
+  [topic: Inline NSFW]
+
+Extends
+  [topic: Up.RevealableInlineSyntaxNode]
+
+
+`Up.InlineSpoiler`
+==================
+
+Convention
+  [topic: Inline spoilers]
+
+Extends
+  [topic: Up.RevealableInlineSyntaxNode]
+
+
+`Up.InlineQuote`
+==============
+
+Convention
+  [topic: Inline quotes]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+
+`Up.Italic`
+==============
+
+Convention
+  [topic: Italics]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+
+`Up.LineBlock`
+====================
+
+Convention
+  [topic: Line blocks]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `lines`: array of [topic: Up.LineBlock.Line]
+    The collection of lines comprising the line block.
+
+
+`Up.LineBlock.Line`
+===================
+
+Purpose
+  Represents a line in a line block.
+
+Extends
+  [topic: Up.InlineSyntaxNodeContainer]
+
+
+`Up.Link`
+=========
+
+Convention
+  [topic: Italics]
+
+Extends
+  [topic: Up.RichInlineSyntaxNode]
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+    If a line consists solely of media conventions *or media conventions within links*, those media conventions are placed directly into the outline.
+
+Unique members
+  `url`: `string`
+    The links's URL after the following settings are applied:
+
+    - [topic: defaultUrlScheme]
+    - [topic: baseForUrlsStartingWithSlash]
+    - [topic: baseForUrlsStartingWithHashmark]
+
+
+`Up.NsflBlock`
+==============
+
+Convention
+  [topic: NSFL blocks]
+
+Extends
+  [topic: Up.RevealableOutlineSyntaxNode]
+
+
+`Up.NsfwBlock`
+==============
+
+Convention
+  [topic: NSFW blocks]
+
+Extends
+  [topic: Up.RevealableOutlineSyntaxNode]
+
+
+`Up.Video`
+==========
+
+Convention
+  [topic: Video]
+
+Extends
+  [topic: Up.MediaSyntaxNode]
