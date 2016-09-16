@@ -1049,7 +1049,7 @@ Parsing settings
 -----------------
 
 Summary
-  When `createSourceMap` is enabled, Up keeps track of the original line number for every outline convention.
+  When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline convention.
 
   This document uses source mapping to synchronize the scrolling between itself and its markup.
 
@@ -1446,7 +1446,7 @@ Unless you're fiddling with the syntax tree, you don't need to worry about any o
 =============
 
 Purpose
-  Represents the syntax tree for a parsed document.
+  This class represents the syntax tree for a parsed document.
 
 Members
   `children`: array of [topic: OutlineSyntaxNode]
@@ -1457,14 +1457,14 @@ Members
 
   `create` method (`static`)
     Purpose
-      This method produces a ready-to-render syntax tree from a collection of outline syntax nodes.
+      This method produces and returns a ready-to-render syntax tree from a collection of outline syntax nodes.
 
     Arguments
       `children`: array of [topic: OutlineSyntaxNode]
         A collection of outline syntax nodes representing the top-level conventions in the document.
 
     Return value
-      This method creates and returns a ready-to-render `Document` object.
+      This method returns a ready-to-render `Document` object.
       
       To prepare the document for rendering, this method: 
   
@@ -1482,7 +1482,7 @@ Constructor arguments
 =============================
 
 Purpose
-  Represents the table of contents for a document. The table of contents contains every heading except those found within [topic: revealable content].
+  This class represents the table of contents for a document. The table of contents includes every heading except those found within [topic: revealable content].
 
 Members
   `entries`: array of [topic: TableOfContents.Entry]
@@ -1497,25 +1497,34 @@ Constructor arguments
 ===================================
 
 Purpose
-  Represents an entry in the table of contents.
+  This interface represents an entry in the table of contents.
 
 Members
   `ordinal`: `number`
     Represents the entry's ordinal in the table of contents. The first ordinal is `1`, not `0`.
 
   `level`: `number`
-    Represents the outline level of the entry. This correspondings to the level of the heading the entry represents. 
-  
-Constructor arguments
-  `children`: [topic: OutlineSyntaxNode]
-    A collection of outline syntax nodes representing the top-level outline conventions in the document.
+    Represents the outline level of the entry. This correspondings to the level of the heading the entry represents.
 
+    Up.Document.TableOfContents
+
+  `searchableText()` method: string
+    Represents the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+    
+    This is used to help [topic: section links] match the most appropriate table of content entry.
+
+  `representationOfContentWithinTableOfContents()`: array of [topic: InlineSyntaxNode]
+    The inline syntax nodes that should represent the entry within the table of contents itself.
+
+  `inlineDescendants()`: array of [topic: InlineSyntaxNode]
+    The inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
+  
 
 `Up.InlineDocument`
 ==================
 
 Purpose
-  Represents the syntax tree for a parsed inline document.
+  This class represents the syntax tree for a parsed inline document.
 
 Members
   `children`: array of [topic: InlineSyntaxNode]
@@ -1530,17 +1539,29 @@ Constructor arguments
 =====================
 
 Purpose
-  Represents inline conventions.
+  Inline syntax node classes implement this interface. 
   
 Members
-  None of its members are relevant to users of the Up library.
+  `textAppearingInline()` method: string
+    Represents the text of the syntax node as it should appear inline. Some inline conventions don't have any, including [topic: footnotes] and [topic: images].
+
+    This method is used to help determine whether cells in [topic: tables] and [topic: charts] are numeric.
+
+  `searchableText()` method: string
+    Represents the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+    
+    This method is used to help [topic: section links] match the most appropriate table of content entry.
 
 
 `Up.OutlineSyntaxNode`
 ======================
 
 Purpose
-  This abstract class represents media conventions.
+  Outline syntax nodes implement this interface.
   
 Members
-  None of its members are relevant to users of the Up library.
+  `sourceLineNumber`: `number`
+    The first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
+
+  `descendantsToIncludeInTableOfContents()`: array of [topic: Up.Document.TableOfContents.Entry]
+    Any descendants (at any nesting level) to include in the table of contents.
