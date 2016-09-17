@@ -169,9 +169,6 @@ Example
 Syntax
   To emphasize text, enclose it within single asterisks.
 
-Notes
-  Emphasized text is rendered using the `<em>` HTML element.
-
 
 ======
 Stress
@@ -193,9 +190,6 @@ Example
 Syntax
   To stress text, enclose it within double asterisks.
 
-Notes
-  Stressed text is rendered using the `<strong>` HTML element.
-
 
 =======
 Italics
@@ -216,9 +210,6 @@ Example
 
 Syntax
   To italicize text, enclose it within single underscores.
-
-Notes
-  Italics are rendered using the `<i>` HTML element.
 
 
 ====
@@ -243,9 +234,6 @@ Example
 Syntax
   To make text bold, enclose it within double underscores.
 
-Notes
-  Bold text is rendered using the `<b>` HTML element.
-
 
 ================================================
 Parentheticals (parentheses and square brackets)
@@ -267,9 +255,6 @@ Example
 Syntax
   You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.
 
-Notes
-  Parenthetical text is rendered using the `<small>` HTML element.
-
 
 ============
 Highlighting
@@ -290,9 +275,6 @@ Example
 
 Syntax
   To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your open bracket.
-
-Notes
-  Highlighted text is rendered using the `<mark>` HTML element.
 
 
 =============
@@ -328,9 +310,6 @@ Syntax
 
   Within example input, most conventions are ignored. However, [topic: typographical conventions] are respected, as is [topic: disabling].
 
-Notes
-  Example input is rendered using the `<kbd>` HTML element.
-
 
 ===========
 Inline code
@@ -363,9 +342,9 @@ Syntax
   In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:
 
   Markup
-    `````
+    ````
     `let display = ``score:`` + 5`
-    `````
+    ````
 
   Output
     `let display = ``score:`` + 5`
@@ -373,9 +352,9 @@ Syntax
   In this example, the delimiters are **2** backticks long, so the inline code can contain "streaks" of **1** backtick:
 
   Markup
-    `````
+    ````
     ``let display = `score:` + 5``
-    `````
+    ````
 
   Output
     ``let display = `score:` + 5``
@@ -387,7 +366,9 @@ Syntax
   If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
 
   Markup
+    ````
     `` `inline_code` ``
+    ````
 
   Output
     `` `inline_code` ``
@@ -397,13 +378,12 @@ Syntax
   Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given "side" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.
 
   Markup
+    ````
     `` (`inline_code`) ``
+    ````
 
   Output
     `` (`inline_code`) ``
-
-Notes
-  Inline code is rendered using the `<code>` HTML element.
 
 
 =========
@@ -508,9 +488,6 @@ Syntax
     See? Not so hard!
     ``````
 
-Notes
-  Code blocks are rendered using nested `<pre>` and `<code>` HTML elements.
-
 
 ==============
 Bulleted lists
@@ -542,6 +519,7 @@ Syntax
   - An asterisk: `*`
   - A hyphen: `-`
   - An actual bullet character: `•`
+  
 
   Spacing between list items
   ===========================
@@ -724,13 +702,39 @@ Syntax
 
   Output
     1783. Not a good year for Great Britain.
+  ````
+
+
+===========
+Line blocks
+===========
+
+Use the line block convention for addresses, lyrics, or for anything that should be represented by *lines* instead of distinct [topic: paragraphs].  
+
+Example
+  Markup
+    ````
+    Roses are red
+    Violets are blue
+    Lyrics have lines
+    And addresses do, too
+    ````
+
+  Output
+    Roses are red
+    Violets are blue
+    Lyrics have lines
+    And addresses do, too
+
+Syntax
+  Line blocks are easy! Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists]. 
  
 
 ===========================================
 Disabling the special meaning of characters
 ===========================================
 
-If you want to disable the special meaning of a character, put a backslash before it.
+To disable the special meaning of a character, put a backslash before it.
 
 Example
   ````
@@ -740,7 +744,7 @@ Example
 Output
   I love \*asterisks\*!
 
-If you want to include an actual backslash character in your text, put a backslash before it.
+Naturally, to disable the special meaning of a backslash, put another backslash before it!
 
 Example
   ````
