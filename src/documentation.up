@@ -21,7 +21,7 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   However, Up **supports [highlight: overlapping** styles]!
 
-  Even if you are content to nest your styles within one another, this feature helps if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].
+  Even if you are content to nest your styles within one another, this feature saves the day if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].
 
 - Up supports outrageously easy tables
   ====================================
@@ -153,10 +153,9 @@ Output
 Emphasis
 ========
 
-Purpose
-  Use the emphasis convention to emphasize a word or phrase.
+Use the emphasis convention to emphasize a word or phrase.
 
-  If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.
+If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.
 
 Example
   Markup
@@ -178,10 +177,9 @@ Notes
 Stress
 ======
 
-Purpose
-  Use the stress convention to indicate a word or phrase is particularly important.
+Use the stress convention to indicate a word or phrase is particularly important.
 
-  If the reader should raise their voice while reading a word or phrase, consider stressing it.
+If the reader should raise their voice while reading a word or phrase, consider stressing it.
 
 Example
   Markup
@@ -203,10 +201,9 @@ Notes
 Italics
 =======
 
-Purpose
-  Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
+Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
 
-  Some authors also use italics for unfamiliar foreign words.
+Some authors also use italics for unfamiliar foreign words.
 
 Example
   Markup
@@ -228,12 +225,11 @@ Notes
 Bold
 ====
 
-Purpose
-  If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.
+If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.
 
-  This convention should be used rarely. Usually, there's a more appropriate convention!
+This convention should be used rarely. Usually, there's a more appropriate convention!
 
-  If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].
+If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].
 
 Example
   Markup
@@ -255,10 +251,9 @@ Notes
 Parentheticals (parentheses and square brackets)
 ================================================
 
-Purpose
-  Up automatically recognizes parenthetical text!
+Up automatically recognizes parenthetical text!
 
-  You don't need to change how you use parentheses or square brackets.
+You don't need to change how you use parentheses or square brackets.
 
 Example
   Markup
@@ -280,10 +275,9 @@ Notes
 Highlighting
 ============
 
-Purpose
-  Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.
+Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.
 
-  Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
+Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
 
 Example
   Markup
@@ -305,12 +299,11 @@ Notes
 Example input
 =============
 
-Purpose
-  Use the example input convention to represent user input, including:
+Use the example input convention to represent user input, including:
 
-  - Keys the user should press
-  - Buttons the user should click
-  - Menu items the user should access
+- Keys the user should press
+- Buttons the user should click
+- Menu items the user should access
 
 Example
   Markup
@@ -322,9 +315,9 @@ Example
     Press {esc} to quit.
 
 Syntax
-  To indicate text represents user input, enclose the text within curly brackets.
+  To indicate that text represents user input, enclose the text within curly brackets.
 
-  To allow for more readable markup, Up ignores any spaces separating the curly brackets from the content they enclose.
+  Up ignores any spaces separating the curly brackets from the content they enclose.
 
   Markup
     ````
@@ -333,7 +326,7 @@ Syntax
   Output
     Press { Start Game(s) } when you are ready.
 
-  Within example input, most conventions are not evaluated. However, [topic: typography] and [topic: escaping] are both respected.
+  Within example input, most conventions are ignored. However, [topic: typographical conventions] are respected, as is [topic: disabling].
 
 Notes
   Example input is rendered using the `<kbd>` HTML element.
@@ -343,10 +336,9 @@ Notes
 Inline code
 ===========
 
-Purpose
-  Use the inline code convention to represent a small fragment of computer code.
+Use the inline code convention to represent a small fragment of computer code.
 
-  If you need to represent more than a small fragment of computer code, use [topic: code blocks].
+If you need to represent more than a small fragment of computer code, use [topic: code blocks].
 
 Example
   Markup
@@ -358,9 +350,9 @@ Example
     In HTML, you probably shouldn't use the `<font>` element.
 
 Syntax
-  To indicate text is a fragment of computer code, surround it with an equal number of backticks on either side.
+  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
 
-  Within your inline code, every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!
+  Within your inline code, every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
 
 
   Including backticks in your inline code
@@ -418,10 +410,9 @@ Notes
 Footnotes
 =========
 
-Purpose
-  Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.
+Use the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.
 
-  Footnotes are automatically extracted into blocks for you.
+Footnotes are automatically extracted into blocks for you.
 
 Example
   Markup
@@ -436,17 +427,16 @@ Syntax
   Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.
 
 Notes
-  Within your paragraph, footnotes are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
+  Footnote in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
 
 
 ===========
 Code blocks
 ===========
 
-Purpose
-  Use the code block convention to represent a block of computer code.
+Use the code block convention to represent a block of computer code.
 
-  If you need to reference only a small fragment of computer code, use [topic: Up.Inline code].
+If you need to reference only a small fragment of computer code, use [topic: Inline code].
 
 Example
   Markup
@@ -476,7 +466,7 @@ Syntax
 
   If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).
 
-  Within your code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, not even [topic: escaping]!
+  Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
 
 
   Including streaks of backticks within your code block
@@ -526,12 +516,9 @@ Notes
 Bulleted lists
 ==============
 
-Purpose
-  You already know what a bulleted list is!
+You already know what a bulleted list is!
 
-  Use the bulleted list convention to represent lists whose order or length is *not* particularly important.
-
-  Bulleted lists can contain any outline convention, even other bulleted lists!
+Bulleted lists can contain any outline convention, including other bulleted lists.
 
 Example
   Markup
@@ -642,12 +629,133 @@ Syntax
       Don't spend more than a few dollars on this! It's not worth it.
 
 
+==============
+Numbered lists
+==============
+
+You already know what a numbered list is!  
+
+Numbered lists can contain any outline convention, including other numbered lists.
+
+Example
+  Markup
+    ````
+    1. Buy milk
+    2. Buy bread
+    3. Buy happiness
+    ````
+
+  Output
+    1. Buy milk
+    2. Buy bread
+    3. Buy happiness
+
+Syntax
+  Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered lists have ordinals, not bullets.
+
+  The ordinal for a numbered list can be expressed several ways:
+
+  1. An integer followed by a period: `1.`
+  2. An integer followed by a closing parenthesis: `1)`
+  3. A number sign: `#`
+  4. A number sign followed by a period: `#.`
+  5. A number sign followed by a closing parenthesis: `#)`
+
+  Like each bullet in a bulleted list, each ordinal in a numbered list must be followed by a space.
+
+
+  Lists starting at a specific number
+  ===================================
+
+  Numbered lists don't have to start at "1".
+  
+  Markup
+    ````
+    3) March
+    #) April
+    #) May
+    ````
+    
+  Output
+    3) March
+    #) April
+    #) May
+
+
+  Reversed lists
+  ==============
+
+  Up automatically knows when a numbered list is in reverse!
+  
+  If at least two of the ordinals in your list use integers (instead of number signs), *and* if the first two of those ordinals are in descending order, Up assumes the list is reversed:
+
+  Markup
+    ````
+    3) Buy milk
+    2) Buy bread
+    #) Buy happiness
+    ````
+
+  Output
+    3) Buy milk
+    2) Buy bread
+    #) Buy happiness
+
+
+  Single-item numbered lists
+  ==========================
+
+  Like bulleted lists, numbered lists can consist of a single item:
+
+  Markup
+    ````
+    1) Buy milk
+    ````
+
+  Output
+    1) Buy milk
+
+  There's a small exception to this rule: If your list item's ordinal is expressed as an integer followed by a period (e.g. `1.`), you must have more than one list item. This exception helps prevent "accidental" numbered lists:
+
+  Markup
+    ````
+    1783. Not a good year for Great Britain.
+    ````
+
+  Output
+    1783. Not a good year for Great Britain.
+ 
+
+===========================================
+Disabling the special meaning of characters
+===========================================
+
+If you want to disable the special meaning of a character, put a backslash before it.
+
+Example
+  ````
+  I love \*asterisks*!
+  ````
+
+Output
+  I love \*asterisks\*!
+
+If you want to include an actual backslash character in your text, put a backslash before it.
+
+Example
+  ````
+  My favorite kind of slash is the backslash: \\. What is yours?
+  ````
+
+Output
+  My favorite kind of slash is the backslash: \\. What is yours?
+
 
 ####################
 Using the Up library
 ####################
 
-The Up library can be found [on NPM] (npmjs.com/package/write-up).
+The Up library can be [found on NPM] (npmjs.com/package/write-up).
 
 
 ============
@@ -671,15 +779,9 @@ First, `require` the library:
 const Up = require('write-up')
 ````
 
-If you are using [TypeScript] (typescriptlang.org), use:
+Hooray! `Up` now serves as the namespace for the library.
 
-````
-import * as Up from 'write-up'
-````
-
-Okay! `Up` now serves as the namespace for the library.
-
-Typically, you'll want to call the various functions in within that namespace:
+Typically, you'll want to use the various functions within that namespace:
 
 ```
 const html = Up.parseAndRender(markup, settings)
@@ -1292,7 +1394,7 @@ Members (all of which are optional)
   [topic: idPrefix]: `string`
     The prefix to apply to HTML IDs.
 
-  [topic: Up.renderDangerousContent]: `boolean`
+  [topic: renderDangerousContent]: `boolean`
     Enables the rendering of dangerous content. Enabling this setting is not recommended!
 
   `terms` (all of which are optional)
@@ -1462,17 +1564,16 @@ Purpose
   Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
   ````
-  const Up = require('write-up')
-
   const up = new Up.Transformer(settings)
   const html = up.parseAndRender(markup, settingsChanges)
+  ````
 
 Constructor arguments
   `settings` (optional): [topic: Up.UserProvidedSettings]
     The custom parsing and/or rendering settings to apply for all subsequent method calls.
 
 Members
-  This class's methods have the same names and aruments as the functions in the Up library:
+  This class's methods have the same names and aruments as the [topic: functions] in the library:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -1483,56 +1584,56 @@ Members
   - [topic: Up.renderDocumentAndTableOfContents]
   - [topic: Up.renderInline]
 
-  The only difference: When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
+  When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
 
-  Here's an example of merging settings:
-
-  ````
-  const up = new Up.Transformer({
-    parsing: {
-      createSourceMap: true,
-      fancyEllipsis: "⋯",
-      terms: {
-        audio: ["sound", "song"],
-        highlight: "mark"
+  Example
+    ````
+    const up = new Up.Transformer({
+      parsing: {
+        createSourceMap: true,
+        fancyEllipsis: "⋯",
+        terms: {
+          audio: ["sound", "song"],
+          highlight: "mark"
+        }
+      },
+      rendering: {
+        terms: { tableOfContents: "Contents" }
       }
-    },
-    rendering: {
-      terms: { tableOfContents: "Contents" }
-    }
-  })
+    })
 
-  const html = up.parseAndRender(markup, {
-    parsing: {
-      createSourceMap: false,
-      terms: {
-        audio: "listen",
+    const html = up.parseAndRender(markup, {
+      parsing: {
+        createSourceMap: false,
+        terms: {
+          audio: "listen",
+        }
+      },
+      rendering: {
+        idPrefix: "article"
       }
-    },
-    rendering: {
-      idPrefix: "article"
-    }
-  })
-  ````
+    })
+    ````
 
-  In the above example, the following settings are ultimately applied:
+  Discussion
+    In the above example, the following settings are ultimately applied:
 
-  ````
-  {
-    parsing: {
-      createSourceMap: false,
-      fancyEllipsis: "⋯",
-      terms: {
-        audio: "listen"
-        highlight: "mark"
+    ````
+    {
+      parsing: {
+        createSourceMap: false,
+        fancyEllipsis: "⋯",
+        terms: {
+          audio: "listen"
+          highlight: "mark"
+        }
+      },
+      rendering: {
+        idPrefix: "article",
+        terms: { tableOfContents: "Contents" }
       }
-    },
-    rendering: {
-      idPrefix: "article",
-      terms: { tableOfContents: "Contents" }
     }
-  }
-  ````
+    ````
 
 
 ===================
@@ -2120,7 +2221,7 @@ Extends
 ================
 
 Convention
-  [topic: Ordered lists]
+  [topic: Numbered lists]
 
 Implements
   [topic: Up.OutlineSyntaxNode]
