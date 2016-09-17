@@ -800,8 +800,7 @@ Functions
 `Up.parseAndRender`
 ==================
 
-Summary
-  This method converts Up markup into HTML and returns the result.
+This method converts Up markup into HTML and returns the result.
 
 Arguments
   `markup`: `string`
@@ -809,8 +808,8 @@ Arguments
   `settings` (optional): [topic: Up.UserProvidedSettings]
     The custom parsing and/or rendering settings to apply.
 
-Return value
-  This method returns a `string` of HTML representing the rendered document.
+Return type: `string`
+  This method returns HTML representing the rendered document.
 
 Usage
   Without custom settings
@@ -835,11 +834,10 @@ Usage
 `Up.parseAndRenderDocumentAndTableOfContents`
 =============================================
 
-Summary
-  This method converts Up markup into two pieces of HTML, both of which are returned:
+This method converts Up markup into two pieces of HTML, both of which are returned:
 
-  1. A table of contents
-  2. The document itself
+1. A table of contents
+2. The document itself
 
 Arguments
   `markup`: `string`
@@ -847,13 +845,8 @@ Arguments
   `settings` (optional): [topic: Up.UserProvidedSettings]
     The custom parsing and/or rendering settings to apply.
 
-Return value
-  This method returns an object with two fields:
-
-  `tableOfContentsHtml`
-    The HTML for the table of contents.
-  `documentHtml`
-    The HTML for the document itself.
+Return type: [topic: Up.RenderedDocumentAndTableOfContents]
+  This method returns HTML representing the rendered document and table of contents.
 
 Usage
   Without custom settings
@@ -881,10 +874,9 @@ Usage
 `Up.parseAndRenderInline`
 =========================
 
-Summary
-  This method converts inline Up markup into inline HTML and returns the result.
+This method converts inline Up markup into inline HTML and returns the result.
 
-  For more information about inline documents, see [topic: Up.Inline documents].
+For more information about inline documents, see [topic: Up.Inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -892,8 +884,8 @@ Arguments
   `parsingSettings` (optional): [topic: Up.UserProvidedSettings]
     The custom parsing and/or rendering settings to apply.
 
-Return value
-  This method returns a `string` of HTML representing the rendered inline document.
+Return type: `string`
+  This method returns HTML representing the rendered inline document.
 
 Usage
   Without custom settings
@@ -923,8 +915,7 @@ Usage
 `Up.parse`
 ==========
 
-Summary
-  This method parses Up markup and returns the resulting syntax tree.
+This method parses Up markup and returns the resulting syntax tree.
 
 Arguments
   `markup`: `string`
@@ -933,8 +924,8 @@ Arguments
   `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
-Return value
-  This method returns a [topic: Document] representing the syntax tree.
+Return type: [topic: Document]
+  This method returns a syntax tree representing the parsed document.
 
 Usage
   Without custom settings
@@ -954,10 +945,9 @@ Usage
 `Up.parseInline`
 ================
 
-Summary
-  This method parses inline Up markup and returns the resulting inline syntax tree.
+This method parses inline Up markup and returns the resulting inline syntax tree.
 
-  For more information about inline documents, see [topic: Up.Inline documents].
+For more information about inline documents, see [topic: Up.Inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -966,8 +956,8 @@ Arguments
   `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
-Return value
-  This method returns an [topic: Up.InlineDocument] representing the syntax tree.
+Return type: [topic: Up.InlineDocument]
+  This method returns an inline syntax tree representing the parsed document.
 
 Usage
   Without custom settings
@@ -987,8 +977,7 @@ Usage
 `Up.render`
 ===========
 
-Summary
-  This method converts a syntax tree into HTML and returns the result.
+This method converts a syntax tree into HTML and returns the result.
 
 Arguments
   `document`: [topic: Document]
@@ -997,8 +986,8 @@ Arguments
   `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
-Return value
-  This method returns a `string` of HTML representing the rendered document.
+Return type: `string`
+  This method returns HTML representing the rendered document.
 
 Usage
   Without custom settings
@@ -1022,11 +1011,10 @@ Usage
 `Up.renderDocumentAndTableOfContents`
 =====================================
 
-Summary
-  This method converts a syntax tree into two pieces of HTML, both of which are returned:
+This method converts a syntax tree into two pieces of HTML, both of which are returned:
 
-  1. A table of contents
-  2. The document itself
+1. A table of contents
+2. The document itself
 
 Arguments
   `document`: [topic: Document]
@@ -1035,13 +1023,8 @@ Arguments
   `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
-Return value
-  This method returns an object with two fields:
-
-  `tableOfContentsHtml`
-    The HTML for the table of contents.
-  `documentHtml`
-    The HTML for the document itself.
+Return type: [topic: Up.RenderedDocumentAndTableOfContents]
+  This method returns HTML representing the rendered document and table of contents.
 
 Usage
   Without custom settings
@@ -1063,20 +1046,19 @@ Usage
 `Up.renderInline`
 ================
 
-Summary
-  This method converts an inline syntax tree into inline HTML and returns the result.
+This method converts an inline syntax tree into inline HTML and returns the result.
 
-  For more information about inline documents, see [topic: Up.Inline documents].
+For more information about inline documents, see [topic: Up.Inline documents].
 
 Arguments
   `inlineDocument`: [topic: Up.InlineDocument]
-    The inline synta tree to convert into HTML.
+    The inline syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
     The custom rendering settings to apply.
 
-Return value
-  This method returns a `string` of HTML representing the rendered inline document.
+Return type: `string`
+  This method returns HTML representing the rendered inline document.
 
 Usage
   Without custom settings
@@ -1636,9 +1618,29 @@ Members
     ````
 
 
-===================
-Syntax node classes
-===================
+=======================================
+`Up.RenderedDocumentAndTableOfContents`
+=======================================
+
+This interface represents the HTML for a rendered document and table of contents.
+
+Members
+  `tableOfContentsHtml`: `string`
+    The HTML for the table of contents.
+
+  `documentHtml`: `string`
+    The HTML for the document itself.
+
+Notes
+  The following functions return an object satisfying this interface:
+
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.renderDocumentAndTableOfContents]
+
+
+==================================
+Syntax node classes and interfaces
+==================================
 
 Unless you're fiddling with the syntax tree, you don't need to worry about any of the syntax node classes.
 
@@ -1664,7 +1666,7 @@ Unique members
       `children`: array of [topic: OutlineSyntaxNode]
         A collection of outline syntax nodes representing the top-level conventions in the document.
 
-    Returns [topic: Up.Document]
+    Return type: [topic: Up.Document]
       This method creates and returns a ready-to-render `Document` object.
 
       To prepare the document for rendering, this method:
@@ -1673,6 +1675,9 @@ Unique members
       - Extracts footnotes into footnote blocks
       - Produces a table of contents
       - Associates section links with the apprioriate table of contents entries
+
+Notes
+  The [topic: Up.parse] function returns an instance of this class.
 
 
 -----------------------------
@@ -1701,24 +1706,27 @@ Members
     Represents the heading level of the entry.
 
   `searchableText` method
-    Returns `string`
-      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+    Arguments
+      None.
+
+    Return type: `string`
+      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images do have searchable text (footnotes have content, and images have a description).
 
       This is used to help [topic: section links] match the most appropriate table of content entry.
 
+  `contentWithinTableOfContents` method
     Arguments
       None.
 
-  `contentWithinTableOfContents` method
-    Returns array of [topic: Up.InlineSyntaxNode]
+    Return type: array of [topic: Up.InlineSyntaxNode]
       This method returns the inline syntax nodes that should represent this entry's content inside the table of contents itself.
 
+  `inlineDescendants`
+    Return type: array of [topic: Up.InlineSyntaxNode]
+      This method returns the inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
+
     Arguments
       None.
-
-  `inlineDescendants`
-    Returns array of [topic: Up.InlineSyntaxNode]
-      This method returns the inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
 
 
 `Up.InlineDocument`
@@ -1730,6 +1738,9 @@ Purpose
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
 
+Notes
+  The [topic: Up.parseInline] function returns an instance of this class.
+
 
 `Up.InlineSyntaxNode`
 =====================
@@ -1739,7 +1750,7 @@ Purpose
 
 Members
   `textAppearingInline` method
-    Returns `string`
+    Return type: `string`
       This method returns the text of the syntax node as it should appear inline. Some inline conventions don't have any, including [topic: footnotes] and [topic: images].
 
       This method is used to help determine whether cells in [topic: tables] and [topic: charts] are numeric.
@@ -1748,14 +1759,13 @@ Members
       None.
 
   `searchableText` method
-    Return `string`
+    Return type: `string`
       This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
 
       This method is used to help [topic: section links] match the most appropriate table of content entry.
 
     Arguments
       None.
-
 
 `Up.OutlineSyntaxNode`
 ======================
@@ -1768,7 +1778,7 @@ Members
     The first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
 
   `descendantsToIncludeInTableOfContents` method
-    Returns array of [topic: Up.Document.TableOfContents.Entry]
+    Return type: array of [topic: Up.Document.TableOfContents.Entry]
       This method returns any descendants (at any nesting level) to include in the table of contents.
 
     Arguments
@@ -1812,12 +1822,11 @@ Members
     A collection of inline syntax nodes representing the top-level content of the container.
 
   `inlineDescendants` method
-    Returns array of [topic: Up.InlineSyntaxNode]
+    Return type: array of [topic: Up.InlineSyntaxNode]
       This method returns all inline descendants (including `children`, grandchildren, etc.)
 
     Arguments
       None.
-
 
 `Up.OutlineSyntaxNodeContainer`
 ==============================
@@ -1830,19 +1839,18 @@ Members
     A collection of outline syntax nodes representing the top-level content of the container.
 
   `descendantsToIncludeInTableOfContents` method
-    Returns array of [topic: Document.TableOfContents.Entry]
+    Return type: array of [topic: Document.TableOfContents.Entry]
       This method returns any descendants (children, grandchildren, etc.) to include in the table of contents.
 
     Arguments
       None.
 
   `inlineDescendants` method
-    Returns array of [topic: Up.InlineSyntaxNode]
+    Return type: array of [topic: Up.InlineSyntaxNode]
       This method returns all inline descendants of `children`.
-
+    
     Arguments
       None.
-
 
 `Up.MediaSyntaxNode`
 ====================
@@ -2231,14 +2239,14 @@ Unique members
     The collection of items comprising this ordered list.
 
   `start` method
-    Returns `number`
+    Return type: `number`
       This method returns the starting ordinal of this list, if one was explicitly defined. Otherwise, this method returns `undefined`.
 
     Arguments
       None.
 
   `order` method
-    Returns [topic: Up.OrderedList.Order]
+    Return type: [topic: Up.OrderedList.Order]
       This method returns the order of the ordered list (ascending or descending).
 
     Arguments
@@ -2437,10 +2445,13 @@ Unique members
     This field is only used by charts! Table rows do not have header cells.
 
   `allCellsStartingWithRowHeaderCell` method
-    Returns an array of [topic: Up.Table.Cell]
+    Return type: array of [topic: Up.Table.Cell]
       This method returns every cell in this row.
 
       If this row has a `headerCell`, it's the first item in the returned collection.
+
+    Arguments
+      None.
 
 
 `Up.Table.Row.Cell`
@@ -2454,12 +2465,11 @@ Extends
 
 Unique members
   `isNumeric` method
-    Returns `boolean`
-      This method returns a boolean indicating whether the content of this cell is numeric.
+    Return type: `boolean`
+      This method returns a `boolean` indicating whether the content of this cell is numeric.
 
     Arguments
       None.
-
 
 `Up.ThematicBreak`
 =================
@@ -2504,3 +2514,4 @@ Convention
 
 Extends
   [topic: Up.MediaSyntaxNode]
+
