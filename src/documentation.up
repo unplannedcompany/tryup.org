@@ -280,7 +280,7 @@ Inline quotes
 
 "Inline quotes" are just regular quotes! Up automatically recognizes them.
 
-If you want to quote more than a sentence or two, considering using [topic: blockquotes].
+If you want to quote more a few sentences, considering using [topic: blockquotes].
 
 Example
   Markup
@@ -303,6 +303,57 @@ Discussion
 
   Output
     Bob turned to his boss. "Yesterday, Harvey yelled "I'll take the case!", but don't think he's even started on it."
+
+
+===========
+Blockquotes
+===========
+
+Use the blockquote convention to quote a large section of text.
+
+For typical dialog, you should probably use [topic: inline quotes] instead.
+
+Example
+  Markup
+    ````
+    > Listen to my favorite poem!
+    > 
+    > Roses are red 
+    > Violets are blue
+    ````
+
+  Output
+    > Listen to my favorite poem!
+    > 
+    > Roses are red 
+    > Violets are blue
+
+Discussion
+  A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
+  
+  Blockquotes can contain any outline convention, including other blockquotes!
+
+  Markup
+    ````
+    > Thank you for replying to my blog!
+    >
+    > > I hate oranges for the following reasons:
+    > >
+    > > 1. They're not apples.
+    > > 2. They're not bananas. 
+    > 
+    > I completely understand.    
+    ````
+
+  Output
+    > Thank you for replying to my blog!
+    >
+    > > I hate oranges for the following reasons:
+    > >
+    > > 1. They're not apples.
+    > > 2. They're not bananas. 
+    > 
+    > I completely understand.    
 
 
 ============
