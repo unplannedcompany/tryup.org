@@ -102,51 +102,69 @@ Don't get lost! The following terms are occasionally used in this section:
 
 Inline convention
   Any writing convention that can be used inside paragraphs.
-  
+
   This includes [topic: emphasis] and [topic: highlighting].
 
 Outline convention
   Any non-inline writing convention.
-  
+
   This includes [topic: paragraphs] and [topic: tables].
 
 
+==========
+Paragraphs
+==========
+
+Paragraphs are the simplest writing convention in Up.
+
+Example
+  Markup
+    ````
+    I wear glasses.
+
+    Are you jealous?
+    ````
+
+  Output
+    I wear glasses.
+
+    Are you jealous?
+
+Discussion
+  To produce a paragraph, write a line of text. That's all there is to it!
+  
+  Typically, paragraphs are separated by one or two blank lines.
+  
+  To indicate more meaninful separation between paragraphs, place three or more blank lines between them. For more information, see [topic: thematic breaks].
+
+  On the other hand, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs!
+
+
 ===========
-Basic rules
+Line blocks
 ===========
 
-[topic: Paragraphs] are separated by one or two blank lines.
+Use the line block convention for addresses, lyrics, or for anything that should be represented by *lines* instead of distinct [topic: paragraphs].
 
-Markup
-  ````
-  I wear glasses.
+Example
+  Markup
+    ````
+    Roses are red
+    Violets are blue
+    Lyrics have lines
+    And addresses do, too
+    ````
 
-  Are you jealous?
-  ````
+  Output
+    Roses are red
+    Violets are blue
+    Lyrics have lines
+    And addresses do, too
 
-Output
-  I wear glasses.
+Discussion
+  Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists].
 
-  Are you jealous?
-
-
-Three or more blank lines represent a [topic: thematic break].
-
-Markup
-  ````
-  I vowed never to eat apples again.
-
-
-
-  By mid-March, a second flock of birds had moved into my dining room.
-  ````
-
-Output
-  I vowed never to eat apples again.
-
-
-
-  By mid-March, a second flock of birds had moved into my dining room.
+  Line blocks can contain any inline convention.
 
 
 ========
@@ -166,7 +184,7 @@ Example
   Output
     Only eat the *green* grapes. The red grapes are for Pikachu.
 
-Syntax
+Discussion
   To emphasize text, enclose it within single asterisks.
 
 
@@ -187,7 +205,7 @@ Example
   Output
     Do **not** step on the dinosaur!
 
-Syntax
+Discussion
   To stress text, enclose it within double asterisks.
 
 
@@ -208,7 +226,7 @@ Example
   Output
     My favorite video game is _Chrono Cross_.
 
-Syntax
+Discussion
   To italicize text, enclose it within single underscores.
 
 
@@ -231,7 +249,7 @@ Example
   Output
     Has anyone actually used  __KABOOM__ cleaning products?
 
-Syntax
+Discussion
   To make text bold, enclose it within double underscores.
 
 
@@ -252,8 +270,39 @@ Example
   Output
     When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
-Syntax
+Discussion
   You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.
+
+
+=============
+Inline quotes
+=============
+
+"Inline quotes" are just regular quotes! Up automatically recognizes them.
+
+If you want to quote more than a sentence or two, considering using [topic: blockquotes].
+
+Example
+  Markup
+    ````
+    "Only eat the green grapes," John said.
+    ````
+
+  Output
+    "Only eat the green grapes," John said.
+
+Discussion
+  You already know how to use quotation marks! Just keep doing what you're doing.
+
+  Like most inline conventions, inline quotes can be nested within themselves.
+
+  Markup
+    ````
+    Bob turned to his boss. "Yesterday, Harvey yelled "I'll take the case!", but don't think he's even started on it."
+    ````
+
+  Output
+    Bob turned to his boss. "Yesterday, Harvey yelled "I'll take the case!", but don't think he's even started on it."
 
 
 ============
@@ -273,7 +322,7 @@ Example
   Output
     Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
 
-Syntax
+Discussion
   To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your open bracket.
 
 
@@ -296,7 +345,7 @@ Example
   Output
     Press {esc} to quit.
 
-Syntax
+Discussion
   To indicate that text represents user input, enclose the text within curly brackets.
 
   Up ignores any spaces separating the curly brackets from the content they enclose.
@@ -328,7 +377,7 @@ Example
   Output
     In HTML, you probably shouldn't use the `<font>` element.
 
-Syntax
+Discussion
   To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
 
   Within your inline code, every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
@@ -403,7 +452,7 @@ Example
   Output
     Pokémon Red begins in Pallet Town, [^ "Pallet" was probably a misspelling of "palette".] where Professor Oak gives Red his first Pokémon.
 
-Syntax
+Discussion
   Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.
 
 Notes
@@ -441,7 +490,7 @@ Example
     }
     ```
 
-Syntax
+Discussion
   Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
 
   If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).
@@ -510,7 +559,7 @@ Example
     - Buy bread
     - Buy happiness
 
-Syntax
+Discussion
   Bullets
   =======
 
@@ -519,7 +568,7 @@ Syntax
   - An asterisk: `*`
   - A hyphen: `-`
   - An actual bullet character: `•`
-  
+
 
   Spacing between list items
   ===========================
@@ -567,13 +616,13 @@ Syntax
   ==============================
 
   List items aren't limited to a single line!
-  
+
   If your list item contains more than one line, subsequent lines should be indented 2 spaces (or a tab).
 
   Markup
     ````
     - Buy milk.
-    
+
       If whole milk is on sale, buy that. Otherwise, buy 2% milk.
 
     - Buy bread.
@@ -588,10 +637,10 @@ Syntax
 
       Don't spend more than a few dollars on this! It's not worth it.
     ````
-  
+
   Output
     - Buy milk.
-    
+
       If whole milk is on sale, buy that. Otherwise, buy 2% milk.
 
     - Buy bread.
@@ -611,7 +660,7 @@ Syntax
 Numbered lists
 ==============
 
-You already know what a numbered list is!  
+You already know what a numbered list is!
 
 Numbered lists can contain any outline convention, including other numbered lists.
 
@@ -628,7 +677,7 @@ Example
     2. Buy bread
     3. Buy happiness
 
-Syntax
+Discussion
   Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered lists have ordinals, not bullets.
 
   The ordinal for a numbered list can be expressed several ways:
@@ -646,14 +695,14 @@ Syntax
   ===================================
 
   Numbered lists don't have to start at "1".
-  
+
   Markup
     ````
     3) March
     #) April
     #) May
     ````
-    
+
   Output
     3) March
     #) April
@@ -664,7 +713,7 @@ Syntax
   ==============
 
   Up automatically knows when a numbered list is in reverse!
-  
+
   If at least two of the ordinals in your list use integers (instead of number signs), *and* if the first two of those ordinals are in descending order, Up assumes the list is reversed:
 
   Markup
@@ -704,31 +753,6 @@ Syntax
     1783. Not a good year for Great Britain.
   ````
 
-
-===========
-Line blocks
-===========
-
-Use the line block convention for addresses, lyrics, or for anything that should be represented by *lines* instead of distinct [topic: paragraphs].  
-
-Example
-  Markup
-    ````
-    Roses are red
-    Violets are blue
-    Lyrics have lines
-    And addresses do, too
-    ````
-
-  Output
-    Roses are red
-    Violets are blue
-    Lyrics have lines
-    And addresses do, too
-
-Syntax
-  Line blocks are easy! Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists]. 
- 
 
 ===========================================
 Disabling the special meaning of characters
@@ -1852,7 +1876,7 @@ Members
   `inlineDescendants` method
     Return type: array of [topic: Up.InlineSyntaxNode]
       This method returns all inline descendants of `children`.
-    
+
     Arguments
       None.
 
