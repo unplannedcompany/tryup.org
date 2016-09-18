@@ -132,9 +132,9 @@ Example
 
 Discussion
   To produce a paragraph, write a line of text. That's all there is to it!
-  
+
   Typically, paragraphs are separated by one or two blank lines.
-  
+
   To indicate more meaninful separation between paragraphs, place three or more blank lines between them. For more information, see [topic: thematic breaks].
 
   On the other hand, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs!
@@ -317,20 +317,20 @@ Example
   Markup
     ````
     > Listen to my favorite poem!
-    > 
-    > Roses are red 
+    >
+    > Roses are red
     > Violets are blue
     ````
 
   Output
     > Listen to my favorite poem!
-    > 
-    > Roses are red 
+    >
+    > Roses are red
     > Violets are blue
 
 Discussion
   A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
-  
+
   Blockquotes can contain any outline convention, including other blockquotes!
 
   Markup
@@ -340,9 +340,9 @@ Discussion
     > > I hate oranges for the following reasons:
     > >
     > > 1. They're not apples.
-    > > 2. They're not bananas. 
-    > 
-    > I completely understand.    
+    > > 2. They're not bananas.
+    >
+    > I completely understand.
     ````
 
   Output
@@ -351,9 +351,9 @@ Discussion
     > > I hate oranges for the following reasons:
     > >
     > > 1. They're not apples.
-    > > 2. They're not bananas. 
-    > 
-    > I completely understand.    
+    > > 2. They're not bananas.
+    >
+    > I completely understand.
 
 
 ============
@@ -803,6 +803,43 @@ Discussion
   Output
     1783. Not a good year for Great Britain.
   ````
+
+
+==========
+Typography
+==========
+
+Consecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character:
+
+Markup
+  ````
+  I don't know... I doubt a dog would do this.
+  ````
+
+Output
+  I don't know... I doubt a dog would do this.
+
+If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more inforamtion, see [topic: fancyEllipsis].
+
+Two consecutive hyphens produce an en dash:
+
+Markup
+  ````
+  I agree -- to a extent -- with your plan to eat nothing but cereal.
+  ````
+
+Output
+  I agree -- to a extent -- with your plan to eat nothing but cereal.
+
+Three consecutive hyphens produce an *em* dash:
+
+Markup
+  ````
+  Use a spoon----a fork won't cut it.
+  ````
+
+Output
+  Use a spoon----a fork won't cut it.
 
 
 ===========================================
