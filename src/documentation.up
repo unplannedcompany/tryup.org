@@ -19,9 +19,7 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
-  However, Up **supports [highlight: overlapping** styles]!
-
-  Even if you are content to nest your styles within one another, this feature saves the day if you accidentally transpose characters while nesting. For more information, see [topic: overlapping styles].
+  However, Up **supports [highlight: overlapping** styles]! For more information, see [topic: overlapping inline conventions].
 
 - Up supports outrageously easy tables
   ====================================
@@ -840,6 +838,36 @@ Markup
 
 Output
   Use a spoon----a fork won't cut it.
+  ````
+
+
+======================================
+Overlapping inline writing conventions
+======================================
+
+In Up, inline writing conventions can freely overlap:
+
+Markup
+  ````
+  Mr. Turnip, I do **not [care** at](wikipedia.org/wiki/Carrot) all.
+  ````
+
+Output
+  Mr. Turnip, I do **not [care** at](wikipedia.org/wiki/Carrot) all.
+
+
+Superficial overlapping
+=======================
+
+If conventions overlap superficially---only by their start or end delimiters---Up pretends they weren't overlapped at all.
+
+Markup
+  ````
+  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
+  ````
+
+Output
+  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
 
 
 ===========================================
