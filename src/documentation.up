@@ -255,7 +255,7 @@ Discussion
 Links
 =====
 
-The link convention represents hyperlinks.
+You already know what a link is!
 
 Example
   Markup
@@ -281,7 +281,7 @@ Discussion
   Output
     The (Game Boy) [wikipedia.org/wiki/Game_Boy] was my first video game system.
 
-  As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). When you do, Up assumes the link's URL scheme is `https://`.
+  As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.
 
   If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
 
@@ -290,22 +290,20 @@ Discussion
   - [topic: renderDangerousContent].
 
 
-  Is this really a URL?
-  =====================
+  Avoiding unintended links
+  =========================
 
-  If Up suspects you aren't intending to produce a link, it won't produce one.
+  If Up suspects you aren't intending to produce a link, it won't produce one. For example, Up won't produce a link if the potential URL contains spaces.
+
+  Markup
+    ````
+    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
+    ````
+
+  Output
+    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
   
-  For example, Up won't produce a link if the potential URL contains spaces.
-
-  Markup
-    ````
-    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
-    ````
-
-  Output
-    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
-
-  To ensure Up produces a link, even if your URL contains spaces, simply omit the space between your link's content and its URL.
+  To make it clear that you do intend to produce a link, omit the space between your link's content and its URL.
 
   Markup
     ````
@@ -315,7 +313,7 @@ Discussion
   Output
     I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
 
-  Up will always produce a link if you omit the space between your link's content and its URL.
+  If you omit the space between your link's content and its URL, Up will **always** produce a link.
 
 
 ================================================
@@ -962,6 +960,53 @@ Output
   ````
 
 
+=======================================
+"Linkifying" another writing convention
+=======================================
+
+Normally, when you want to link to another resource, you should use regular [topic: links].
+
+If you want to "linkify" an image, however, the syntax can get a bit messy.
+
+Messy markup
+  ````
+  [(image: DuckDuckGo's logo) (duckduckgo.com/assets/dax-alt.svg)] [duckduckgo.com]
+  ````
+
+Output
+  [(image: DuckDuckGo's logo) (duckduckgo.com/assets/dax-alt.svg)] [duckduckgo.com]
+
+That's a lot of brackets! Luckily, there's a shortcut.
+
+Simply place the "linkifying" URL after the image's own URL, and Up will produce a link for you. 
+
+Cleaner markup
+  ````
+  [image: DuckDuckGo's logo] [duckduckgo.com/assets/dax-alt.svg] (duckduckgo.com)
+  ````
+
+Output
+  [image: DuckDuckGo's logo] [duckduckgo.com/assets/dax-alt.svg] (duckduckgo.com)
+  
+This shortcut also works for the following conventions:
+
+- [topic: Highlighting]
+- [topic: Footnotes]
+- [topic: Inline spoilers]
+- [topic: Inline NSFW]
+- [topic: Inline NSFL]
+
+Markup
+  ````
+  At the end of Pokémon Red, you battle [SPOILER: your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
+  ````
+
+Output
+  At the end of Pokémon Red, you battle [SPOILER: your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
+
+Like with regular link URLs, Up will avoid producing a link if it suspects that wasn't your intention. For more information, see [topic: avoiding unintended links].
+
+
 ======================================
 Overlapping inline writing conventions
 ======================================
@@ -984,11 +1029,11 @@ If conventions overlap superficially---only by their start or end delimiters---U
 
 Markup
   ````
-  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
+  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
   ````
 
 Output
-  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
+  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
 
 
 ===========================================
