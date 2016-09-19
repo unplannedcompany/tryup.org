@@ -133,7 +133,7 @@ Discussion
 
   Typically, paragraphs are separated by one or two blank lines.
 
-  To indicate more meaninful separation between paragraphs, place three or more blank lines between them. For more information, see [topic: thematic breaks].
+  Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].
 
   On the other hand, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs!
 
@@ -407,6 +407,74 @@ Discussion
     Press { Start Game(s) } when you are ready.
 
   Within example input, most conventions are ignored. However, [topic: typographical conventions] are respected, as is [topic: disabling].
+
+
+===============
+Thematic breaks
+===============
+
+Use the thematic break convention to represent a change of subject.
+
+There are two ways to represent a thematic break!
+
+
+Using blank lines
+=================
+
+Example
+  Markup
+    ````
+    I vowed never to eat apples again.
+
+
+
+    By mid-March, a second flock of birds had moved into my dining room.
+    ````
+
+  Output
+    I vowed never to eat apples again.
+
+
+
+    By mid-March, a second flock of birds had moved into my dining room.
+
+Discussion
+  Three or more consecutive blank lines represents a thematic break.
+
+
+Using a streak of characters
+============================
+
+Example
+  Markup
+    ````
+    I vowed never to eat apples again.
+
+    ----------------------
+
+    By mid-March, a second flock of birds had moved into my dining room.
+    ````
+
+  Output
+    I vowed never to eat apples again.
+
+    ----------------------
+
+    By mid-March, a second flock of birds had moved into my dining room.
+
+Discussion
+   A thematic break can also be represented by a line consisting of three or more of the following characters:
+
+   - Hyphens: `-`
+   - Number signs: `#`
+   - Equal signs: `=`
+   - Plus signs: `+`
+   - Tildes: `~`
+   - Colons: `:`
+   - Asterisks `*`
+   - At signs `@`
+
+   You can use any combination of those characters.
 
 
 ===========
