@@ -251,6 +251,73 @@ Discussion
   To make text bold, enclose it within double underscores.
 
 
+=====
+Links
+=====
+
+The link convention represents hyperlinks.
+
+Example
+  Markup
+    ````
+    The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
+    ````
+
+  Output
+    The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
+
+Discussion
+  A link consist of two parts: content and a URL.
+
+  To produce a link, simply enclose its content in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+
+  You can use mix and match either type of bracket---they're totally interchangeable.
+
+  Markup
+    ````
+    The (Game Boy) [wikipedia.org/wiki/Game_Boy] was my first video game system.
+    ````
+
+  Output
+    The (Game Boy) [wikipedia.org/wiki/Game_Boy] was my first video game system.
+
+  As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). When you do, Up assumes the link's URL scheme is `https://`.
+
+  If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
+
+  - [topic: baseForUrlsStartingWithSlash]
+  - [topic: baseForUrlsStartingWithHashMark]
+  - [topic: renderDangerousContent].
+
+
+  Is this really a URL?
+  =====================
+
+  If Up suspects you aren't intending to produce a link, it won't produce one.
+  
+  For example, Up won't produce a link if the potential URL contains spaces.
+
+  Markup
+    ````
+    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
+    ````
+
+  Output
+    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
+
+  To ensure Up produces a link, even if your URL contains spaces, simply omit the space between your link's content and its URL.
+
+  Markup
+    ````
+    I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
+    ````
+
+  Output
+    I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
+
+  Up will always produce a link if you omit the space between your link's content and its URL.
+
+
 ================================================
 Parentheticals (parentheses and square brackets)
 ================================================
@@ -415,66 +482,52 @@ Thematic breaks
 
 Use the thematic break convention to represent a change of subject.
 
-There are two ways to represent a thematic break!
+A thematic break can be represented by three or consecutive blank lines.
 
-
-Using blank lines
-=================
-
-Example
-  Markup
-    ````
-    I vowed never to eat apples again.
+Markup
+  ````
+  I vowed never to eat apples again.
 
 
 
-    By mid-March, a second flock of birds had moved into my dining room.
-    ````
+  By mid-March, a second flock of birds had moved into my dining room.
+  ````
 
-  Output
-    I vowed never to eat apples again.
-
-
-
-    By mid-March, a second flock of birds had moved into my dining room.
-
-Discussion
-  Three or more consecutive blank lines represents a thematic break.
+Output
+  I vowed never to eat apples again.
 
 
-Using a streak of characters
-============================
 
-Example
-  Markup
-    ````
-    I vowed never to eat apples again.
+  By mid-March, a second flock of birds had moved into my dining room.
 
-    ----------------------
+A thematic break can *also* be represented by a line consisting of three or more of the following characters:
 
-    By mid-March, a second flock of birds had moved into my dining room.
-    ````
+- Hyphens: `-`
+- Number signs: `#`
+- Equal signs: `=`
+- Plus signs: `+`
+- Tildes: `~`
+- Colons: `:`
+- Asterisks `*`
+- At signs `@`
 
-  Output
-    I vowed never to eat apples again.
+You can use any combination of those characters!
 
-    ----------------------
+Markup
+  ````
+  I vowed never to eat apples again.
 
-    By mid-March, a second flock of birds had moved into my dining room.
+  ----------------------
 
-Discussion
-   A thematic break can also be represented by a line consisting of three or more of the following characters:
+  By mid-March, a second flock of birds had moved into my dining room.
+  ````
 
-   - Hyphens: `-`
-   - Number signs: `#`
-   - Equal signs: `=`
-   - Plus signs: `+`
-   - Tildes: `~`
-   - Colons: `:`
-   - Asterisks `*`
-   - At signs `@`
+Output
+  I vowed never to eat apples again.
 
-   You can use any combination of those characters.
+  ----------------------
+
+  By mid-March, a second flock of birds had moved into my dining room.
 
 
 ===========
@@ -690,7 +743,7 @@ Discussion
   Spacing between list items
   ===========================
 
-  Each list item can be followed by a single blank line. This has no impact on the list itself:
+  Each list item can be followed by a single blank line. This has no impact on the list itself.
 
   Markup
     ````
@@ -831,7 +884,7 @@ Discussion
 
   Up automatically knows when a numbered list is in reverse!
 
-  If at least two of the ordinals in your list use integers (instead of number signs), *and* if the first two of those ordinals are in descending order, Up assumes the list is reversed:
+  If at least two of the ordinals in your list use integers (instead of number signs), *and* if the first two of those ordinals are in descending order, Up assumes the list is reversed.
 
   Markup
     ````
@@ -849,7 +902,7 @@ Discussion
   Single-item numbered lists
   ==========================
 
-  Like bulleted lists, numbered lists can consist of a single item:
+  Like bulleted lists, numbered lists can consist of a single item.
 
   Markup
     ````
@@ -859,7 +912,7 @@ Discussion
   Output
     1) Buy milk
 
-  There's a small exception to this rule: If your list item's ordinal is expressed as an integer followed by a period (e.g. `1.`), you must have more than one list item. This exception helps prevent "accidental" numbered lists:
+  There's a small exception to this rule: If your list item's ordinal is expressed as an integer followed by a period (e.g. `1.`), you must have more than one list item. This exception helps prevent "accidental" numbered lists.
 
   Markup
     ````
@@ -875,7 +928,7 @@ Discussion
 Typography
 ==========
 
-Consecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character:
+Consecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character.
 
 Markup
   ````
@@ -885,9 +938,9 @@ Markup
 Output
   I don't know... I doubt a dog would do this.
 
-If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more inforamtion, see [topic: fancyEllipsis].
+If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more information, see [topic: fancyEllipsis].
 
-Two consecutive hyphens produce an en dash:
+Two consecutive hyphens produce an en dash.
 
 Markup
   ````
@@ -897,7 +950,7 @@ Markup
 Output
   I agree -- to a extent -- with your plan to eat nothing but cereal.
 
-Three consecutive hyphens produce an *em* dash:
+Three consecutive hyphens produce an *em* dash.
 
 Markup
   ````
@@ -913,7 +966,7 @@ Output
 Overlapping inline writing conventions
 ======================================
 
-In Up, inline writing conventions can freely overlap:
+In Up, inline writing conventions can freely overlap.
 
 Markup
   ````
@@ -974,7 +1027,7 @@ The Up library can be [found on NPM] (npmjs.com/package/write-up).
 Installation
 ============
 
-There's nothing special about installing Up:
+There's nothing special about installing Up.
 
 ````
 npm install write-up --save-dev
@@ -985,7 +1038,7 @@ npm install write-up --save-dev
 Usage Overview
 ==============
 
-First, `require` the library:
+First, `require` the library.
 
 ````
 const Up = require('write-up')
@@ -993,7 +1046,7 @@ const Up = require('write-up')
 
 Hooray! `Up` now serves as the namespace for the library.
 
-Typically, you'll want to use the various functions within that namespace:
+Typically, you'll want to use the various functions within that namespace.
 
 ```
 const html = Up.parseAndRender(markup, settings)
@@ -1715,7 +1768,7 @@ Syntax differences
 
 Within inline documents, Up ignores all outline conventions. Furthermore, [topic: footnotes] and [topic: section links] aren't supported.
 
-When Up encounters a footnote in an inline document, it pretends the author had used parentheses instead of a footnote:
+When Up encounters a footnote in an inline document, it pretends the author had used parentheses instead of a footnote.
 
 Inline markup
   ````
@@ -1724,7 +1777,7 @@ Inline markup
 Output
   My dad (Professor Oak) is very wise.
 
-Within inline documents, Up doesn't recognize the syntax for section links. Consequently, their markup is instead treated as regular old text enclosed within brackets:
+Within inline documents, Up doesn't recognize the syntax for section links. Consequently, their markup is instead treated as regular old text enclosed within brackets.
 
 Inline markup
   ````
@@ -1739,10 +1792,10 @@ Rendered HTML
 
 When inline documents are rendered, the resulting HTML is not enclosed within any container element.
 
-Inline markup:
+Inline markup
   I *really* like Starcraft.
 
-Rendered inline HTML:
+Rendered inline HTML
   ````
   I <em>really</em> like Starcraft.
   ````
@@ -2085,7 +2138,7 @@ Unique members
 
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
-    - [topic: baseForUrlsStartingWithHashmark]
+    - [topic: baseForUrlsStartingWithHashMark]
 
 
 `Up.RevealableInlineSyntaxNode`
