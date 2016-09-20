@@ -352,10 +352,9 @@ Discussion
     TOOTHPASTE
     ~~~~~~~~~~
 
-
-  ------------------------------------------------------------
-  Up completely ignores and inline conventions in the heading
-  ------------------------------------------------------------
+  -----------------------------------------------------------
+  Up completely ignores any inline conventions in the heading
+  -----------------------------------------------------------
   
   If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be considered an exact match. 
 
