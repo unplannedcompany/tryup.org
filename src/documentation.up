@@ -14,15 +14,15 @@ What's so good about Up?
 Up is designed for humans to read and write, not for computers to process and parse.
 
 
-- Up lets you overlap styles
-  ==========================
+- You can overlap styles
+  ======================
 
   Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
-  However, Up **supports [highlight: overlapping** styles]! For more information, see [topic: overlapping inline conventions].
+  However, Up **supports [highlight: overlapping** styles]! For more information, see [topic: overlapping inline writing conventions].
 
-- Up supports outrageously easy tables
-  ====================================
+- Tables are outrageously readable
+  ================================
 
   Markup
     ````
@@ -46,8 +46,8 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   For more information, see [topic: tables].
 
-- Up has effortless footnotes
-  ===========================
+- Footnotes are effortless
+  ========================
 
   Markup
     ````
@@ -60,8 +60,8 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   For more information, see [topic: footnotes].
 
-- Linking to another section in your document is simple
-  =====================================================
+- Linking to other sections in your document is too easy
+  ======================================================
 
   Markup
     ````
@@ -70,10 +70,6 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   Output
     For more information, see [topic: section links].
-
-  That's all it takes! Simply reference snippet of a text from the section's title ("section links", in the above example).
-
-  Up figures out which section you want to reference, and automatically produces a link to that section.
 
 - Up is actually, honestly readable in plain text
   ===============================================
@@ -98,15 +94,11 @@ Writing conventions (syntax)
 
 Don't get lost! The following terms are occasionally used in this section:
 
-Inline convention
-  Any writing convention that can be used inside paragraphs.
+Inline writing convention
+  Any writing convention that can be used inside paragraphs. This includes [topic: emphasis] and [topic: highlighting].
 
-  This includes [topic: emphasis] and [topic: highlighting].
-
-Outline convention
-  Any non-inline writing convention.
-
-  This includes [topic: paragraphs] and [topic: tables].
+Outline writing convention
+  Any non-inline writing convention. This includes [topic: paragraphs] and [topic: tables].
 
 
 ==========
@@ -118,22 +110,20 @@ Paragraphs are the simplest writing convention in Up.
 Example
   Markup
     ````
-    I wear glasses.
+    Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.
 
-    Are you jealous?
+    Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.
     ````
 
   Output
-    I wear glasses.
+    Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.
 
-    Are you jealous?
+    Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.
 
 Discussion
   To produce a paragraph, write a line of text. That's all there is to it!
 
-  Typically, paragraphs are separated by one or two blank lines.
-
-  Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].
+  Typically, paragraphs are separated by one or two blank lines. Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].
 
   On the other hand, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs!
 
@@ -162,7 +152,7 @@ Example
 Discussion
   Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists].
 
-  Line blocks can contain any inline convention.
+  Line blocks can contain any inline writing convention.
 
 
 ========
@@ -316,6 +306,74 @@ Discussion
   If you omit the space between your link's content and its URL, Up will **always** produce a link.
 
 
+=============
+Section links
+=============
+
+Use the section link convention to link another section (heading) in your document.
+
+Example
+  Markup
+    ````
+    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+    ````
+
+  Output
+    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+
+Discussion
+  To produce a section link, choose a snippet of text from the heading you want to link to, enclose the snippet within square brackets or parentheses, then insert "topic:" or "section:" directly after your open bracket.
+  
+  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
+
+
+  How does Up choose which heading matches your section link?
+  ===========================================================
+
+  Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.
+
+  ------------------------------------
+  Up completely ignores capitalization
+  ------------------------------------
+  
+  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be considered an exact match.
+
+  Markup
+    ````
+    Please see [topic: toothpaste].
+
+    TOOTHPASTE
+    ~~~~~~~~~~
+    ````
+  
+  Output
+    Please see [topic: toothpaste].
+
+    TOOTHPASTE
+    ~~~~~~~~~~
+
+
+  ------------------------------------------------------------
+  Up completely ignores and inline conventions in the heading
+  ------------------------------------------------------------
+  
+  If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be considered an exact match. 
+
+  Markup
+    ````
+    Please see [topic: everyone loves toothpaste].
+
+    Everyone *loves* toothpaste
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ````
+  
+  Output
+    Please see [topic: everyone loves toothpaste].
+
+    Everyone *loves* toothpaste
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  
 ================================================
 Parentheticals (parentheses and square brackets)
 ================================================
@@ -357,7 +415,7 @@ Example
 Discussion
   You already know how to use quotation marks! Just keep doing what you're doing.
 
-  Like most inline conventions, inline quotes can be nested within themselves.
+  Like most inline writing conventions, inline quotes can be nested within themselves.
 
   Markup
     ````
@@ -394,7 +452,7 @@ Example
 Discussion
   A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
 
-  Blockquotes can contain any outline convention, including other blockquotes!
+  Blockquotes can contain any outline writing convention, including other blockquotes!
 
   Markup
     ````
@@ -661,7 +719,7 @@ Example
 Discussion
   Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
 
-  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline convention, if the code block is nested within one).
+  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
 
   Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
 
@@ -712,7 +770,7 @@ Bulleted lists
 
 You already know what a bulleted list is!
 
-Bulleted lists can contain any outline convention, including other bulleted lists.
+Bulleted lists can contain any outline writing convention, including other bulleted lists.
 
 Example
   Markup
@@ -830,7 +888,7 @@ Numbered lists
 
 You already know what a numbered list is!
 
-Numbered lists can contain any outline convention, including other numbered lists.
+Numbered lists can contain any outline writing convention, including other numbered lists.
 
 Example
   Markup
@@ -1543,7 +1601,7 @@ Parsing settings
 -----------------
 
 Summary
-  When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline convention.
+  When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline writing convention.
 
   This document uses source mapping to synchronize the scrolling between itself and its markup.
 
@@ -1811,7 +1869,7 @@ That's what inline documents are for! To take advantage of inline documents, use
 Syntax differences
 ==================
 
-Within inline documents, Up ignores all outline conventions. Furthermore, [topic: footnotes] and [topic: section links] aren't supported.
+Within inline documents, Up ignores all outline writing conventions. Furthermore, [topic: footnotes] and [topic: section links] aren't supported.
 
 When Up encounters a footnote in an inline document, it pretends the author had used parentheses instead of a footnote.
 
@@ -2061,7 +2119,7 @@ Purpose
 Members
   `textAppearingInline` method
     Return type: `string`
-      This method returns the text of the syntax node as it should appear inline. Some inline conventions don't have any, including [topic: footnotes] and [topic: images].
+      This method returns the text of the syntax node as it should appear inline. Some inline writing conventions don't have any, including [topic: footnotes] and [topic: images].
 
       This method is used to help determine whether cells in [topic: tables] and [topic: charts] are numeric.
 
@@ -2200,9 +2258,9 @@ Extends
 ===============================
 
 Purpose
-  This abstract class represents an revealable outline convention.
+  This abstract class represents an revealable outline writing convention.
 
-  Headings within revealable outline conventions are not included in the table of contents.
+  Headings within revealable outline writing conventions are not included in the table of contents.
 
 Extends
   [topic: Up.RichOutlineSyntaxNode]
