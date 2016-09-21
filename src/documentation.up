@@ -425,57 +425,6 @@ Discussion
     Bob turned to his boss. "Yesterday, Harvey yelled "I'll take the case!", but don't think he's even started on it."
 
 
-===========
-Blockquotes
-===========
-
-Use the blockquote convention to quote a large section of text.
-
-For typical dialog, you should probably use [topic: inline quotes] instead.
-
-Example
-  Markup
-    ````
-    > Listen to my favorite poem!
-    >
-    > Roses are red
-    > Violets are blue
-    ````
-
-  Output
-    > Listen to my favorite poem!
-    >
-    > Roses are red
-    > Violets are blue
-
-Discussion
-  A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
-
-  Blockquotes can contain any outline writing convention, including other blockquotes!
-
-  Markup
-    ````
-    > Thank you for replying to my blog!
-    >
-    > > I hate oranges for the following reasons:
-    > >
-    > > 1. They're not apples.
-    > > 2. They're not bananas.
-    >
-    > I completely understand.
-    ````
-
-  Output
-    > Thank you for replying to my blog!
-    >
-    > > I hate oranges for the following reasons:
-    > >
-    > > 1. They're not apples.
-    > > 2. They're not bananas.
-    >
-    > I completely understand.
-
-
 ============
 Highlighting
 ============
@@ -531,58 +480,73 @@ Discussion
   Within example input, most conventions are ignored. However, [topic: typographical conventions] are respected, as is [topic: disabling].
 
 
-===============
-Thematic breaks
-===============
+=============
+Section links
+=============
 
-Use the thematic break convention to represent a change of subject.
+Use the section link convention to link another section (heading) in your document.
 
-A thematic break can be represented by three or consecutive blank lines.
+Example
+  Markup
+    ````
+    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+    ````
 
-Markup
-  ````
-  I vowed never to eat apples again.
+  Output
+    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+
+Discussion
+  To produce a section link, choose a snippet of text from the heading you want to link to, enclose the snippet within square brackets or parentheses, then insert "topic:" or "section:" directly after your open bracket.
+  
+  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
 
 
+  How does Up choose which heading matches your section link?
+  ===========================================================
 
-  By mid-March, a second flock of birds had moved into my dining room.
-  ````
+  Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.
 
-Output
-  I vowed never to eat apples again.
+  -------------------------
+  Up ignores capitalization
+  -------------------------
+  
+  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
 
+  Markup
+    ````
+    Please see [topic: toothpaste].
 
+    TOOTHPASTE
+    ~~~~~~~~~~
+    ````
+  
+  Output
+    Please see [topic: toothpaste].
 
-  By mid-March, a second flock of birds had moved into my dining room.
+    TOOTHPASTE
+    ~~~~~~~~~~
 
-A thematic break can *also* be represented by a line consisting of three or more of the following characters:
+  -----------------------------
+  Up ignores inline conventions
+  -----------------------------
+  
+  If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be an exact match.
 
-- Hyphens: `-`
-- Number signs: `#`
-- Equal signs: `=`
-- Plus signs: `+`
-- Tildes: `~`
-- Colons: `:`
-- Asterisks `*`
-- At signs `@`
+  Markup
+    ````
+    Please see [topic: everyone loves toothpaste].
 
-You can use any combination of those characters!
+    Everyone *loves* toothpaste
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ````
+  
+  Output
+    Please see [topic: everyone loves toothpaste].
 
-Markup
-  ````
-  I vowed never to eat apples again.
+    Everyone *loves* toothpaste
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  ----------------------
-
-  By mid-March, a second flock of birds had moved into my dining room.
-  ````
-
-Output
-  I vowed never to eat apples again.
-
-  ----------------------
-
-  By mid-March, a second flock of birds had moved into my dining room.
+  To be clear, when matching your section link to the most appropriate heading, Up only examines the text content of each heading. Any inline writing conventions in the heading are ignored.
 
 
 ===========
@@ -682,6 +646,257 @@ Discussion
 
 Notes
   Footnote in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
+
+
+===========
+Blockquotes
+===========
+
+Use the blockquote convention to quote a large section of text.
+
+For typical dialog, you should probably use [topic: inline quotes] instead.
+
+Example
+  Markup
+    ````
+    > Listen to my favorite poem!
+    >
+    > Roses are red
+    > Violets are blue
+    ````
+
+  Output
+    > Listen to my favorite poem!
+    >
+    > Roses are red
+    > Violets are blue
+
+Discussion
+  A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
+
+  Blockquotes can contain any outline writing convention, including other blockquotes!
+
+  Markup
+    ````
+    > Thank you for replying to my blog!
+    >
+    > > I hate oranges for the following reasons:
+    > >
+    > > 1. They're not apples.
+    > > 2. They're not bananas.
+    >
+    > I completely understand.
+    ````
+
+  Output
+    > Thank you for replying to my blog!
+    >
+    > > I hate oranges for the following reasons:
+    > >
+    > > 1. They're not apples.
+    > > 2. They're not bananas.
+    >
+    > I completely understand.
+
+
+=================
+Description lists
+=================
+
+Use the description list convention to represent a collection of subjects and their descriptions.
+
+You can use description lists for:
+
+- Terms and definitions
+- Questions and answers
+- Any collection of subjects and descriptions!
+
+
+Example
+  Markup
+    ````
+    Kirby's Dreamland
+      A video game about a flying marshmallow.
+
+    Super Mario Land
+      A video game about a jumping plumber.
+    ````
+  
+  Output
+    Kirby's Dreamland
+      A video game about a flying marshmallow.
+
+    Super Mario Land
+      A video game about a jumping plumber.
+
+Discussion
+  Every item in a description list consists of two parts:
+  
+  1. One or more subjects
+  2. A single description of those subjects
+
+
+  Subjects
+  ========
+
+  Subjects can contain any inline writing convention.
+
+  Markup
+    ````
+    Ash *Ketchum*
+      A ten year-old Pokémon trainer with an odd name.
+
+    Gary "Smell You Later" Oak
+      A ten year-old Pokémon trainer with a keen nose.
+    ````
+  
+  Output
+    Ash *Ketchum*
+      A ten year-old Pokémon trainer with an odd name.
+
+    Gary "Smell You Later" Oak
+      A ten year-old Pokémon trainer with a keen nose.
+
+  When there is more than one subject for a given description, they should be listed consecutively, one per line.
+
+  Markup
+    ````
+    Game Boy Light
+    Game Boy Pocket
+    Game Boy Color
+      Handheld videogame systems released by Nintendo in the 1990s.
+    ````
+  
+  Output
+    Game Boy Light
+    Game Boy Pocket
+    Game Boy Color
+      Handheld videogame systems released by Nintendo in the 1990s.
+
+
+  Descriptions
+  ============
+
+  Each description follows the subjects it describes.
+
+  Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists!
+
+  Markup
+    ````
+    Bulbasaur
+      A plant Pokémon with a bulb growing from its back.
+
+      Height
+        0.7 m
+      Weight
+        6.9 kg
+
+    Charmander
+      A fire Pokémon with a flame on its tail.
+
+      Height
+        0.6 m
+      Weight
+        8.5 kg
+  
+  Output
+    Bulbasaur
+      A plant Pokémon with a bulb growing from its back.
+
+      Height
+        0.7 m
+      Weight
+        6.9 kg
+
+    Charmander
+      A fire Pokémon with a flame on its tail.
+
+      Height
+        0.6 m
+      Weight
+        8.5 kg
+
+  Each description may be followed by an optional blank line. If a description is followed by two blank lines, it terminates the description list.
+
+  Markup
+    ````
+    Lime
+      A green fruit.
+    Strawberry
+      A red fruit.
+
+  
+    Bulbasaur
+      A green Pokémon.
+    Charmander
+      A red Pokémon.
+    ````
+  
+  Output
+    Lime
+      A green fruit.
+    Strawberry
+      A red fruit.
+
+  
+    Bulbasaur
+      A green Pokémon.
+    Charmander
+      A red Pokémon.
+  
+
+===============
+Thematic breaks
+===============
+
+Use the thematic break convention to represent a change of subject.
+
+A thematic break can be represented by three or consecutive blank lines.
+
+Markup
+  ````
+  I vowed never to eat apples again.
+
+
+
+  By mid-March, a second flock of birds had moved into my dining room.
+  ````
+
+Output
+  I vowed never to eat apples again.
+
+
+
+  By mid-March, a second flock of birds had moved into my dining room.
+
+A thematic break can *also* be represented by a line consisting of three or more of the following characters:
+
+- Hyphens: `-`
+- Number signs: `#`
+- Equal signs: `=`
+- Plus signs: `+`
+- Tildes: `~`
+- Colons: `:`
+- Asterisks `*`
+- At signs `@`
+
+You can use any combination of those characters!
+
+Markup
+  ````
+  I vowed never to eat apples again.
+
+  ----------------------
+
+  By mid-March, a second flock of birds had moved into my dining room.
+  ````
+
+Output
+  I vowed never to eat apples again.
+
+  ----------------------
+
+  By mid-March, a second flock of birds had moved into my dining room.
 
 
 ===========
