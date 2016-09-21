@@ -2261,7 +2261,6 @@ Unique members
 Notes
   The [topic: Up.parse] function returns an instance of this class.
 
-
 -----------------------------
 `Up.Document.TableOfContents`
 -----------------------------
@@ -2272,7 +2271,6 @@ Purpose
 Members
   `entries`: array of [topic: TableOfContents.Entry]
     A collection of entries representing headings in the document.
-
 
 `Up.Document.TableOfContents.Entry`
 -----------------------------------
@@ -2562,7 +2560,6 @@ Unique members
   `description`: array of [topic: DescriptionList.Item.Description]
     The description of `subjects`.
 
-
 `Up.DescriptionList.Item.Subject`
 ---------------------------------
 
@@ -2571,7 +2568,6 @@ Purpose
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
-
 
 `Up.DescriptionList.Item.Description`
 -------------------------------------
@@ -2753,7 +2749,6 @@ Unique members
   `lines`: array of [topic: Up.LineBlock.Line]
     The collection of lines comprising this line block.
 
-
 -------------------
 `Up.LineBlock.Line`
 -------------------
@@ -2834,7 +2829,6 @@ Unique members
     Arguments
       None.
 
-
 ---------------------
 `Up.OrderedList.Item`
 ---------------------
@@ -2844,7 +2838,6 @@ Purpose
 
 Extends
   [topic: Up.OutlineSyntaxNodeContainer]
-
 
 ----------------------
 `Up.OrderedList.Order`
@@ -2876,13 +2869,10 @@ Implements
 ========================
 
 Convention
-  [topic: Parentheticals]
+  [topic: Parentheticals] produced by regular parentheses
 
 Extends
   [topic: Up.ParentheticalSyntaxNode]
-
-Notes
-  This class represents a parenthetical produced by regular parentheses.
 
 
 `Up.Text`
@@ -2927,13 +2917,10 @@ Extends
 ========================
 
 Convention
-  [topic: Parentheticals]
+  [topic: Parentheticals] produced by square brackets
 
 Extends
   [topic: Up.ParentheticalSyntaxNode]
-
-Notes
-  This class represents a parenthetical produced by square brackets.
 
 
 `Up.Stress`
@@ -2965,7 +2952,6 @@ Unique members
   `caption`: [topic: Up.Table.Caption]
     The optional caption of the table or chart.
 
-
 ------------------
 `Up.Table.Caption`
 ------------------
@@ -2975,7 +2961,6 @@ Purpose
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
-
 
 ---------------
 `Up.Table.Cell`
@@ -2987,7 +2972,6 @@ Purpose
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
 
-
 -----------------
 `Up.Table.Header`
 -----------------
@@ -2998,7 +2982,6 @@ Purpose
 Unique members
   `cells`: array of [topic: Up.Table.Header.Cell]
     The cells in this header row.
-
 
 `Up.Table.Header.Cell`
 ----------------------
@@ -3035,7 +3018,6 @@ Unique members
     Arguments
       None.
 
-
 `Up.Table.Row.Cell`
 -------------------
 
@@ -3052,6 +3034,7 @@ Unique members
 
     Arguments
       None.
+
 
 `Up.ThematicBreak`
 =================
@@ -3075,7 +3058,6 @@ Implements
 Unique members
   `items`: array of [topic: Up.UnorderedList.Item]
     The collection of items comprising this bulleted list.
-
 
 -----------------------
 `Up.UnorderedList.Item`
