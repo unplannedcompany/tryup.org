@@ -2408,6 +2408,7 @@ Members
     Arguments
       None.
 
+
 `Up.OutlineSyntaxNodeContainer`
 ==============================
 
@@ -2431,6 +2432,7 @@ Members
 
     Arguments
       None.
+
 
 `Up.MediaSyntaxNode`
 ====================
@@ -2544,7 +2546,6 @@ Implements
 Unique members
   `items`: array of [topic: Up.DescriptionList.Item]
     The collection of items comprising this description list.
-
 
 -------------------------
 `Up.DescriptionList.Item`
@@ -2991,7 +2992,6 @@ Purpose
 
 Extends
   [topic: Up.Table.Cell]
-
 
 --------------
 `Up.Table.Row`
