@@ -282,8 +282,8 @@ Discussion
   - [topic: renderDangerousContent].
 
 
-  Avoiding unintended links
-  =========================
+  URLs that don't look like URLs
+  ==============================
 
   If Up suspects you aren't intending to produce a link, it won't produce one. For example, Up won't produce a link if the potential URL contains spaces.
 
@@ -306,6 +306,8 @@ Discussion
     I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
 
   If you omit the space between your link's content and its URL, Up will **always** produce a link.
+
+  These rules also apply when [topic: linkifying another writing convention].
 
 
 =============
@@ -1469,15 +1471,12 @@ Discussion
 
   Each content row cell can contain any inline convention.
 
-  
 
-=======================================
-"Linkifying" another writing convention
-=======================================
+=====================================
+Linkifying another writing convention
+=====================================
 
-Normally, when you want to link to another resource, you should use regular [topic: links].
-
-If you want to "linkify" an image, however, the syntax can get a bit messy.
+You can put [topic: images] inside of [topic: links]. However, the syntax can be a bit messy.
 
 Messy markup
   ````
@@ -1514,8 +1513,6 @@ Markup
 
 Output
   At the end of Pokémon Red, you battle [SPOILER: your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
-
-Like with regular link URLs, Up will avoid producing a link if it suspects that wasn't your intention. For more information, see [topic: avoiding unintended links].
 
 
 ======================================
