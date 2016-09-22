@@ -29,6 +29,7 @@ Up is designed for humans to read and write, not for computers to process and pa
     Table: Moves learned by the Pokémon Bulbasaur
 
     Level;  Move;         Type;     Power;  Accuracy
+
     1;      Tackle;       Normal;   50;     100%
     3;      Growl;        Normal;   ;       100%
     7;      Leech Seed;   Grass;    ;       90%
@@ -39,6 +40,7 @@ Up is designed for humans to read and write, not for computers to process and pa
     Table: Moves learned by the Pokémon Bulbasaur
 
     Level;  Move;         Type;     Power;  Accuracy
+
     1;      Tackle;       Normal;   50;     100%
     3;      Growl;        Normal;   ;       100%
     7;      Leech Seed;   Grass;    ;       90%
@@ -816,7 +818,7 @@ Discussion
       Weight
         8.5 kg
 
-  Each description may be followed by an optional blank line. If a description is followed by two blank lines, it terminates the description list.
+  Each description may be followed by an optional blank line. If a description is followed by two blank lines, it marks the end of the description list.
 
   Markup
     ````
@@ -1031,7 +1033,7 @@ Discussion
 
     - Buy happiness
 
-  On the other hand, if a list item is followed by 2 blank lines, it terminates the list.
+  On the other hand, if a list item is followed by 2 blank lines, it marks the end of the list.
 
   Markup
     ````
@@ -1232,6 +1234,243 @@ Output
   ````
 
 
+======
+Tables
+======
+
+Use the table convention to display rows of data.
+
+Every table has a header row that lists each column. If you also need a header *column* that describes each *row*, you should use [topic: charts].    
+
+Example
+  Markup
+    ````
+    Table: Moves learned by the Pokémon Bulbasaur
+
+    Title;  Developer;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+    ````
+
+  Output
+    Table: Moves learned by the Pokémon Bulbasaur
+
+    Level;  Move;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+
+Discussion
+  A table consists of:
+
+  1. An optional caption
+  2. A header row (whose cells define each column)
+  3. Content rows (whose cells represent the actual data)
+  
+
+  Cells
+  =====
+
+  Cells are separated by semiclons. If you want to include a semicolon in a cell, put a backslash before it. For more information, see [topic: disabling the special meaning of characters]
+
+  Markup
+    ````
+    Table: My favorite fruit
+
+    Fruit;              Reason for liking it
+
+    Apple;              Easy to eat\; lasts weeks in the fridge
+    Grapes;             Make me feel like Dionysus
+    ````
+
+  Output
+    Table: My favorite fruit
+
+    Fruit;              Reason for liking it
+
+    Apple;              Easy to eat\; lasts weeks in the fridge
+    Grapes;             Make me feel like Dionysus
+
+  -------------------------------
+  Cells spanning multiple columns
+  -------------------------------
+
+  If you want a cell to span two columns, terminate that cell with two semicolons!
+
+  Markup
+    ````
+    Table: Someone's favorite video games
+
+    Game;               Developer;            Publisher;        Release Date
+
+    Chrono Trigger;     Square;;                                March 11, 1995
+    Terranigma;         Quintet;              Nintendo;         October 20, 1995
+    Command & Conquer;  Westwood Studios;;                      August 31, 1995
+    Starcraft;          Blizzard;;                              March 31, 1998
+    ````
+
+  Output
+    Table: Someone's favorite video games
+
+    Game;               Developer;            Publisher;        Release Date
+
+    Chrono Trigger;     Square;;                                March 11, 1995
+    Terranigma;         Quintet;              Nintendo;         October 20, 1995
+    Command & Conquer;  Westwood Studios;;                      August 31, 1995
+    Starcraft;          Blizzard;;                              March 31, 1998
+
+  Likewise, if you want a cell to span six columns, terminate that cell with six semicolons.
+
+  -----------
+  Empty cells
+  -----------
+  
+  A cell consisting solely of spaces is considered empty.
+  
+  To indicate that the last cell in a row should be empty, simply terminate it with a semicolon---you don't need to add any spaces after it.  
+
+  Markup
+    ````
+    Table: Games in the Chrono series
+
+    Game;               Release Date
+
+    Chrono Trigger;     March 11, 1995
+    Chrono Cross;       November 18, 1999
+    Chrono Break;
+    ````
+
+  Output
+    Table: Games in the Chrono series
+
+    Game;               Release Date
+
+    Chrono Trigger;     March 11, 1995
+    Chrono Cross;       November 18, 1999
+    Chrono Break;
+
+  The caption
+  ===========
+
+  A table's caption represents the title of the table. Captions can contain any inline writing convention.
+  
+  Captions are strong encouraged, but they're not required.
+
+  Markup
+    ````
+    Table
+
+    Level;  Move;         Type;     Power;  Accuracy
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+    ````
+
+  Output
+    Table
+
+    Level;  Move;         Type;     Power;  Accuracy
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+
+  
+  The header row
+  ==============
+
+  The header row defines each column in the table.
+  
+  The blank line between the caption and the header row is not required. 
+  
+  Markup
+    ````
+    Table: Moves learned by the Pokémon Bulbasaur
+    Level;  Move;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+    ````
+
+  Output
+    Table: Moves learned by the Pokémon Bulbasaur
+    Level;  Move;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+  
+  The blank line between the header row and the content rows is also not required.
+  
+  Markup
+    ````
+    Table: Moves learned by the Pokémon Bulbasaur
+    Level;  Move;         Type;     Power;  Accuracy
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+    ````
+
+  Output
+    Table: Moves learned by the Pokémon Bulbasaur
+    Level;  Move;         Type;     Power;  Accuracy
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+
+  
+  Each cell in a table's header can contain any inline convention.
+
+
+  Content rows
+  ============
+
+  The content rows of a table follow its header row.
+  
+  If a content row is followed by a blank line, it ends the table.
+
+  Markup
+    ````
+    Table: Moves learned by the Pokémon Bulbasaur
+
+    Level;  Move;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+
+    With moves *that* exciting, I had to choose Bulbasaur!
+     
+    ````
+
+  Output
+    Table: Moves learned by the Pokémon Bulbasaur
+
+    Level;  Move;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100% 
+  
+    With moves *that* exciting, I had to choose Bulbasaur!
+
+  Each content row cell can contain any inline convention.
+
+  
+
 =======================================
 "Linkifying" another writing convention
 =======================================
@@ -1365,9 +1604,9 @@ Hooray! `Up` now serves as the namespace for the library.
 
 Typically, you'll want to use the various functions within that namespace.
 
-```
+````
 const html = Up.parseAndRender(markup, settings)
-```
+````
 
 For a full description of the functions you can use, please see [topic: functions].
 
