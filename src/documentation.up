@@ -357,7 +357,7 @@ Discussion
     ~~~~~~~~~~
 
   -----------------------------------------------------------
-  Up completely ignores any inline conventions in the heading
+  Up completely ignores any inline writing conventions in the heading
   -----------------------------------------------------------
   
   If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be considered an exact match. 
@@ -531,7 +531,7 @@ Discussion
     ~~~~~~~~~~
 
   -----------------------------
-  Up ignores inline conventions
+  Up ignores inline writing conventions
   -----------------------------
   
   If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be an exact match.
@@ -1240,9 +1240,9 @@ Output
 Tables
 ======
 
-Use the table convention to display rows of data.
+You already know what a table is! Use the table convention to display rows of data organized into columns.
 
-Every table has a header row that lists each column. If you also need a header *column* that describes each *row*, you should use [topic: charts].    
+Every table has a header row that defines each column. If you *also* need a header *column*, please see [topic: charts].    
 
 Example
   Markup
@@ -1274,6 +1274,7 @@ Discussion
   2. A header row (whose cells define each column)
   3. Content rows (whose cells represent the actual data)
   
+  The example above uses extra spaces to align cells. This can make your markup more readable, but it's not necessary!
 
   Cells
   =====
@@ -1284,47 +1285,45 @@ Discussion
     ````
     Table: My favorite fruit
 
-    Fruit;              Reason for liking it
+    Fruit;    Reason for liking
 
-    Apple;              Easy to eat\; lasts weeks in the fridge
-    Grapes;             Make me feel like Dionysus
+    Apple;    Easy to eat\; lasts weeks in the fridge
+    Grapes;   Make me feel like Dionysus
     ````
 
   Output
     Table: My favorite fruit
 
-    Fruit;              Reason for liking it
+    Fruit;    Reason for liking
 
-    Apple;              Easy to eat\; lasts weeks in the fridge
-    Grapes;             Make me feel like Dionysus
+    Apple;    Easy to eat\; lasts weeks in the fridge
+    Grapes;   Make me feel like Dionysus
 
   -------------------------------
   Cells spanning multiple columns
   -------------------------------
 
-  If you want a cell to span two columns, terminate that cell with two semicolons!
+  If you want a cell to span two columns, terminate that cell with two semicolons.
 
   Markup
     ````
-    Table: Someone's favorite video games
+    Table: My favorite fruit
 
-    Game;               Developer;            Publisher;        Release Date
+    Fruit;      Color;      Taste
 
-    Chrono Trigger;     Square;;                                March 11, 1995
-    Terranigma;         Quintet;              Nintendo;         October 20, 1995
-    Command & Conquer;  Westwood Studios;;                      August 31, 1995
-    Starcraft;          Blizzard;;                              March 31, 1998
+    Lime;       Green;      Sour
+    Orange;;                Sweet and tart
+    Banana;     Yellow;     Sweet
     ````
 
   Output
-    Table: Someone's favorite video games
+    Table: My favorite fruit
 
-    Game;               Developer;            Publisher;        Release Date
+    Fruit;      Color;      Taste
 
-    Chrono Trigger;     Square;;                                March 11, 1995
-    Terranigma;         Quintet;              Nintendo;         October 20, 1995
-    Command & Conquer;  Westwood Studios;;                      August 31, 1995
-    Starcraft;          Blizzard;;                              March 31, 1998
+    Lime;       Green;      Sour
+    Orange;;                Sweet and tart
+    Banana;     Yellow;     Sweet
 
   Likewise, if you want a cell to span six columns, terminate that cell with six semicolons.
 
@@ -1332,9 +1331,33 @@ Discussion
   Empty cells
   -----------
   
-  A cell consisting solely of spaces is considered empty.
+  A cell consisting solely of spaces (one or more) is considered empty.
+
+  Normally, you have to put at least one space in the cell, because consecutive semicolons indicate that you want the previous cell to span multipel columns. For more information, see [cells spanning multiple columns].
+
+  However, to indicate that the *first* cell in a row should be empty, simply start that row with a semicolon. You don't need to put any spaces before it.
+
+  Markup
+    ````
+    Table: Games in the Chrono series
+
+    Release Date;       Game;               
+
+    March 11, 1995;     Chrono Trigger     
+    November 18, 1999;  Chrono Cross     
+    ;                   Chrono Break
+    ````
+
+  Output
+    Table: Games in the Chrono series
+
+    Game;               Release Date
+
+    Chrono Trigger;     March 11, 1995
+    Chrono Cross;       November 18, 1999
+    Chrono Break;
   
-  To indicate that the last cell in a row should be empty, simply terminate it with a semicolon---you don't need to add any spaces after it.  
+  Likewise, to indicate that the *last* cell in a row should be empty, simply end that row with a semicolon. You don't need to add any spaces after it.  
 
   Markup
     ````
@@ -1356,18 +1379,24 @@ Discussion
     Chrono Cross;       November 18, 1999
     Chrono Break;
 
+  
   The caption
   ===========
 
-  A table's caption represents the title of the table. Captions can contain any inline writing convention.
+  A table's caption:
   
-  Captions are strong encouraged, but they're not required.
+  1. Represents the table's title
+  2. Indicates the start of the table
+  3. Can contain any inline writing convention
+
+  Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put "Table" on its own line. 
 
   Markup
     ````
     Table
 
     Level;  Move;         Type;     Power;  Accuracy
+
     1;      Tackle;       Normal;   50;     100%
     3;      Growl;        Normal;   ;       100%
     7;      Leech Seed;   Grass;    ;       90%
@@ -1378,40 +1407,19 @@ Discussion
     Table
 
     Level;  Move;         Type;     Power;  Accuracy
+
     1;      Tackle;       Normal;   50;     100%
     3;      Growl;        Normal;   ;       100%
     7;      Leech Seed;   Grass;    ;       90%
     9;      Vine Whip;    Grass;    45;     100%
 
-  
+
   The header row
   ==============
 
-  The header row defines each column in the table.
+  The header defines each column in the table.
   
-  The blank line between the caption and the header row is not required. 
-  
-  Markup
-    ````
-    Table: Moves learned by the Pokémon Bulbasaur
-    Level;  Move;         Type;     Power;  Accuracy
-
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-    ````
-
-  Output
-    Table: Moves learned by the Pokémon Bulbasaur
-    Level;  Move;         Type;     Power;  Accuracy
-
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-  
-  The blank line between the header row and the content rows is also not required.
+  The single blank lines before and after the header are not required. 
   
   Markup
     ````
@@ -1431,14 +1439,13 @@ Discussion
     7;      Leech Seed;   Grass;    ;       90%
     9;      Vine Whip;    Grass;    45;     100%
 
-  
-  Each cell in a table's header can contain any inline convention.
+  Each cell in a table's header can contain any inline writing convention.
 
 
   Content rows
   ============
 
-  The content rows of a table follow its header row.
+  The "content rows" of a table follow its header row. The content rows contain the table's actual data.  
   
   If a content row is followed by a blank line, it ends the table.
 
@@ -1469,7 +1476,7 @@ Discussion
   
     With moves *that* exciting, I had to choose Bulbasaur!
 
-  Each content row cell can contain any inline convention.
+  Each content row cell can contain any inline writing convention.
 
 
 =====================================
