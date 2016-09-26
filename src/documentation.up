@@ -668,13 +668,59 @@ Example
     [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)
 
 Discussion
-  An image consist of two parts: a description (starting with "image:") and a URL.
+  The image convention consist of two parts: a description (starting with "image:") and a URL.
 
   To produce an image, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
   You can use mix and match either type of bracket---they're totally interchangeable.
 
   If you want your image to link to another page, please see [topic: linkifying].
+
+
+=====
+Audio
+=====
+
+Use the audio convention to include playable audio in your document.
+
+Example
+  Markup
+    ````
+    [audio: chiptune] (upload.wikimedia.org/wikipedia/commons/8/82/Chiptune2.ogg)
+    ````
+
+  Output
+    [audio: chiptune] (upload.wikimedia.org/wikipedia/commons/8/82/Chiptune2.ogg)
+
+Discussion
+  The audio convention consist of two parts: a description (starting with "audio:") and a URL.
+
+  To include playable audio in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+
+  You can use mix and match either type of bracket---they're totally interchangeable.
+
+
+=====
+Video
+=====
+
+Use the video convention to include a video in your document.
+
+Example
+  Markup
+    ````
+    [video: moving train] (upload.wikimedia.org/wikipedia/commons/8/87/Schlossbergbahn.webm)
+    ````
+
+  Output
+    [video: moving train] (upload.wikimedia.org/wikipedia/commons/8/87/Schlossbergbahn.webm)
+
+Discussion
+  The video convention consist of two parts: a description (starting with "audio:") and a URL.
+
+  To include playable audio in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+
+  You can use mix and match either type of bracket---they're totally interchangeable.
 
 
 ===========
