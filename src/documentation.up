@@ -652,6 +652,31 @@ Notes
   Footnote in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
 
 
+======
+Images
+======
+
+Use the image convention to include an image in your document.
+
+Example
+  Markup
+    ````
+    [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)
+    ````
+
+  Output
+    [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)
+
+Discussion
+  An image consist of two parts: a description (starting with "image:") and a URL.
+
+  To produce an image, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+
+  You can use mix and match either type of bracket---they're totally interchangeable.
+
+  If you want your image to link to another page, please see [topic: linkifying].
+
+
 ===========
 Blockquotes
 ===========
@@ -1274,7 +1299,9 @@ Discussion
   - Content rows, representing the actual data
   - An opttional header column, desscribing each row
 
-  Table cells are separated by semicolons. To make our markup prettier, our examples will use extra spaces to align cells, but this is strictly optional! If you want, you can instead squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
+  Table cells are separated by semicolons. For more information, see [topic: cells].
+  
+  To make our markup more readable, our examples use extra spaces to align cells This is strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
 
   Squished markup
     ````
@@ -1521,7 +1548,7 @@ Discussion
   Including a header column in your table
   =======================================
 
-  To indicate your table has a header column, simply indent the header column at least two spaces (or a tab). 
+  To indicate your table has a header column, simply indent the header *row* at least two spaces (or a tab)! The first cell in each row is treated as its header column.
 
   Markup
     ````
@@ -1545,8 +1572,9 @@ Discussion
     Leech Seed;   7;        Grass;    ;       90%
     Vine Whip;    9;        Grass;    45;     100%
 
-  When a table has a header column, Up treats the first cell in each row as a header cell.
-   
+  
+When your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row (in the top level corner, above the header column).
+
 
 =====================================
 Linkifying another writing convention
@@ -1634,7 +1662,7 @@ Example
 Output
   I love \*asterisks\*!
 
-Naturally, to disable the special meaning of a backslash, put another backslash before it!
+Likewise, to disable the special meaning of a backslash, put another backslash before it.
 
 Example
   ````
