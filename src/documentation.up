@@ -340,7 +340,7 @@ Discussion
   Up completely ignores capitalization
   ------------------------------------
   
-  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be considered an exact match.
+  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
 
   Markup
     ````
@@ -360,7 +360,7 @@ Discussion
   Up completely ignores any inline writing conventions in the heading
   -----------------------------------------------------------
   
-  If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be considered an exact match. 
+  If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be an exact match. 
 
   Markup
     ````
@@ -1242,14 +1242,12 @@ Tables
 
 You already know what a table is! Use the table convention to display rows of data organized into columns.
 
-Every table has a header row that defines each column. If you *also* need a header *column*, please see [topic: charts].    
-
 Example
   Markup
     ````
     Table: Moves learned by the Pokémon Bulbasaur
 
-    Title;  Developer;         Type;     Power;  Accuracy
+    Title;  Move;         Type;     Power;  Accuracy
 
     1;      Tackle;       Normal;   50;     100%
     3;      Growl;        Normal;   ;       100%
@@ -1268,36 +1266,111 @@ Example
     9;      Vine Whip;    Grass;    45;     100%
 
 Discussion
+
   A table consists of:
 
-  1. An optional caption
-  2. A header row (whose cells define each column)
-  3. Content rows (whose cells represent the actual data)
+  - An optional caption, representing the table's title
+  - A header row, describing each column
+  - Content rows, representing the actual data
+  - An opttional header column, desscribing each row
+
+  Table cells are separated by semicolons. To make our markup prettier, our examples will use extra spaces to align cells, but this is strictly optional! If you want, you can instead squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
+
+  Squished markup
+    ````
+    Table: My favorite fruits
+
+    Fruit;Color;Taste
+
+    Lime;Green;Sour
+    Lemon;Yellow;Sour
+    Banana;Yellow;Sweet
+    ````
+
+  Output
+    Table: My favorite fruits
+
+    Fruit;Color;Taste
+
+    Lime;Green;Sour
+    Lemon;Yellow;Sour
+    Banana;Yellow;Sweet
+
   
-  The example above uses extra spaces to align cells. This can make your markup more readable, but it's not necessary!
+  The caption
+  ===========
+
+  Tables start with a caption. Captions can contain any inline writing convention.
+
+  Markup
+    ````
+    Table: My **least** favorite fruits
+
+    Fruit;      Color;      Taste
+
+    Lime;       Green;      Sour
+    Lemon;      Yellow;     Sour
+    Banana;     Yellow;     Sweet
+    ````
+
+  Output
+    Table: My **least** favorite fruits
+
+    Fruit;      Color;      Taste
+
+    Lime;       Green;      Sour
+    Lemon;      Yellow;     Sour
+    Banana;     Yellow;     Sweet
+
+  Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put "Table" on its own line. 
+
+  Markup
+    ````
+    Table
+
+    Level;  Move;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+    ````
+
+  Output
+    Table
+
+    Level;  Move;         Type;     Power;  Accuracy
+
+    1;      Tackle;       Normal;   50;     100%
+    3;      Growl;        Normal;   ;       100%
+    7;      Leech Seed;   Grass;    ;       90%
+    9;      Vine Whip;    Grass;    45;     100%
+
 
   Cells
   =====
 
-  Cells are separated by semiclons. If you want to include a semicolon in a cell, put a backslash before it. For more information, see [topic: disabling the special meaning of characters]
+  Cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling the special meaning of characters].
 
   Markup
     ````
-    Table: My favorite fruit
+    Table: My favorite fruits
 
-    Fruit;    Reason for liking
+    Fruit;      Reason for liking
 
-    Apple;    Easy to eat\; lasts weeks in the fridge
-    Grapes;   Make me feel like Dionysus
+    Apples;     Easy to eat\; lasts weeks in the fridge
+    Grapes;     Make me feel like Dionysus
+    Oranges;    The color orange is nice
     ````
 
   Output
-    Table: My favorite fruit
+    Table: My favorite fruits
 
-    Fruit;    Reason for liking
+    Fruit;      Reason for liking
 
-    Apple;    Easy to eat\; lasts weeks in the fridge
-    Grapes;   Make me feel like Dionysus
+    Apples;     Easy to eat\; lasts weeks in the fridge
+    Grapes;     Make me feel like Dionysus
+    Oranges;    The color orange is nice
 
   -------------------------------
   Cells spanning multiple columns
@@ -1307,7 +1380,7 @@ Discussion
 
   Markup
     ````
-    Table: My favorite fruit
+    Table: My favorite fruits
 
     Fruit;      Color;      Taste
 
@@ -1317,7 +1390,7 @@ Discussion
     ````
 
   Output
-    Table: My favorite fruit
+    Table: My favorite fruits
 
     Fruit;      Color;      Taste
 
@@ -1333,7 +1406,7 @@ Discussion
   
   A cell consisting solely of spaces (one or more) is considered empty.
 
-  Normally, you have to put at least one space in the cell, because consecutive semicolons indicate that you want the previous cell to span multipel columns. For more information, see [cells spanning multiple columns].
+  Normally, you have to put at least one space in the cell, because consecutive semicolons indicate that you want the previous cell to span multiple columns.
 
   However, to indicate that the *first* cell in a row should be empty, simply start that row with a semicolon. You don't need to put any spaces before it.
 
@@ -1379,40 +1452,6 @@ Discussion
     Chrono Cross;       November 18, 1999
     Chrono Break;
 
-  
-  The caption
-  ===========
-
-  A table's caption:
-  
-  1. Represents the table's title
-  2. Indicates the start of the table
-  3. Can contain any inline writing convention
-
-  Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put "Table" on its own line. 
-
-  Markup
-    ````
-    Table
-
-    Level;  Move;         Type;     Power;  Accuracy
-
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-    ````
-
-  Output
-    Table
-
-    Level;  Move;         Type;     Power;  Accuracy
-
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-
 
   The header row
   ==============
@@ -1439,7 +1478,7 @@ Discussion
     7;      Leech Seed;   Grass;    ;       90%
     9;      Vine Whip;    Grass;    45;     100%
 
-  Each cell in a table's header can contain any inline writing convention.
+  Cells in a table's header can contain any inline writing convention.
 
 
   Content rows
@@ -1476,8 +1515,38 @@ Discussion
   
     With moves *that* exciting, I had to choose Bulbasaur!
 
-  Each content row cell can contain any inline writing convention.
+  Content row cells can contain any inline writing convention.
 
+
+  Including a header column in your table
+  =======================================
+
+  To indicate your table has a header column, simply indent the header column at least two spaces (or a tab). 
+
+  Markup
+    ````
+    Table: Moves learned by the Pokémon Bulbasaur
+ 
+                  Level;    Type;     Power;  Accuracy
+
+    Tackle;       1;        Normal;   50;     100%
+    Growl;        3;        Normal;   ;       100%
+    Leech Seed;   7;        Grass;    ;       90%
+    Vine Whip;    9;        Grass;    45;     100%
+    ````
+
+  Output
+    Table: Moves learned by the Pokémon Bulbasaur
+ 
+                  Level;    Type;     Power;  Accuracy
+
+    Tackle;       1;        Normal;   50;     100%
+    Growl;        3;        Normal;   ;       100%
+    Leech Seed;   7;        Grass;    ;       90%
+    Vine Whip;    9;        Grass;    45;     100%
+
+  When a table has a header column, Up treats the first cell in each row as a header cell.
+   
 
 =====================================
 Linkifying another writing convention
@@ -2010,9 +2079,6 @@ Members (all of which are optional)
 
     `audio`: `string` or `string[]`
       Recognized by [topic: audio].
-
-    `chart`: `string` or `string[]`
-      Recognized by [topic: chart].
 
     `highlight`: `string` or `string[]`
       Recognized by [topic: highlight].
@@ -2576,7 +2642,7 @@ Members
     Return type: `string`
       This method returns the text of the syntax node as it should appear inline. Some inline writing conventions don't have any, including [topic: footnotes] and [topic: images].
 
-      This method is used to help determine whether cells in [topic: tables] and [topic: charts] are numeric.
+      This method is used to help determine whether table cells are numeric.
 
     Arguments
       None.
@@ -3181,28 +3247,28 @@ Extends
 `Up.Table`
 ==========
 
-Conventions
-  [topic: Tables] and [topic: Charts]
+Convention
+  [topic: Tables]
 
 Implements
   [topic: Up.OutlineSyntaxNode]
 
 Unique members
   `header`: [topic: Up.Table.Header]
-    The header row of the table or chart.
+    The header row.
 
   `rows`: array of [topic: Up.Table.Row]
-    The content rows of the table or chart.
+    The content rows.
 
   `caption`: [topic: Up.Table.Caption]
-    The optional caption of the table or chart.
+    The optional caption.
 
 ------------------
 `Up.Table.Caption`
 ------------------
 
 Purpose
-  This class represents the caption of a table or chart.
+  This class represents the caption of a table.
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
@@ -3212,7 +3278,7 @@ Extends
 ---------------
 
 Purpose
-  This abstract class represents a cell in a table or chart.
+  This abstract class represents a table cell.
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
@@ -3222,7 +3288,7 @@ Extends
 -----------------
 
 Purpose
-  This class represents the header row of a table or chart.
+  This class represents the header row of a table.
 
 Unique members
   `cells`: array of [topic: Up.Table.Header.Cell]
@@ -3232,7 +3298,7 @@ Unique members
 ----------------------
 
 Purpose
-  This class represents a cell in the header row of a table or chart.
+  This class represents a table header cell.
 
 Extends
   [topic: Up.Table.Cell]
@@ -3242,22 +3308,22 @@ Extends
 --------------
 
 Purpose
-  This class represents a content row in a table or chart.
+  This class represents a content row in a table.
 
 Unique members
-  `cells`: array of [topic: Up.Table.Header.Cell]
+  `cells`: array of [topic: Up.Table.Row.Cell]
     The content cells in this row.
 
-  `headerCell`: [topic: Up.Table.Header.Cell]
-    The single header cell for this row, if there is one.
+  `headerColumnCell`: [topic: Up.Table.Header.Cell]
+    The single header column cell for this row, if there is one.
 
-    This field is only used by charts! Table rows do not have header cells.
+    Tables without header columns never have header column cells. 
 
-  `allCellsStartingWithRowHeaderCell` method
+  `allCellsStartingWithHeaderColumnCell` method
     Return type: array of [topic: Up.Table.Cell]
       This method returns every cell in this row.
 
-      If this row has a `headerCell`, it's the first item in the returned collection.
+      If the table has a header column, the row's `headerColumnCell` is the first item in the returned collection.
 
     Arguments
       None.
@@ -3266,7 +3332,7 @@ Unique members
 -------------------
 
 Purpose
-  This class represents a regular (non-header) cell in a content row in a table or chart.
+  This class represents a regular (non-header) table cell.
 
 Extends
   [topic: Up.Table.Cell]
