@@ -1830,7 +1830,7 @@ Usage
     const html = Up.parseAndRender(markup, {
       parsing: {
         createSourceMap: true,
-        terms: { highlight: 'mark' }
+        keywords: { highlight: 'mark' }
       },
       rendering: {
         idPrefix: 'article'
@@ -1869,7 +1869,7 @@ Usage
       Up.parseAndRenderDocumentAndTableOfContents(markup, {
         parsing: {
           createSourceMap: true,
-          terms: { highlight: 'mark' }
+          keywords: { highlight: 'mark' }
         },
         rendering: {
           idPrefix: 'article',
@@ -1906,14 +1906,14 @@ Usage
     const html = Up.parseAndRenderInline(markup, {
       parsing: {
         baseForUrlsStartingWithSlash: 'https://example.com/en-us',',
-        terms: { highlight: 'mark' }
+        keywords: { highlight: 'mark' }
       },
       rendering: {
         idPrefix: 'byline',
         terms: {
-          toggleSpoiler: 'toggle',
-          toggleNsfw: 'toggle',
-          toggleNsfl: 'toggle'
+          footnote: 'note',
+          footnoteReference: 'ref',
+          revealContent: 'show'
         }
       }
     })
@@ -1945,7 +1945,7 @@ Usage
     ````
     const document = Up.parse(markup, {
       createSourceMap: true,
-      terms: { highlight: 'mark' }
+      keywords: { highlight: 'mark' }
     })
     ````
 
@@ -1977,7 +1977,7 @@ Usage
     ````
     const html = Up.parseInline(markup, {
       baseForUrlsStartingWithSlash: 'https://example.com/en-us',',
-      terms: { highlight: 'mark' }
+      keywords: { highlight: 'mark' }
     })
     ````
 
@@ -2008,9 +2008,9 @@ Usage
     const html = Up.render(document, {
       idPrefix: 'article',
       terms: {
-        toggleSpoiler: 'toggle',
-        toggleNsfw: 'toggle',
-        toggleNsfl: 'toggle'
+        footnote: 'note',
+        footnoteReference: 'ref',
+        revealContent: 'show'
       }
     })
     ````
@@ -2079,9 +2079,9 @@ Usage
     const html = Up.renderInline(inlineDocument, {
       idPrefix: 'byline',
       terms: {
-        toggleSpoiler: 'toggle',
-        toggleNsfw: 'toggle',
-        toggleNsfl: 'toggle'
+        footnote: 'note',
+        footnoteReference: 'ref',
+        revealContent: 'show'
       }
     })
     ````
@@ -2120,7 +2120,7 @@ Usage
   const html = Up.parseAndRender(markup, {
     parsing: {
       createSourceMap: true,
-      terms: { highlight: 'mark' }
+      keywords: { highlight: 'mark' }
     },
     rendering: {
       idPrefix: 'article'
@@ -2409,8 +2409,8 @@ Usage
   const html = Up.render(document, {
     idPrefix: 'article',
     terms: {
-      footnote: 'fn',
-      footnoteReference: 'fn-ref',
+      footnote: 'note',
+      footnoteReference: 'ref',
       revealContent: 'show'
     }
   })
