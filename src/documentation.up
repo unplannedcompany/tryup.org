@@ -7,6 +7,7 @@ Up is a set of [highlight: human-friendly conventions] for writing structured do
 
 For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. For more information, see [topic: using the Up library].
 
+
 ========================
 What's so good about Up?
 ========================
@@ -78,9 +79,9 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
 
-  When a word would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: spoilers], incorporate words. And as a result, its plain text markup is a joy to read.
+  When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: section links], incorporate keywords. And as a result, its plain text markup is a joy to read.
 
-  These syntax terms are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: terms found in markup].
+  These keywords are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: customizing keywords].
 
 - Up produces fully accessible HTML
   =================================
@@ -326,7 +327,11 @@ Example
     Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
 
 Discussion
-  To produce a section link, choose a snippet of text from the heading you want to link to, enclose the snippet within square brackets or parentheses, then insert "topic:" or "section:" directly after your open bracket.
+  To produce a section link:
+  
+  1. Choose a snippet of text from the heading you want to link to
+  2. Enclose the snippet within square brackets or parentheses
+  3. Insert `topic:` or `section:` directly after your open bracket
   
   That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
 
@@ -484,75 +489,6 @@ Discussion
   Within example input, most conventions are ignored. However, [topic: typographical conventions] are respected, as is [topic: disabling].
 
 
-=============
-Section links
-=============
-
-Use the section link convention to link another section (heading) in your document.
-
-Example
-  Markup
-    ````
-    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
-    ````
-
-  Output
-    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
-
-Discussion
-  To produce a section link, choose a snippet of text from the heading you want to link to, enclose the snippet within square brackets or parentheses, then insert "topic:" or "section:" directly after your open bracket.
-  
-  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
-
-
-  How does Up choose which heading matches your section link?
-  ===========================================================
-
-  Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.
-
-  -------------------------
-  Up ignores capitalization
-  -------------------------
-  
-  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
-
-  Markup
-    ````
-    Please see [topic: toothpaste].
-
-    TOOTHPASTE
-    ~~~~~~~~~~
-    ````
-  
-  Output
-    Please see [topic: toothpaste].
-
-    TOOTHPASTE
-    ~~~~~~~~~~
-
-  -----------------------------
-  Up ignores inline writing conventions
-  -----------------------------
-  
-  If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be an exact match.
-
-  Markup
-    ````
-    Please see [topic: everyone loves toothpaste].
-
-    Everyone *loves* toothpaste
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ````
-  
-  Output
-    Please see [topic: everyone loves toothpaste].
-
-    Everyone *loves* toothpaste
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  To be clear, when matching your section link to the most appropriate heading, Up only examines the text content of each heading. Any inline writing conventions in the heading are ignored.
-
-
 ===========
 Inline code
 ===========
@@ -668,13 +604,13 @@ Example
     [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)
 
 Discussion
-  The image convention consist of two parts: a description (starting with "image:") and a URL.
+  The image convention consist of two parts: a description (starting with `image:`) and a URL.
 
   To produce an image, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
   You can use mix and match either type of bracket---they're totally interchangeable.
 
-  If you want your image to link to another page, please see [topic: linkifying].
+  If you want to link your image to another page, please see [topic: linkifying].
 
 
 =====
@@ -686,14 +622,14 @@ Use the audio convention to include playable audio in your document.
 Example
   Markup
     ````
-    [audio: chiptune] (upload.wikimedia.org/wikipedia/commons/8/82/Chiptune2.ogg)
+    [audio: game over theme from Infinity] (upload.wikimedia.org/wikipedia/commons/8/82/Chiptune2.ogg)
     ````
 
   Output
     [audio: chiptune] (upload.wikimedia.org/wikipedia/commons/8/82/Chiptune2.ogg)
 
 Discussion
-  The audio convention consist of two parts: a description (starting with "audio:") and a URL.
+  The audio convention consist of two parts: a description (starting with `audio:`) and a URL.
 
   To include playable audio in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
@@ -716,11 +652,117 @@ Example
     [video: moving train] (upload.wikimedia.org/wikipedia/commons/8/87/Schlossbergbahn.webm)
 
 Discussion
-  The video convention consist of two parts: a description (starting with "audio:") and a URL.
+  The video convention consist of two parts: a description (starting with `video:`) and a URL.
 
-  To include playable audio in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+  To include playable video in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
   You can use mix and match either type of bracket---they're totally interchangeable.
+
+
+==================
+Revealable content
+==================
+
+Sometimes, you want to give readers the option to avoid certain content. This includes:
+
+- Movie spoilers
+- Sexual content
+- Graphic/disturbing content
+
+To facilitate this, Up supports revealable content.
+
+
+Inline revealables
+==================
+
+Use the inline revealable convention to hide content within a paragraph.
+
+When you want to hide more than a sentence or two, use [topic: revealable blocks] instead.
+
+Example
+  Markup
+    ````
+    At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
+    ````
+
+  Output
+    At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
+
+Discussion
+  To hide content within a paragraph, first enclose that content within square brackets or parentheses. Then, insert one of the [topic: revealable keywords] directly inside your open bracket, followed by a colon.
+
+  Inline revealables can contain any inline writing convention.
+
+
+Revealable blocks
+==================
+
+Use revealable block convention to hide a block of content. 
+
+When you want to hide content within a paragraph, use [topic: inline revealables] instead.
+
+Example
+  Markup
+    ````
+    SPOILER:
+      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
+
+      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+
+      1. Pidgeot
+      2. Alakazam
+      3. Rhydon
+    ````
+
+  Output
+    SPOILER:
+      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
+
+      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+
+      1. Pidgeot
+      2. Alakazam
+      3. Rhydon
+
+Discussion
+  To hide a block of content, first indent it two spaces (or a tab). Then, on the line before your indented block, put one of the [topic: revealable keywords]. 
+
+  In the example above, the keyword is followed by a colon. This isn't necessary.
+
+  Markup
+    ````
+    SPOILER
+      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
+
+      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+
+      1. Pidgeot
+      2. Alakazam
+      3. Rhydon
+    ````
+
+  Output
+    SPOILER
+      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
+
+      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+
+      1. Pidgeot
+      2. Alakazam
+      3. Rhydon
+
+
+Revealable keywords
+===================
+
+Both [topic: inline revealables] and [topic: revealable blocks] recognize any of the following keywords:
+
+- `spoiler`
+- `nsfw`
+- `nsfl`
+- `revealable`
+
+Like all keywords in Up, you can capitalize these keywords however you want. 
 
 
 ===========
@@ -1652,17 +1694,15 @@ This shortcut also works for the following conventions:
 
 - [topic: Highlighting]
 - [topic: Footnotes]
-- [topic: Inline spoilers]
-- [topic: Inline NSFW]
-- [topic: Inline NSFL]
+- [topic: Inline revealables]
 
 Markup
   ````
-  At the end of Pokémon Red, you battle [SPOILER: your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
+  At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
   ````
 
 Output
-  At the end of Pokémon Red, you battle [SPOILER: your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
+  At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
 
 
 ======================================
@@ -2122,15 +2162,15 @@ Members (all of which are optional)
   [topic: fancyEllipsis]: `string`
     Up replaces consecutive periods with this fancy ellipsis.
 
-  `terms` (all of which are optional)
+  `keywords` (all of which are optional)
 
-    ------------------------
-    Customizing syntax terms
-    ------------------------
+    --------------------
+    Customizing keywords
+    --------------------
 
-    You can provide unlimited variations for every syntax term! Even when you provide custom term variations, Up always recognizes the defaults---they're never "overwritten".
+    You can provide unlimited variations for every keyword! Even when you provide custom variations, Up always recognizes the defaults---they're never "overwritten".
 
-    For a given syntax term, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
+    For a given keyword, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
 
     Example
       ````
@@ -2143,37 +2183,34 @@ Members (all of which are optional)
       ````
 
     Discussion
-      In the above example, the `audio` term has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
+      In the above example, the `audio` keyword has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
 
-      The `highlight` term has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
+      The `highlight` keyword has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
 
       For a full description of the various functions you can use, please see [topic: functions].
 
-    Keep in mind that syntax terms are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
+    Keep in mind that keywords are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
 
     `audio`: `string` or `string[]`
-      Recognized by [topic: audio].
+      Convention
+        Recognized by [topic: audio].
+      Default
+        `audio`
 
     `highlight`: `string` or `string[]`
-      Recognized by [topic: highlight].
+      Recognized by [topic: highlighting].
 
     `image`: `string` or `string[]`
-      Recognized by [topic: image].
+      Recognized by [topic: images].
 
-    `nsfl`: `string` or `string[]`
-      Recognized by [topic: NSFL].
-
-    `nsfw`: `string` or `string[]`
-      Recognized by [topic: NSFW].
+    `revealable`: `string` or `string[]`
+      Recognized by [topic: inline revealables] and [topic: revealable blocks].
 
     `sectionLink`: `string` or `string[]`
-      Recognized by [topic: sectionLink].
-
-    `spoiler`: `string` or `string[]`
-      Recognized by [topic: spoilers].
+      Recognized by [topic: section links].
 
     `table`: `string` or `string[]`
-      Recognized by [topic: table].
+      Recognized by [topic: tables].
 
     `video`: `string` or `string[]`
       Recognized by [topic: video].
@@ -2182,7 +2219,7 @@ Usage
   ````
   const document = Up.parse(markup, {
     createSourceMap: true,
-    terms: {
+    keywords: {
       audio: ["sound", "song"],
       highlight: "mark"
     }
@@ -2358,29 +2395,23 @@ Members (all of which are optional)
     `footnoteReference`: `string`
       Appears in the URLs of footnotes references (i.e. the superscripts within paragraphs).
 
+    `revealContent`: `string`
+      Appears on the button that toggles the visibility of revealable content.
+
     `sectionReferencedByTableOfContents`: `string`
       Appears in the URLs of headings referenced by the table of contents.
 
     `tableOfContents`: `string`
       Appears at the top of the table of contents.
 
-    `toggleNsfl`: `string`
-      Appears on the button that toggles the visibility of NSFL content.
-
-    `toggleNsfw`: `string`
-      Appears on the button that toggles the visibility of NSFW content.
-
-    `toggleSpoiler`: `string`
-      Appears on the button that toggles the visibility of spoiler content.
-
 Usage
   ````
   const html = Up.render(document, {
     idPrefix: 'article',
     terms: {
-      toggleSpoiler: 'toggle',
-      toggleNsfw: 'toggle',
-      toggleNsfl: 'toggle'
+      footnote: 'fn',
+      footnoteReference: 'fn-ref',
+      revealContent: 'show'
     }
   })
   ````
@@ -2539,7 +2570,7 @@ Members
       parsing: {
         createSourceMap: true,
         fancyEllipsis: "⋯",
-        terms: {
+        keywords: {
           audio: ["sound", "song"],
           highlight: "mark"
         }
@@ -2552,7 +2583,7 @@ Members
     const html = up.parseAndRender(markup, {
       parsing: {
         createSourceMap: false,
-        terms: {
+        keywords: {
           audio: "listen",
         }
       },
@@ -2570,7 +2601,7 @@ Members
       parsing: {
         createSourceMap: false,
         fancyEllipsis: "⋯",
-        terms: {
+        keywords: {
           audio: "listen"
           highlight: "mark"
         }
@@ -2842,28 +2873,6 @@ Unique members
     - [topic: baseForUrlsStartingWithHashMark]
 
 
-`Up.RevealableInlineSyntaxNode`
-===============================
-
-Purpose
-  This abstract class represents an inline revealable convention. It exists solely to improve the expressiveness of the type system.
-
-Extends
-  [topic: Up.RichInlineSyntaxNode]
-
-
-`Up.RevealableOutlineSyntaxNode`
-===============================
-
-Purpose
-  This abstract class represents an revealable outline writing convention.
-
-  Headings within revealable outline writing conventions are not included in the table of contents.
-
-Extends
-  [topic: Up.RichOutlineSyntaxNode]
-
-
 `Up.ParentheticalSyntaxNode`
 ===============================
 
@@ -2884,6 +2893,16 @@ Extends
   [topic: Up.MediaSyntaxNode]
 
 
+`Up.Blockquote`
+===============
+
+Convention
+  [topic: Blockquotes]
+
+Extends
+  [topic: Up.RichOutlineSyntaxNode]
+
+
 `Up.Bold`
 =========
 
@@ -2892,16 +2911,6 @@ Convention
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
-
-
-`Up.Blockquote`
-===============
-
-Convention
-  [topic: Blockquote]
-
-Extends
-  [topic: Up.RichOutlineSyntaxNode]
 
 
 `Up.CodeBlock`
@@ -2988,20 +2997,6 @@ Unique members
     The example of user input.
 
 
-`Up.FootnoteBlock`
-==================
-
-Purpose
-  Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This class represents one of those footnote blocks.
-
-Implements
-  [topic: Up.OutlineSyntaxNode]
-
-Unique members
-  `footnotes`: array of [topic: Up.Footnote]
-    The collection of footnotes comprising this footnote block.
-
-
 `Up.Footnote`
 =============
 
@@ -3014,6 +3009,20 @@ Extends
 Unique members
   `referenceNumber`: `number`
     The number that appears in superscript for this footnote.
+
+
+`Up.FootnoteBlock`
+==================
+
+Purpose
+  Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This class represents one of those footnote blocks.
+
+Implements
+  [topic: Up.OutlineSyntaxNode]
+
+Unique members
+  `footnotes`: array of [topic: Up.Footnote]
+    The collection of footnotes comprising this footnote block.
 
 
 `Up.Heading`
@@ -3071,41 +3080,21 @@ Unique members
     The inline code represented by this syntax node.
 
 
-`Up.InlineNsfl`
-==============
+`Up.InlineQuote`
+================
 
 Convention
-  [topic: Inline NSFL]
+  [topic: Inline quotes]
 
 Extends
-  [topic: Up.RevealableInlineSyntaxNode]
-
-
-`Up.InlineNsfw`
-==============
-
-Convention
-  [topic: Inline NSFW]
-
-Extends
-  [topic: Up.RevealableInlineSyntaxNode]
-
-
-`Up.InlineSpoiler`
-==================
-
-Convention
-  [topic: Inline spoilers]
-
-Extends
-  [topic: Up.RevealableInlineSyntaxNode]
+  [topic: Up.RichInlineSyntaxNode]
 
 
 `Up.InlineQuote`
 ================
 
 Convention
-  [topic: Inline quotes]
+  [topic: Inline revealables]
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
@@ -3167,24 +3156,14 @@ Unique members
     - [topic: baseForUrlsStartingWithHashmark]
 
 
-`Up.NsflBlock`
-==============
+`Up.NormalParenthetical`
+========================
 
 Convention
-  [topic: NSFL blocks]
+  [topic: Parentheticals] produced by regular parentheses
 
 Extends
-  [topic: Up.RevealableOutlineSyntaxNode]
-
-
-`Up.NsfwBlock`
-==============
-
-Convention
-  [topic: NSFW blocks]
-
-Extends
-  [topic: Up.RevealableOutlineSyntaxNode]
+  [topic: Up.ParentheticalSyntaxNode]
 
 
 `Up.OrderedList`
@@ -3250,28 +3229,14 @@ Implements
     Paragraphs are outline syntax nodes.
 
 
-`Up.NormalParenthetical`
-========================
+`Up.RevealableBlock`
+====================
 
 Convention
-  [topic: Parentheticals] produced by regular parentheses
+  [topic: Revealable blocks]
 
 Extends
-  [topic: Up.ParentheticalSyntaxNode]
-
-
-`Up.Text`
-=========
-
-Purpose
-  This class represents any regular text content.
-
-Implements
-  [topic: Up.InlineSyntaxNode]
-
-Unique members
-  `text`: `string`
-    The text represented by this syntax node.
+  [topic: Up.RichOutlineSyntaxNode]
 
 
 `Up.SectionLink`
@@ -3286,16 +3251,6 @@ Implements
 Unique members
   `sectionTitleSnippet`: `string`
     A snippet of text (provided by the author) from the matching table of contents entry.
-
-
-`Up.SpoilerBlock`
-=================
-
-Convention
-  [topic: Spoiler blocks]
-
-Extends
-  [topic: Up.RevealableOutlineSyntaxNode]
 
 
 `Up.SquareParenthetical`
@@ -3420,6 +3375,20 @@ Unique members
       None.
 
 
+`Up.Text`
+=========
+
+Purpose
+  This class represents regular text content.
+
+Implements
+  [topic: Up.InlineSyntaxNode]
+
+Unique members
+  `text`: `string`
+    The text represented by this syntax node.
+
+
 `Up.ThematicBreak`
 =================
 
@@ -3462,4 +3431,3 @@ Convention
 
 Extends
   [topic: Up.MediaSyntaxNode]
-
