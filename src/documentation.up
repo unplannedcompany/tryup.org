@@ -260,7 +260,7 @@ Example
     The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
 
 Discussion
-  A link consist of two parts: content and a URL.
+  A link consists of two parts: content and a URL.
 
   To produce a link, simply enclose its content in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
@@ -707,7 +707,7 @@ Example
     SPOILER:
       After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
 
-      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
 
       1. Pidgeot
       2. Alakazam
@@ -718,7 +718,7 @@ Example
     SPOILER:
       After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
 
-      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
 
       1. Pidgeot
       2. Alakazam
@@ -734,7 +734,7 @@ Discussion
     SPOILER
       After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
 
-      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
 
       1. Pidgeot
       2. Alakazam
@@ -745,7 +745,7 @@ Discussion
     SPOILER
       After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
 
-      Your rival's specifc lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
 
       1. Pidgeot
       2. Alakazam
@@ -1385,7 +1385,7 @@ Discussion
   - An optional caption, representing the table's title
   - A header row, describing each column
   - Content rows, representing the actual data
-  - An opttional header column, desscribing each row
+  - An optional header column, describing each row
 
   Table cells are separated by semicolons. For more information, see [topic: cells].
   
@@ -1759,6 +1759,7 @@ Output
   My favorite kind of slash is the backslash: \\. What is yours?
 
 
+
 ####################
 Using the Up library
 ####################
@@ -1830,10 +1831,10 @@ Usage
     const html = Up.parseAndRender(markup, {
       parsing: {
         createSourceMap: true,
-        keywords: { highlight: 'mark' }
+        keywords: { highlight: "mark" }
       },
       rendering: {
-        idPrefix: 'article'
+        idPrefix: "article"
       }
     })
     ````
@@ -1869,11 +1870,11 @@ Usage
       Up.parseAndRenderDocumentAndTableOfContents(markup, {
         parsing: {
           createSourceMap: true,
-          keywords: { highlight: 'mark' }
+          keywords: { highlight: "mark" }
         },
         rendering: {
-          idPrefix: 'article',
-          terms: { tableOfContents: 'In This Article' }
+          idPrefix: "article",
+          terms: { tableOfContents: "In This Article" }
         }
       })
     ````
@@ -1905,15 +1906,14 @@ Usage
     ````
     const html = Up.parseAndRenderInline(markup, {
       parsing: {
-        baseForUrlsStartingWithSlash: 'https://example.com/en-us',',
-        keywords: { highlight: 'mark' }
+        baseForUrlsStartingWithSlash: "https://example.com/en-us",
+        keywords: { highlight: "mark" }
       },
       rendering: {
-        idPrefix: 'byline',
+        idPrefix: "byline",
         terms: {
-          footnote: 'note',
-          footnoteReference: 'ref',
-          revealContent: 'show'
+          footnoteReference: "footnote mention"
+          revealContent: "show"
         }
       }
     })
@@ -1945,7 +1945,7 @@ Usage
     ````
     const document = Up.parse(markup, {
       createSourceMap: true,
-      keywords: { highlight: 'mark' }
+      keywords: { highlight: "mark" }
     })
     ````
 
@@ -1976,8 +1976,8 @@ Usage
   With custom settings
     ````
     const html = Up.parseInline(markup, {
-      baseForUrlsStartingWithSlash: 'https://example.com/en-us',',
-      keywords: { highlight: 'mark' }
+      baseForUrlsStartingWithSlash: "https://example.com/en-us",
+      keywords: { highlight: "mark" }
     })
     ````
 
@@ -2006,11 +2006,10 @@ Usage
   With custom settings
     ````
     const html = Up.render(document, {
-      idPrefix: 'article',
+      idPrefix: "article",
       terms: {
-        footnote: 'note',
-        footnoteReference: 'ref',
-        revealContent: 'show'
+        footnoteReference: "footnote mention",
+        revealContent: "show"
       }
     })
     ````
@@ -2045,8 +2044,8 @@ Usage
     ````
     const { tableOfContentsHtml, documentHtml } =
       Up.renderDocumentAndTableOfContents(document, {
-        idPrefix: 'article',
-        terms: { tableOfContents: 'In This Article' }
+        idPrefix: "article",
+        terms: { tableOfContents: "In This Article" }
       })
     ````
 
@@ -2077,11 +2076,10 @@ Usage
   With custom settings
     ````
     const html = Up.renderInline(inlineDocument, {
-      idPrefix: 'byline',
+      idPrefix: "byline",
       terms: {
-        footnote: 'note',
-        footnoteReference: 'ref',
-        revealContent: 'show'
+        footnoteReference: "footnote mention",
+        revealContent: "show"
       }
     })
     ````
@@ -2120,10 +2118,10 @@ Usage
   const html = Up.parseAndRender(markup, {
     parsing: {
       createSourceMap: true,
-      keywords: { highlight: 'mark' }
+      keywords: { highlight: "mark" }
     },
     rendering: {
-      idPrefix: 'article'
+      idPrefix: "article"
     }
   })
   ````
@@ -2407,11 +2405,10 @@ Members (all of which are optional)
 Usage
   ````
   const html = Up.render(document, {
-    idPrefix: 'article',
+    idPrefix: "article",
     terms: {
-      footnote: 'note',
-      footnoteReference: 'ref',
-      revealContent: 'show'
+      footnoteReference: "footnote mention",
+      revealContent: "show"
     }
   })
   ````
@@ -2717,7 +2714,7 @@ Members
 
   `inlineDescendants`
     Return type: array of [topic: Up.InlineSyntaxNode]
-      This method returns the inline descendents (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
+      This method returns the inline descendants (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
 
     Arguments
       None.
