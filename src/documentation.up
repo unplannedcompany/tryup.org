@@ -2,7 +2,6 @@
 Up (easily write structured content for the web)
 ################################################
 
-
 Up is a set of [highlight: human-friendly conventions] for writing structured documents in plain text. This entire document was written in Up.
 
 For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. For more information, see [topic: using the Up library].
@@ -15,12 +14,12 @@ What's so good about Up?
 Up is designed for humans to read and write, not for computers to process and parse.
 
 
-- You can overlap styles
-  ======================
+- Styles can overlap
+  ==================
 
   Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
 
-  However, Up **supports [highlight: overlapping** styles]! For more information, see [topic: overlapping inline writing conventions].
+  However, Up **supports [highlight: overlapping** styles]! For more information, see [topic: overlapping].
 
 - Tables are outrageously readable
   ================================
@@ -60,10 +59,9 @@ Up is designed for humans to read and write, not for computers to process and pa
   Output
     You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
 
-
   For more information, see [topic: footnotes].
 
-- Linking to other sections in your document is too easy
+- You can easily link to other sections in your document
   ======================================================
 
   Markup
@@ -79,9 +77,9 @@ Up is designed for humans to read and write, not for computers to process and pa
 
   Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
 
-  When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: section links], incorporate keywords. And as a result, its plain text markup is a joy to read.
+  When a simple keyword would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: section links], incorporate keywords. And as a result, its plain text markup is a joy to read.
 
-  These keywords are fully customizable! They can support any language (and multiple languages at once). For more information, see [topic: customizing keywords].
+  If you're a software developer using the Up library, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
 
 - Up produces fully accessible HTML
   =================================
@@ -93,7 +91,6 @@ Up is designed for humans to read and write, not for computers to process and pa
 ############################
 Writing conventions (syntax)
 ############################
-
 
 Don't get lost! The following terms are occasionally used in this section:
 
@@ -341,9 +338,9 @@ Discussion
 
   Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.
 
-  ------------------------------------
-  Up completely ignores capitalization
-  ------------------------------------
+  ---------------------------------------
+  Up ignores the heading's capitalization
+  ---------------------------------------
   
   If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
 
@@ -361,11 +358,11 @@ Discussion
     TOOTHPASTE
     ~~~~~~~~~~
 
-  -----------------------------------------------------------
-  Up completely ignores any inline writing conventions in the heading
-  -----------------------------------------------------------
+  --------------------------------------------------------
+  Up ignores any inline writing conventions in the heading
+  --------------------------------------------------------
   
-  If your document has a heading whose text is "Everyone *loves* toothpaste", "everyone loves toothpaste" would be an exact match. 
+  If your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match. 
 
   Markup
     ````
@@ -1804,7 +1801,6 @@ Alternatively, you can create an instance of the `Up.Transformer` class. This ca
 =========
 Functions
 =========
-
 
 `Up.parseAndRender`
 ==================
