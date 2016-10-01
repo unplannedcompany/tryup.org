@@ -2,91 +2,63 @@
 Up (easily write structured content for the web)
 ################################################
 
-Up is a set of [highlight: human-friendly conventions] for writing structured documents in plain text. This entire document was written in Up.
+Up is a set of human-friendly conventions for writing structured documents in plain text. This document is written in Up!
 
 For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. For more information, see [topic: using the Up library].
 
 
-========================
-What's so good about Up?
-========================
+===========
+Why use Up?
+===========
 
-Up is designed for humans to read and write, not for computers to process and parse.
+Up isn't the first [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML. What makes Up different?
 
+- Up makes it easy to link to other sections in your document
+  ===========================================================
 
-- Styles can overlap
-  ==================
+  For more information, see [topic: section links].
 
-  Other lightweight markup languages require styles to be manually nested within each other like [Russian nesting dolls] (wikipedia.org/wiki/Matryoshka_doll).
+- Up uses readable, customizable keywords
+  =======================================
 
-  However, Up **supports [highlight: overlapping** styles]! For more information, see [topic: overlapping].
+  Too many markup languages devolve into a dense soup of symbols and punctuation.
 
-- Tables are outrageously readable
-  ================================
+  When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
 
-  Markup
-    ````
-    Table: Moves learned by the Pokémon Bulbasaur
+  If you're a software developer, you can provide multiple custom variations for each keyword! For more information, see [topic: customizing keywords].
 
-    Level;  Move;         Type;     Power;  Accuracy
+- Up offers a flexible, forgiving syntax
+  ======================================
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-    ````
+  - Up recognizes [topic: numbered lists] that count backwards
+  - Up allows unlimited [topic: heading levels]
+  - Up even supports [topic: overlapping]
 
-  Output
-    Table: Moves learned by the Pokémon Bulbasaur
+  At every turn, Up is designed for humans to read and write, not for computers to process and parse.
+  
 
-    Level;  Move;         Type;     Power;  Accuracy
+=================
+Why *not* use Up?
+=================
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
+- You want a rich ecosystem of tools
+  ==================================
 
-  For more information, see [topic: tables].
+  So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start).
 
-- Footnotes are effortless
-  ========================
+  In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.  
+  
+- You need speed
+  ==============
 
-  Markup
-    ````
-    You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
-    ````
+  Up is not terribly slow, but it's not terribly fast, either---at least not yet. If you need instant, real-time parsing and rendering of large documents, Up isn't the right markup language for you.
 
-  Output
-    You write your footnotes inline, as though were parentheticals. [^If you think about it, footnotes are essentially parentheticals.] They're automatically extracted and placed into footnote blocks. [^ The author doesn't have to do any work.]
+- You want to embed HTML within your markup
+  =========================================
 
-  For more information, see [topic: footnotes].
-
-- You can easily link to other sections in your document
-  ======================================================
-
-  Markup
-    ````
-    For more information, see [topic: section links].
-    ````
-
-  Output
-    For more information, see [topic: section links].
-
-- Up is actually, honestly readable in plain text
-  ===============================================
-
-  Too many lightweight markup languages devolve into a dense soup of confusing symbols and punctuation.
-
-  When a simple keyword would provide more clarity than a symbol, Up takes advantage of that! Many conventions, including [topic: tables] and [topic: section links], incorporate keywords. And as a result, its plain text markup is a joy to read.
-
-  If you're a software developer using the Up library, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
-
-- Up produces fully accessible HTML
-  =================================
-
-  From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
-
-
+  Some markup languages allow authors to embed HTML in their markup. Up does not.
+  
+ 
 
 ############################
 Writing conventions (syntax)
@@ -174,6 +146,8 @@ Example
 
 Discussion
   To emphasize text, enclose it within single asterisks.
+
+  Like most inline writing conventions, you can nest emphasis within itself.
 
 
 ======
@@ -305,7 +279,7 @@ Discussion
 
   If you omit the space between your link's content and its URL, Up will **always** produce a link.
 
-  These rules also apply when [topic: linkifying another writing convention].
+  These rules also apply when [topic: linkifying].
 
 
 =============
@@ -328,7 +302,7 @@ Discussion
   
   1. Choose a snippet of text from the heading you want to link to
   2. Enclose the snippet within square brackets or parentheses
-  3. Insert `topic:` or `section:` directly after your open bracket
+  3. Insert `topic:` or `section:` directly inside your opening bracket
   
   That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
 
@@ -404,7 +378,7 @@ Discussion
 Inline quotes
 =============
 
-"Inline quotes" are just regular quotes! Up automatically recognizes them.
+Up automatically recognizes quoted text. You don't need to change how you use quotation marks.
 
 If you want to quote more a few sentences, considering using [topic: blockquotes].
 
@@ -435,7 +409,7 @@ Discussion
 Highlighting
 ============
 
-Use the highlight convention to indicate a word a phrase is particularly relevant to the reader.
+Use the highlighting convention to indicate a word a phrase is particularly relevant to the reader.
 
 Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
 
@@ -449,7 +423,7 @@ Example
     Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
 
 Discussion
-  To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your open bracket.
+  To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your opening bracket.
 
 
 =============
@@ -572,14 +546,14 @@ Footnotes are automatically extracted into blocks for you.
 Example
   Markup
     ````
-    Pokémon Red begins in Pallet Town, [^ "Pallet" was probably a misspelling of "palette".] where Professor Oak gives Red his first Pokémon.
+    Pokémon Red begins in Pallet Town, [^ "Pallet" is probably a misspelling of "palette"] where Professor Oak gives Red his first Pokémon.
     ````
 
   Output
-    Pokémon Red begins in Pallet Town, [^ "Pallet" was probably a misspelling of "palette".] where Professor Oak gives Red his first Pokémon.
+    Pokémon Red begins in Pallet Town, [^ "Pallet" is probably a misspelling of "palette"] where Professor Oak gives Red his first Pokémon.
 
 Discussion
-  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret (`^`) directly after your opening bracket.
+  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
 
 Notes
   Footnote in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
@@ -686,7 +660,7 @@ Example
     At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
 
 Discussion
-  To hide content within a paragraph, first enclose that content within square brackets or parentheses. Then, insert one of the [topic: revealable keywords] directly inside your open bracket, followed by a colon.
+  To hide content within a paragraph, first enclose that content within square brackets or parentheses. Then, insert one of the [topic: revealable keywords] directly inside your opening bracket, followed by a colon.
 
   Inline revealables can contain any inline writing convention.
 
@@ -1308,9 +1282,9 @@ Discussion
   ````
 
 
-==========
-Typography
-==========
+=========================
+Typographical conventions
+=========================
 
 Consecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character.
 
@@ -1908,7 +1882,7 @@ Usage
       rendering: {
         idPrefix: "byline",
         terms: {
-          footnoteReference: "footnote mention"
+          footnoteReference: "footnote mention",
           revealContent: "show"
         }
       }
@@ -2169,7 +2143,7 @@ Members (all of which are optional)
     Example
       ````
       const document = Up.parse(markup, {
-        terms: {
+        keywords: {
           audio: ["sound", "song"],
           highlight: "mark"
         }
@@ -2577,7 +2551,7 @@ Members
       parsing: {
         createSourceMap: false,
         keywords: {
-          audio: "listen",
+          audio: "listen"
         }
       },
       rendering: {
@@ -2595,7 +2569,7 @@ Members
         createSourceMap: false,
         fancyEllipsis: "⋯",
         keywords: {
-          audio: "listen"
+          audio: "listen",
           highlight: "mark"
         }
       },
