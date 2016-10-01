@@ -1167,10 +1167,10 @@ Discussion
   Bullets
   =======
 
-  Every bulleted list item starts with a bullet followed by a space. The following markup characters can serve as a bullet:
+  Every bulleted list item starts with a bullet followed by a space. The following characters can serve as a bullet:
 
-  - An asterisk: `*`
   - A hyphen: `-`
+  - An asterisk: `*`
   - An actual bullet character: `•`
 
 
@@ -1216,8 +1216,8 @@ Discussion
     - Fix self-esteem
 
 
-  List items with multiple lines
-  ==============================
+  List items consisting of multiple lines
+  =======================================
 
   List items aren't limited to a single line!
 
@@ -1231,7 +1231,7 @@ Discussion
 
     - Buy bread.
 
-      One buy bread from one of the following brands:
+      Only buy bread from one of the following brands:
 
       * Little Northern Bakehouse
       * Udi's
@@ -1239,7 +1239,7 @@ Discussion
 
     - Buy happiness.
 
-      Don't spend more than a few dollars on this! It's not worth it.
+      Don't spend more than a few dollars on this! Happiness isn't worth it.
     ````
 
   Output
@@ -1249,7 +1249,7 @@ Discussion
 
     - Buy bread.
 
-      Only buy bread from the following brands:
+      Only buy bread from one of the following brands:
 
       * Little Northern Bakehouse
       * Udi's
@@ -1257,7 +1257,7 @@ Discussion
 
     - Buy happiness.
 
-      Don't spend more than a few dollars on this! It's not worth it.
+      Don't spend more than a few dollars on this! Happiness isn't worth it.
 
 
 ==============
@@ -1282,9 +1282,9 @@ Example
     3. Buy happiness
 
 Discussion
-  Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered lists have ordinals, not bullets.
+  Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered list items have ordinals, not bullets.
 
-  The ordinal for a numbered list can be expressed several ways:
+  The ordinal for a numbered list item can be expressed several ways:
 
   1. An integer followed by a period: `1.`
   2. An integer followed by a closing parenthesis: `1)`
@@ -1298,7 +1298,7 @@ Discussion
   Lists starting at a specific number
   ===================================
 
-  Numbered lists don't have to start at "1".
+  Numbered lists don't have to start at `1`.
 
   Markup
     ````
@@ -1313,12 +1313,12 @@ Discussion
     #) May
 
 
-  Reversed lists
-  ==============
+  Lists in descending order
+  =========================
 
-  Up automatically knows when a numbered list is in reverse!
+  Up automatically recognizes when a numbered list is in descending order.
 
-  If at least two of the ordinals in your list use integers (instead of number signs), *and* if the first two of those ordinals are in descending order, Up assumes the list is reversed.
+  If a numered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order. 
 
   Markup
     ````
