@@ -11,12 +11,9 @@ For software developers, [Up is also a JavaScript library] (npmjs.com/package/wr
 Why use Up?
 ===========
 
-Up isn't the first [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML. What makes Up different?
+Up isn't the first [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML.
 
-- Up makes it easy to link to other sections in your document
-  ===========================================================
-
-  For more information, see [topic: section links].
+Why use Up instead of another markup language?
 
 - Up uses readable, customizable keywords
   =======================================
@@ -28,14 +25,19 @@ Up isn't the first [markup language] (wikipedia.org/wiki/Markup_language) that c
   If you're a software developer, you can provide multiple custom variations for each keyword! For more information, see [topic: customizing keywords].
 
 - Up offers a flexible, forgiving syntax
-  ======================================
+  ====================================== 
 
   - Up recognizes [topic: numbered lists] that count backwards
   - Up allows unlimited [topic: heading levels]
   - Up even supports [topic: overlapping]
-
-  At every turn, Up is designed for humans to read and write, not for computers to process and parse.
   
+  At every turn, Up is designed for humans to read and write, not for computers to process and parse.
+
+- Up produces fully accessible HTML
+  =================================
+
+   From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
+
 
 =================
 Why *not* use Up?
@@ -281,77 +283,6 @@ Discussion
 
   These rules also apply when [topic: linkifying].
 
-
-=============
-Section links
-=============
-
-Use the section link convention to link another section (heading) in your document.
-
-Example
-  Markup
-    ````
-    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
-    ````
-
-  Output
-    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
-
-Discussion
-  To produce a section link:
-  
-  1. Choose a snippet of text from the heading you want to link to
-  2. Enclose the snippet within square brackets or parentheses
-  3. Insert `topic:` or `section:` directly inside your opening bracket
-  
-  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
-
-
-  How does Up choose which heading matches your section link?
-  ===========================================================
-
-  Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.
-
-  ---------------------------------------
-  Up ignores the heading's capitalization
-  ---------------------------------------
-  
-  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
-
-  Markup
-    ````
-    Please see [topic: toothpaste].
-
-    TOOTHPASTE
-    ~~~~~~~~~~
-    ````
-  
-  Output
-    Please see [topic: toothpaste].
-
-    TOOTHPASTE
-    ~~~~~~~~~~
-
-  --------------------------------------------------------
-  Up ignores any inline writing conventions in the heading
-  --------------------------------------------------------
-  
-  If your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match. 
-
-  Markup
-    ````
-    Please see [topic: everyone loves toothpaste].
-
-    Everyone *loves* toothpaste
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ````
-  
-  Output
-    Please see [topic: everyone loves toothpaste].
-
-    Everyone *loves* toothpaste
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
   
 ================================================
 Parentheticals (parentheses and square brackets)
@@ -533,6 +464,151 @@ Discussion
 
   Output
     `` (`inline_code`) ``
+
+
+========
+Headings
+========
+
+Use the heading convention to introduce a new section in the document.
+
+Example
+  Markup
+    ````
+    Why I love breakfast cereal
+    ===========================
+    ````
+
+  Output
+    Why I love breakfast cereal
+    ===========================
+
+Discussion
+  If text is underlined, it's treated as a heading. The underline can consist of any combination of the following characters:
+
+  - Hyphens: `-`
+  - Number signs: `#`
+  - Equal signs: `=`
+  - Plus signs: `+`
+  - Tildes: `~`
+  - Colons: `:`
+  - Asterisks: `*`
+  - At signs: `@`
+
+  A heading's underline must be at least three characters long, but it does *not* need to be the same length as the text of the heading.
+  
+  Markup
+    ````
+    Why I hate bagels
+    ===
+    ````
+
+  Output
+    Why I hate bagels
+    ===
+
+  
+  Heading levels
+  ==============
+
+  The first heading in a document is always a top-level heading. All subsequent headings with underlines consisting of the same characters are considered top-level.
+
+  The first heading with a different combination of underline characters is considered a second-level heading. Unsurprisingly, all subsequent headings with underlines consisting of the same characters are also considered second-level.
+
+  This process continues _ad infinitum_. Every new combination of heading underline characters introduces a new heading level. There is no limit to the number of heading levels in a document.
+
+
+  Headings with "overlines"
+  =========================
+
+  A heading can have an optional "overline", but its overline must consist of the same combination of characters as its underline.
+
+  Markup
+    ````
+    ---------------------------------
+    Reasons never to own a pet parrot
+    ---------------------------------
+    ````
+
+  Output
+    ---------------------------------
+    Reasons never to own a pet parrot
+    ---------------------------------
+
+  For the purpose of determining heading levels, a heading with an overline is always considered distinct from a heading without one, even if both headings use the same combination of underline characters.
+  
+  Therefore, a heading with an overline will never have the same level as a heading without an overline.
+
+
+=============
+Section links
+=============
+
+Use the section link convention to link another section (heading) in your document.
+
+Example
+  Markup
+    ````
+    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+    ````
+
+  Output
+    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+
+Discussion
+  To produce a section link:
+  
+  1. Choose a snippet of text from the heading you want to link to
+  2. Enclose the snippet within square brackets or parentheses
+  3. Insert `topic:` or `section:` directly inside your opening bracket
+  
+  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
+
+
+  How does Up choose which heading matches your section link?
+  ===========================================================
+
+  Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.
+
+  ---------------------------------------
+  Up ignores the heading's capitalization
+  ---------------------------------------
+  
+  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
+
+  Markup
+    ````
+    Please see [topic: toothpaste].
+
+    TOOTHPASTE
+    ----------
+    ````
+  
+  Output
+    Please see [topic: toothpaste].
+
+    TOOTHPASTE
+    ----------
+
+  --------------------------------------------------------
+  Up ignores any inline writing conventions in the heading
+  --------------------------------------------------------
+  
+  If your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match. 
+
+  Markup
+    ````
+    Please see [topic: everyone loves toothpaste].
+
+    Everyone *loves* toothpaste
+    ---------------------------
+    ````
+  
+  Output
+    Please see [topic: everyone loves toothpaste].
+
+    Everyone *loves* toothpaste
+    ---------------------------
 
 
 =========
@@ -965,8 +1041,8 @@ A thematic break can *also* be represented by a line consisting of three or more
 - Plus signs: `+`
 - Tildes: `~`
 - Colons: `:`
-- Asterisks `*`
-- At signs `@`
+- Asterisks: `*`
+- At signs: `@`
 
 You can use any combination of those characters!
 
@@ -974,7 +1050,7 @@ Markup
   ````
   I vowed never to eat apples again.
 
-  ----------------------
+  =~=~=~=~=~=~=~=~=~=~=
 
   By mid-March, a second flock of birds had moved into my dining room.
   ````
@@ -982,7 +1058,7 @@ Markup
 Output
   I vowed never to eat apples again.
 
-  ----------------------
+  =~=~=~=~=~=~=~=~=~=~=
 
   By mid-March, a second flock of birds had moved into my dining room.
 
@@ -1855,7 +1931,7 @@ Usage
 
 This method converts inline Up markup into inline HTML and returns the result.
 
-For more information about inline documents, see [topic: Up.Inline documents].
+For more information about inline documents, see [topic: inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -1925,7 +2001,7 @@ Usage
 
 This method parses inline Up markup and returns the resulting inline syntax tree.
 
-For more information about inline documents, see [topic: Up.Inline documents].
+For more information about inline documents, see [topic: inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -2025,7 +2101,7 @@ Usage
 
 This method converts an inline syntax tree into inline HTML and returns the result.
 
-For more information about inline documents, see [topic: Up.Inline documents].
+For more information about inline documents, see [topic: inline documents].
 
 Arguments
   `inlineDocument`: [topic: Up.InlineDocument]
@@ -2064,7 +2140,7 @@ All functions accept custom settings!
 For a full description of Up's functions, see [topic: functions].
 
 
-`UserProvidedSettings`
+`Up.UserProvidedSettings`
 ======================
 
 Summary
@@ -2097,7 +2173,7 @@ Usage
   ````
 
 
-`UserProvidedSettings.Parsing`
+`Up.UserProvidedSettings.Parsing`
 ==============================
 
 Summary
@@ -2324,8 +2400,8 @@ Default
   `"…"`
 
 
-`UserProvidedSettings.Rendering`
-============================================
+`Up.UserProvidedSettings.Rendering`
+===================================
 
 Summary
   The `UserProvidedSettings.Parsing` interface includes all rendering settings.
@@ -2394,13 +2470,13 @@ Rendering settings
 Summary
   If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
 
-  By default, `idPrefix` is "up" to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.
+  By default, `idPrefix` is `up` to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.
 
 Usage
   ````
   const html = Up.parseAndRender(markup, {
     rendering: {
-      idPrefix: "article",
+      idPrefix: "article"
     }
   })
   ````
