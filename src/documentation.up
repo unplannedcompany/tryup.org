@@ -25,12 +25,12 @@ Why use Up instead of another markup language?
   If you're a software developer, you can provide multiple custom variations for each keyword! For more information, see [topic: customizing keywords].
 
 - Up offers a flexible, forgiving syntax
-  ====================================== 
+  ======================================
 
-  - Up recognizes [topic: numbered lists] that count backwards
-  - Up allows unlimited [topic: heading levels]
-  - Up even supports [topic: overlapping]
-  
+  * Up recognizes [topic: numbered lists] that count backwards
+  * Up isn't picky about which brackets you use for [topic: links]
+  * Up even supports [topic: overlapping]
+
   At every turn, Up is designed for humans to read and write, not for computers to process and parse.
 
 - Up produces fully accessible HTML
@@ -48,8 +48,8 @@ Why *not* use Up?
 
   So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start).
 
-  In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.  
-  
+  In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
+
 - You need speed
   ==============
 
@@ -59,8 +59,8 @@ Why *not* use Up?
   =========================================
 
   Some markup languages allow authors to embed HTML in their markup. Up does not.
-  
- 
+
+
 
 ############################
 Writing conventions (syntax)
@@ -268,7 +268,7 @@ Discussion
 
   Output
     Warlocked is the best game for GameBoy [sic] (other than Pokémon).
-  
+
   To make it clear that you do intend to produce a link, omit the space between your link's content and its URL.
 
   Markup
@@ -283,7 +283,7 @@ Discussion
 
   These rules also apply when [topic: linkifying].
 
-  
+
 ================================================
 Parentheticals (parentheses and square brackets)
 ================================================
@@ -388,7 +388,7 @@ Discussion
   Output
     Press { Start Game(s) } when you are ready.
 
-  Within example input, most conventions are ignored. However, [topic: typographical conventions] are respected, as is [topic: disabling].
+  Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are recognized, as is [topic: disabling].
 
 
 ===========
@@ -411,33 +411,43 @@ Example
 Discussion
   To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
 
-  Within your inline code, every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
+  Within your inline code, text is treated literally. Only one inline writing convention is recognized: [topic: disabling].
 
 
   Including backticks in your inline code
   =======================================
 
-  Inline code can contain streaks of backticks that aren't exactly as long as the enclosing delimiters.
+  Within inline code, backticks can be escaped with a backslash.
+
+  Markup
+    ````
+    `let output = \`score:\` + 5`
+    ````
+
+  Output
+    `let output = \`score:\` + 5`
+
+  Alternatively, inline code can also contain streaks of *unescaped* backticks that aren't exactly as long as the delimiters.
 
   In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:
 
   Markup
     ````
-    `let display = ``score:`` + 5`
+    `let output = ``score:`` + 5`
     ````
 
   Output
-    `let display = ``score:`` + 5`
+    `let output = ``score:`` + 5`
 
   In this example, the delimiters are **2** backticks long, so the inline code can contain "streaks" of **1** backtick:
 
   Markup
     ````
-    ``let display = `score:` + 5``
+    ``let output = `score:` + 5``
     ````
 
   Output
-    ``let display = `score:` + 5``
+    ``let output = `score:` + 5``
 
   ---------------------------------------------------
   But my inline code starts (or ends) with backticks!
@@ -496,7 +506,7 @@ Discussion
   - At signs: `@`
 
   A heading's underline must be at least three characters long, but it does *not* need to be the same length as the text of the heading.
-  
+
   Markup
     ````
     Why I hate bagels
@@ -507,7 +517,7 @@ Discussion
     Why I hate bagels
     ===
 
-  
+
   Heading levels
   ==============
 
@@ -536,7 +546,7 @@ Discussion
     ---------------------------------
 
   For the purpose of determining heading levels, a heading with an overline is always considered distinct from a heading without one, even if both headings use the same combination of underline characters.
-  
+
   Therefore, a heading with an overline will never have the same level as a heading without an overline.
 
 
@@ -557,12 +567,12 @@ Example
 
 Discussion
   To produce a section link:
-  
+
   1. Choose a snippet of text from the heading you want to link to
   2. Enclose the snippet within square brackets or parentheses
   3. Insert `topic:` or `section:` directly inside your opening bracket
-  
-  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you. 
+
+  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you.
 
 
   How does Up choose which heading matches your section link?
@@ -573,7 +583,7 @@ Discussion
   ---------------------------------------
   Up ignores the heading's capitalization
   ---------------------------------------
-  
+
   If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
 
   Markup
@@ -583,7 +593,7 @@ Discussion
     TOOTHPASTE
     ----------
     ````
-  
+
   Output
     Please see [topic: toothpaste].
 
@@ -593,8 +603,8 @@ Discussion
   --------------------------------------------------------
   Up ignores any inline writing conventions in the heading
   --------------------------------------------------------
-  
-  If your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match. 
+
+  If your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match.
 
   Markup
     ````
@@ -603,7 +613,7 @@ Discussion
     Everyone *loves* toothpaste
     ---------------------------
     ````
-  
+
   Output
     Please see [topic: everyone loves toothpaste].
 
@@ -629,17 +639,16 @@ Example
     Pokémon Red begins in Pallet Town, [^ "Pallet" is probably a misspelling of "palette"] where Professor Oak gives Red his first Pokémon.
 
 Discussion
-  Enclose the content of the footnote within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
+  To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
 
-Notes
-  Footnote in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
+  Footnotes in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
 
 
-======
-Images
-======
+================================
+Media (images, audio, and video)
+================================
 
-Use the image convention to include an image in your document.
+Up allows you to include images, audio, or video in your document.
 
 Example
   Markup
@@ -651,59 +660,29 @@ Example
     [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)
 
 Discussion
-  The image convention consist of two parts: a description (starting with `image:`) and a URL.
-
-  To produce an image, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
-
-  You can use mix and match either type of bracket---they're totally interchangeable.
-
-  If you want to link your image to another page, please see [topic: linkifying].
-
-
-=====
-Audio
-=====
-
-Use the audio convention to include playable audio in your document.
-
-Example
-  Markup
-    ````
-    [audio: game over theme from Infinity] (upload.wikimedia.org/wikipedia/commons/8/82/Chiptune2.ogg)
-    ````
-
-  Output
-    [audio: chiptune] (upload.wikimedia.org/wikipedia/commons/8/82/Chiptune2.ogg)
-
-Discussion
-  The audio convention consist of two parts: a description (starting with `audio:`) and a URL.
-
-  To include playable audio in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+  To include media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
   You can use mix and match either type of bracket---they're totally interchangeable.
 
 
-=====
-Video
-=====
+  Media descriptions
+  ==================
 
-Use the video convention to include a video in your document.
+  Media descriptions **always** start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
 
-Example
-  Markup
-    ````
-    [video: moving train] (upload.wikimedia.org/wikipedia/commons/8/87/Schlossbergbahn.webm)
-    ````
+  Within media descriptions, [topic: typographical writing conventions] are recognized, as is [topic: disabling]. But other inline writing conventions are not recognized---you can't include revealable content or links, for example.
 
-  Output
-    [video: moving train] (upload.wikimedia.org/wikipedia/commons/8/87/Schlossbergbahn.webm)
 
-Discussion
-  The video convention consist of two parts: a description (starting with `video:`) and a URL.
+  Media URLs
+  ==========
 
-  To include playable video in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+  As demonstrated above, you can omit the [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax) for media. If you do, Up assumes the URL scheme is `https://`.
 
-  You can use mix and match either type of bracket---they're totally interchangeable.
+  If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
+
+  - [topic: baseForUrlsStartingWithSlash]
+  - [topic: baseForUrlsStartingWithHashMark]
+  - [topic: renderDangerousContent].
 
 
 ==================
@@ -744,7 +723,7 @@ Discussion
 Revealable blocks
 ==================
 
-Use revealable block convention to hide a block of content. 
+Use revealable block convention to hide a block of content.
 
 When you want to hide content within a paragraph, use [topic: inline revealables] instead.
 
@@ -772,7 +751,7 @@ Example
       3. Rhydon
 
 Discussion
-  To hide a block of content, first indent it two spaces (or a tab). Then, on the line before your indented block, put one of the [topic: revealable keywords]. 
+  To hide a block of content, first indent it two spaces (or a tab). Then, on the line before your indented block, put one of the [topic: revealable keywords].
 
   In the example above, the keyword is followed by a colon. This isn't necessary.
 
@@ -809,7 +788,7 @@ Both [topic: inline revealables] and [topic: revealable blocks] recognize any of
 - `nsfl`
 - `revealable`
 
-Like all keywords in Up, you can capitalize these keywords however you want. 
+Like all keywords in Up, you can capitalize these keywords however you want.
 
 
 ===========
@@ -885,7 +864,7 @@ Example
     Super Mario Land
       A video game about a jumping plumber.
     ````
-  
+
   Output
     Kirby's Dreamland
       A video game about a flying marshmallow.
@@ -895,7 +874,7 @@ Example
 
 Discussion
   Every item in a description list consists of two parts:
-  
+
   1. One or more subjects
   2. A single description of those subjects
 
@@ -913,7 +892,7 @@ Discussion
     Gary "Smell You Later" Oak
       A ten year-old Pokémon trainer with a keen nose.
     ````
-  
+
   Output
     Ash *Ketchum*
       A ten year-old Pokémon trainer with an odd name.
@@ -930,7 +909,7 @@ Discussion
     Game Boy Color
       Handheld videogame systems released by Nintendo in the 1990s.
     ````
-  
+
   Output
     Game Boy Light
     Game Boy Pocket
@@ -962,7 +941,7 @@ Discussion
         0.6 m
       Weight
         8.5 kg
-  
+
   Output
     Bulbasaur
       A plant Pokémon with a bulb growing from its back.
@@ -989,25 +968,25 @@ Discussion
     Strawberry
       A red fruit.
 
-  
+
     Bulbasaur
       A green Pokémon.
     Charmander
       A red Pokémon.
     ````
-  
+
   Output
     Lime
       A green fruit.
     Strawberry
       A red fruit.
 
-  
+
     Bulbasaur
       A green Pokémon.
     Charmander
       A red Pokémon.
-  
+
 
 ===============
 Thematic breaks
@@ -1318,7 +1297,7 @@ Discussion
 
   Up automatically recognizes when a numbered list is in descending order.
 
-  If a numered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order. 
+  If a numered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order.
 
   Markup
     ````
@@ -1358,9 +1337,9 @@ Discussion
   ````
 
 
-=========================
-Typographical conventions
-=========================
+=================================
+Typographical writing conventions
+=================================
 
 Consecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character.
 
@@ -1435,7 +1414,7 @@ Discussion
   - An optional header column, describing each row
 
   Table cells are separated by semicolons. For more information, see [topic: cells].
-  
+
   To make our markup more readable, our examples use extra spaces to align cells This is strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
 
   Squished markup
@@ -1458,7 +1437,7 @@ Discussion
     Lemon;Yellow;Sour
     Banana;Yellow;Sweet
 
-  
+
   The caption
   ===========
 
@@ -1466,7 +1445,7 @@ Discussion
 
   Markup
     ````
-    Table: My **least** favorite fruits
+    Table: My *least* favorite fruits
 
     Fruit;      Color;      Taste
 
@@ -1476,7 +1455,7 @@ Discussion
     ````
 
   Output
-    Table: My **least** favorite fruits
+    Table: My *least* favorite fruits
 
     Fruit;      Color;      Taste
 
@@ -1484,7 +1463,7 @@ Discussion
     Lemon;      Yellow;     Sour
     Banana;     Yellow;     Sweet
 
-  Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put "Table" on its own line. 
+  Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put "Table" on its own line.
 
   Markup
     ````
@@ -1565,7 +1544,7 @@ Discussion
   -----------
   Empty cells
   -----------
-  
+
   A cell consisting solely of spaces (one or more) is considered empty.
 
   Normally, you have to put at least one space in the cell, because consecutive semicolons indicate that you want the previous cell to span multiple columns.
@@ -1576,10 +1555,10 @@ Discussion
     ````
     Table: Games in the Chrono series
 
-    Release Date;       Game;               
+    Release Date;       Game;
 
-    March 11, 1995;     Chrono Trigger     
-    November 18, 1999;  Chrono Cross     
+    March 11, 1995;     Chrono Trigger
+    November 18, 1999;  Chrono Cross
     ;                   Chrono Break
     ````
 
@@ -1591,8 +1570,8 @@ Discussion
     Chrono Trigger;     March 11, 1995
     Chrono Cross;       November 18, 1999
     Chrono Break;
-  
-  Likewise, to indicate that the *last* cell in a row should be empty, simply end that row with a semicolon. You don't need to add any spaces after it.  
+
+  Likewise, to indicate that the *last* cell in a row should be empty, simply end that row with a semicolon. You don't need to add any spaces after it.
 
   Markup
     ````
@@ -1619,9 +1598,9 @@ Discussion
   ==============
 
   The header defines each column in the table.
-  
-  The single blank lines before and after the header are not required. 
-  
+
+  The single blank lines before and after the header are not required.
+
   Markup
     ````
     Table: Moves learned by the Pokémon Bulbasaur
@@ -1646,8 +1625,8 @@ Discussion
   Content rows
   ============
 
-  The "content rows" of a table follow its header row. The content rows contain the table's actual data.  
-  
+  The "content rows" of a table follow its header row. The content rows contain the table's actual data.
+
   If a content row is followed by a blank line, it ends the table.
 
   Markup
@@ -1662,7 +1641,7 @@ Discussion
     9;      Vine Whip;    Grass;    45;     100%
 
     With moves *that* exciting, I had to choose Bulbasaur!
-     
+
     ````
 
   Output
@@ -1673,8 +1652,8 @@ Discussion
     1;      Tackle;       Normal;   50;     100%
     3;      Growl;        Normal;   ;       100%
     7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100% 
-  
+    9;      Vine Whip;    Grass;    45;     100%
+
     With moves *that* exciting, I had to choose Bulbasaur!
 
   Content row cells can contain any inline writing convention.
@@ -1688,7 +1667,7 @@ Discussion
   Markup
     ````
     Table: Moves learned by the Pokémon Bulbasaur
- 
+
                   Level;    Type;     Power;  Accuracy
 
     Tackle;       1;        Normal;   50;     100%
@@ -1699,7 +1678,7 @@ Discussion
 
   Output
     Table: Moves learned by the Pokémon Bulbasaur
- 
+
                   Level;    Type;     Power;  Accuracy
 
     Tackle;       1;        Normal;   50;     100%
@@ -1707,7 +1686,7 @@ Discussion
     Leech Seed;   7;        Grass;    ;       90%
     Vine Whip;    9;        Grass;    45;     100%
 
-  
+
 When your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row (in the top level corner, above the header column).
 
 
@@ -1727,7 +1706,7 @@ Output
 
 That's a lot of brackets! Luckily, there's a shortcut.
 
-Simply place the "linkifying" URL after the image's own URL, and Up will produce a link for you. 
+Simply place the "linkifying" URL after the image's own URL, and Up will produce a link for you.
 
 Cleaner markup
   ````
@@ -1736,7 +1715,7 @@ Cleaner markup
 
 Output
   [image: DuckDuckGo's logo] [duckduckgo.com/assets/dax-alt.svg] (duckduckgo.com)
-  
+
 This shortcut also works for the following conventions:
 
 - [topic: Highlighting]
@@ -1760,11 +1739,11 @@ In Up, inline writing conventions can freely overlap.
 
 Markup
   ````
-  Mr. Turnip, I do **not [care** at](wikipedia.org/wiki/Carrot) all.
+  Mr. Turnip, I do ***not [care*** at](wikipedia.org/wiki/Carrot) all.
   ````
 
 Output
-  Mr. Turnip, I do **not [care** at](wikipedia.org/wiki/Carrot) all.
+  Mr. Turnip, I do ***not [care*** at](wikipedia.org/wiki/Carrot) all.
 
 
 Superficial overlapping
@@ -2784,14 +2763,14 @@ Notes
 
 Purpose
   All syntax node classes must implement this interface.
-  
+
 Members
   `inlineDescendants` method
     Return type: array of [topic: Up.InlineSyntaxNode]
       This method returns all inline descendants (including children, grandchildren, etc.).
 
 Notes
-  This interface also has a `render` method, but it isn't relevant to developers using the Up library. 
+  This interface also has a `render` method, but it isn't relevant to developers using the Up library.
 
 
 `Up.InlineSyntaxNode`
@@ -2801,7 +2780,7 @@ Purpose
   Inline syntax node classes must implement this interface.
 
 Extends
-  [topic: Up.SyntaxNode] 
+  [topic: Up.SyntaxNode]
 
 Unique members
   `textAppearingInline` method
@@ -3224,7 +3203,7 @@ Unique members
 ========================
 
 Convention
-  [topic: Parentheticals] produced by regular parentheses
+  [topic: Parentheses]
 
 Extends
   [topic: Up.ParentheticalSyntaxNode]
@@ -3321,7 +3300,7 @@ Unique members
 ========================
 
 Convention
-  [topic: Parentheticals] produced by square brackets
+  [topic: Square brackets]
 
 Extends
   [topic: Up.ParentheticalSyntaxNode]
@@ -3418,7 +3397,7 @@ Unique members
   `headerColumnCell`: [topic: Up.Table.Header.Cell]
     The single header column cell for this row, if there is one.
 
-    Tables without header columns never have header column cells. 
+    Tables without header columns never have header column cells.
 
   `allCellsStartingWithHeaderColumnCell` method
     Return type: array of [topic: Up.Table.Cell]
