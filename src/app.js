@@ -1,6 +1,7 @@
 import 'normalize.css'
 import './style/lib/codemirror.css'
-import './style/app.scss'
+import './style/layout.scss'
+import './style/animation.scss'
 import configureEditor from './configureEditor'
 
 

@@ -1,0 +1,31 @@
+body {
+  display: flex;
+  flex-flow: wrap row-reverse;
+  height: 100vh;
+}
+
+#document-container,
+#editor-container {
+  overflow-y: scroll;
+}
+
+#document-container {
+  background: lightblue;
+  flex-basis: 0;
+  flex-grow: 1.5;
+  padding: 0 15px;
+  height: 100vh;
+}
+
+#editor-container {
+  flex-basis: 0;
+  flex-grow: 1;
+    
+  .CodeMirror {
+    height: 100vh;
+  }
+}
+
+#table-of-contents-container {
+  display: none
+}

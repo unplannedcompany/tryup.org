@@ -1,0 +1,17 @@
+@mixin dirty {
+  opacity: 0.5;
+	transition: 0.5s;
+}
+
+@keyframes clean {
+  0% { @include dirty }
+  100% { opacity: 1 }
+}
+
+.dirty, {
+	@include dirty;
+}
+
+.clean {
+	animation: 0.2s clean;
+}

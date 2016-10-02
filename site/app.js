@@ -52,7 +52,9 @@
 
 	__webpack_require__(7);
 
-	var _configureEditor = __webpack_require__(9);
+	__webpack_require__(9);
+
+	var _configureEditor = __webpack_require__(11);
 
 	var _configureEditor2 = _interopRequireDefault(_configureEditor);
 
@@ -468,8 +470,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./app.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./app.scss");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./layout.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./layout.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -487,13 +489,53 @@
 
 
 	// module
-	exports.push([module.id, "/* Initially, we assume we're dealing with a narrow screan. */\nbody {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap column;\n      flex-flow: wrap column;\n  height: 100vh; }\n\n#table-of-contents-container {\n  display: none; }\n\n@keyframes clean {\n  0% {\n    opacity: 0.5;\n    transition: 0.5s; }\n  100% {\n    opacity: 1; } }\n\n.dirty {\n  opacity: 0.5;\n  transition: 0.5s; }\n\n.clean {\n  animation: 0.2s clean; }\n\n/* TODO: Clean up */\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container,\n#editor-container {\n  max-width: 100vw; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 40%;\n      flex-basis: 40%;\n  -ms-flex-positive: 2.5;\n      flex-grow: 2.5;\n  padding: 0 15px; }\n\n#editor-container {\n  -ms-flex-preferred-size: 60%;\n      flex-basis: 60%;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n\n@media (orientation: landscape) and (min-width: 850px) {\n  body {\n    -ms-flex-direction: row-reverse;\n        flex-direction: row-reverse; }\n  #document-container {\n    -ms-flex-preferred-size: 400px;\n        flex-basis: 400px;\n    height: 100vh; }\n  #editor-container {\n    -ms-flex-preferred-size: 450px;\n        flex-basis: 450px;\n    -ms-flex-positive: 1;\n        flex-grow: 1; }\n    #editor-container .CodeMirror {\n      height: 100vh; } }\n", ""]);
+	exports.push([module.id, "body {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-flow: wrap row-reverse;\n      flex-flow: wrap row-reverse;\n  height: 100vh; }\n\n#document-container,\n#editor-container {\n  overflow-y: scroll; }\n\n#document-container {\n  background: lightblue;\n  -ms-flex-preferred-size: 0;\n      flex-basis: 0;\n  -ms-flex-positive: 1.5;\n      flex-grow: 1.5;\n  padding: 0 15px;\n  height: 100vh; }\n\n#editor-container {\n  -ms-flex-preferred-size: 0;\n      flex-basis: 0;\n  -ms-flex-positive: 1;\n      flex-grow: 1; }\n  #editor-container .CodeMirror {\n    height: 100vh; }\n\n#table-of-contents-container {\n  display: none; }\n", ""]);
 
 	// exports
 
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(10);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./animation.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/sass-loader/index.js!./animation.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "@keyframes clean {\n  0% {\n    opacity: 0.5;\n    transition: 0.5s; }\n  100% {\n    opacity: 1; } }\n\n.dirty {\n  opacity: 0.5;\n  transition: 0.5s; }\n\n.clean {\n  animation: 0.2s clean; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -503,19 +545,19 @@
 	});
 	exports.default = configureEditor;
 
-	var _codemirror = __webpack_require__(10);
+	var _codemirror = __webpack_require__(12);
 
 	var _codemirror2 = _interopRequireDefault(_codemirror);
 
-	var _writeUp = __webpack_require__(11);
+	var _writeUp = __webpack_require__(13);
 
 	var Up = _interopRequireWildcard(_writeUp);
 
-	var _debounce = __webpack_require__(104);
+	var _debounce = __webpack_require__(106);
 
 	var _debounce2 = _interopRequireDefault(_debounce);
 
-	var _throttle = __webpack_require__(105);
+	var _throttle = __webpack_require__(107);
 
 	var _throttle2 = _interopRequireDefault(_throttle);
 
@@ -543,7 +585,7 @@
 
 	function configureEditor(editorContainer, documentContainer, tableOfContentsContainer) {
 	  var codeMirror = (0, _codemirror2.default)(editorContainer, {
-	    value: __webpack_require__(106),
+	    value: __webpack_require__(108),
 	    lineNumbers: true,
 	    lineWrapping: true
 	  });
@@ -764,7 +806,7 @@
 	}
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -9734,11 +9776,11 @@
 
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Transformer_1 = __webpack_require__(12);
+	var Transformer_1 = __webpack_require__(14);
 	var up = new Transformer_1.Transformer();
 	function parseAndRender(markup, settings) {
 	    return up.parseAndRender(markup, settings);
@@ -9772,96 +9814,96 @@
 	    return up.renderInline(inlineDocument, renderingSettings);
 	}
 	exports.renderInline = renderInline;
-	var Transformer_2 = __webpack_require__(12);
+	var Transformer_2 = __webpack_require__(14);
 	exports.Transformer = Transformer_2.Transformer;
-	var Document_1 = __webpack_require__(19);
+	var Document_1 = __webpack_require__(21);
 	exports.Document = Document_1.Document;
-	var InlineDocument_1 = __webpack_require__(99);
+	var InlineDocument_1 = __webpack_require__(101);
 	exports.InlineDocument = InlineDocument_1.InlineDocument;
-	var Audio_1 = __webpack_require__(61);
+	var Audio_1 = __webpack_require__(63);
 	exports.Audio = Audio_1.Audio;
-	var Blockquote_1 = __webpack_require__(87);
+	var Blockquote_1 = __webpack_require__(89);
 	exports.Blockquote = Blockquote_1.Blockquote;
-	var Bold_1 = __webpack_require__(51);
+	var Bold_1 = __webpack_require__(53);
 	exports.Bold = Bold_1.Bold;
-	var CodeBlock_1 = __webpack_require__(89);
+	var CodeBlock_1 = __webpack_require__(91);
 	exports.CodeBlock = CodeBlock_1.CodeBlock;
-	var DescriptionList_1 = __webpack_require__(28);
+	var DescriptionList_1 = __webpack_require__(30);
 	exports.DescriptionList = DescriptionList_1.DescriptionList;
-	var Emphasis_1 = __webpack_require__(48);
+	var Emphasis_1 = __webpack_require__(50);
 	exports.Emphasis = Emphasis_1.Emphasis;
-	var ExampleInput_1 = __webpack_require__(81);
+	var ExampleInput_1 = __webpack_require__(83);
 	exports.ExampleInput = ExampleInput_1.ExampleInput;
-	var Footnote_1 = __webpack_require__(30);
+	var Footnote_1 = __webpack_require__(32);
 	exports.Footnote = Footnote_1.Footnote;
-	var FootnoteBlock_1 = __webpack_require__(29);
+	var FootnoteBlock_1 = __webpack_require__(31);
 	exports.FootnoteBlock = FootnoteBlock_1.FootnoteBlock;
-	var Heading_1 = __webpack_require__(21);
+	var Heading_1 = __webpack_require__(23);
 	exports.Heading = Heading_1.Heading;
-	var Highlight_1 = __webpack_require__(52);
+	var Highlight_1 = __webpack_require__(54);
 	exports.Highlight = Highlight_1.Highlight;
-	var Image_1 = __webpack_require__(63);
+	var Image_1 = __webpack_require__(65);
 	exports.Image = Image_1.Image;
-	var InlineCode_1 = __webpack_require__(80);
+	var InlineCode_1 = __webpack_require__(82);
 	exports.InlineCode = InlineCode_1.InlineCode;
-	var InlineQuote_1 = __webpack_require__(54);
+	var InlineQuote_1 = __webpack_require__(56);
 	exports.InlineQuote = InlineQuote_1.InlineQuote;
-	var InlineRevealable_1 = __webpack_require__(53);
+	var InlineRevealable_1 = __webpack_require__(55);
 	exports.InlineRevealable = InlineRevealable_1.InlineRevealable;
-	var Italics_1 = __webpack_require__(50);
+	var Italics_1 = __webpack_require__(52);
 	exports.Italics = Italics_1.Italics;
-	var LineBlock_1 = __webpack_require__(35);
+	var LineBlock_1 = __webpack_require__(37);
 	exports.LineBlock = LineBlock_1.LineBlock;
-	var Link_1 = __webpack_require__(58);
+	var Link_1 = __webpack_require__(60);
 	exports.Link = Link_1.Link;
-	var NormalParenthetical_1 = __webpack_require__(57);
+	var NormalParenthetical_1 = __webpack_require__(59);
 	exports.NormalParenthetical = NormalParenthetical_1.NormalParenthetical;
-	var OrderedList_1 = __webpack_require__(36);
+	var OrderedList_1 = __webpack_require__(38);
 	exports.OrderedList = OrderedList_1.OrderedList;
-	var Paragraph_1 = __webpack_require__(96);
+	var Paragraph_1 = __webpack_require__(98);
 	exports.Paragraph = Paragraph_1.Paragraph;
-	var RevealableBlock_1 = __webpack_require__(33);
+	var RevealableBlock_1 = __webpack_require__(35);
 	exports.RevealableBlock = RevealableBlock_1.RevealableBlock;
-	var SectionLink_1 = __webpack_require__(25);
+	var SectionLink_1 = __webpack_require__(27);
 	exports.SectionLink = SectionLink_1.SectionLink;
-	var SquareParenthetical_1 = __webpack_require__(55);
+	var SquareParenthetical_1 = __webpack_require__(57);
 	exports.SquareParenthetical = SquareParenthetical_1.SquareParenthetical;
-	var Stress_1 = __webpack_require__(49);
+	var Stress_1 = __webpack_require__(51);
 	exports.Stress = Stress_1.Stress;
-	var Table_1 = __webpack_require__(38);
+	var Table_1 = __webpack_require__(40);
 	exports.Table = Table_1.Table;
-	var Text_1 = __webpack_require__(78);
+	var Text_1 = __webpack_require__(80);
 	exports.Text = Text_1.Text;
-	var ThematicBreak_1 = __webpack_require__(42);
+	var ThematicBreak_1 = __webpack_require__(44);
 	exports.ThematicBreak = ThematicBreak_1.ThematicBreak;
-	var UnorderedList_1 = __webpack_require__(37);
+	var UnorderedList_1 = __webpack_require__(39);
 	exports.UnorderedList = UnorderedList_1.UnorderedList;
-	var Video_1 = __webpack_require__(64);
+	var Video_1 = __webpack_require__(66);
 	exports.Video = Video_1.Video;
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
 	exports.InlineSyntaxNodeContainer = InlineSyntaxNodeContainer_1.InlineSyntaxNodeContainer;
-	var MediaSyntaxNode_1 = __webpack_require__(62);
+	var MediaSyntaxNode_1 = __webpack_require__(64);
 	exports.MediaSyntaxNode = MediaSyntaxNode_1.MediaSyntaxNode;
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(22);
 	exports.OutlineSyntaxNodeContainer = OutlineSyntaxNodeContainer_1.OutlineSyntaxNodeContainer;
-	var ParentheticalSyntaxNode_1 = __webpack_require__(56);
+	var ParentheticalSyntaxNode_1 = __webpack_require__(58);
 	exports.ParentheticalSyntaxNode = ParentheticalSyntaxNode_1.ParentheticalSyntaxNode;
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	exports.RichInlineSyntaxNode = RichInlineSyntaxNode_1.RichInlineSyntaxNode;
-	var RichOutlineSyntaxNode_1 = __webpack_require__(34);
+	var RichOutlineSyntaxNode_1 = __webpack_require__(36);
 	exports.RichOutlineSyntaxNode = RichOutlineSyntaxNode_1.RichOutlineSyntaxNode;
 	exports.VERSION = '25.0.0';
 	//# sourceMappingURL=Up.js.map
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Settings_1 = __webpack_require__(13);
-	var parse_1 = __webpack_require__(18);
-	var parseInline_1 = __webpack_require__(98);
-	var HtmlRenderer_1 = __webpack_require__(100);
+	var Settings_1 = __webpack_require__(15);
+	var parse_1 = __webpack_require__(20);
+	var parseInline_1 = __webpack_require__(100);
+	var HtmlRenderer_1 = __webpack_require__(102);
 	var Transformer = (function () {
 	    function Transformer(settings) {
 	        this.settings = new Settings_1.Settings(settings);
@@ -9923,13 +9965,13 @@
 	//# sourceMappingURL=Transformer.js.map
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternPieces_1 = __webpack_require__(14);
-	var Patterns_1 = __webpack_require__(16);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var PatternPieces_1 = __webpack_require__(16);
+	var Patterns_1 = __webpack_require__(18);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var Settings = (function () {
 	    function Settings(settings) {
 	        this.parsing = new Settings.Parsing();
@@ -10178,11 +10220,11 @@
 	//# sourceMappingURL=Settings.js.map
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternHelpers_1 = __webpack_require__(17);
 	exports.INLINE_WHITESPACE_CHAR = PatternHelpers_1.anyCharNotMatching('\\S', '\\r', '\\n');
 	exports.WHITESPACE_CHAR = '\\s';
 	exports.ANY_WHITESPACE = PatternHelpers_1.everyOptional(exports.WHITESPACE_CHAR);
@@ -10199,7 +10241,7 @@
 	//# sourceMappingURL=PatternPieces.js.map
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10311,7 +10353,7 @@
 	    return new RegExp(pattern + '$');
 	}
 	exports.patternEndingWith = patternEndingWith;
-	var PatternPieces_1 = __webpack_require__(14);
+	var PatternPieces_1 = __webpack_require__(16);
 	function getRegExpSolelyConsistingOf(args) {
 	    return new RegExp('^' + PatternPieces_1.ANY_WHITESPACE + args.pattern + PatternPieces_1.ANY_WHITESPACE + '$', getRegExpFlags(args.isCaseInsensitive));
 	}
@@ -10324,12 +10366,12 @@
 	//# sourceMappingURL=PatternHelpers.js.map
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(15);
-	var PatternPieces_1 = __webpack_require__(14);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var PatternPieces_1 = __webpack_require__(16);
 	var INDENT = PatternHelpers_1.either('\t', PatternHelpers_1.exactly(2, PatternPieces_1.INLINE_WHITESPACE_CHAR));
 	exports.INDENTED_PATTERN = PatternHelpers_1.patternStartingWith(INDENT);
 	exports.DIVIDER_STREAK_PATTERN = PatternHelpers_1.streakOf(PatternHelpers_1.anyCharFrom('#', '=', '-', '+', '~', '*', '@', ':'));
@@ -10340,7 +10382,7 @@
 	//# sourceMappingURL=Patterns.js.map
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10395,13 +10437,13 @@
 	//# sourceMappingURL=CollectionHelpers.js.map
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Document_1 = __webpack_require__(19);
-	var HeadingLeveler_1 = __webpack_require__(39);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(40);
+	var Document_1 = __webpack_require__(21);
+	var HeadingLeveler_1 = __webpack_require__(41);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
 	function parse(markup, settings) {
 	    var children = getOutlineSyntaxNodes_1.getOutlineSyntaxNodes({
 	        markupLines: markup.split(exports.MARKUP_LINE_BREAK),
@@ -10416,7 +10458,7 @@
 	//# sourceMappingURL=parse.js.map
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10425,11 +10467,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
-	var Heading_1 = __webpack_require__(21);
-	var SectionLink_1 = __webpack_require__(25);
-	var insertFootnoteBlocksAndAssignFootnoteReferenceNumbers_1 = __webpack_require__(27);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var Heading_1 = __webpack_require__(23);
+	var SectionLink_1 = __webpack_require__(27);
+	var insertFootnoteBlocksAndAssignFootnoteReferenceNumbers_1 = __webpack_require__(29);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var Document = (function (_super) {
 	    __extends(Document, _super);
 	    function Document(children, tableOfContents) {
@@ -10480,12 +10522,12 @@
 	//# sourceMappingURL=Document.js.map
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Document_1 = __webpack_require__(19);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var Document_1 = __webpack_require__(21);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var OutlineSyntaxNodeContainer = (function () {
 	    function OutlineSyntaxNodeContainer(children) {
 	        this.children = children;
@@ -10502,7 +10544,7 @@
 	//# sourceMappingURL=OutlineSyntaxNodeContainer.js.map
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10511,8 +10553,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
-	var getSearchableText_1 = __webpack_require__(24);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
+	var getSearchableText_1 = __webpack_require__(26);
 	var Heading = (function (_super) {
 	    __extends(Heading, _super);
 	    function Heading(children, options) {
@@ -10541,11 +10583,11 @@
 	//# sourceMappingURL=Heading.js.map
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var getInlineDescendants_1 = __webpack_require__(23);
+	var getInlineDescendants_1 = __webpack_require__(25);
 	var InlineSyntaxNodeContainer = (function () {
 	    function InlineSyntaxNodeContainer(children) {
 	        this.children = children;
@@ -10559,11 +10601,11 @@
 	//# sourceMappingURL=InlineSyntaxNodeContainer.js.map
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	function getInlineDescendants(nodes) {
 	    return CollectionHelpers_1.concat(nodes.map(function (child) { return [child].concat(child.inlineDescendants()); }));
 	}
@@ -10571,7 +10613,7 @@
 	//# sourceMappingURL=getInlineDescendants.js.map
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10584,11 +10626,11 @@
 	//# sourceMappingURL=getSearchableText.js.map
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var StringHelpers_1 = __webpack_require__(26);
+	var StringHelpers_1 = __webpack_require__(28);
 	var SectionLink = (function () {
 	    function SectionLink(sectionTitleSnippet, entry) {
 	        this.sectionTitleSnippet = sectionTitleSnippet;
@@ -10637,11 +10679,11 @@
 	//# sourceMappingURL=SectionLink.js.map
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternHelpers_1 = __webpack_require__(17);
 	function repeat(text, count) {
 	    return new Array(count + 1).join(text);
 	}
@@ -10659,22 +10701,22 @@
 	//# sourceMappingURL=StringHelpers.js.map
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var CollectionHelpers_1 = __webpack_require__(17);
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
-	var DescriptionList_1 = __webpack_require__(28);
-	var FootnoteBlock_1 = __webpack_require__(29);
-	var Footnote_1 = __webpack_require__(30);
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
-	var RevealableBlock_1 = __webpack_require__(33);
-	var LineBlock_1 = __webpack_require__(35);
-	var OrderedList_1 = __webpack_require__(36);
-	var UnorderedList_1 = __webpack_require__(37);
-	var Table_1 = __webpack_require__(38);
+	var CollectionHelpers_1 = __webpack_require__(19);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
+	var DescriptionList_1 = __webpack_require__(30);
+	var FootnoteBlock_1 = __webpack_require__(31);
+	var Footnote_1 = __webpack_require__(32);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
+	var RevealableBlock_1 = __webpack_require__(35);
+	var LineBlock_1 = __webpack_require__(37);
+	var OrderedList_1 = __webpack_require__(38);
+	var UnorderedList_1 = __webpack_require__(39);
+	var Table_1 = __webpack_require__(40);
 	function insertFootnoteBlocksAndAssignFootnoteReferenceNumbers(document) {
 	    new FootnoteBlockInserter(document);
 	}
@@ -10779,7 +10821,7 @@
 	//# sourceMappingURL=insertFootnoteBlocksAndAssignFootnoteReferenceNumbers.js.map
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10788,9 +10830,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var DescriptionList = (function () {
 	    function DescriptionList(items, options) {
 	        this.items = items;
@@ -10854,11 +10896,11 @@
 	//# sourceMappingURL=DescriptionList.js.map
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var getInlineDescendants_1 = __webpack_require__(23);
+	var getInlineDescendants_1 = __webpack_require__(25);
 	var FootnoteBlock = (function () {
 	    function FootnoteBlock(footnotes) {
 	        this.footnotes = footnotes;
@@ -10886,7 +10928,7 @@
 	//# sourceMappingURL=FootnoteBlock.js.map
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10895,7 +10937,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Footnote = (function (_super) {
 	    __extends(Footnote, _super);
 	    function Footnote(children, options) {
@@ -10916,7 +10958,7 @@
 	//# sourceMappingURL=Footnote.js.map
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10925,9 +10967,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
-	var getTextAppearingInline_1 = __webpack_require__(32);
-	var getSearchableText_1 = __webpack_require__(24);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
+	var getTextAppearingInline_1 = __webpack_require__(34);
+	var getSearchableText_1 = __webpack_require__(26);
 	var RichInlineSyntaxNode = (function (_super) {
 	    __extends(RichInlineSyntaxNode, _super);
 	    function RichInlineSyntaxNode() {
@@ -10945,7 +10987,7 @@
 	//# sourceMappingURL=RichInlineSyntaxNode.js.map
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10958,7 +11000,7 @@
 	//# sourceMappingURL=getTextAppearingInline.js.map
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10967,7 +11009,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichOutlineSyntaxNode_1 = __webpack_require__(34);
+	var RichOutlineSyntaxNode_1 = __webpack_require__(36);
 	var RevealableBlock = (function (_super) {
 	    __extends(RevealableBlock, _super);
 	    function RevealableBlock() {
@@ -10986,7 +11028,7 @@
 	//# sourceMappingURL=RevealableBlock.js.map
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10995,7 +11037,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(22);
 	var RichOutlineSyntaxNode = (function (_super) {
 	    __extends(RichOutlineSyntaxNode, _super);
 	    function RichOutlineSyntaxNode(children, options) {
@@ -11011,7 +11053,7 @@
 	//# sourceMappingURL=RichOutlineSyntaxNode.js.map
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11020,8 +11062,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var LineBlock = (function () {
 	    function LineBlock(lines, options) {
 	        this.lines = lines;
@@ -11057,7 +11099,7 @@
 	//# sourceMappingURL=LineBlock.js.map
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11066,8 +11108,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var OrderedList = (function () {
 	    function OrderedList(items, options) {
 	        this.items = items;
@@ -11125,7 +11167,7 @@
 	//# sourceMappingURL=OrderedList.js.map
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11134,8 +11176,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var OutlineSyntaxNodeContainer_1 = __webpack_require__(20);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var OutlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var UnorderedList = (function () {
 	    function UnorderedList(items, options) {
 	        this.items = items;
@@ -11171,7 +11213,7 @@
 	//# sourceMappingURL=UnorderedList.js.map
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11180,11 +11222,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
-	var PatternPieces_1 = __webpack_require__(14);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var CollectionHelpers_1 = __webpack_require__(17);
-	var getInlineDescendants_1 = __webpack_require__(23);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
+	var PatternPieces_1 = __webpack_require__(16);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var CollectionHelpers_1 = __webpack_require__(19);
+	var getInlineDescendants_1 = __webpack_require__(25);
 	var Table = (function () {
 	    function Table(header, rows, caption, options) {
 	        this.header = header;
@@ -11294,11 +11336,11 @@
 	//# sourceMappingURL=Table.js.map
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var HeadingLeveler = (function () {
 	    function HeadingLeveler() {
 	        this.headingSignatures = [];
@@ -11328,25 +11370,25 @@
 	//# sourceMappingURL=HeadingLeveler.js.map
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var ThematicBreak_1 = __webpack_require__(42);
-	var tryToParseThematicBreakStreak_1 = __webpack_require__(43);
-	var tryToParseHeading_1 = __webpack_require__(44);
-	var tryToParseBlankLineSeparation_1 = __webpack_require__(90);
-	var tryToParseCodeBlock_1 = __webpack_require__(88);
-	var tryToParseBlockquote_1 = __webpack_require__(86);
-	var tryToParseUnorderedList_1 = __webpack_require__(83);
-	var tryToParseOrderedList_1 = __webpack_require__(85);
-	var tryToParseDescriptionList_1 = __webpack_require__(91);
-	var tryToParseTable_1 = __webpack_require__(92);
-	var tryToParseRevealableBlock_1 = __webpack_require__(94);
-	var parseParagraphOrLineBlock_1 = __webpack_require__(95);
-	var Patterns_1 = __webpack_require__(16);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var LineConsumer_1 = __webpack_require__(43);
+	var ThematicBreak_1 = __webpack_require__(44);
+	var tryToParseThematicBreakStreak_1 = __webpack_require__(45);
+	var tryToParseHeading_1 = __webpack_require__(46);
+	var tryToParseBlankLineSeparation_1 = __webpack_require__(92);
+	var tryToParseCodeBlock_1 = __webpack_require__(90);
+	var tryToParseBlockquote_1 = __webpack_require__(88);
+	var tryToParseUnorderedList_1 = __webpack_require__(85);
+	var tryToParseOrderedList_1 = __webpack_require__(87);
+	var tryToParseDescriptionList_1 = __webpack_require__(93);
+	var tryToParseTable_1 = __webpack_require__(94);
+	var tryToParseRevealableBlock_1 = __webpack_require__(96);
+	var parseParagraphOrLineBlock_1 = __webpack_require__(97);
+	var Patterns_1 = __webpack_require__(18);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var OUTLINE_CONVENTION_PARSERS = [
 	    tryToParseBlankLineSeparation_1.tryToParseBlankLineSeparation,
 	    tryToParseUnorderedList_1.tryToParseUnorderedList,
@@ -11430,7 +11472,7 @@
 	//# sourceMappingURL=getOutlineSyntaxNodes.js.map
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -11484,7 +11526,7 @@
 	//# sourceMappingURL=LineConsumer.js.map
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -11511,13 +11553,13 @@
 	//# sourceMappingURL=ThematicBreak.js.map
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var ThematicBreak_1 = __webpack_require__(42);
-	var Patterns_1 = __webpack_require__(16);
+	var LineConsumer_1 = __webpack_require__(43);
+	var ThematicBreak_1 = __webpack_require__(44);
+	var Patterns_1 = __webpack_require__(18);
 	function tryToParseThematicBreakStreak(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    if (!markupLineConsumer.consume({ linePattern: Patterns_1.DIVIDER_STREAK_PATTERN })) {
@@ -11530,16 +11572,16 @@
 	//# sourceMappingURL=tryToParseThematicBreakStreak.js.map
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var Heading_1 = __webpack_require__(21);
-	var Patterns_1 = __webpack_require__(16);
-	var getInlineSyntaxNodes_1 = __webpack_require__(45);
-	var isLineFancyOutlineConvention_1 = __webpack_require__(82);
-	var HeadingLeveler_1 = __webpack_require__(39);
+	var LineConsumer_1 = __webpack_require__(43);
+	var Heading_1 = __webpack_require__(23);
+	var Patterns_1 = __webpack_require__(18);
+	var getInlineSyntaxNodes_1 = __webpack_require__(47);
+	var isLineFancyOutlineConvention_1 = __webpack_require__(84);
+	var HeadingLeveler_1 = __webpack_require__(41);
 	function tryToParseHeading(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var optionalOverline;
@@ -11576,12 +11618,12 @@
 	//# sourceMappingURL=tryToParseHeading.js.map
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var tokenize_1 = __webpack_require__(46);
-	var parse_1 = __webpack_require__(77);
+	var tokenize_1 = __webpack_require__(48);
+	var parse_1 = __webpack_require__(79);
 	function getInlineSyntaxNodes(inlineMarkup, settings) {
 	    return parse_1.parse(tokenize_1.tokenize(inlineMarkup, settings));
 	}
@@ -11593,29 +11635,29 @@
 	//# sourceMappingURL=getInlineSyntaxNodes.js.map
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var RichConventions_1 = __webpack_require__(47);
-	var MediaConventions_1 = __webpack_require__(60);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var PatternPieces_1 = __webpack_require__(14);
-	var Patterns_1 = __webpack_require__(16);
-	var Strings_1 = __webpack_require__(65);
-	var tryToTokenizeInlineCode_1 = __webpack_require__(66);
-	var nestOverlappingConventions_1 = __webpack_require__(69);
-	var CollectionHelpers_1 = __webpack_require__(17);
-	var StringHelpers_1 = __webpack_require__(26);
-	var Bracket_1 = __webpack_require__(70);
-	var BacktrackedConventionHelper_1 = __webpack_require__(71);
-	var ConventionContext_1 = __webpack_require__(72);
-	var TextConsumer_1 = __webpack_require__(67);
-	var TokenRole_1 = __webpack_require__(59);
-	var Token_1 = __webpack_require__(68);
-	var ConventionVariation_1 = __webpack_require__(73);
-	var InflectionHandler_1 = __webpack_require__(74);
-	var trimEscapedAndUnescapedOuterWhitespace_1 = __webpack_require__(76);
+	var RichConventions_1 = __webpack_require__(49);
+	var MediaConventions_1 = __webpack_require__(62);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var PatternPieces_1 = __webpack_require__(16);
+	var Patterns_1 = __webpack_require__(18);
+	var Strings_1 = __webpack_require__(67);
+	var tryToTokenizeInlineCode_1 = __webpack_require__(68);
+	var nestOverlappingConventions_1 = __webpack_require__(71);
+	var CollectionHelpers_1 = __webpack_require__(19);
+	var StringHelpers_1 = __webpack_require__(28);
+	var Bracket_1 = __webpack_require__(72);
+	var BacktrackedConventionHelper_1 = __webpack_require__(73);
+	var ConventionContext_1 = __webpack_require__(74);
+	var TextConsumer_1 = __webpack_require__(69);
+	var TokenRole_1 = __webpack_require__(61);
+	var Token_1 = __webpack_require__(70);
+	var ConventionVariation_1 = __webpack_require__(75);
+	var InflectionHandler_1 = __webpack_require__(76);
+	var trimEscapedAndUnescapedOuterWhitespace_1 = __webpack_require__(78);
 	function tokenize(inlineMarkup, settings) {
 	    return new Tokenizer(inlineMarkup, settings).result;
 	}
@@ -12468,22 +12510,22 @@
 	//# sourceMappingURL=tokenize.js.map
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Emphasis_1 = __webpack_require__(48);
-	var Stress_1 = __webpack_require__(49);
-	var Italics_1 = __webpack_require__(50);
-	var Bold_1 = __webpack_require__(51);
-	var Highlight_1 = __webpack_require__(52);
-	var InlineRevealable_1 = __webpack_require__(53);
-	var InlineQuote_1 = __webpack_require__(54);
-	var Footnote_1 = __webpack_require__(30);
-	var SquareParenthetical_1 = __webpack_require__(55);
-	var NormalParenthetical_1 = __webpack_require__(57);
-	var Link_1 = __webpack_require__(58);
-	var TokenRole_1 = __webpack_require__(59);
+	var Emphasis_1 = __webpack_require__(50);
+	var Stress_1 = __webpack_require__(51);
+	var Italics_1 = __webpack_require__(52);
+	var Bold_1 = __webpack_require__(53);
+	var Highlight_1 = __webpack_require__(54);
+	var InlineRevealable_1 = __webpack_require__(55);
+	var InlineQuote_1 = __webpack_require__(56);
+	var Footnote_1 = __webpack_require__(32);
+	var SquareParenthetical_1 = __webpack_require__(57);
+	var NormalParenthetical_1 = __webpack_require__(59);
+	var Link_1 = __webpack_require__(60);
+	var TokenRole_1 = __webpack_require__(61);
 	exports.EMPHASIS = {
 	    SyntaxNodeType: Emphasis_1.Emphasis,
 	    startTokenRole: TokenRole_1.TokenRole.EmphasisStart,
@@ -12542,7 +12584,7 @@
 	//# sourceMappingURL=RichConventions.js.map
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12551,7 +12593,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Emphasis = (function (_super) {
 	    __extends(Emphasis, _super);
 	    function Emphasis() {
@@ -12567,7 +12609,7 @@
 	//# sourceMappingURL=Emphasis.js.map
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12576,7 +12618,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Stress = (function (_super) {
 	    __extends(Stress, _super);
 	    function Stress() {
@@ -12592,7 +12634,7 @@
 	//# sourceMappingURL=Stress.js.map
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12601,7 +12643,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Italics = (function (_super) {
 	    __extends(Italics, _super);
 	    function Italics() {
@@ -12617,7 +12659,7 @@
 	//# sourceMappingURL=Italics.js.map
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12626,7 +12668,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Bold = (function (_super) {
 	    __extends(Bold, _super);
 	    function Bold() {
@@ -12642,7 +12684,7 @@
 	//# sourceMappingURL=Bold.js.map
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12651,7 +12693,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Highlight = (function (_super) {
 	    __extends(Highlight, _super);
 	    function Highlight() {
@@ -12667,7 +12709,7 @@
 	//# sourceMappingURL=Highlight.js.map
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12676,7 +12718,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var InlineRevealable = (function (_super) {
 	    __extends(InlineRevealable, _super);
 	    function InlineRevealable() {
@@ -12692,7 +12734,7 @@
 	//# sourceMappingURL=InlineRevealable.js.map
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12701,7 +12743,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineRevealable_1 = __webpack_require__(53);
+	var InlineRevealable_1 = __webpack_require__(55);
 	var InlineQuote = (function (_super) {
 	    __extends(InlineQuote, _super);
 	    function InlineQuote() {
@@ -12717,7 +12759,7 @@
 	//# sourceMappingURL=InlineQuote.js.map
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12726,7 +12768,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var ParentheticalSyntaxNode_1 = __webpack_require__(56);
+	var ParentheticalSyntaxNode_1 = __webpack_require__(58);
 	var SquareParenthetical = (function (_super) {
 	    __extends(SquareParenthetical, _super);
 	    function SquareParenthetical() {
@@ -12742,7 +12784,7 @@
 	//# sourceMappingURL=SquareParenthetical.js.map
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12751,7 +12793,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var ParentheticalSyntaxNode = (function (_super) {
 	    __extends(ParentheticalSyntaxNode, _super);
 	    function ParentheticalSyntaxNode() {
@@ -12764,7 +12806,7 @@
 	//# sourceMappingURL=ParentheticalSyntaxNode.js.map
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12773,7 +12815,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var ParentheticalSyntaxNode_1 = __webpack_require__(56);
+	var ParentheticalSyntaxNode_1 = __webpack_require__(58);
 	var NormalParenthetical = (function (_super) {
 	    __extends(NormalParenthetical, _super);
 	    function NormalParenthetical() {
@@ -12789,7 +12831,7 @@
 	//# sourceMappingURL=NormalParenthetical.js.map
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12798,7 +12840,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichInlineSyntaxNode_1 = __webpack_require__(31);
+	var RichInlineSyntaxNode_1 = __webpack_require__(33);
 	var Link = (function (_super) {
 	    __extends(Link, _super);
 	    function Link(children, url, options) {
@@ -12824,7 +12866,7 @@
 	//# sourceMappingURL=Link.js.map
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12865,14 +12907,14 @@
 	//# sourceMappingURL=TokenRole.js.map
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Audio_1 = __webpack_require__(61);
-	var Image_1 = __webpack_require__(63);
-	var Video_1 = __webpack_require__(64);
-	var TokenRole_1 = __webpack_require__(59);
+	var Audio_1 = __webpack_require__(63);
+	var Image_1 = __webpack_require__(65);
+	var Video_1 = __webpack_require__(66);
+	var TokenRole_1 = __webpack_require__(61);
 	exports.AUDIO = {
 	    keyword: function (keywords) { return keywords.audio; },
 	    SyntaxNodeType: Audio_1.Audio,
@@ -12891,7 +12933,7 @@
 	//# sourceMappingURL=MediaConventions.js.map
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12900,7 +12942,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var MediaSyntaxNode_1 = __webpack_require__(62);
+	var MediaSyntaxNode_1 = __webpack_require__(64);
 	var Audio = (function (_super) {
 	    __extends(Audio, _super);
 	    function Audio() {
@@ -12916,7 +12958,7 @@
 	//# sourceMappingURL=Audio.js.map
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12948,7 +12990,7 @@
 	//# sourceMappingURL=MediaSyntaxNode.js.map
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12957,7 +12999,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var MediaSyntaxNode_1 = __webpack_require__(62);
+	var MediaSyntaxNode_1 = __webpack_require__(64);
 	var Image = (function (_super) {
 	    __extends(Image, _super);
 	    function Image() {
@@ -12973,7 +13015,7 @@
 	//# sourceMappingURL=Image.js.map
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12982,7 +13024,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var MediaSyntaxNode_1 = __webpack_require__(62);
+	var MediaSyntaxNode_1 = __webpack_require__(64);
 	var Video = (function (_super) {
 	    __extends(Video, _super);
 	    function Video() {
@@ -12998,7 +13040,7 @@
 	//# sourceMappingURL=Video.js.map
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13006,15 +13048,15 @@
 	//# sourceMappingURL=Strings.js.map
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(15);
-	var Strings_1 = __webpack_require__(65);
-	var TextConsumer_1 = __webpack_require__(67);
-	var TokenRole_1 = __webpack_require__(59);
-	var Token_1 = __webpack_require__(68);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var Strings_1 = __webpack_require__(67);
+	var TextConsumer_1 = __webpack_require__(69);
+	var TokenRole_1 = __webpack_require__(61);
+	var Token_1 = __webpack_require__(70);
 	function tryToTokenizeInlineCode(args) {
 	    var markup = args.markup, then = args.then;
 	    var markupConsumer = new TextConsumer_1.TextConsumer(markup);
@@ -13081,7 +13123,7 @@
 	//# sourceMappingURL=tryToTokenizeInlineCode.js.map
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13150,7 +13192,7 @@
 	//# sourceMappingURL=TextConsumer.js.map
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13169,11 +13211,11 @@
 	//# sourceMappingURL=Token.js.map
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var RichConventions_1 = __webpack_require__(47);
+	var RichConventions_1 = __webpack_require__(49);
 	function nestOverlappingConventions(tokens) {
 	    return new ConventionNester(tokens).tokens;
 	}
@@ -13302,11 +13344,11 @@
 	//# sourceMappingURL=nestOverlappingConventions.js.map
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternHelpers_1 = __webpack_require__(17);
 	var Bracket = (function () {
 	    function Bracket(open, close) {
 	        this.open = open;
@@ -13320,7 +13362,7 @@
 	//# sourceMappingURL=Bracket.js.map
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13346,7 +13388,7 @@
 	//# sourceMappingURL=BacktrackedConventionHelper.js.map
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13397,11 +13439,11 @@
 	//# sourceMappingURL=ConventionContext.js.map
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternHelpers_1 = __webpack_require__(15);
+	var PatternHelpers_1 = __webpack_require__(17);
 	var ConventionVariation = (function () {
 	    function ConventionVariation(args) {
 	        var startsWith = args.startsWith, endsWith = args.endsWith;
@@ -13433,13 +13475,13 @@
 	//# sourceMappingURL=ConventionVariation.js.map
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var InflectionStartDelimiter_1 = __webpack_require__(75);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var CollectionHelpers_1 = __webpack_require__(17);
+	var InflectionStartDelimiter_1 = __webpack_require__(77);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var CollectionHelpers_1 = __webpack_require__(19);
 	var InflectionHandler = (function () {
 	    function InflectionHandler(args, openStartDelimiters, delimiterPattern) {
 	        if (openStartDelimiters === void 0) { openStartDelimiters = []; }
@@ -13566,7 +13608,7 @@
 	//# sourceMappingURL=InflectionHandler.js.map
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13606,12 +13648,12 @@
 	//# sourceMappingURL=InflectionStartDelimiter.js.map
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Patterns_1 = __webpack_require__(16);
-	var Strings_1 = __webpack_require__(65);
+	var Patterns_1 = __webpack_require__(18);
+	var Strings_1 = __webpack_require__(67);
 	function trimEscapedAndUnescapedOuterWhitespace(markup) {
 	    while (true) {
 	        markup = markup.trim();
@@ -13636,21 +13678,21 @@
 	//# sourceMappingURL=trimEscapedAndUnescapedOuterWhitespace.js.map
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var RichConventions_1 = __webpack_require__(47);
-	var MediaConventions_1 = __webpack_require__(60);
-	var Text_1 = __webpack_require__(78);
-	var isWhitespace_1 = __webpack_require__(79);
-	var CollectionHelpers_1 = __webpack_require__(17);
-	var TokenRole_1 = __webpack_require__(59);
-	var InlineCode_1 = __webpack_require__(80);
-	var ExampleInput_1 = __webpack_require__(81);
-	var SectionLink_1 = __webpack_require__(25);
-	var Link_1 = __webpack_require__(58);
-	var Patterns_1 = __webpack_require__(16);
+	var RichConventions_1 = __webpack_require__(49);
+	var MediaConventions_1 = __webpack_require__(62);
+	var Text_1 = __webpack_require__(80);
+	var isWhitespace_1 = __webpack_require__(81);
+	var CollectionHelpers_1 = __webpack_require__(19);
+	var TokenRole_1 = __webpack_require__(61);
+	var InlineCode_1 = __webpack_require__(82);
+	var ExampleInput_1 = __webpack_require__(83);
+	var SectionLink_1 = __webpack_require__(27);
+	var Link_1 = __webpack_require__(60);
+	var Patterns_1 = __webpack_require__(18);
 	function parse(tokens) {
 	    return parseAndGetResult({ tokens: tokens }).nodes;
 	}
@@ -13765,7 +13807,7 @@
 	//# sourceMappingURL=parse.js.map
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13792,12 +13834,12 @@
 	//# sourceMappingURL=Text.js.map
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var Text_1 = __webpack_require__(78);
-	var Patterns_1 = __webpack_require__(16);
+	var Text_1 = __webpack_require__(80);
+	var Patterns_1 = __webpack_require__(18);
 	function isWhitespace(node) {
 	    return (node instanceof Text_1.Text) && Patterns_1.BLANK_PATTERN.test(node.text);
 	}
@@ -13805,7 +13847,7 @@
 	//# sourceMappingURL=isWhitespace.js.map
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13831,7 +13873,7 @@
 	//# sourceMappingURL=InlineCode.js.map
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13857,16 +13899,16 @@
 	//# sourceMappingURL=ExampleInput.js.map
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var tryToParseUnorderedList_1 = __webpack_require__(83);
-	var tryToParseOrderedList_1 = __webpack_require__(85);
-	var tryToParseThematicBreakStreak_1 = __webpack_require__(43);
-	var tryToParseBlockquote_1 = __webpack_require__(86);
-	var tryToParseCodeBlock_1 = __webpack_require__(88);
-	var HeadingLeveler_1 = __webpack_require__(39);
+	var tryToParseUnorderedList_1 = __webpack_require__(85);
+	var tryToParseOrderedList_1 = __webpack_require__(87);
+	var tryToParseThematicBreakStreak_1 = __webpack_require__(45);
+	var tryToParseBlockquote_1 = __webpack_require__(88);
+	var tryToParseCodeBlock_1 = __webpack_require__(90);
+	var HeadingLeveler_1 = __webpack_require__(41);
 	var OUTLINE_CONVENTIONS_POSSIBLY_ONE_LINE_LONG = [
 	    tryToParseUnorderedList_1.tryToParseUnorderedList,
 	    tryToParseOrderedList_1.trytoParseOrderedList,
@@ -13890,16 +13932,16 @@
 	//# sourceMappingURL=isLineFancyOutlineConvention.js.map
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var UnorderedList_1 = __webpack_require__(37);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(40);
-	var getIndentedBlock_1 = __webpack_require__(84);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var PatternPieces_1 = __webpack_require__(14);
+	var LineConsumer_1 = __webpack_require__(43);
+	var UnorderedList_1 = __webpack_require__(39);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
+	var getIndentedBlock_1 = __webpack_require__(86);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var PatternPieces_1 = __webpack_require__(16);
 	function tryToParseUnorderedList(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var listItems = [];
@@ -13949,12 +13991,12 @@
 	//# sourceMappingURL=tryToParseUnorderedList.js.map
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var Patterns_1 = __webpack_require__(16);
+	var LineConsumer_1 = __webpack_require__(43);
+	var Patterns_1 = __webpack_require__(18);
 	function getIndentedBlock(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.lines);
 	    var indentedLines = [];
@@ -13997,17 +14039,17 @@
 	//# sourceMappingURL=getIndentedBlock.js.map
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var OrderedList_1 = __webpack_require__(36);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(40);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var PatternPieces_1 = __webpack_require__(14);
-	var Patterns_1 = __webpack_require__(16);
-	var getIndentedBlock_1 = __webpack_require__(84);
+	var LineConsumer_1 = __webpack_require__(43);
+	var OrderedList_1 = __webpack_require__(38);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var PatternPieces_1 = __webpack_require__(16);
+	var Patterns_1 = __webpack_require__(18);
+	var getIndentedBlock_1 = __webpack_require__(86);
 	function trytoParseOrderedList(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var unparsedListItems = [];
@@ -14093,15 +14135,15 @@
 	//# sourceMappingURL=tryToParseOrderedList.js.map
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var Blockquote_1 = __webpack_require__(87);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(40);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var PatternPieces_1 = __webpack_require__(14);
+	var LineConsumer_1 = __webpack_require__(43);
+	var Blockquote_1 = __webpack_require__(89);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var PatternPieces_1 = __webpack_require__(16);
 	function tryToParseBlockquote(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var blockquotedLines = [];
@@ -14129,7 +14171,7 @@
 	//# sourceMappingURL=tryToParseBlockquote.js.map
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14138,7 +14180,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var RichOutlineSyntaxNode_1 = __webpack_require__(34);
+	var RichOutlineSyntaxNode_1 = __webpack_require__(36);
 	var Blockquote = (function (_super) {
 	    __extends(Blockquote, _super);
 	    function Blockquote() {
@@ -14154,13 +14196,13 @@
 	//# sourceMappingURL=Blockquote.js.map
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var CodeBlock_1 = __webpack_require__(89);
-	var PatternHelpers_1 = __webpack_require__(15);
+	var LineConsumer_1 = __webpack_require__(43);
+	var CodeBlock_1 = __webpack_require__(91);
+	var PatternHelpers_1 = __webpack_require__(17);
 	function tryToParseCodeBlock(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var startStreak;
@@ -14208,7 +14250,7 @@
 	//# sourceMappingURL=tryToParseCodeBlock.js.map
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -14236,13 +14278,13 @@
 	//# sourceMappingURL=CodeBlock.js.map
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var ThematicBreak_1 = __webpack_require__(42);
-	var Patterns_1 = __webpack_require__(16);
+	var LineConsumer_1 = __webpack_require__(43);
+	var ThematicBreak_1 = __webpack_require__(44);
+	var Patterns_1 = __webpack_require__(18);
 	function tryToParseBlankLineSeparation(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var countBlankLines = 0;
@@ -14262,17 +14304,17 @@
 	//# sourceMappingURL=tryToParseBlankLineSeparation.js.map
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var DescriptionList_1 = __webpack_require__(28);
-	var getInlineSyntaxNodes_1 = __webpack_require__(45);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(40);
-	var isLineFancyOutlineConvention_1 = __webpack_require__(82);
-	var Patterns_1 = __webpack_require__(16);
-	var getIndentedBlock_1 = __webpack_require__(84);
+	var LineConsumer_1 = __webpack_require__(43);
+	var DescriptionList_1 = __webpack_require__(30);
+	var getInlineSyntaxNodes_1 = __webpack_require__(47);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
+	var isLineFancyOutlineConvention_1 = __webpack_require__(84);
+	var Patterns_1 = __webpack_require__(18);
+	var getIndentedBlock_1 = __webpack_require__(86);
 	function tryToParseDescriptionList(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var listItems = [];
@@ -14345,17 +14387,17 @@
 	//# sourceMappingURL=tryToParseDescriptionList.js.map
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var Table_1 = __webpack_require__(38);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var Patterns_1 = __webpack_require__(16);
-	var PatternPieces_1 = __webpack_require__(14);
-	var getInlineSyntaxNodes_1 = __webpack_require__(45);
-	var getTableCells_1 = __webpack_require__(93);
+	var LineConsumer_1 = __webpack_require__(43);
+	var Table_1 = __webpack_require__(40);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var Patterns_1 = __webpack_require__(18);
+	var PatternPieces_1 = __webpack_require__(16);
+	var getInlineSyntaxNodes_1 = __webpack_require__(47);
+	var getTableCells_1 = __webpack_require__(95);
 	function tryToParseTable(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var settings = args.settings;
@@ -14421,7 +14463,7 @@
 	//# sourceMappingURL=tryToParseTable.js.map
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14430,11 +14472,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Table_1 = __webpack_require__(38);
-	var PatternHelpers_1 = __webpack_require__(15);
-	var getInlineSyntaxNodes_1 = __webpack_require__(45);
-	var CollectionHelpers_1 = __webpack_require__(17);
-	var Strings_1 = __webpack_require__(65);
+	var Table_1 = __webpack_require__(40);
+	var PatternHelpers_1 = __webpack_require__(17);
+	var getInlineSyntaxNodes_1 = __webpack_require__(47);
+	var CollectionHelpers_1 = __webpack_require__(19);
+	var Strings_1 = __webpack_require__(67);
 	var TableCell = (function (_super) {
 	    __extends(TableCell, _super);
 	    function TableCell() {
@@ -14483,15 +14525,15 @@
 	//# sourceMappingURL=getTableCells.js.map
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var RevealableBlock_1 = __webpack_require__(33);
-	var getOutlineSyntaxNodes_1 = __webpack_require__(40);
-	var getIndentedBlock_1 = __webpack_require__(84);
-	var PatternHelpers_1 = __webpack_require__(15);
+	var LineConsumer_1 = __webpack_require__(43);
+	var RevealableBlock_1 = __webpack_require__(35);
+	var getOutlineSyntaxNodes_1 = __webpack_require__(42);
+	var getIndentedBlock_1 = __webpack_require__(86);
+	var PatternHelpers_1 = __webpack_require__(17);
 	function tryToParseRevealableBlock(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var keywords = args.settings.keywords;
@@ -14523,17 +14565,17 @@
 	//# sourceMappingURL=tryToParseRevealableBlock.js.map
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var LineConsumer_1 = __webpack_require__(41);
-	var Paragraph_1 = __webpack_require__(96);
-	var LineBlock_1 = __webpack_require__(35);
-	var getInlineSyntaxNodes_1 = __webpack_require__(45);
-	var Patterns_1 = __webpack_require__(16);
-	var isLineFancyOutlineConvention_1 = __webpack_require__(82);
-	var tryToPromoteMediaToOutline_1 = __webpack_require__(97);
+	var LineConsumer_1 = __webpack_require__(43);
+	var Paragraph_1 = __webpack_require__(98);
+	var LineBlock_1 = __webpack_require__(37);
+	var getInlineSyntaxNodes_1 = __webpack_require__(47);
+	var Patterns_1 = __webpack_require__(18);
+	var isLineFancyOutlineConvention_1 = __webpack_require__(84);
+	var tryToPromoteMediaToOutline_1 = __webpack_require__(99);
 	function parseParagraphOrLineBlock(args) {
 	    var markupLineConsumer = new LineConsumer_1.LineConsumer(args.markupLines);
 	    var inlineSyntaxNodesPerLine = [];
@@ -14597,7 +14639,7 @@
 	//# sourceMappingURL=parseParagraphOrLineBlock.js.map
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14606,7 +14648,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
 	var Paragraph = (function (_super) {
 	    __extends(Paragraph, _super);
 	    function Paragraph(children, options) {
@@ -14629,13 +14671,13 @@
 	//# sourceMappingURL=Paragraph.js.map
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var isWhitespace_1 = __webpack_require__(79);
-	var Link_1 = __webpack_require__(58);
-	var MediaSyntaxNode_1 = __webpack_require__(62);
+	var isWhitespace_1 = __webpack_require__(81);
+	var Link_1 = __webpack_require__(60);
+	var MediaSyntaxNode_1 = __webpack_require__(64);
 	function tryToPromoteMediaToOutline(args) {
 	    var inlineSyntaxNodes = args.inlineSyntaxNodes, then = args.then;
 	    var promotedNodes = [];
@@ -14675,12 +14717,12 @@
 	//# sourceMappingURL=tryToPromoteMediaToOutline.js.map
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var InlineDocument_1 = __webpack_require__(99);
-	var getInlineSyntaxNodes_1 = __webpack_require__(45);
+	var InlineDocument_1 = __webpack_require__(101);
+	var getInlineSyntaxNodes_1 = __webpack_require__(47);
 	function parseInline(inlineMarkup, settings) {
 	    var children = getInlineSyntaxNodes_1.getInlineSyntaxNodesForInlineDocument(inlineMarkup, settings);
 	    return new InlineDocument_1.InlineDocument(children);
@@ -14689,7 +14731,7 @@
 	//# sourceMappingURL=parseInline.js.map
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14698,7 +14740,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var InlineSyntaxNodeContainer_1 = __webpack_require__(22);
+	var InlineSyntaxNodeContainer_1 = __webpack_require__(24);
 	var InlineDocument = (function (_super) {
 	    __extends(InlineDocument, _super);
 	    function InlineDocument() {
@@ -14711,7 +14753,7 @@
 	//# sourceMappingURL=InlineDocument.js.map
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14720,11 +14762,11 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var Up = __webpack_require__(11);
-	var Renderer_1 = __webpack_require__(101);
-	var HtmlElementHelpers_1 = __webpack_require__(102);
-	var HtmlEscapingHelpers_1 = __webpack_require__(103);
-	var PatternHelpers_1 = __webpack_require__(15);
+	var Up = __webpack_require__(13);
+	var Renderer_1 = __webpack_require__(103);
+	var HtmlElementHelpers_1 = __webpack_require__(104);
+	var HtmlEscapingHelpers_1 = __webpack_require__(105);
+	var PatternHelpers_1 = __webpack_require__(17);
 	var HtmlRenderer = (function (_super) {
 	    __extends(HtmlRenderer, _super);
 	    function HtmlRenderer() {
@@ -15076,11 +15118,11 @@
 	//# sourceMappingURL=HtmlRenderer.js.map
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var PatternPieces_1 = __webpack_require__(14);
+	var PatternPieces_1 = __webpack_require__(16);
 	var Renderer = (function () {
 	    function Renderer(settings) {
 	        this.settings = settings;
@@ -15109,11 +15151,11 @@
 	//# sourceMappingURL=Renderer.js.map
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var HtmlEscapingHelpers_1 = __webpack_require__(103);
+	var HtmlEscapingHelpers_1 = __webpack_require__(105);
 	function htmlElement(tagName, unescapedContent, attrs) {
 	    if (attrs === void 0) { attrs = {}; }
 	    return htmlElementWithAlreadyEscapedChildren(tagName, [HtmlEscapingHelpers_1.escapeHtmlContent(unescapedContent)], attrs);
@@ -15149,7 +15191,7 @@
 	//# sourceMappingURL=HtmlElementHelpers.js.map
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15172,7 +15214,7 @@
 	//# sourceMappingURL=HtmlEscapingHelpers.js.map
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15200,7 +15242,7 @@
 	}
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15247,7 +15289,7 @@
 	}
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = "################################################\nUp (easily write structured content for the web)\n################################################\n\nUp is a set of human-friendly conventions for writing structured documents in plain text. This document is written in Up!\n\nFor software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. For more information, see [topic: using the Up library].\n\n\n===========\nWhy use Up?\n===========\n\nUp isn't the first [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML.\n\nWhy use Up instead of another markup language?\n\n- Up uses readable, customizable keywords\n  =======================================\n\n  Too many markup languages devolve into a dense soup of symbols and punctuation.\n\n  When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.\n\n  If you're a software developer, you can provide multiple custom variations for each keyword! For more information, see [topic: customizing keywords].\n\n- Up offers a flexible, forgiving syntax\n  ======================================\n\n  * Up recognizes [topic: numbered lists] that count backwards\n  * Up isn't picky about which brackets you use for [topic: links]\n  * Up even supports [topic: overlapping]\n\n  At every turn, Up is designed for humans to read and write, not for computers to process and parse.\n\n- Up produces fully accessible HTML\n  =================================\n\n   From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.\n\n\n=================\nWhy *not* use Up?\n=================\n\n- You want a rich ecosystem of tools\n  ==================================\n\n  So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start).\n\n  In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.\n\n- You need speed\n  ==============\n\n  Up is not terribly slow, but it's not terribly fast, either---at least not yet. If you need instant, real-time parsing and rendering of large documents, Up isn't the right markup language for you.\n\n- You want to embed HTML within your markup\n  =========================================\n\n  Some markup languages allow authors to embed HTML in their markup. Up does not.\n\n\n\n############################\nWriting conventions (syntax)\n############################\n\nDon't get lost! The following terms are occasionally used in this section:\n\nInline writing convention\n  Any writing convention that can be used inside paragraphs. This includes [topic: emphasis] and [topic: highlighting].\n\nOutline writing convention\n  Any non-inline writing convention. This includes [topic: paragraphs] and [topic: tables].\n\n\n==========\nParagraphs\n==========\n\nParagraphs are the simplest writing convention in Up.\n\nExample\n  Markup\n    ````\n    Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.\n\n    Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.\n    ````\n\n  Output\n    Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.\n\n    Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.\n\nDiscussion\n  To produce a paragraph, write a line of text. That's all there is to it!\n\n  Typically, paragraphs are separated by one or two blank lines. Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].\n\n  On the other hand, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs!\n\n\n===========\nLine blocks\n===========\n\nUse the line block convention for addresses, lyrics, or for anything that should be represented by *lines* instead of distinct [topic: paragraphs].\n\nExample\n  Markup\n    ````\n    Roses are red\n    Violets are blue\n    Lyrics have lines\n    And addresses do, too\n    ````\n\n  Output\n    Roses are red\n    Violets are blue\n    Lyrics have lines\n    And addresses do, too\n\nDiscussion\n  Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists].\n\n  Line blocks can contain any inline writing convention.\n\n\n========\nEmphasis\n========\n\nUse the emphasis convention to emphasize a word or phrase.\n\nIf the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.\n\nExample\n  Markup\n    ````\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n    ````\n\n  Output\n    Only eat the *green* grapes. The red grapes are for Pikachu.\n\nDiscussion\n  To emphasize text, enclose it within single asterisks.\n\n  Like most inline writing conventions, you can nest emphasis within itself.\n\n\n======\nStress\n======\n\nUse the stress convention to indicate a word or phrase is particularly important.\n\nIf the reader should raise their voice while reading a word or phrase, consider stressing it.\n\nExample\n  Markup\n    ````\n    Do **not** step on the dinosaur!\n    ````\n\n  Output\n    Do **not** step on the dinosaur!\n\nDiscussion\n  To stress text, enclose it within double asterisks.\n\n\n=======\nItalics\n=======\n\nUse the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.\n\nSome authors also use italics for unfamiliar foreign words.\n\nExample\n  Markup\n    ````\n    My favorite video game is _Chrono Cross_.\n    ````\n\n  Output\n    My favorite video game is _Chrono Cross_.\n\nDiscussion\n  To italicize text, enclose it within single underscores.\n\n\n====\nBold\n====\n\nIf you want to make a word or phrase bold without conveying any extra importance, use the bold convention.\n\nThis convention should be used rarely. Usually, there's a more appropriate convention!\n\nIf you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].\n\nExample\n  Markup\n    ````\n    Has anyone actually used __KABOOM__ cleaning products?\n    ````\n\n  Output\n    Has anyone actually used  __KABOOM__ cleaning products?\n\nDiscussion\n  To make text bold, enclose it within double underscores.\n\n\n=====\nLinks\n=====\n\nYou already know what a link is!\n\nExample\n  Markup\n    ````\n    The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.\n    ````\n\n  Output\n    The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.\n\nDiscussion\n  A link consists of two parts: content and a URL.\n\n  To produce a link, simply enclose its content in square brackets or parentheses, then enclose its URL in square brackets or parentheses.\n\n  You can use mix and match either type of bracket---they're totally interchangeable.\n\n  Markup\n    ````\n    The (Game Boy) [wikipedia.org/wiki/Game_Boy] was my first video game system.\n    ````\n\n  Output\n    The (Game Boy) [wikipedia.org/wiki/Game_Boy] was my first video game system.\n\n  As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.\n\n  If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:\n\n  - [topic: baseForUrlsStartingWithSlash]\n  - [topic: baseForUrlsStartingWithHashMark]\n  - [topic: renderDangerousContent].\n\n\n  URLs that don't look like URLs\n  ==============================\n\n  If Up suspects you aren't intending to produce a link, it won't produce one. For example, Up won't produce a link if the potential URL contains spaces.\n\n  Markup\n    ````\n    Warlocked is the best game for GameBoy [sic] (other than Pokémon).\n    ````\n\n  Output\n    Warlocked is the best game for GameBoy [sic] (other than Pokémon).\n\n  To make it clear that you do intend to produce a link, omit the space between your link's content and its URL.\n\n  Markup\n    ````\n    I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.\n    ````\n\n  Output\n    I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.\n\n  If you omit the space between your link's content and its URL, Up will **always** produce a link.\n\n  These rules also apply when [topic: linkifying].\n\n\n================================================\nParentheticals (parentheses and square brackets)\n================================================\n\nUp automatically recognizes parenthetical text!\n\nYou don't need to change how you use parentheses or square brackets.\n\nExample\n  Markup\n    ````\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.\n    ````\n\n  Output\n    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.\n\nDiscussion\n  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.\n\n\n=============\nInline quotes\n=============\n\nUp automatically recognizes quoted text. You don't need to change how you use quotation marks.\n\nIf you want to quote more a few sentences, considering using [topic: blockquotes].\n\nExample\n  Markup\n    ````\n    \"Only eat the green grapes,\" John said.\n    ````\n\n  Output\n    \"Only eat the green grapes,\" John said.\n\nDiscussion\n  You already know how to use quotation marks! Just keep doing what you're doing.\n\n  Like most inline writing conventions, inline quotes can be nested within themselves.\n\n  Markup\n    ````\n    Bob turned to his boss. \"Yesterday, Harvey yelled \"I'll take the case!\", but don't think he's even started on it.\"\n    ````\n\n  Output\n    Bob turned to his boss. \"Yesterday, Harvey yelled \"I'll take the case!\", but don't think he's even started on it.\"\n\n\n============\nHighlighting\n============\n\nUse the highlighting convention to indicate a word a phrase is particularly relevant to the reader.\n\nHighlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].\n\nExample\n  Markup\n    ````\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.\n    ````\n\n  Output\n    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.\n\nDiscussion\n  To highlight text, enclose it within square brackets or parentheses. Then, insert \"highlight:\" directly after your opening bracket.\n\n\n=============\nExample input\n=============\n\nUse the example input convention to represent user input, including:\n\n- Keys the user should press\n- Buttons the user should click\n- Menu items the user should access\n\nExample\n  Markup\n    ````\n     Press {esc} to quit.\n    ````\n\n  Output\n    Press {esc} to quit.\n\nDiscussion\n  To indicate that text represents user input, enclose the text within curly brackets.\n\n  Up ignores any spaces separating the curly brackets from the content they enclose.\n\n  Markup\n    ````\n    Press { Start Game(s) } when you are ready.\n    ````\n  Output\n    Press { Start Game(s) } when you are ready.\n\n  Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are recognized, as is [topic: disabling].\n\n\n===========\nInline code\n===========\n\nUse the inline code convention to represent a small fragment of computer code.\n\nIf you need to represent more than a small fragment of computer code, use [topic: code blocks].\n\nExample\n  Markup\n    ````\n    In HTML, you probably shouldn't use the `<font>` element.\n    ````\n\n  Output\n    In HTML, you probably shouldn't use the `<font>` element.\n\nDiscussion\n  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.\n\n  Within your inline code, text is treated literally. Only one inline writing convention is recognized: [topic: disabling].\n\n\n  Including backticks in your inline code\n  =======================================\n\n  Within inline code, backticks can be escaped with a backslash.\n\n  Markup\n    ````\n    `let output = \\`score:\\` + 5`\n    ````\n\n  Output\n    `let output = \\`score:\\` + 5`\n\n  Alternatively, inline code can also contain streaks of *unescaped* backticks that aren't exactly as long as the delimiters.\n\n  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:\n\n  Markup\n    ````\n    `let output = ``score:`` + 5`\n    ````\n\n  Output\n    `let output = ``score:`` + 5`\n\n  In this example, the delimiters are **2** backticks long, so the inline code can contain \"streaks\" of **1** backtick:\n\n  Markup\n    ````\n    ``let output = `score:` + 5``\n    ````\n\n  Output\n    ``let output = `score:` + 5``\n\n  ---------------------------------------------------\n  But my inline code starts (or ends) with backticks!\n  ---------------------------------------------------\n\n  If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:\n\n  Markup\n    ````\n    `` `inline_code` ``\n    ````\n\n  Output\n    `` `inline_code` ``\n\n  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.\n\n  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given \"side\" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.\n\n  Markup\n    ````\n    `` (`inline_code`) ``\n    ````\n\n  Output\n    `` (`inline_code`) ``\n\n\n========\nHeadings\n========\n\nUse the heading convention to introduce a new section in the document.\n\nExample\n  Markup\n    ````\n    Why I love breakfast cereal\n    ===========================\n    ````\n\n  Output\n    Why I love breakfast cereal\n    ===========================\n\nDiscussion\n  If text is underlined, it's treated as a heading. The underline can consist of any combination of the following characters:\n\n  - Hyphens: `-`\n  - Number signs: `#`\n  - Equal signs: `=`\n  - Plus signs: `+`\n  - Tildes: `~`\n  - Colons: `:`\n  - Asterisks: `*`\n  - At signs: `@`\n\n  A heading's underline must be at least three characters long, but it does *not* need to be the same length as the text of the heading.\n\n  Markup\n    ````\n    Why I hate bagels\n    ===\n    ````\n\n  Output\n    Why I hate bagels\n    ===\n\n\n  Heading levels\n  ==============\n\n  The first heading in a document is always a top-level heading. All subsequent headings with underlines consisting of the same characters are considered top-level.\n\n  The first heading with a different combination of underline characters is considered a second-level heading. Unsurprisingly, all subsequent headings with underlines consisting of the same characters are also considered second-level.\n\n  This process continues _ad infinitum_. Every new combination of heading underline characters introduces a new heading level. There is no limit to the number of heading levels in a document.\n\n\n  Headings with \"overlines\"\n  =========================\n\n  A heading can have an optional \"overline\", but its overline must consist of the same combination of characters as its underline.\n\n  Markup\n    ````\n    ---------------------------------\n    Reasons never to own a pet parrot\n    ---------------------------------\n    ````\n\n  Output\n    ---------------------------------\n    Reasons never to own a pet parrot\n    ---------------------------------\n\n  For the purpose of determining heading levels, a heading with an overline is always considered distinct from a heading without one, even if both headings use the same combination of underline characters.\n\n  Therefore, a heading with an overline will never have the same level as a heading without an overline.\n\n\n=============\nSection links\n=============\n\nUse the section link convention to link another section (heading) in your document.\n\nExample\n  Markup\n    ````\n    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].\n    ````\n\n  Output\n    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].\n\nDiscussion\n  To produce a section link:\n\n  1. Choose a snippet of text from the heading you want to link to\n  2. Enclose the snippet within square brackets or parentheses\n  3. Insert `topic:` or `section:` directly inside your opening bracket\n\n  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you.\n\n\n  How does Up choose which heading matches your section link?\n  ===========================================================\n\n  Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.\n\n  ---------------------------------------\n  Up ignores the heading's capitalization\n  ---------------------------------------\n\n  If your document has a heading whose text is \"TOOTHPASTE\", \"Toothpaste\" would be an exact match.\n\n  Markup\n    ````\n    Please see [topic: toothpaste].\n\n    TOOTHPASTE\n    ----------\n    ````\n\n  Output\n    Please see [topic: toothpaste].\n\n    TOOTHPASTE\n    ----------\n\n  --------------------------------------------------------\n  Up ignores any inline writing conventions in the heading\n  --------------------------------------------------------\n\n  If your document has a heading whose text is \"Everyone *loves* toothpaste\" (note the emphasis), \"everyone loves toothpaste\" would be an exact match.\n\n  Markup\n    ````\n    Please see [topic: everyone loves toothpaste].\n\n    Everyone *loves* toothpaste\n    ---------------------------\n    ````\n\n  Output\n    Please see [topic: everyone loves toothpaste].\n\n    Everyone *loves* toothpaste\n    ---------------------------\n\n\n=========\nFootnotes\n=========\n\nUse the footnote convention for asides or citations---anything you want to say without breaking the flow of a paragraph.\n\nFootnotes are automatically extracted into blocks for you.\n\nExample\n  Markup\n    ````\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" is probably a misspelling of \"palette\"] where Professor Oak gives Red his first Pokémon.\n    ````\n\n  Output\n    Pokémon Red begins in Pallet Town, [^ \"Pallet\" is probably a misspelling of \"palette\"] where Professor Oak gives Red his first Pokémon.\n\nDiscussion\n  To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.\n\n  Footnotes in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.\n\n\n================================\nMedia (images, audio, and video)\n================================\n\nUp allows you to include images, audio, or video in your document.\n\nExample\n  Markup\n    ````\n    [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)\n    ````\n\n  Output\n    [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)\n\nDiscussion\n  To include media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.\n\n  You can use mix and match either type of bracket---they're totally interchangeable.\n\n\n  Media descriptions\n  ==================\n\n  Media descriptions **always** start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.\n\n  Within media descriptions, [topic: typographical writing conventions] are recognized, as is [topic: disabling]. But other inline writing conventions are not recognized---you can't include revealable content or links, for example.\n\n\n  Media URLs\n  ==========\n\n  As demonstrated above, you can omit the [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax) for media. If you do, Up assumes the URL scheme is `https://`.\n\n  If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:\n\n  - [topic: baseForUrlsStartingWithSlash]\n  - [topic: baseForUrlsStartingWithHashMark]\n  - [topic: renderDangerousContent].\n\n\n==================\nRevealable content\n==================\n\nSometimes, you want to give readers the option to avoid certain content. This includes:\n\n- Movie spoilers\n- Sexual content\n- Graphic/disturbing content\n\nTo facilitate this, Up supports revealable content.\n\n\nInline revealables\n==================\n\nUse the inline revealable convention to hide content within a paragraph.\n\nWhen you want to hide more than a sentence or two, use [topic: revealable blocks] instead.\n\nExample\n  Markup\n    ````\n    At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.\n    ````\n\n  Output\n    At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.\n\nDiscussion\n  To hide content within a paragraph, first enclose that content within square brackets or parentheses. Then, insert one of the [topic: revealable keywords] directly inside your opening bracket, followed by a colon.\n\n  Inline revealables can contain any inline writing convention.\n\n\nRevealable blocks\n==================\n\nUse revealable block convention to hide a block of content.\n\nWhen you want to hide content within a paragraph, use [topic: inline revealables] instead.\n\nExample\n  Markup\n    ````\n    SPOILER:\n      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.\n\n      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:\n\n      1. Pidgeot\n      2. Alakazam\n      3. Rhydon\n    ````\n\n  Output\n    SPOILER:\n      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.\n\n      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:\n\n      1. Pidgeot\n      2. Alakazam\n      3. Rhydon\n\nDiscussion\n  To hide a block of content, first indent it two spaces (or a tab). Then, on the line before your indented block, put one of the [topic: revealable keywords].\n\n  In the example above, the keyword is followed by a colon. This isn't necessary.\n\n  Markup\n    ````\n    SPOILER\n      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.\n\n      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:\n\n      1. Pidgeot\n      2. Alakazam\n      3. Rhydon\n    ````\n\n  Output\n    SPOILER\n      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.\n\n      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:\n\n      1. Pidgeot\n      2. Alakazam\n      3. Rhydon\n\n\nRevealable keywords\n===================\n\nBoth [topic: inline revealables] and [topic: revealable blocks] recognize any of the following keywords:\n\n- `spoiler`\n- `nsfw`\n- `nsfl`\n- `revealable`\n\nLike all keywords in Up, you can capitalize these keywords however you want.\n\n\n===========\nBlockquotes\n===========\n\nUse the blockquote convention to quote a large section of text.\n\nFor typical dialog, you should probably use [topic: inline quotes] instead.\n\nExample\n  Markup\n    ````\n    > Listen to my favorite poem!\n    >\n    > Roses are red\n    > Violets are blue\n    ````\n\n  Output\n    > Listen to my favorite poem!\n    >\n    > Roses are red\n    > Violets are blue\n\nDiscussion\n  A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.\n\n  Blockquotes can contain any outline writing convention, including other blockquotes!\n\n  Markup\n    ````\n    > Thank you for replying to my blog!\n    >\n    > > I hate oranges for the following reasons:\n    > >\n    > > 1. They're not apples.\n    > > 2. They're not bananas.\n    >\n    > I completely understand.\n    ````\n\n  Output\n    > Thank you for replying to my blog!\n    >\n    > > I hate oranges for the following reasons:\n    > >\n    > > 1. They're not apples.\n    > > 2. They're not bananas.\n    >\n    > I completely understand.\n\n\n=================\nDescription lists\n=================\n\nUse the description list convention to represent a collection of subjects and their descriptions.\n\nYou can use description lists for:\n\n- Terms and definitions\n- Questions and answers\n- Any collection of subjects and descriptions!\n\n\nExample\n  Markup\n    ````\n    Kirby's Dreamland\n      A video game about a flying marshmallow.\n\n    Super Mario Land\n      A video game about a jumping plumber.\n    ````\n\n  Output\n    Kirby's Dreamland\n      A video game about a flying marshmallow.\n\n    Super Mario Land\n      A video game about a jumping plumber.\n\nDiscussion\n  Every item in a description list consists of two parts:\n\n  1. One or more subjects\n  2. A single description of those subjects\n\n\n  Subjects\n  ========\n\n  Subjects can contain any inline writing convention.\n\n  Markup\n    ````\n    Ash *Ketchum*\n      A ten year-old Pokémon trainer with an odd name.\n\n    Gary \"Smell You Later\" Oak\n      A ten year-old Pokémon trainer with a keen nose.\n    ````\n\n  Output\n    Ash *Ketchum*\n      A ten year-old Pokémon trainer with an odd name.\n\n    Gary \"Smell You Later\" Oak\n      A ten year-old Pokémon trainer with a keen nose.\n\n  When there is more than one subject for a given description, they should be listed consecutively, one per line.\n\n  Markup\n    ````\n    Game Boy Light\n    Game Boy Pocket\n    Game Boy Color\n      Handheld videogame systems released by Nintendo in the 1990s.\n    ````\n\n  Output\n    Game Boy Light\n    Game Boy Pocket\n    Game Boy Color\n      Handheld videogame systems released by Nintendo in the 1990s.\n\n\n  Descriptions\n  ============\n\n  Each description follows the subjects it describes.\n\n  Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists!\n\n  Markup\n    ````\n    Bulbasaur\n      A plant Pokémon with a bulb growing from its back.\n\n      Height\n        0.7 m\n      Weight\n        6.9 kg\n\n    Charmander\n      A fire Pokémon with a flame on its tail.\n\n      Height\n        0.6 m\n      Weight\n        8.5 kg\n\n  Output\n    Bulbasaur\n      A plant Pokémon with a bulb growing from its back.\n\n      Height\n        0.7 m\n      Weight\n        6.9 kg\n\n    Charmander\n      A fire Pokémon with a flame on its tail.\n\n      Height\n        0.6 m\n      Weight\n        8.5 kg\n\n  Each description may be followed by an optional blank line. If a description is followed by two blank lines, it marks the end of the description list.\n\n  Markup\n    ````\n    Lime\n      A green fruit.\n    Strawberry\n      A red fruit.\n\n\n    Bulbasaur\n      A green Pokémon.\n    Charmander\n      A red Pokémon.\n    ````\n\n  Output\n    Lime\n      A green fruit.\n    Strawberry\n      A red fruit.\n\n\n    Bulbasaur\n      A green Pokémon.\n    Charmander\n      A red Pokémon.\n\n\n===============\nThematic breaks\n===============\n\nUse the thematic break convention to represent a change of subject.\n\nA thematic break can be represented by three or consecutive blank lines.\n\nMarkup\n  ````\n  I vowed never to eat apples again.\n\n\n\n  By mid-March, a second flock of birds had moved into my dining room.\n  ````\n\nOutput\n  I vowed never to eat apples again.\n\n\n\n  By mid-March, a second flock of birds had moved into my dining room.\n\nA thematic break can *also* be represented by a line consisting of three or more of the following characters:\n\n- Hyphens: `-`\n- Number signs: `#`\n- Equal signs: `=`\n- Plus signs: `+`\n- Tildes: `~`\n- Colons: `:`\n- Asterisks: `*`\n- At signs: `@`\n\nYou can use any combination of those characters!\n\nMarkup\n  ````\n  I vowed never to eat apples again.\n\n  =~=~=~=~=~=~=~=~=~=~=\n\n  By mid-March, a second flock of birds had moved into my dining room.\n  ````\n\nOutput\n  I vowed never to eat apples again.\n\n  =~=~=~=~=~=~=~=~=~=~=\n\n  By mid-March, a second flock of birds had moved into my dining room.\n\n\n===========\nCode blocks\n===========\n\nUse the code block convention to represent a block of computer code.\n\nIf you need to reference only a small fragment of computer code, use [topic: Inline code].\n\nExample\n  Markup\n    ````````\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1\n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n    ````````\n\n  Output\n    ```\n    function nthFibonacci(n: number): number {\n      return (\n        n <= 2\n        ? n - 1\n        : nthFibonacci(n - 1) + nthFibonacci(n - 2))\n    }\n    ```\n\nDiscussion\n  Code blocks are surrounded (underlined and \"overlined\") by matching streaks of 3 or more backticks.\n\n  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).\n\n  Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.\n\n\n  Including streaks of backticks within your code block\n  =====================================================\n\n  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.\n\n  Markup\n    `````````\n    ``````\n    A code block:\n\n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n    `````````\n\n  Output\n    ``````\n    A code block:\n\n    ```\n    function factorial(n: number): number {\n      return (\n        n <= 1\n          ? 1\n          : n * factorial(n - 1))\n    }\n    ```\n\n    See? Not so hard!\n    ``````\n\n\n==============\nBulleted lists\n==============\n\nYou already know what a bulleted list is!\n\nBulleted lists can contain any outline writing convention, including other bulleted lists.\n\nExample\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n    - Buy happiness\n\nDiscussion\n  Bullets\n  =======\n\n  Every bulleted list item starts with a bullet followed by a space. The following characters can serve as a bullet:\n\n  - A hyphen: `-`\n  - An asterisk: `*`\n  - An actual bullet character: `•`\n\n\n  Spacing between list items\n  ===========================\n\n  Each list item can be followed by a single blank line. This has no impact on the list itself.\n\n  Markup\n    ````\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n    ````\n\n  Output\n    - Buy milk\n\n    - Buy bread\n\n    - Buy happiness\n\n  On the other hand, if a list item is followed by 2 blank lines, it marks the end of the list.\n\n  Markup\n    ````\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n    ````\n\n  Output\n    - Buy milk\n    - Buy bread\n\n\n    - Fix squeaky cabinet\n    - Fix self-esteem\n\n\n  List items consisting of multiple lines\n  =======================================\n\n  List items aren't limited to a single line!\n\n  If your list item contains more than one line, subsequent lines should be indented 2 spaces (or a tab).\n\n  Markup\n    ````\n    - Buy milk.\n\n      If whole milk is on sale, buy that. Otherwise, buy 2% milk.\n\n    - Buy bread.\n\n      Only buy bread from one of the following brands:\n\n      * Little Northern Bakehouse\n      * Udi's\n      * Canyon Bakehouse\n\n    - Buy happiness.\n\n      Don't spend more than a few dollars on this! Happiness isn't worth it.\n    ````\n\n  Output\n    - Buy milk.\n\n      If whole milk is on sale, buy that. Otherwise, buy 2% milk.\n\n    - Buy bread.\n\n      Only buy bread from one of the following brands:\n\n      * Little Northern Bakehouse\n      * Udi's\n      * Canyon Bakehouse\n\n    - Buy happiness.\n\n      Don't spend more than a few dollars on this! Happiness isn't worth it.\n\n\n==============\nNumbered lists\n==============\n\nYou already know what a numbered list is!\n\nNumbered lists can contain any outline writing convention, including other numbered lists.\n\nExample\n  Markup\n    ````\n    1. Buy milk\n    2. Buy bread\n    3. Buy happiness\n    ````\n\n  Output\n    1. Buy milk\n    2. Buy bread\n    3. Buy happiness\n\nDiscussion\n  Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered list items have ordinals, not bullets.\n\n  The ordinal for a numbered list item can be expressed several ways:\n\n  1. An integer followed by a period: `1.`\n  2. An integer followed by a closing parenthesis: `1)`\n  3. A number sign: `#`\n  4. A number sign followed by a period: `#.`\n  5. A number sign followed by a closing parenthesis: `#)`\n\n  Like each bullet in a bulleted list, each ordinal in a numbered list must be followed by a space.\n\n\n  Lists starting at a specific number\n  ===================================\n\n  Numbered lists don't have to start at `1`.\n\n  Markup\n    ````\n    3) March\n    #) April\n    #) May\n    ````\n\n  Output\n    3) March\n    #) April\n    #) May\n\n\n  Lists in descending order\n  =========================\n\n  Up automatically recognizes when a numbered list is in descending order.\n\n  If a numered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order.\n\n  Markup\n    ````\n    3) Buy milk\n    2) Buy bread\n    #) Buy happiness\n    ````\n\n  Output\n    3) Buy milk\n    2) Buy bread\n    #) Buy happiness\n\n\n  Single-item numbered lists\n  ==========================\n\n  Like bulleted lists, numbered lists can consist of a single item.\n\n  Markup\n    ````\n    1) Buy milk\n    ````\n\n  Output\n    1) Buy milk\n\n  There's a small exception to this rule: If your list item's ordinal is expressed as an integer followed by a period (e.g. `1.`), you must have more than one list item. This exception helps prevent \"accidental\" numbered lists.\n\n  Markup\n    ````\n    1783. Not a good year for Great Britain.\n    ````\n\n  Output\n    1783. Not a good year for Great Britain.\n  ````\n\n\n=================================\nTypographical writing conventions\n=================================\n\nConsecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character.\n\nMarkup\n  ````\n  I don't know... I doubt a dog would do this.\n  ````\n\nOutput\n  I don't know... I doubt a dog would do this.\n\nIf you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more information, see [topic: fancyEllipsis].\n\nTwo consecutive hyphens produce an en dash.\n\nMarkup\n  ````\n  I agree -- to a extent -- with your plan to eat nothing but cereal.\n  ````\n\nOutput\n  I agree -- to a extent -- with your plan to eat nothing but cereal.\n\nThree consecutive hyphens produce an *em* dash.\n\nMarkup\n  ````\n  Use a spoon----a fork won't cut it.\n  ````\n\nOutput\n  Use a spoon----a fork won't cut it.\n  ````\n\n\n======\nTables\n======\n\nYou already know what a table is! Use the table convention to display rows of data organized into columns.\n\nExample\n  Markup\n    ````\n    Table: Moves learned by the Pokémon Bulbasaur\n\n    Title;  Move;         Type;     Power;  Accuracy\n\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n    ````\n\n  Output\n    Table: Moves learned by the Pokémon Bulbasaur\n\n    Level;  Move;         Type;     Power;  Accuracy\n\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n\nDiscussion\n\n  A table consists of:\n\n  - An optional caption, representing the table's title\n  - A header row, describing each column\n  - Content rows, representing the actual data\n  - An optional header column, describing each row\n\n  Table cells are separated by semicolons. For more information, see [topic: cells].\n\n  To make our markup more readable, our examples use extra spaces to align cells This is strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].\n\n  Squished markup\n    ````\n    Table: My favorite fruits\n\n    Fruit;Color;Taste\n\n    Lime;Green;Sour\n    Lemon;Yellow;Sour\n    Banana;Yellow;Sweet\n    ````\n\n  Output\n    Table: My favorite fruits\n\n    Fruit;Color;Taste\n\n    Lime;Green;Sour\n    Lemon;Yellow;Sour\n    Banana;Yellow;Sweet\n\n\n  The caption\n  ===========\n\n  Tables start with a caption. Captions can contain any inline writing convention.\n\n  Markup\n    ````\n    Table: My *least* favorite fruits\n\n    Fruit;      Color;      Taste\n\n    Lime;       Green;      Sour\n    Lemon;      Yellow;     Sour\n    Banana;     Yellow;     Sweet\n    ````\n\n  Output\n    Table: My *least* favorite fruits\n\n    Fruit;      Color;      Taste\n\n    Lime;       Green;      Sour\n    Lemon;      Yellow;     Sour\n    Banana;     Yellow;     Sweet\n\n  Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put \"Table\" on its own line.\n\n  Markup\n    ````\n    Table\n\n    Level;  Move;         Type;     Power;  Accuracy\n\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n    ````\n\n  Output\n    Table\n\n    Level;  Move;         Type;     Power;  Accuracy\n\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n\n\n  Cells\n  =====\n\n  Cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling the special meaning of characters].\n\n  Markup\n    ````\n    Table: My favorite fruits\n\n    Fruit;      Reason for liking\n\n    Apples;     Easy to eat\\; lasts weeks in the fridge\n    Grapes;     Make me feel like Dionysus\n    Oranges;    The color orange is nice\n    ````\n\n  Output\n    Table: My favorite fruits\n\n    Fruit;      Reason for liking\n\n    Apples;     Easy to eat\\; lasts weeks in the fridge\n    Grapes;     Make me feel like Dionysus\n    Oranges;    The color orange is nice\n\n  -------------------------------\n  Cells spanning multiple columns\n  -------------------------------\n\n  If you want a cell to span two columns, terminate that cell with two semicolons.\n\n  Markup\n    ````\n    Table: My favorite fruits\n\n    Fruit;      Color;      Taste\n\n    Lime;       Green;      Sour\n    Orange;;                Sweet and tart\n    Banana;     Yellow;     Sweet\n    ````\n\n  Output\n    Table: My favorite fruits\n\n    Fruit;      Color;      Taste\n\n    Lime;       Green;      Sour\n    Orange;;                Sweet and tart\n    Banana;     Yellow;     Sweet\n\n  Likewise, if you want a cell to span six columns, terminate that cell with six semicolons.\n\n  -----------\n  Empty cells\n  -----------\n\n  A cell consisting solely of spaces (one or more) is considered empty.\n\n  Normally, you have to put at least one space in the cell, because consecutive semicolons indicate that you want the previous cell to span multiple columns.\n\n  However, to indicate that the *first* cell in a row should be empty, simply start that row with a semicolon. You don't need to put any spaces before it.\n\n  Markup\n    ````\n    Table: Games in the Chrono series\n\n    Release Date;       Game;\n\n    March 11, 1995;     Chrono Trigger\n    November 18, 1999;  Chrono Cross\n    ;                   Chrono Break\n    ````\n\n  Output\n    Table: Games in the Chrono series\n\n    Game;               Release Date\n\n    Chrono Trigger;     March 11, 1995\n    Chrono Cross;       November 18, 1999\n    Chrono Break;\n\n  Likewise, to indicate that the *last* cell in a row should be empty, simply end that row with a semicolon. You don't need to add any spaces after it.\n\n  Markup\n    ````\n    Table: Games in the Chrono series\n\n    Game;               Release Date\n\n    Chrono Trigger;     March 11, 1995\n    Chrono Cross;       November 18, 1999\n    Chrono Break;\n    ````\n\n  Output\n    Table: Games in the Chrono series\n\n    Game;               Release Date\n\n    Chrono Trigger;     March 11, 1995\n    Chrono Cross;       November 18, 1999\n    Chrono Break;\n\n\n  The header row\n  ==============\n\n  The header defines each column in the table.\n\n  The single blank lines before and after the header are not required.\n\n  Markup\n    ````\n    Table: Moves learned by the Pokémon Bulbasaur\n    Level;  Move;         Type;     Power;  Accuracy\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n    ````\n\n  Output\n    Table: Moves learned by the Pokémon Bulbasaur\n    Level;  Move;         Type;     Power;  Accuracy\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n\n  Cells in a table's header can contain any inline writing convention.\n\n\n  Content rows\n  ============\n\n  The \"content rows\" of a table follow its header row. The content rows contain the table's actual data.\n\n  If a content row is followed by a blank line, it ends the table.\n\n  Markup\n    ````\n    Table: Moves learned by the Pokémon Bulbasaur\n\n    Level;  Move;         Type;     Power;  Accuracy\n\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n\n    With moves *that* exciting, I had to choose Bulbasaur!\n\n    ````\n\n  Output\n    Table: Moves learned by the Pokémon Bulbasaur\n\n    Level;  Move;         Type;     Power;  Accuracy\n\n    1;      Tackle;       Normal;   50;     100%\n    3;      Growl;        Normal;   ;       100%\n    7;      Leech Seed;   Grass;    ;       90%\n    9;      Vine Whip;    Grass;    45;     100%\n\n    With moves *that* exciting, I had to choose Bulbasaur!\n\n  Content row cells can contain any inline writing convention.\n\n\n  Including a header column in your table\n  =======================================\n\n  To indicate your table has a header column, simply indent the header *row* at least two spaces (or a tab)! The first cell in each row is treated as its header column.\n\n  Markup\n    ````\n    Table: Moves learned by the Pokémon Bulbasaur\n\n                  Level;    Type;     Power;  Accuracy\n\n    Tackle;       1;        Normal;   50;     100%\n    Growl;        3;        Normal;   ;       100%\n    Leech Seed;   7;        Grass;    ;       90%\n    Vine Whip;    9;        Grass;    45;     100%\n    ````\n\n  Output\n    Table: Moves learned by the Pokémon Bulbasaur\n\n                  Level;    Type;     Power;  Accuracy\n\n    Tackle;       1;        Normal;   50;     100%\n    Growl;        3;        Normal;   ;       100%\n    Leech Seed;   7;        Grass;    ;       90%\n    Vine Whip;    9;        Grass;    45;     100%\n\n\nWhen your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row (in the top level corner, above the header column).\n\n\n=====================================\nLinkifying another writing convention\n=====================================\n\nYou can put [topic: images] inside of [topic: links]. However, the syntax can be a bit messy.\n\nMessy markup\n  ````\n  [(image: DuckDuckGo's logo) (duckduckgo.com/assets/dax-alt.svg)] [duckduckgo.com]\n  ````\n\nOutput\n  [(image: DuckDuckGo's logo) (duckduckgo.com/assets/dax-alt.svg)] [duckduckgo.com]\n\nThat's a lot of brackets! Luckily, there's a shortcut.\n\nSimply place the \"linkifying\" URL after the image's own URL, and Up will produce a link for you.\n\nCleaner markup\n  ````\n  [image: DuckDuckGo's logo] [duckduckgo.com/assets/dax-alt.svg] (duckduckgo.com)\n  ````\n\nOutput\n  [image: DuckDuckGo's logo] [duckduckgo.com/assets/dax-alt.svg] (duckduckgo.com)\n\nThis shortcut also works for the following conventions:\n\n- [topic: Highlighting]\n- [topic: Footnotes]\n- [topic: Inline revealables]\n\nMarkup\n  ````\n  At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.\n  ````\n\nOutput\n  At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.\n\n\n======================================\nOverlapping inline writing conventions\n======================================\n\nIn Up, inline writing conventions can freely overlap.\n\nMarkup\n  ````\n  Mr. Turnip, I do ***not [care*** at](wikipedia.org/wiki/Carrot) all.\n  ````\n\nOutput\n  Mr. Turnip, I do ***not [care*** at](wikipedia.org/wiki/Carrot) all.\n\n\nSuperficial overlapping\n=======================\n\nIf conventions overlap superficially---only by their start or end delimiters---Up pretends they weren't overlapped at all.\n\nMarkup\n  ````\n  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.\n  ````\n\nOutput\n  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.\n\n\n===========================================\nDisabling the special meaning of characters\n===========================================\n\nTo disable the special meaning of a character, put a backslash before it.\n\nExample\n  ````\n  I love \\*asterisks*!\n  ````\n\nOutput\n  I love \\*asterisks\\*!\n\nLikewise, to disable the special meaning of a backslash, put another backslash before it.\n\nExample\n  ````\n  My favorite kind of slash is the backslash: \\\\. What is yours?\n  ````\n\nOutput\n  My favorite kind of slash is the backslash: \\\\. What is yours?\n\n\n\n####################\nUsing the Up library\n####################\n\nThe Up library can be [found on NPM] (npmjs.com/package/write-up).\n\n\n============\nInstallation\n============\n\nThere's nothing special about installing Up.\n\n````\nnpm install write-up --save-dev\n````\n\n\n==============\nUsage Overview\n==============\n\nFirst, `require` the library.\n\n````\nconst Up = require('write-up')\n````\n\nHooray! `Up` now serves as the namespace for the library.\n\nTypically, you'll want to use the various functions within that namespace.\n\n````\nconst html = Up.parseAndRender(markup, settings)\n````\n\nFor a full description of the functions you can use, please see [topic: functions].\n\nAlternatively, you can create an instance of the `Up.Transformer` class. This can be useful if you need to parse or render several documents all sharing custom settings. For more information, see [topic: Up.Transformer].\n\n\n=========\nFunctions\n=========\n\n`Up.parseAndRender`\n==================\n\nThis method converts Up markup into HTML and returns the result.\n\nArguments\n  `markup`: `string`\n    The Up markup to convert into HTML.\n  `settings` (optional): [topic: Up.UserProvidedSettings]\n    The custom parsing and/or rendering settings to apply.\n\nReturn type: `string`\n  This method returns HTML representing the rendered document.\n\nUsage\n  Without custom settings\n    ````\n    const html = Up.parseAndRender(markup)\n    ````\n\n  With custom settings\n    ````\n    const html = Up.parseAndRender(markup, {\n      parsing: {\n        createSourceMap: true,\n        keywords: { highlight: \"mark\" }\n      },\n      rendering: {\n        idPrefix: \"article\"\n      }\n    })\n    ````\n\n\n`Up.parseAndRenderDocumentAndTableOfContents`\n=============================================\n\nThis method converts Up markup into two pieces of HTML, both of which are returned:\n\n1. A table of contents\n2. The document itself\n\nArguments\n  `markup`: `string`\n    The Up markup to parse and render.\n  `settings` (optional): [topic: Up.UserProvidedSettings]\n    The custom parsing and/or rendering settings to apply.\n\nReturn type: [topic: Up.RenderedDocumentAndTableOfContents]\n  This method returns HTML representing the rendered document and table of contents.\n\nUsage\n  Without custom settings\n    ````\n    const { tableOfContentsHtml, documentHtml } =\n      Up.parseAndRenderDocumentAndTableOfContents(markup)\n    ````\n\n  With custom settings\n    ````\n    const { tableOfContentsHtml, documentHtml } =\n      Up.parseAndRenderDocumentAndTableOfContents(markup, {\n        parsing: {\n          createSourceMap: true,\n          keywords: { highlight: \"mark\" }\n        },\n        rendering: {\n          idPrefix: \"article\",\n          terms: { tableOfContents: \"In This Article\" }\n        }\n      })\n    ````\n\n\n`Up.parseAndRenderInline`\n=========================\n\nThis method converts inline Up markup into inline HTML and returns the result.\n\nFor more information about inline documents, see [topic: inline documents].\n\nArguments\n  `inlineMarkup`: `string`\n    The inline Up markup to convert into inline HTML.\n  `parsingSettings` (optional): [topic: Up.UserProvidedSettings]\n    The custom parsing and/or rendering settings to apply.\n\nReturn type: `string`\n  This method returns HTML representing the rendered inline document.\n\nUsage\n  Without custom settings\n    ````\n    const html = Up.parseAndRenderInline(markup)\n    ````\n\n  With custom settings\n    ````\n    const html = Up.parseAndRenderInline(markup, {\n      parsing: {\n        baseForUrlsStartingWithSlash: \"https://example.com/en-us\",\n        keywords: { highlight: \"mark\" }\n      },\n      rendering: {\n        idPrefix: \"byline\",\n        terms: {\n          footnoteReference: \"footnote mention\",\n          revealContent: \"show\"\n        }\n      }\n    })\n    ````\n\n\n`Up.parse`\n==========\n\nThis method parses Up markup and returns the resulting syntax tree.\n\nArguments\n  `markup`: `string`\n    The Up markup to parse.\n\n  `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]\n    The custom parsing settings to apply.\n\nReturn type: [topic: Document]\n  This method returns a syntax tree representing the parsed document.\n\nUsage\n  Without custom settings\n    ````\n    const html = Up.parse(markup)\n    ````\n\n  With custom settings\n    ````\n    const document = Up.parse(markup, {\n      createSourceMap: true,\n      keywords: { highlight: \"mark\" }\n    })\n    ````\n\n\n`Up.parseInline`\n================\n\nThis method parses inline Up markup and returns the resulting inline syntax tree.\n\nFor more information about inline documents, see [topic: inline documents].\n\nArguments\n  `inlineMarkup`: `string`\n    The inline Up markup to parse.\n\n  `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]\n    The custom parsing settings to apply.\n\nReturn type: [topic: Up.InlineDocument]\n  This method returns an inline syntax tree representing the parsed document.\n\nUsage\n  Without custom settings\n    ````\n    const html = Up.parseInline(markup)\n    ````\n\n  With custom settings\n    ````\n    const html = Up.parseInline(markup, {\n      baseForUrlsStartingWithSlash: \"https://example.com/en-us\",\n      keywords: { highlight: \"mark\" }\n    })\n    ````\n\n\n`Up.render`\n===========\n\nThis method converts a syntax tree into HTML and returns the result.\n\nArguments\n  `document`: [topic: Document]\n    The syntax tree to convert into HTML.\n\n  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]\n    The custom rendering settings to apply.\n\nReturn type: `string`\n  This method returns HTML representing the rendered document.\n\nUsage\n  Without custom settings\n    ````\n    const html = Up.render(document)\n    ````\n\n  With custom settings\n    ````\n    const html = Up.render(document, {\n      idPrefix: \"article\",\n      terms: {\n        footnoteReference: \"footnote mention\",\n        revealContent: \"show\"\n      }\n    })\n    ````\n\n\n`Up.renderDocumentAndTableOfContents`\n=====================================\n\nThis method converts a syntax tree into two pieces of HTML, both of which are returned:\n\n1. A table of contents\n2. The document itself\n\nArguments\n  `document`: [topic: Document]\n    The syntax tree to convert into HTML.\n\n  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]\n    The custom rendering settings to apply.\n\nReturn type: [topic: Up.RenderedDocumentAndTableOfContents]\n  This method returns HTML representing the rendered document and table of contents.\n\nUsage\n  Without custom settings\n    ````\n    const { tableOfContentsHtml, documentHtml } =\n      Up.renderDocumentAndTableOfContents(document)\n    ````\n\n  With custom settings\n    ````\n    const { tableOfContentsHtml, documentHtml } =\n      Up.renderDocumentAndTableOfContents(document, {\n        idPrefix: \"article\",\n        terms: { tableOfContents: \"In This Article\" }\n      })\n    ````\n\n\n`Up.renderInline`\n================\n\nThis method converts an inline syntax tree into inline HTML and returns the result.\n\nFor more information about inline documents, see [topic: inline documents].\n\nArguments\n  `inlineDocument`: [topic: Up.InlineDocument]\n    The inline syntax tree to convert into HTML.\n\n  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]\n    The custom rendering settings to apply.\n\nReturn type: `string`\n  This method returns HTML representing the rendered inline document.\n\nUsage\n  Without custom settings\n    ````\n    const html = Up.renderInline(inlineDocument)\n    ````\n\n  With custom settings\n    ````\n    const html = Up.renderInline(inlineDocument, {\n      idPrefix: \"byline\",\n      terms: {\n        footnoteReference: \"footnote mention\",\n        revealContent: \"show\"\n      }\n    })\n    ````\n\n\n=============\nConfiguration\n=============\n\nAll functions accept custom settings!\n\nFor a full description of Up's functions, see [topic: functions].\n\n\n`Up.UserProvidedSettings`\n======================\n\nSummary\n  The `UserProvidedSettings` interface includes both parsing settings and rendering settings.\n\n  Use this interface to provide custom settings to functions that both parse markup *and* render the result to HTML:\n\n  - [topic: Up.parseAndRender]\n  - [topic: Up.parseAndRenderDocumentAndTableOfContents]\n  - [topic: Up.parseAndRenderInline]\n\nMembers (both of which are optional)\n  `parsing`: [topic: Up.UserProvidedSettings.Parsing]\n    The custom parsing settings to apply.\n\n  `rendering`: [topic: Up.UserProvidedSettings.Rendering]\n    The custom rendering settings to apply.\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    parsing: {\n      createSourceMap: true,\n      keywords: { highlight: \"mark\" }\n    },\n    rendering: {\n      idPrefix: \"article\"\n    }\n  })\n  ````\n\n\n`Up.UserProvidedSettings.Parsing`\n==============================\n\nSummary\n  The `UserProvidedSettings.Parsing` interface includes all parsing settings.\n\n  Use this interface to provide custom settings to functions that parse markup and return the resulting syntax tree:\n\n  - [topic: Up.parse]\n  - [topic: Up.parseInline]\n\n  As part of [topic: Up.UserProvidedSettings], this interface also provides custom settings to functions that both parse markup *and* render the result to HTML:\n\n  - [topic: Up.parseAndRender]\n  - [topic: Up.parseAndRenderDocumentAndTableOfContents]\n  - [topic: Up.parseAndRenderInline]\n\nMembers (all of which are optional)\n  [topic: createSourceMap]: `boolean`\n    Enables source mapping.\n\n  [topic: defaultUrlScheme]: `string`\n    The default URL scheme for URLs without one.\n\n  [topic: baseForUrlsStartingWithSlash]: `string`\n    The base for URLs starting with `/`.\n\n  [topic: baseForUrlsStartingWithHashMark]: `string`\n    The base for URLs starting with `#`.\n\n  [topic: fancyEllipsis]: `string`\n    Up replaces consecutive periods with this fancy ellipsis.\n\n  `keywords` (all of which are optional)\n\n    --------------------\n    Customizing keywords\n    --------------------\n\n    You can provide unlimited variations for every keyword! Even when you provide custom variations, Up always recognizes the defaults---they're never \"overwritten\".\n\n    For a given keyword, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.\n\n    Example\n      ````\n      const document = Up.parse(markup, {\n        keywords: {\n          audio: [\"sound\", \"song\"],\n          highlight: \"mark\"\n        }\n      })\n      ````\n\n    Discussion\n      In the above example, the `audio` keyword has two custom variations: \"sound\" and \"song\". The audio convention will recognize both of those variations, plus the default: \"audio\".\n\n      The `highlight` keyword has a single custom variation: \"mark\". The highlighting convention will recognize that variation, plus the default: \"highlight\".\n\n      For a full description of the various functions you can use, please see [topic: functions].\n\n    Keep in mind that keywords are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.\n\n    `audio`: `string` or `string[]`\n      Convention\n        Recognized by [topic: audio].\n      Default\n        `audio`\n\n    `highlight`: `string` or `string[]`\n      Recognized by [topic: highlighting].\n\n    `image`: `string` or `string[]`\n      Recognized by [topic: images].\n\n    `revealable`: `string` or `string[]`\n      Recognized by [topic: inline revealables] and [topic: revealable blocks].\n\n    `sectionLink`: `string` or `string[]`\n      Recognized by [topic: section links].\n\n    `table`: `string` or `string[]`\n      Recognized by [topic: tables].\n\n    `video`: `string` or `string[]`\n      Recognized by [topic: video].\n\nUsage\n  ````\n  const document = Up.parse(markup, {\n    createSourceMap: true,\n    keywords: {\n      audio: [\"sound\", \"song\"],\n      highlight: \"mark\"\n    }\n  })\n  ````\n\n\nParsing settings\n================\n\n-----------------\n`createSourceMap`\n-----------------\n\nSummary\n  When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline writing convention.\n\n  This document uses source mapping to synchronize the scrolling between itself and its markup.\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    parsing: {\n      createSourceMap: true\n    }\n  })\n  ````\n\nContext\n  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].\n\nDetails\n  `createSourceMap` works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.\n\n  When these syntax nodes are rendered to HTML, the HTML elements they produce each have a `data-up-source-line` attribute set the appropriate line number.\n\nDefault\n  `false`\n\n\n------------------\n`defaultUrlScheme`\n------------------\n\nSummary\n  The `defaultUrlScheme` is prefixed to any link URL or media URL without a [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax).\n\n  For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: baseForUrlsStartingWithSlash] or [topic: baseForUrlsStartingWithHashMark].\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    parsing: {\n      defaultUrlScheme: \"my-app://\"\n    }\n  })\n  ````\n\nContext\n  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].\n\nDefault\n  `\"https://\"`\n\n\n------------------------------\n`baseForUrlsStartingWithSlash`\n------------------------------\n\nSummary\n  The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `/`.\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    parsing: {\n      baseForUrlsStartingWithSlash: \"https://example.com/blog/\"\n    }\n  })\n  ````\n\nContext\n  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].\n\nDefault\n  `\"\"` (an empty string)\n\n\n---------------------------------\n`baseForUrlsStartingWithHashMark`\n---------------------------------\n\nSummary\n  The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `#`.\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    parsing: {\n      baseForUrlsStartingWithHashMark: \"https://example.com/blog/post/28\"\n    }\n  })\n  ````\n\nContext\n  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].\n\nDefault\n  `\"\"` (an empty string)\n\n\n---------------\n`fancyEllipsis`\n---------------\n\nSummary\n  Up automatically replaces consecutive periods with `fancyEllipsis`.\n\n  By default, `fancyEllipsis` is `…`. If you you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    parsing: {\n      fancyEllipsis: \"⋯\"\n    }\n  })\n  ````\n\nContext\n  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].\n\nDefault\n  `\"…\"`\n\n\n`Up.UserProvidedSettings.Rendering`\n===================================\n\nSummary\n  The `UserProvidedSettings.Parsing` interface includes all rendering settings.\n\n  Use this interface to provide custom settings to functions that render syntax trees to HTML:\n\n  - [topic: Up.render]\n  - [topic: Up.renderDocumentAndTableOfContents]\n  - [topic: Up.renderInline]\n\n  As part of [topic: Up.UserProvidedSettings], this interface also provides custom settings to functions that both parse markup *and* render the result to HTML:\n\n  - [topic: Up.parseAndRender]\n  - [topic: Up.parseAndRenderDocumentAndTableOfContents]\n  - [topic: Up.parseAndRenderInline]\n\nMembers (all of which are optional)\n  [topic: idPrefix]: `string`\n    The prefix to apply to HTML IDs.\n\n  [topic: renderDangerousContent]: `boolean`\n    Enables the rendering of dangerous content. Enabling this setting is not recommended!\n\n  `terms` (all of which are optional)\n\n    --------------------------\n    Customizing rendered terms\n    --------------------------\n\n    You don't need to worry about escaping any characters in your custom terms! Up handles that for you.\n\n    `footnote`: `string`\n      Appears in the URLs of footnotes definitions (i.e. in their respective footnote blocks).\n\n    `footnoteReference`: `string`\n      Appears in the URLs of footnotes references (i.e. the superscripts within paragraphs).\n\n    `revealContent`: `string`\n      Appears on the button that toggles the visibility of revealable content.\n\n    `sectionReferencedByTableOfContents`: `string`\n      Appears in the URLs of headings referenced by the table of contents.\n\n    `tableOfContents`: `string`\n      Appears at the top of the table of contents.\n\nUsage\n  ````\n  const html = Up.render(document, {\n    idPrefix: \"article\",\n    terms: {\n      footnoteReference: \"footnote mention\",\n      revealContent: \"show\"\n    }\n  })\n  ````\n\n\nRendering settings\n==================\n\n----------\n`idPrefix`\n----------\n\nSummary\n  If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.\n\n  By default, `idPrefix` is `up` to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    rendering: {\n      idPrefix: \"article\"\n    }\n  })\n  ````\n\nContext\n  This setting belongs to [topic: Up.UserProvidedSettings.Rendering].\n\nDetails\n  You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.\n\nDefault\n  `\"up\"`\n\n\n------------------------\n`renderDangerousContent`\n------------------------\n\nSummary\n  Normally, Up will not render links or media elements with potentially exploitable URI schemes (`javascript`, `vbscript`, `data`, and `file`).\n\n  When this setting is enabled, Up will dutifully render all links and media elements.\n\nUsage\n  ````\n  const html = Up.parseAndRender(markup, {\n    rendering: {\n      renderDangerousContent: true\n    }\n  })\n  ````\n\nContext\n  This setting belongs to [topic: Up.UserProvidedSettings.Rendering].\n\nDetails\n  By default, dangerous media elements produce no HTML at all. Dangerous links produce no HTML of their own, though their child elements are rendered.\n\nDefault\n  `false`\n\n\n\n================\nInline documents\n================\n\nIn certain contexts, you might want to restrict a document to just a single line:\n\n- An online chat message\n- The title of a thread on a message board\n- The byline for a user's profile\n\nThat's what inline documents are for! To take advantage of inline documents, use one of the following functions:\n\n- [topic: Up.parseAndRenderInline]\n- [topic: Up.parseInline]\n- [topic: Up.renderInline]\n\n\nSyntax differences\n==================\n\nWithin inline documents, Up ignores all outline writing conventions. Furthermore, [topic: footnotes] and [topic: section links] aren't supported.\n\nWhen Up encounters a footnote in an inline document, it pretends the author had used parentheses instead of a footnote.\n\nInline markup\n  ````\n  My dad [^ Professor Oak] is very wise.\n  ````\nOutput\n  My dad (Professor Oak) is very wise.\n\nWithin inline documents, Up doesn't recognize the syntax for section links. Consequently, their markup is instead treated as regular old text enclosed within brackets.\n\nInline markup\n  ````\n  I enjoyed our conversation [topic: the weather].\n  ````\nOutput\n  I enjoyed our conversation [\\topic: the weather].\n\n\nRendered HTML\n=============\n\nWhen inline documents are rendered, the resulting HTML is not enclosed within any container element.\n\nInline markup\n  I *really* like Starcraft.\n\nRendered inline HTML\n  ````\n  I <em>really</em> like Starcraft.\n  ````\n\n\n================\n`Up.Transformer`\n================\n\nPurpose\n  The `Up.Transformer` class can be useful if you need to parse or render several documents all sharing custom settings.\n\n  Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.\n\n  ````\n  const up = new Up.Transformer(settings)\n  const html = up.parseAndRender(markup, settingsChanges)\n  ````\n\nConstructor arguments\n  `settings` (optional): [topic: Up.UserProvidedSettings]\n    The custom parsing and/or rendering settings to apply for all subsequent method calls.\n\nMembers\n  This class's methods have the same names and aruments as the [topic: functions] in the library:\n\n  - [topic: Up.parseAndRender]\n  - [topic: Up.parseAndRenderDocumentAndTableOfContents]\n  - [topic: Up.parseAndRenderInline]\n  - [topic: Up.parse]\n  - [topic: Up.parseInline]\n  - [topic: Up.render]\n  - [topic: Up.renderDocumentAndTableOfContents]\n  - [topic: Up.renderInline]\n\n  When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.\n\n  Example\n    ````\n    const up = new Up.Transformer({\n      parsing: {\n        createSourceMap: true,\n        fancyEllipsis: \"⋯\",\n        keywords: {\n          audio: [\"sound\", \"song\"],\n          highlight: \"mark\"\n        }\n      },\n      rendering: {\n        terms: { tableOfContents: \"Contents\" }\n      }\n    })\n\n    const html = up.parseAndRender(markup, {\n      parsing: {\n        createSourceMap: false,\n        keywords: {\n          audio: \"listen\"\n        }\n      },\n      rendering: {\n        idPrefix: \"article\"\n      }\n    })\n    ````\n\n  Discussion\n    In the above example, the following settings are ultimately applied:\n\n    ````\n    {\n      parsing: {\n        createSourceMap: false,\n        fancyEllipsis: \"⋯\",\n        keywords: {\n          audio: \"listen\",\n          highlight: \"mark\"\n        }\n      },\n      rendering: {\n        idPrefix: \"article\",\n        terms: { tableOfContents: \"Contents\" }\n      }\n    }\n    ````\n\n\n=======================================\n`Up.RenderedDocumentAndTableOfContents`\n=======================================\n\nThis interface represents the HTML for a rendered document and table of contents.\n\nMembers\n  `tableOfContentsHtml`: `string`\n    The HTML for the table of contents.\n\n  `documentHtml`: `string`\n    The HTML for the document itself.\n\nNotes\n  The following functions return an object satisfying this interface:\n\n  - [topic: Up.parseAndRenderDocumentAndTableOfContents]\n  - [topic: Up.renderDocumentAndTableOfContents]\n\n\n========================\nThe abstract syntax tree\n========================\n\nUnless you're fiddling with the parsed abstract syntax tree, you don't need to worry about any of these classes or interfaces.\n\n\n`Up.Document`\n=============\n\nPurpose\n  This class represents the syntax tree for a parsed document.\n\nExtends\n  [topic: Up.OutlineSyntaxNodeContainer]\n\nUnique members\n  `tableOfContents`: [topic: Document.TableOfContents]\n    An object representing the document's table of contents.\n\n  `create` method (`static`)\n    Purpose\n      This method returns a ready-to-render syntax tree from a collection of outline syntax nodes.\n\n    Arguments\n      `children`: array of [topic: OutlineSyntaxNode]\n        A collection of outline syntax nodes representing the top-level conventions in the document.\n\n    Return type: [topic: Up.Document]\n      This method creates and returns a ready-to-render `Document` object.\n\n      To prepare the document for rendering, this method:\n\n      - Assigns footnotes their reference numbers\n      - Extracts footnotes into footnote blocks\n      - Produces a table of contents\n      - Associates section links with the apprioriate table of contents entries\n\nNotes\n  The [topic: Up.parse] function returns an instance of this class.\n\n-----------------------------\n`Up.Document.TableOfContents`\n-----------------------------\n\nPurpose\n  This class represents the table of contents for a document. The table of contents includes every heading except those found within [topic: revealable content].\n\nMembers\n  `entries`: array of [topic: TableOfContents.Entry]\n    A collection of entries representing headings in the document.\n\n`Up.Document.TableOfContents.Entry`\n-----------------------------------\n\nPurpose\n  This interface represents an entry in the table of contents.\n\nMembers\n  `ordinal`: `number`\n    Represents the entry's ordinal in the table of contents. The first ordinal is `1`, not `0`.\n\n  `level`: `number`\n    Represents the heading level of the entry.\n\n  `searchableText` method\n    Arguments\n      None.\n\n    Return type: `string`\n      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images do have searchable text (footnotes have content, and images have a description).\n\n      This is used to help [topic: section links] match the most appropriate table of content entry.\n\n  `contentWithinTableOfContents` method\n    Arguments\n      None.\n\n    Return type: array of [topic: Up.InlineSyntaxNode]\n      This method returns the inline syntax nodes that should represent this entry's content inside the table of contents itself.\n\n  `inlineDescendants`\n    Return type: array of [topic: Up.InlineSyntaxNode]\n      This method returns the inline descendants (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.\n\n    Arguments\n      None.\n\n\n`Up.InlineDocument`\n==================\n\nPurpose\n  This class represents the syntax tree for a parsed inline document.\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\nNotes\n  The [topic: Up.parseInline] function returns an instance of this class.\n\n\n`Up.SyntaxNode`\n===============\n\nPurpose\n  All syntax node classes must implement this interface.\n\nMembers\n  `inlineDescendants` method\n    Return type: array of [topic: Up.InlineSyntaxNode]\n      This method returns all inline descendants (including children, grandchildren, etc.).\n\nNotes\n  This interface also has a `render` method, but it isn't relevant to developers using the Up library.\n\n\n`Up.InlineSyntaxNode`\n=====================\n\nPurpose\n  Inline syntax node classes must implement this interface.\n\nExtends\n  [topic: Up.SyntaxNode]\n\nUnique members\n  `textAppearingInline` method\n    Return type: `string`\n      This method returns the text of the syntax node as it should appear inline. Some inline writing conventions don't have any text appearing inline, including [topic: footnotes] and [topic: images].\n\n      This method is used to help determine whether table cells are numeric.\n\n    Arguments\n      None.\n\n  `searchableText` method\n    Return type: `string`\n      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).\n\n      This method is used to help [topic: section links] match the most appropriate table of content entry.\n\n    Arguments\n      None.\n\n\n`Up.OutlineSyntaxNode`\n======================\n\nPurpose\n  Outline syntax node classes must implement this interface.\n\nExtends\n  [topic: Up.SyntaxNode]\n\nUnique members\n  `sourceLineNumber`: `number`\n    The first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.\n\n  `descendantsToIncludeInTableOfContents` method\n    Return type: array of [topic: Up.Document.TableOfContents.Entry]\n      This method returns any descendants (at any nesting level) to include in the table of contents.\n\n    Arguments\n      None.\n\n\n`Up.RichInlineSyntaxNode`\n=========================\n\nPurpose\n  This abstract class represents an inline syntax node that can contain other inline syntax nodes.\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\nImplements\n  [topic: Up.InlineSyntaxNode]\n\n\n`Up.RichOutlineSyntaxNode`\n=========================\n\nPurpose\n  This abstract class represents an outline syntax node that can contain other outline syntax nodes.\n\nExtends\n  [topic: Up.OutlineSyntaxNodeContainer]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\n\n`Up.InlineSyntaxNodeContainer`\n==============================\n\nPurpose\n  This abstract class represents a container of inline syntax nodes.\n\nMembers\n  `children`: array of [topic: Up.InlineSyntaxNode]\n    A collection of inline syntax nodes representing the top-level content of the container.\n\n  `inlineDescendants` method\n    Return type: array of [topic: Up.InlineSyntaxNode]\n      This method returns all inline descendants (including `children`, grandchildren, etc.).\n\n    Arguments\n      None.\n\n\n`Up.OutlineSyntaxNodeContainer`\n==============================\n\nPurpose\n  This abstract class represents a container of inline syntax nodes.\n\nMembers\n  `children`: array of [topic: Up.InlineSyntaxNode]\n    A collection of outline syntax nodes representing the top-level content of the container.\n\n  `descendantsToIncludeInTableOfContents` method\n    Return type: array of [topic: Document.TableOfContents.Entry]\n      This method returns any descendants (children, grandchildren, etc.) to include in the table of contents.\n\n    Arguments\n      None.\n\n  `inlineDescendants` method\n    Return type: array of [topic: Up.InlineSyntaxNode]\n      This method returns all inline descendants of `children`.\n\n    Arguments\n      None.\n\n\n`Up.MediaSyntaxNode`\n====================\n\nPurpose\n  This abstract class represents a media convention.\n\nImplements\n  [topic: Up.InlineSyntaxNode]\n    Media conventions can appear inline.\n  [topic: Up.OutlineSyntaxNode]\n    If a line consists solely of media conventions (or media conventions within links), those media conventions are placed directly into the outline.\n\nUnique members\n  `description`: `string`\n    The media's description.\n\n  `url`: `string`\n    Represents this media convention's URL after the following settings are applied:\n\n    - [topic: defaultUrlScheme]\n    - [topic: baseForUrlsStartingWithSlash]\n    - [topic: baseForUrlsStartingWithHashMark]\n\n\n`Up.ParentheticalSyntaxNode`\n===============================\n\nPurpose\n  This abstract class represents [topic: parentheticals]. It exists solely to improve the expressiveness of the type system.\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.Audio`\n==========\n\nConvention\n  [topic: Audio]\n\nExtends\n  [topic: Up.MediaSyntaxNode]\n\n\n`Up.Blockquote`\n===============\n\nConvention\n  [topic: Blockquotes]\n\nExtends\n  [topic: Up.RichOutlineSyntaxNode]\n\n\n`Up.Bold`\n=========\n\nConvention\n  [topic: Audio]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.CodeBlock`\n==============\n\nConvention\n  [topic: Code blocks]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\nUnique members\n  `code`: `string`\n    The code represented by this syntax node.\n\n\n`Up.DescriptionList`\n====================\n\nConvention\n  [topic: Description lists]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\nUnique members\n  `items`: array of [topic: Up.DescriptionList.Item]\n    The collection of items comprising this description list.\n\n-------------------------\n`Up.DescriptionList.Item`\n-------------------------\n\nPurpose\n  This class represents a collection of subjects and their corresponding description.\n\nUnique members\n  `subjects`: array of [topic: Up.DescriptionList.Item.Subject]\n    The subjects described by `description`.\n\n  `description`: array of [topic: DescriptionList.Item.Description]\n    The description of `subjects`.\n\n`Up.DescriptionList.Item.Subject`\n---------------------------------\n\nPurpose\n  This class represents the collection of subjects described by a given description within a description list item.\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\n`Up.DescriptionList.Item.Description`\n-------------------------------------\n\nPurpose\n  This class represents the description of a given collection of subjects within a description list item.\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\n\n`Up.Emphasis`\n=============\n\nConvention\n  [topic: Emphasis]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.ExampleInput`\n=================\n\nConvention\n  [topic: Example input]\n\nImplements\n  [topic: Up.InlineSyntaxNode]\n\nUnique members\n  `input`: `string`\n    The example of user input.\n\n\n`Up.Footnote`\n=============\n\nConvention\n  [topic: Footnotes]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\nUnique members\n  `referenceNumber`: `number`\n    The number that appears in superscript for this footnote.\n\n\n`Up.FootnoteBlock`\n==================\n\nPurpose\n  Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This class represents one of those footnote blocks.\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\nUnique members\n  `footnotes`: array of [topic: Up.Footnote]\n    The collection of footnotes comprising this footnote block.\n\n\n`Up.Heading`\n=============\n\nConvention\n  [topic: Headings]\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n    Headings are outline syntax nodes.\n\n  [topic: Up.Document.TableOfContents.Entry]\n    Headings can also be in the table of contents!\n\nUnique members\n  `level`: `number`\n    Represents the significance of the heading. Like HTML heading levels, a `level` of `1` is considered the most significant.\n\n\n`Up.Highlight`\n==============\n\nConvention\n  [topic: Highlighting]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.Image`\n==========\n\nConvention\n  [topic: Images]\n\nExtends\n  [topic: Up.MediaSyntaxNode]\n\n\n`Up.InlineCode`\n===============\n\nConvention\n  [topic: Inline code]\n\nImplements\n  [topic: Up.InlineSyntaxNode]\n\nUnique members\n  `code`: `string`\n    The inline code represented by this syntax node.\n\n\n`Up.InlineQuote`\n================\n\nConvention\n  [topic: Inline quotes]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.InlineQuote`\n================\n\nConvention\n  [topic: Inline revealables]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.Italic`\n===========\n\nConvention\n  [topic: Italics]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.LineBlock`\n==============\n\nConvention\n  [topic: Line blocks]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\nUnique members\n  `lines`: array of [topic: Up.LineBlock.Line]\n    The collection of lines comprising this line block.\n\n-------------------\n`Up.LineBlock.Line`\n-------------------\n\nPurpose\n  This class represents a line in a line block.\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\n\n`Up.Link`\n=========\n\nConvention\n  [topic: Italics]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n    If a line consists solely of media conventions or media conventions within links, those media conventions are placed directly into the outline. Therefore, links must be able to serve as outline syntax nodes.\n\nUnique members\n  `url`: `string`\n    This links's URL after the following settings are applied:\n\n    - [topic: defaultUrlScheme]\n    - [topic: baseForUrlsStartingWithSlash]\n    - [topic: baseForUrlsStartingWithHashmark]\n\n\n`Up.NormalParenthetical`\n========================\n\nConvention\n  [topic: Parentheses]\n\nExtends\n  [topic: Up.ParentheticalSyntaxNode]\n\n\n`Up.OrderedList`\n================\n\nConvention\n  [topic: Numbered lists]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\nUnique members\n  `items`: array of [topic: Up.OrderedList.Item]\n    The collection of items comprising this ordered list.\n\n  `start` method\n    Return type: `number`\n      This method returns the starting ordinal of this list, if one was explicitly defined. Otherwise, this method returns `undefined`.\n\n    Arguments\n      None.\n\n  `order` method\n    Return type: [topic: Up.OrderedList.Order]\n      This method returns the order of the ordered list (ascending or descending).\n\n    Arguments\n      None.\n\n---------------------\n`Up.OrderedList.Item`\n---------------------\n\nPurpose\n  This class represents an item in an ordered list.\n\nExtends\n  [topic: Up.OutlineSyntaxNodeContainer]\n\n----------------------\n`Up.OrderedList.Order`\n----------------------\n\nPurpose\n  This enum represents the order of an ordered list.\n\nValues\n  - `Ascending` (default)\n  - `Descending`\n\n\n`Up.Paragraph`\n==============\n\nConvention\n  [topic: Paragraphs]\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n    Paragraphs are outline syntax nodes.\n\n\n`Up.RevealableBlock`\n====================\n\nConvention\n  [topic: Revealable blocks]\n\nExtends\n  [topic: Up.RichOutlineSyntaxNode]\n\n\n`Up.SectionLink`\n================\n\nConvention\n  [topic: Section links]\n\nImplements\n  [topic: Up.InlineSyntaxNode]\n\nUnique members\n  `sectionTitleSnippet`: `string`\n    A snippet of text (provided by the author) from the matching table of contents entry.\n\n\n`Up.SquareParenthetical`\n========================\n\nConvention\n  [topic: Square brackets]\n\nExtends\n  [topic: Up.ParentheticalSyntaxNode]\n\n\n`Up.Stress`\n===========\n\nConvention\n  [topic: Stress]\n\nExtends\n  [topic: Up.RichInlineSyntaxNode]\n\n\n`Up.Table`\n==========\n\nConvention\n  [topic: Tables]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\nUnique members\n  `header`: [topic: Up.Table.Header]\n    The header row.\n\n  `rows`: array of [topic: Up.Table.Row]\n    The content rows.\n\n  `caption`: [topic: Up.Table.Caption]\n    The optional caption.\n\n------------------\n`Up.Table.Caption`\n------------------\n\nPurpose\n  This class represents the caption of a table.\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\n---------------\n`Up.Table.Cell`\n---------------\n\nPurpose\n  This abstract class represents a table cell.\n\nExtends\n  [topic: Up.InlineSyntaxNodeContainer]\n\nUnique members\n  `isNumeric` method\n    Return type: `boolean`\n      This method returns a `boolean` indicating whether the content of this cell is numeric.\n\n    Arguments\n      None.\n\n-----------------\n`Up.Table.Header`\n-----------------\n\nPurpose\n  This class represents the header row of a table.\n\nUnique members\n  `cells`: array of [topic: Up.Table.Header.Cell]\n    The cells in this header row.\n\n`Up.Table.Header.Cell`\n----------------------\n\nPurpose\n  This class represents a table header cell.\n\nExtends\n  [topic: Up.Table.Cell]\n\n--------------\n`Up.Table.Row`\n--------------\n\nPurpose\n  This class represents a content row in a table.\n\nUnique members\n  `cells`: array of [topic: Up.Table.Row.Cell]\n    The content cells in this row.\n\n  `headerColumnCell`: [topic: Up.Table.Header.Cell]\n    The single header column cell for this row, if there is one.\n\n    Tables without header columns never have header column cells.\n\n  `allCellsStartingWithHeaderColumnCell` method\n    Return type: array of [topic: Up.Table.Cell]\n      This method returns every cell in this row.\n\n      If the table has a header column, the row's `headerColumnCell` is the first item in the returned collection.\n\n    Arguments\n      None.\n\n`Up.Table.Row.Cell`\n-------------------\n\nPurpose\n  This class represents a regular (non-header) table cell.\n\nExtends\n  [topic: Up.Table.Cell]\n\n\n`Up.Text`\n=========\n\nPurpose\n  This class represents regular text content.\n\nImplements\n  [topic: Up.InlineSyntaxNode]\n\nUnique members\n  `text`: `string`\n    The text represented by this syntax node.\n\n\n`Up.ThematicBreak`\n=================\n\nConvention\n  [topic: Thematic breaks]\n\nExtends\n  [topic: Up.OutlineSyntaxNode]\n\n\n`Up.UnorderedList`\n==================\n\nConvention\n  [topic: Bulleted lists]\n\nImplements\n  [topic: Up.OutlineSyntaxNode]\n\nUnique members\n  `items`: array of [topic: Up.UnorderedList.Item]\n    The collection of items comprising this bulleted list.\n\n-----------------------\n`Up.UnorderedList.Item`\n-----------------------\n\nPurpose\n  This class represents an item in a bulleted list.\n\nExtends\n  [topic: Up.OutlineSyntaxNodeContainer]\n\n\n`Up.Video`\n==========\n\nConvention\n  [topic: Video]\n\nExtends\n  [topic: Up.MediaSyntaxNode]\n"
