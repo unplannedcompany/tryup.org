@@ -1,5 +1,15 @@
 const autoprefixer = require('autoprefixer')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const fs = require('fs');
+const Up = require('write-up')
 
+var documentationMarkup = fs.readFileSync('./src/documentation.up', 'utf-8')
+
+var prerenderedDocumentation = Up.parseAndRender(documentationMarkup, {
+  parsing: {
+    createSourceMap: true
+  }
+})
 
 module.exports = {
   entry: './src/app.js',
@@ -26,6 +36,10 @@ module.exports = {
         loaders: ["style", "css", "postcss", "sass"]
       },
       {
+        test: /\.hbs$/,
+        loader: 'handlebars'
+      },
+      {
         test: /\.up$/,
         loader: 'raw',
       }
@@ -33,5 +47,12 @@ module.exports = {
   },
   postcss: [
     autoprefixer({ browsers: ['last 2 versions'] })
+  ],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.hbs',
+      prerenderedDocumentation: prerenderedDocumentation,
+      inject: 'body'
+    })
   ]
 }

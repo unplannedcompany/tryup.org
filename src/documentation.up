@@ -22,7 +22,7 @@ Why use Up instead of another markup language?
 
   When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
 
-  If you're a software developer, you can provide multiple custom variations for each keyword! For more information, see [topic: customizing keywords].
+  If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
 
 - Up offers a flexible, forgiving syntax
   ======================================
@@ -2131,13 +2131,6 @@ Summary
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
   - [topic: Up.parseAndRenderInline]
 
-Members (both of which are optional)
-  `parsing`: [topic: Up.UserProvidedSettings.Parsing]
-    The custom parsing settings to apply.
-
-  `rendering`: [topic: Up.UserProvidedSettings.Rendering]
-    The custom rendering settings to apply.
-
 Usage
   ````
   const html = Up.parseAndRender(markup, {
@@ -2151,9 +2144,16 @@ Usage
   })
   ````
 
+Members (both of which are optional)
+  `parsing`: [topic: Up.UserProvidedSettings.Parsing]
+    The custom parsing settings to apply.
+
+  `rendering`: [topic: Up.UserProvidedSettings.Rendering]
+    The custom rendering settings to apply.
+
 
 `Up.UserProvidedSettings.Parsing`
-==============================
+=================================
 
 Summary
   The `UserProvidedSettings.Parsing` interface includes all parsing settings.
@@ -2168,6 +2168,17 @@ Summary
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
   - [topic: Up.parseAndRenderInline]
+
+Usage
+  ````
+  const document = Up.parse(markup, {
+    createSourceMap: true,
+    keywords: {
+      audio: ["sound", "song"],
+      highlight: "mark"
+    }
+  })
+  ````
 
 Members (all of which are optional)
   [topic: createSourceMap]: `boolean`
@@ -2191,34 +2202,21 @@ Members (all of which are optional)
     Customizing keywords
     --------------------
 
-    You can provide unlimited variations for every keyword! Even when you provide custom variations, Up always recognizes the defaults---they're never "overwritten".
+    You can provide unlimited custom variations for each keyword. Custom keyword variations do not overwrite the default keywords.
 
-    For a given keyword, if you want to specify multiple custom variations, specify them using an array of strings. However, if you only need to specify a single custom variation, you can use a plain string instead.
+    ````
+    const document = Up.parse(markup, {
+      keywords: {
+        audio: ["sound", "song"],
+        highlight: "mark"
+      }
+    })
+    ````
 
-    Example
-      ````
-      const document = Up.parse(markup, {
-        keywords: {
-          audio: ["sound", "song"],
-          highlight: "mark"
-        }
-      })
-      ````
-
-    Discussion
-      In the above example, the `audio` keyword has two custom variations: "sound" and "song". The audio convention will recognize both of those variations, plus the default: "audio".
-
-      The `highlight` keyword has a single custom variation: "mark". The highlighting convention will recognize that variation, plus the default: "highlight".
-
-      For a full description of the various functions you can use, please see [topic: functions].
-
-    Keep in mind that keywords are always case-insensitive, so you don't need to provide multiple variations if you simply want to support different capitalizations.
+    Like the default keywords, any custom keyword variations are case-insensitive.
 
     `audio`: `string` or `string[]`
-      Convention
-        Recognized by [topic: audio].
-      Default
-        `audio`
+      Recognized by [topic: audio].
 
     `highlight`: `string` or `string[]`
       Recognized by [topic: highlighting].
@@ -2238,20 +2236,6 @@ Members (all of which are optional)
     `video`: `string` or `string[]`
       Recognized by [topic: video].
 
-Usage
-  ````
-  const document = Up.parse(markup, {
-    createSourceMap: true,
-    keywords: {
-      audio: ["sound", "song"],
-      highlight: "mark"
-    }
-  })
-  ````
-
-
-Parsing settings
-================
 
 -----------------
 `createSourceMap`
@@ -2397,6 +2381,17 @@ Summary
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
   - [topic: Up.parseAndRenderInline]
 
+Usage
+  ````
+  const html = Up.render(document, {
+    idPrefix: "article",
+    terms: {
+      footnoteReference: "footnote mention",
+      revealContent: "show"
+    }
+  })
+  ````
+
 Members (all of which are optional)
   [topic: idPrefix]: `string`
     The prefix to apply to HTML IDs.
@@ -2405,13 +2400,6 @@ Members (all of which are optional)
     Enables the rendering of dangerous content. Enabling this setting is not recommended!
 
   `terms` (all of which are optional)
-
-    --------------------------
-    Customizing rendered terms
-    --------------------------
-
-    You don't need to worry about escaping any characters in your custom terms! Up handles that for you.
-
     `footnote`: `string`
       Appears in the URLs of footnotes definitions (i.e. in their respective footnote blocks).
 
@@ -2427,20 +2415,8 @@ Members (all of which are optional)
     `tableOfContents`: `string`
       Appears at the top of the table of contents.
 
-Usage
-  ````
-  const html = Up.render(document, {
-    idPrefix: "article",
-    terms: {
-      footnoteReference: "footnote mention",
-      revealContent: "show"
-    }
-  })
-  ````
+    You don't need to worry about escaping any characters in your custom terms! Up handles that for you.
 
-
-Rendering settings
-==================
 
 ----------
 `idPrefix`
@@ -2697,6 +2673,7 @@ Unique members
 Notes
   The [topic: Up.parse] function returns an instance of this class.
 
+
 -----------------------------
 `Up.Document.TableOfContents`
 -----------------------------
@@ -2707,6 +2684,7 @@ Purpose
 Members
   `entries`: array of [topic: TableOfContents.Entry]
     A collection of entries representing headings in the document.
+
 
 `Up.Document.TableOfContents.Entry`
 -----------------------------------
@@ -2983,6 +2961,7 @@ Unique members
   `items`: array of [topic: Up.DescriptionList.Item]
     The collection of items comprising this description list.
 
+
 -------------------------
 `Up.DescriptionList.Item`
 -------------------------
@@ -2997,6 +2976,7 @@ Unique members
   `description`: array of [topic: DescriptionList.Item.Description]
     The description of `subjects`.
 
+
 `Up.DescriptionList.Item.Subject`
 ---------------------------------
 
@@ -3005,6 +2985,7 @@ Purpose
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
+
 
 `Up.DescriptionList.Item.Description`
 -------------------------------------
@@ -3236,6 +3217,7 @@ Unique members
     Arguments
       None.
 
+
 ---------------------
 `Up.OrderedList.Item`
 ---------------------
@@ -3245,6 +3227,7 @@ Purpose
 
 Extends
   [topic: Up.OutlineSyntaxNodeContainer]
+
 
 ----------------------
 `Up.OrderedList.Order`
@@ -3335,6 +3318,7 @@ Unique members
   `caption`: [topic: Up.Table.Caption]
     The optional caption.
 
+
 ------------------
 `Up.Table.Caption`
 ------------------
@@ -3344,6 +3328,7 @@ Purpose
 
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
+
 
 ---------------
 `Up.Table.Cell`
@@ -3363,6 +3348,7 @@ Unique members
     Arguments
       None.
 
+
 -----------------
 `Up.Table.Header`
 -----------------
@@ -3374,6 +3360,7 @@ Unique members
   `cells`: array of [topic: Up.Table.Header.Cell]
     The cells in this header row.
 
+
 `Up.Table.Header.Cell`
 ----------------------
 
@@ -3382,6 +3369,7 @@ Purpose
 
 Extends
   [topic: Up.Table.Cell]
+
 
 --------------
 `Up.Table.Row`
@@ -3407,6 +3395,7 @@ Unique members
 
     Arguments
       None.
+
 
 `Up.Table.Row.Cell`
 -------------------
@@ -3454,6 +3443,7 @@ Implements
 Unique members
   `items`: array of [topic: Up.UnorderedList.Item]
     The collection of items comprising this bulleted list.
+
 
 -----------------------
 `Up.UnorderedList.Item`
