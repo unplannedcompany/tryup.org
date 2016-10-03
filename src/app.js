@@ -1,7 +1,7 @@
 import 'normalize.css'
 import './style/lib/codemirror.css'
 import './style/layout.scss'
-import './style/animation.scss'
+import './style/syncingAnimation.scss'
 import configureEditor from './configureEditor'
 
 
