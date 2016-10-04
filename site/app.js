@@ -531,7 +531,7 @@
 
 
 	// module
-	exports.push([module.id, ".up-revealable > input[type=\"checkbox\"] {\n  display: none; }\n  .up-revealable > input[type=\"checkbox\"] + span,\n  .up-revealable > input[type=\"checkbox\"] + div {\n    display: none; }\n  .up-revealable > input[type=\"checkbox\"]:checked + span {\n    display: inline; }\n  .up-revealable > input[type=\"checkbox\"]:checked + div {\n    display: block; }\n", ""]);
+	exports.push([module.id, "kbd {\n  background-color: #eee;\n  border: 1px solid #aaa;\n  border-radius: 3px;\n  box-shadow: 0 2px 0 rgba(13, 13, 13, 0.2), 0 0 0 2px #fff inset;\n  color: #444;\n  display: inline-block;\n  font-family: sans-serif;\n  font-size: 11px;\n  line-height: 1.4;\n  margin: 0 .1em;\n  padding: .1em .6em;\n  text-shadow: 0 1px 0 #fff;\n  white-space: nowrap; }\n\n.up-revealable > label {\n  background: red; }\n\n.up-revealable > input[type=\"checkbox\"] {\n  display: none; }\n  .up-revealable > input[type=\"checkbox\"] + span,\n  .up-revealable > input[type=\"checkbox\"] + div {\n    display: none; }\n  .up-revealable > input[type=\"checkbox\"]:checked + span {\n    display: inline; }\n  .up-revealable > input[type=\"checkbox\"]:checked + div {\n    display: block; }\n", ""]);
 
 	// exports
 
