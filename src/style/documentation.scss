@@ -1,0 +1,11 @@
+.up-revealable > input[type="checkbox"] {
+  display: none;
+
+  + span,
+  + div { display: none }
+
+  &:checked {
+    + span { display: inline }
+    + div { display: block }
+  }
+}
