@@ -1,0 +1,114 @@
+#document-container {
+  font-family: 'Muli', sans-serif;
+  line-height: 1.3em;
+
+  // Stress and bold
+  b, strong {
+    text-shadow: 0px 0px 0.1px;
+  }
+
+  // Headings
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Ovo', serif;
+    color: #485;
+  }
+
+  // Inline code and code blocks
+  pre, code {
+    background: #234;
+    color: white;
+    font-family: 'Inconsolata', monospace;
+  }
+
+  // Code blocks
+  //
+  // The box shadow is originally from here:
+  //
+  // https://medium.com/@Florian/freebie-google-material-design-shadow-helper-2a0501295a2d
+  pre {
+    overflow-x: scroll;
+    padding: 7px 9px;    
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  // Inline code (we overwrite this for code blocks below)
+  code {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.24);
+    padding: 0 2px;
+  }
+
+  // Code blocks
+  pre > code {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  // Example input
+  //
+  // This is based heavily on the <kbd> style used by stackoverflow.
+  kbd {
+    background-color: #eee;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    box-shadow:
+      0 2px 0 rgba(13, 13, 13, 0.2),
+      0 0 0 2px white inset;
+    color: #444;
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    margin: 0 .1em;
+    padding: .1em .6em;
+    text-shadow: 0 1px 0 white;
+    white-space: nowrap;
+  }
+
+  // Highlighting
+  //
+  // Based on this answer on stackoverflow:
+  //
+  // http://stackoverflow.com/a/33452034
+  mark {
+    background-color: transparent;
+     text-shadow: 
+      -4px 0px 4px yellow,
+      4px 0px 4px yellow,
+      8px 0px 6px yellow,
+      -8px 0px 6px yellow;
+  }
+
+  // Inline quotes
+  q { quotes: '“' '”' "‘" "’" }
+  q:before { content: open-quote }
+  q:after { content: close-quote }
+
+  // Line blocks
+  .up-lines {
+    text-align: center
+  }
+
+  // Revealable content
+  .up-revealable {
+    > label {
+      // TODO
+      background: red;
+    }
+
+    > input[type="checkbox"] {
+      display: none;
+
+      + span,
+      + div { display: none }
+
+      &:checked {
+        + span { display: inline }
+        + div { display: block }
+      }
+    }
+  }
+}

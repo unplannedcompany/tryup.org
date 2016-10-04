@@ -10,11 +10,11 @@ body {
 }
 
 #document-container {
-  background: lightblue;
   flex-basis: 0;
-  flex-grow: 1.5;
+  flex-grow: 1.35;
   padding: 0 15px;
   height: 100vh;
+  border-left: 1px solid #aaa
 }
 
 #editor-container {

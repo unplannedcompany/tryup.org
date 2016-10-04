@@ -94,6 +94,17 @@ function syncScrolling(codeMirror, documentContainer) {
       for (let i = 0; i < sourceMappedElements.length; i++) {
         const element = sourceMappedElements[i]
 
+        if (!element.offsetParent) {
+          // Below, we use `getBoundingClientRect().top` to determine whether the element is
+          // within the viewport. Unfortunately,  if the element is hidden (as opposed to
+          // merely off-screen), we always get an unhelpful value of `0`, which implies the
+          // element is at the top of the viewport.
+          //
+          // To work around this, we check `offsetParent`, which is `null` if the element is
+          // hidden.
+          continue 
+        }
+
         // Why -1 and not 0?
         //
         // When you click a link pointing to fragment URL (e.g. a table of contents entry),

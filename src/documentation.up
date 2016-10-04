@@ -354,7 +354,7 @@ Example
     Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
 
 Discussion
-  To highlight text, enclose it within square brackets or parentheses. Then, insert "highlight:" directly after your opening bracket.
+  To highlight text, enclose it within square brackets or parentheses. Then, insert `highlight:` directly after your opening bracket.
 
 
 =============
@@ -383,10 +383,10 @@ Discussion
 
   Markup
     ````
-    Press { Start Game(s) } when you are ready.
+    Press { Start Game } when you are ready.
     ````
   Output
-    Press { Start Game(s) } when you are ready.
+    Press { Start Game } when you are ready.
 
   Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are recognized, as is [topic: disabling].
 
@@ -559,11 +559,11 @@ Use the section link convention to link another section (heading) in your docume
 Example
   Markup
     ````
-    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+    Unlike many markup languages, Up recognizes [topic: parentheticals].
     ````
 
   Output
-    Unlike many lightweight markup languages, Up recognizes [topic: parentheticals].
+    Unlike many markup languages, Up recognizes [topic: parentheticals].
 
 Discussion
   To produce a section link:
@@ -753,29 +753,7 @@ Example
 Discussion
   To hide a block of content, first indent it two spaces (or a tab). Then, on the line before your indented block, put one of the [topic: revealable keywords].
 
-  In the example above, the keyword is followed by a colon. This isn't necessary.
-
-  Markup
-    ````
-    SPOILER
-      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
-
-      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
-
-      1. Pidgeot
-      2. Alakazam
-      3. Rhydon
-    ````
-
-  Output
-    SPOILER
-      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
-
-      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
-
-      1. Pidgeot
-      2. Alakazam
-      3. Rhydon
+  In the example above, the revealable keyword is followed by a colon. This isn't necessary.
 
 
 Revealable keywords
@@ -1029,7 +1007,7 @@ Markup
   ````
   I vowed never to eat apples again.
 
-  =~=~=~=~=~=~=~=~=~=~=
+  =-=-=-=-=-=-=-=-=-=-=
 
   By mid-March, a second flock of birds had moved into my dining room.
   ````
@@ -1037,7 +1015,7 @@ Markup
 Output
   I vowed never to eat apples again.
 
-  =~=~=~=~=~=~=~=~=~=~=
+  =-=-=-=-=-=-=-=-=-=-=
 
   By mid-March, a second flock of birds had moved into my dining room.
 
@@ -1206,7 +1184,7 @@ Discussion
     ````
     - Buy milk.
 
-      If whole milk is on sale, buy that. Otherwise, buy 2% milk.
+      If whole milk is on sale, buy that. Otherwise, buy 2%.
 
     - Buy bread.
 
@@ -1218,13 +1196,13 @@ Discussion
 
     - Buy happiness.
 
-      Don't spend more than a few dollars on this! Happiness isn't worth it.
+      Don't spend more than a few cents on this.
     ````
 
   Output
     - Buy milk.
 
-      If whole milk is on sale, buy that. Otherwise, buy 2% milk.
+      If whole milk is on sale, buy that. Otherwise, buy 2%.
 
     - Buy bread.
 
@@ -1236,7 +1214,7 @@ Discussion
 
     - Buy happiness.
 
-      Don't spend more than a few dollars on this! Happiness isn't worth it.
+      Don't spend more than a few cents on this. Not worth it.
 
 
 ==============
@@ -1334,7 +1312,7 @@ Discussion
 
   Output
     1783. Not a good year for Great Britain.
-  ````
+    ````
 
 
 =================================
@@ -1367,12 +1345,11 @@ Three consecutive hyphens produce an *em* dash.
 
 Markup
   ````
-  Use a spoon----a fork won't cut it.
+  Use a spoon---a fork won't cut it.
   ````
 
 Output
-  Use a spoon----a fork won't cut it.
-  ````
+  Use a spoon---a fork won't cut it.
 
 
 ======
@@ -1797,8 +1774,6 @@ The Up library can be [found on NPM] (npmjs.com/package/write-up).
 Installation
 ============
 
-There's nothing special about installing Up.
-
 ````
 npm install write-up --save-dev
 ````
@@ -1816,7 +1791,7 @@ const Up = require('write-up')
 
 Hooray! `Up` now serves as the namespace for the library.
 
-Typically, you'll want to use the various functions within that namespace.
+Typically, you'll want to use the various functions within that namespace, such as [topic: Up.parseAndRender].
 
 ````
 const html = Up.parseAndRender(markup, settings)
@@ -2755,7 +2730,7 @@ Notes
 =====================
 
 Purpose
-  Inline syntax node classes must implement this interface.
+  All inline syntax node classes must implement this interface.
 
 Extends
   [topic: Up.SyntaxNode]
@@ -2784,7 +2759,7 @@ Unique members
 ======================
 
 Purpose
-  Outline syntax node classes must implement this interface.
+  All outline syntax node classes must implement this interface.
 
 Extends
   [topic: Up.SyntaxNode]
