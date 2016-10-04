@@ -45,17 +45,29 @@ Why use Up instead of another markup language?
 
     Markup
       ````
-      1. Buy [milk] (wikipedia.org/wiki/Milk)
-      2. Buy [bread] (wikipedia.org/wiki/Bread)
-      3. Buy [sugar] (wikipedia.org/wiki/Sugar)
-      4. Buy [happiness] [wikipedia.org/wiki/Happiness]
+      - Buy [milk] (wikipedia.org/wiki/Milk)
+      - Buy (bread) [wikipedia.org/wiki/Bread]
+      - Buy [sugar] [wikipedia.org/wiki/Sugar]
+      - Buy (happiness) (wikipedia.org/wiki/Happiness)
       ````
 
     Output
-      1. Buy [milk] (wikipedia.org/wiki/Milk)
-      2. Buy [bread] (wikipedia.org/wiki/Bread)
-      3. Buy [sugar] (wikipedia.org/wiki/Sugar)
-      4. Buy [happiness] [wikipedia.org/wiki/Happiness]
+      - Buy [milk] (wikipedia.org/wiki/Milk)
+      - Buy (bread) [wikipedia.org/wiki/Bread]
+      - Buy [sugar] [wikipedia.org/wiki/Sugar]
+      - Buy (happiness) (wikipedia.org/wiki/Happiness)
+
+  * Up ignores any [topic: excessive inflection].
+  
+    For example, you don't need to perfectly balance asterisks when stressing or emphasizing text.
+
+    Markup
+      ````
+      I ***love****** asterisks!
+      ````
+    
+    Output
+      I ***love****** asterisks!
 
   * Up even supports [topic: overlapping].
 
@@ -163,7 +175,10 @@ Discussion
   Line blocks can contain any inline writing convention.
 
 
-========
+==========
+Inflection
+==========
+
 Emphasis
 ========
 
@@ -185,8 +200,6 @@ Discussion
 
   Like most inline writing conventions, you can nest emphasis within itself.
 
-
-======
 Stress
 ======
 
@@ -207,7 +220,6 @@ Discussion
   To stress text, enclose it within double asterisks.
 
 
-=======
 Italics
 =======
 
@@ -228,7 +240,6 @@ Discussion
   To italicize text, enclose it within single underscores.
 
 
-====
 Bold
 ====
 
@@ -249,6 +260,60 @@ Example
 
 Discussion
   To make text bold, enclose it within double underscores.
+
+
+Inline quotes
+=============
+
+Up automatically recognizes quoted text. You don't need to change how you use quotation marks.
+
+If you want to quote more a few sentences, considering using [topic: blockquotes].
+
+Example
+  Markup
+    ````
+    "Only eat the green grapes," John said.
+    ````
+
+  Output
+    "Only eat the green grapes," John said.
+
+Discussion
+  You already know how to use quotation marks! Just keep doing what you're doing.
+
+  Like most inline writing conventions, inline quotes can be nested within themselves.
+
+  Markup
+    ````
+    Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
+    ````
+
+  Output
+    Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
+
+
+Excessive inflection
+====================
+
+For all five inflection conventions, Up ignores any excessive delimiter characters.
+   
+Markup
+  ````
+  This is a """"great"""" pie.
+  ````
+
+Output
+  This is a """"great"""" pie.
+
+This includes when delimiter characters aren't perfectly balanced on either side.   
+
+Markup
+  ````
+  My favorite video game is _Chrono Cross__.
+  ````
+
+Output
+  My favorite video game is _Chrono Cross__.
 
 
 =====
@@ -276,16 +341,16 @@ Discussion
   Markup
     ````
     - Buy [milk] (wikipedia.org/wiki/Milk)
-    - Buy [bread] (wikipedia.org/wiki/Bread)
-    - Buy [sugar] (wikipedia.org/wiki/Sugar)
-    - Buy [happiness] [wikipedia.org/wiki/Happiness]
+    - Buy (bread) [wikipedia.org/wiki/Bread]
+    - Buy [sugar] [wikipedia.org/wiki/Sugar]
+    - Buy (happiness) (wikipedia.org/wiki/Happiness)
     ````
 
   Output
     - Buy [milk] (wikipedia.org/wiki/Milk)
-    - Buy [bread] (wikipedia.org/wiki/Bread)
-    - Buy [sugar] (wikipedia.org/wiki/Sugar)
-    - Buy [happiness] [wikipedia.org/wiki/Happiness]
+    - Buy (bread) [wikipedia.org/wiki/Bread]
+    - Buy [sugar] [wikipedia.org/wiki/Sugar]
+    - Buy (happiness) (wikipedia.org/wiki/Happiness)
 
   As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.
 
@@ -343,37 +408,6 @@ Example
 
 Discussion
   You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.
-
-
-=============
-Inline quotes
-=============
-
-Up automatically recognizes quoted text. You don't need to change how you use quotation marks.
-
-If you want to quote more a few sentences, considering using [topic: blockquotes].
-
-Example
-  Markup
-    ````
-    "Only eat the green grapes," John said.
-    ````
-
-  Output
-    "Only eat the green grapes," John said.
-
-Discussion
-  You already know how to use quotation marks! Just keep doing what you're doing.
-
-  Like most inline writing conventions, inline quotes can be nested within themselves.
-
-  Markup
-    ````
-    Bob turned to his boss. "Yesterday, Harvey yelled "I'll take the case!", but don't think he's even started on it."
-    ````
-
-  Output
-    Bob turned to his boss. "Yesterday, Harvey yelled "I'll take the case!", but don't think he's even started on it."
 
 
 ============
@@ -835,7 +869,7 @@ Example
 Discussion
   A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
 
-  Blockquotes can contain any outline writing convention, including other blockquotes!
+  Blockquotes can contain any outline writing convention, including other blockquotes.
 
   Markup
     ````
@@ -1012,7 +1046,7 @@ Thematic breaks
 
 Use the thematic break convention to represent a change of subject.
 
-A thematic break can be represented by three or consecutive blank lines.
+A thematic break can be represented by 3 or more consecutive blank lines.
 
 Markup
   ````
@@ -1030,7 +1064,7 @@ Output
 
   By mid-March, a second flock of birds had moved into my dining room.
 
-A thematic break can *also* be represented by a line consisting of three or more of the following characters:
+A thematic break can *also* be represented by a line consisting of 3 or more of the following characters:
 
 - Hyphens: `-`
 - Number signs: `#`

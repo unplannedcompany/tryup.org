@@ -86,7 +86,11 @@
   }
 
   // Inline quotes
-  q { quotes: '“' '”' "‘" "’" }
+  q { 
+    quotes: '“' '”' "‘" "’";
+    font-style: italic; 
+  }
+  
   q:before { content: open-quote }
   q:after { content: close-quote }
 
