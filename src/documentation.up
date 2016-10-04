@@ -27,11 +27,45 @@ Why use Up instead of another markup language?
 - Up offers a flexible, forgiving syntax
   ======================================
 
-  * Up recognizes [topic: numbered lists] that count backwards
-  * Up isn't picky about which brackets you use for [topic: links]
-  * Up even supports [topic: overlapping]
+  * Up recognizes [topic: numbered lists] that count backwards.
 
-  At every turn, Up is designed for humans to read and write, not for computers to process and parse.
+    Markup
+      ````
+      3) Buy milk
+      2) Buy bread
+      #) Buy happiness
+      ````
+
+    Output
+      3) Buy milk
+      2) Buy bread
+      #) Buy happiness
+
+  * Up isn't picky about which brackets you use for [topic: links].
+
+    Markup
+      ````
+      1. Buy [milk] (wikipedia.org/wiki/Milk)
+      2. Buy [bread] (wikipedia.org/wiki/Bread)
+      3. Buy [sugar] (wikipedia.org/wiki/Sugar)
+      4. Buy [happiness] [wikipedia.org/wiki/Happiness]
+      ````
+
+    Output
+      1. Buy [milk] (wikipedia.org/wiki/Milk)
+      2. Buy [bread] (wikipedia.org/wiki/Bread)
+      3. Buy [sugar] (wikipedia.org/wiki/Sugar)
+      4. Buy [happiness] [wikipedia.org/wiki/Happiness]
+
+  * Up even supports [topic: overlapping].
+
+    Markup
+      ````
+      I *enjoy [highlight: sleeping* late] whenever I can.
+      ````
+
+    Output
+      I *enjoy [highlight: sleeping* late] whenever I can.
 
 - Up produces fully accessible HTML
   =================================
@@ -241,11 +275,17 @@ Discussion
 
   Markup
     ````
-    The (Game Boy) [wikipedia.org/wiki/Game_Boy] was my first video game system.
+    - Buy [milk] (wikipedia.org/wiki/Milk)
+    - Buy [bread] (wikipedia.org/wiki/Bread)
+    - Buy [sugar] (wikipedia.org/wiki/Sugar)
+    - Buy [happiness] [wikipedia.org/wiki/Happiness]
     ````
 
   Output
-    The (Game Boy) [wikipedia.org/wiki/Game_Boy] was my first video game system.
+    - Buy [milk] (wikipedia.org/wiki/Milk)
+    - Buy [bread] (wikipedia.org/wiki/Bread)
+    - Buy [sugar] (wikipedia.org/wiki/Sugar)
+    - Buy [happiness] [wikipedia.org/wiki/Happiness]
 
   As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.
 
@@ -1716,11 +1756,11 @@ In Up, inline writing conventions can freely overlap.
 
 Markup
   ````
-  Mr. Turnip, I do ***not [care*** at](wikipedia.org/wiki/Carrot) all.
+  I *enjoy [highlight: sleeping* late] whenever I can.
   ````
 
 Output
-  Mr. Turnip, I do ***not [care*** at](wikipedia.org/wiki/Carrot) all.
+  I *enjoy [highlight: sleeping* late] whenever I can.
 
 
 Superficial overlapping
