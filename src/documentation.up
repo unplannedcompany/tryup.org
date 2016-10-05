@@ -1466,7 +1466,7 @@ Discussion
 
   Table cells are separated by semicolons. For more information, see [topic: cells].
 
-  To make our markup more readable, our examples use extra spaces to align cells This is strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
+  Our examples use extra spaces to align cells. This makes our markup more readable, but it's strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
 
   Squished markup
     ````
