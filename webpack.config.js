@@ -3,16 +3,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs');
 const Up = require('write-up')
 
-var documentationMarkup = fs.readFileSync('./src/content/document.up', 'utf-8')
+var documentationMarkup = fs.readFileSync(
+  sourceFilename('content/document.up'),
+  'utf-8')
 
-var prerenderedDocumentation = Up.parseAndRender(documentationMarkup, {
+var htmlForDocumentation = Up.parseAndRender(documentationMarkup, {
   parsing: {
     createSourceMap: true
   }
 })
 
 module.exports = {
-  entry: './src/app.js',
+  entry: sourceFilename('app.js'),
   output: {
     path: './site',
     filename: 'app.js'
@@ -50,9 +52,14 @@ module.exports = {
   ],
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/layout/index.hbs',
-      prerenderedDocumentation: prerenderedDocumentation,
+      template: sourceFilename('layout/index.hbs'),
+      htmlForDocumentation,
       inject: 'body'
     })
   ]
+}
+
+
+function sourceFilename(path) {
+  return './src/' + path
 }
