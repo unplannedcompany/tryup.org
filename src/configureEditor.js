@@ -2,6 +2,7 @@ import CodeMirror from 'codemirror'
 import * as Up from 'write-up'
 import debounce from './debounce'
 import throttle from './throttle'
+import sessionHelper from './sessionHelper'
 
 
 // WARNING: This collection represents shared state!
@@ -25,7 +26,7 @@ function refreshSourceMappedElements(documentContainer) {
 
 export default function configureEditor(editorContainer, documentContainer, tableOfContentsContainer) {
   const codeMirror = CodeMirror(editorContainer, {
-    value: require('./documentation.up'),
+    value: require('./content/document.up'),
     lineNumbers: true,
     lineWrapping: true
   })
@@ -107,9 +108,9 @@ function syncScrolling(codeMirror, documentContainer) {
 
         // Why -1 and not 0?
         //
-        // When you click a link pointing to fragment URL (e.g. a table of contents entry),
-        // the browser scrolls the appropriate element into view. Oddly, in some browsers,
-        // the top of that element is a fraction of a pixel above the top of the viewport. 
+        // When you click a link pointing to fragment URL (e.g. a section link), the browser
+        // scrolls the appropriate element into view. Oddly, in some browsers, the top of that
+        // element is a fraction of a pixel above the top of the viewport. 
         const VIEWPORT_TOP = -1
 
         // Is this the first document element starting within the viewport?
@@ -126,6 +127,8 @@ function syncScrolling(codeMirror, documentContainer) {
             codeMirror.charCoords(editorCharToScrollTo, 'local').top
 
           codeMirror.scrollTo(null, topOfEditorLine)
+          sessionHelper.setDocumentScrollTop(documentContainer.scrollTop)
+
           return
         }
       }

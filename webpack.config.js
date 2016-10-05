@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs');
 const Up = require('write-up')
 
-var documentationMarkup = fs.readFileSync('./src/documentation.up', 'utf-8')
+var documentationMarkup = fs.readFileSync('./src/content/document.up', 'utf-8')
 
 var prerenderedDocumentation = Up.parseAndRender(documentationMarkup, {
   parsing: {
@@ -50,7 +50,7 @@ module.exports = {
   ],
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.hbs',
+      template: './src/layout/index.hbs',
       prerenderedDocumentation: prerenderedDocumentation,
       inject: 'body'
     })
