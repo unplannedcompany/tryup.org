@@ -1386,7 +1386,6 @@ Discussion
 
   Output
     1783. Not a good year for Great Britain.
-    ````
 
 
 =================================
@@ -2295,6 +2294,9 @@ Summary
 
   This document uses source mapping to synchronize the scrolling between itself and its markup.
 
+Default
+  `false`
+
 Usage
   ````
   const html = Up.parseAndRender(markup, {
@@ -2312,9 +2314,6 @@ Details
 
   When these syntax nodes are rendered to HTML, the HTML elements they produce each have a `data-up-source-line` attribute set the appropriate line number.
 
-Default
-  `false`
-
 
 ------------------
 `defaultUrlScheme`
@@ -2324,6 +2323,9 @@ Summary
   The `defaultUrlScheme` is prefixed to any link URL or media URL without a [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax).
 
   For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: baseForUrlsStartingWithSlash] or [topic: baseForUrlsStartingWithHashMark].
+
+Default
+  `"https://"`
 
 Usage
   ````
@@ -2337,9 +2339,6 @@ Usage
 Context
   This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
-Default
-  `"https://"`
-
 
 ------------------------------
 `baseForUrlsStartingWithSlash`
@@ -2347,6 +2346,9 @@ Default
 
 Summary
   The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `/`.
+
+Default
+  `""` (an empty string)
 
 Usage
   ````
@@ -2360,9 +2362,6 @@ Usage
 Context
   This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
-Default
-  `""` (an empty string)
-
 
 ---------------------------------
 `baseForUrlsStartingWithHashMark`
@@ -2370,6 +2369,9 @@ Default
 
 Summary
   The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `#`.
+
+Default
+  `""` (an empty string)
 
 Usage
   ````
@@ -2383,9 +2385,6 @@ Usage
 Context
   This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
 
-Default
-  `""` (an empty string)
-
 
 ---------------
 `fancyEllipsis`
@@ -2395,6 +2394,9 @@ Summary
   Up automatically replaces consecutive periods with `fancyEllipsis`.
 
   By default, `fancyEllipsis` is `…`. If you you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.
+
+Default
+  `"…"`
 
 Usage
   ````
@@ -2407,9 +2409,6 @@ Usage
 
 Context
   This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
-
-Default
-  `"…"`
 
 
 `Up.UserProvidedSettings.Rendering`
@@ -2936,7 +2935,7 @@ Unique members
     The media's description.
 
   `url`: `string`
-    Represents this media convention's URL after the following settings are applied:
+    Represents the media's URL after the following settings are applied:
 
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
