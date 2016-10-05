@@ -4,35 +4,48 @@ import './style/layout.scss'
 import './style/editor.scss'
 import './style/document.scss'
 import './style/syncingAnimation.scss'
-
 import configureEditor from './configureEditor'
-import sessionHelper from './sessionHelper'
 
 
 const getElementById = document.getElementById.bind(document)
 
 document.addEventListener('DOMContentLoaded', () => {
+  const documentContainer = getElementById('document-container')
+
   configureEditor(
     getElementById('editor-container'),
-    getElementById('document-container'),
+    documentContainer,
     getElementById('table-of-contents-container'))
-})
 
-window.addEventListener('unload', function () {
-    sessionHelper.saveDocumentScrollTop(
-      getElementById('document-container').scrollTop)
-})
-
-
-window.addEventListener('pageshow', function () {
-  // When the user navigates back to our page from an external page, the browser
-  // resets the scroll position of our scrollable document panel.
+  // Because we're using a scrolling panel, the browser fails to restore the
+  // document's scroll position when the user navigates backward (or forward).
   //
-  // Here, we restore the user's scroll position.
-  //
-  // NOTE: We don't save any changes the user made to the documentation, so this
-  // could be a bit confusing if they added/removed a large potion of text. 
-  getElementById('document-container').scrollTop =
-    sessionHelper.getDocumentScrollTop()
-})
+  // To work around this, we save the user's scroll position every time they
+  // click a link, then use the `popstate` event to manually restore their
+  // scroll position.  
+  function saveDocumentScrollPosition() {
+    const { scrollTop } = documentContainer
+    window.history.replaceState({ scrollTop }, '')
+  }
 
+  // If the user scrolls halfway down the document, then navigates backward to
+  // some external page, then navigates forward to return to our page, we want
+  // to be able to restore their scroll position. 
+  window.addEventListener('unload', () => {
+    saveDocumentScrollPosition()
+  })
+
+  window.addEventListener('popstate', (event) => {
+    const { state } = event
+
+    if (state) {
+      documentContainer.scrollTop = state.scrollTop
+    }
+  })
+
+  documentContainer.addEventListener('click', (event) => {
+    if (event.target.tagName === 'A') {
+      saveDocumentScrollPosition()
+    }
+  })
+})

@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs');
 const Up = require('write-up')
 
+
 var documentationMarkup = fs.readFileSync(
   sourceFilename('content/document.up'),
   'utf-8')
@@ -12,6 +13,7 @@ var htmlForDocumentation = Up.parseAndRender(documentationMarkup, {
     createSourceMap: true
   }
 })
+
 
 module.exports = {
   entry: sourceFilename('app.js'),
