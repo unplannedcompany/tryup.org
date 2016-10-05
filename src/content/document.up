@@ -2,18 +2,18 @@
 Up (easily write structured content for the web)
 ################################################
 
-Up is a set of human-friendly conventions for writing structured documents in plain text. This document is written in Up!
+Up is a [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML. This document is written in Up!
 
-For software developers, [Up is also a JavaScript library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. For more information, see [topic: using the Up library].
+As a markup language, Up offers a set of (human-friendly) writing conventions for representing rich documents in plain text. To read more about those writing conventions, you can skip ahead to [topic: writing conventions].
+
+If you're a software developer wondering how to incorporate Up into your next project, please see [topic: using the Up library].
 
 
 ===========
 Why use Up?
 ===========
 
-Up isn't the first [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML.
-
-Why use Up instead of another markup language?
+Up isn't the only markup language that can be converted into HTML. Why should you use Up?
 
 - Up uses readable, customizable keywords
   =======================================
