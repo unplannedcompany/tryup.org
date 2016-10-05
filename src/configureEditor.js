@@ -2,7 +2,6 @@ import CodeMirror from 'codemirror'
 import * as Up from 'write-up'
 import debounce from './debounce'
 import throttle from './throttle'
-import sessionHelper from './sessionHelper'
 
 
 // WARNING: This collection represents shared state!
@@ -127,8 +126,6 @@ function syncScrolling(codeMirror, documentContainer) {
             codeMirror.charCoords(editorCharToScrollTo, 'local').top
 
           codeMirror.scrollTo(null, topOfEditorLine)
-          sessionHelper.setDocumentScrollTop(documentContainer.scrollTop)
-
           return
         }
       }

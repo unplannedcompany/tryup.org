@@ -1,7 +1,7 @@
 const DOCUMENT_SCROLL_TOP_KEY = 'documentScrollTop'
 
 const sessionHelper = {
-  setDocumentScrollTop: (scrollTop) => {
+  saveDocumentScrollTop: (scrollTop) => {
     window.sessionStorage.setItem(DOCUMENT_SCROLL_TOP_KEY, scrollTop)
   },
 
