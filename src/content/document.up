@@ -864,17 +864,17 @@ For typical dialog, you should probably use [topic: inline quotes] instead.
 Example
   Markup
     ````
-    > Listen to my favorite poem!
+    > I hate oranges for the following reasons:
     >
-    > Roses are red
-    > Violets are blue
+    > 1. They're not apples.
+    > 2. They're not bananas.
     ````
 
   Output
-    > Listen to my favorite poem!
+    > I hate oranges for the following reasons:
     >
-    > Roses are red
-    > Violets are blue
+    > 1. They're not apples.
+    > 2. They're not bananas.
 
 Discussion
   A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
@@ -2599,7 +2599,7 @@ Output
 Rendered HTML
 =============
 
-When inline documents are rendered, the resulting HTML is not enclosed within any container element.
+When inline documents are rendered, the resulting HTML is *not* enclosed within any container element (e.g. `<p>`).
 
 Inline markup
   I *really* like Starcraft.

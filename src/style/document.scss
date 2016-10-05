@@ -1,6 +1,22 @@
+// TODO: Split into separate files
+
 $horizontal-document-padding: 15px;
-$link-color: #09d;$heading-color: #484;
+$link-color: #09d;
+$heading-color: #484;
 $headings: 'h1, h2, h3, h4, h5, h6';
+
+
+@mixin heavy-shadow {
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+@mixin mild-shadow {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+}
 
 
 #document-container {
@@ -18,6 +34,14 @@ $headings: 'h1, h2, h3, h4, h5, h6';
     &:hover {
       background-color: lighten($link-color, 50%)
     }
+  }
+
+  // Blockquotes
+  blockquote {
+    @include heavy-shadow;
+    background-color: #fafafa;
+    padding: 5px 20px;
+    margin: 15px 0;
   }
 
   // Bold, stress
@@ -55,17 +79,9 @@ $headings: 'h1, h2, h3, h4, h5, h6';
     padding-top: 5px;
   }
 
-  h4 {
-    font-size: 140%;
-  }
-
-  h5 {
-    font-size: 120%;
-  }
-
-  h6 {
-    font-size: 100%;
-  }
+  h4 {font-size: 140% }
+  h5 { font-size: 120% }
+  h6 { font-size: 100% }
 
   // Parentheticals
   small {
@@ -98,9 +114,7 @@ $headings: 'h1, h2, h3, h4, h5, h6';
   // https://medium.com/@Florian/freebie-google-material-design-shadow-helper-2a0501295a2d
   pre {
     border-radius: 3px;
-    box-shadow:
-      0 3px 6px rgba(0, 0, 0, 0.16),
-      0 3px 6px rgba(0, 0, 0, 0.23);
+    @include heavy-shadow;
     overflow-x: scroll;
     padding: 7px 9px;    
   }
