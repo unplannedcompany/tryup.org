@@ -1,6 +1,6 @@
-################################################
-Up (easily write structured content for the web)
-################################################
+######################################
+Up (a markup language for web content)
+######################################
 
 Up is a [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML. This document is written in Up!
 
@@ -1737,7 +1737,7 @@ Discussion
     Vine Whip;    9;        Grass;    45;     100%
 
 
-When your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row (in the top level corner, above the header column).
+When your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row in the top level corner, above the header column.
 
 
 =====================================
@@ -1769,6 +1769,7 @@ Output
 This shortcut also works for the following conventions:
 
 - [topic: Highlighting]
+- [topic: Example input]
 - [topic: Footnotes]
 - [topic: Inline revealables]
 

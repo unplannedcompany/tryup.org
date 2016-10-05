@@ -6,7 +6,6 @@
   
   // Links
   a {
-
     border-bottom: dotted 2px $link-color; 
     color: $link-color;
     text-decoration: none;
@@ -33,7 +32,8 @@
 
   // Normally, we fade parentheticals.
   //
-  // However, in contexts with colored text, we'd rather simply make parentheticals smaller.
+  // However, when we're within elements with colored text, we'll make
+  // parentheticals smaller instead.
   #{$headings}, a {
     small {
       font-size: 80%;
@@ -133,13 +133,63 @@
   }
 
   // Inline quotes
-  q { 
-    quotes: '“' '”' "‘" "’";
-    font-style: italic; 
-  }
+  q { quotes: '“' '”' "‘" "’" }
   
   q:before { content: open-quote }
   q:after { content: close-quote }
+
+    // Tables
+  table {
+    border-collapse: collapse;
+    margin: 20px;
+
+    caption {
+      padding-bottom: 10px;
+      font-style: italic;
+    }
+
+    tbody tr {
+      &:hover {
+        background-color: #ddd;
+        td { border-color: #aaa }
+      }
+      
+      &:nth-child(even) {
+        background-color: #eee;
+
+        &:hover {
+          background-color: #ccc;
+          td { border-color: #999 }
+        }
+      }
+    }
+
+    td, th {
+      padding: 10px;
+      border: 1px solid #bbb;
+
+      &.up-numeric {
+        text-align: right;
+      }
+
+      &[colspan] {
+        text-align: center;
+      }
+    }
+
+    th {
+      background-color: #bbb;
+      border-color: #888;
+
+      // When tables have a header column, their header row starts
+      //  with an empty cell.
+      &:empty:first-child {
+        background: transparent;
+        border-top: 0;
+        border-left: 0;
+      }
+    }
+  }
 
   // Line blocks
   .up-lines {
