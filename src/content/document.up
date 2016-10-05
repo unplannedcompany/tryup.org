@@ -86,6 +86,7 @@ Up isn't the only markup language that can be converted into HTML. Why should yo
    From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
 
 
+
 =================
 Why *not* use Up?
 =================
@@ -667,6 +668,8 @@ Discussion
 
     TOOTHPASTE
     ----------
+
+    Everyone should be excited about cleaning their teeth.
     ````
 
   Output
@@ -674,6 +677,8 @@ Discussion
 
     TOOTHPASTE
     ----------
+
+    Everyone should be excited about cleaning their teeth.
 
   --------------------------------------------------------
   Up ignores any inline writing conventions in the heading
@@ -687,6 +692,8 @@ Discussion
 
     Everyone *loves* toothpaste
     ---------------------------
+
+    According to a recent survey, Americans prefer toothpaste to soda.
     ````
 
   Output
@@ -694,6 +701,8 @@ Discussion
 
     Everyone *loves* toothpaste
     ---------------------------
+
+    According to a recent survey, Americans prefer toothpaste to soda.
 
 
 =========
@@ -2160,6 +2169,27 @@ Usage
     ````
 
 
+=======================================
+`Up.RenderedDocumentAndTableOfContents`
+=======================================
+
+This interface represents the HTML for a rendered document and table of contents.
+
+Members
+  `tableOfContentsHtml`: `string`
+    The HTML for the table of contents.
+
+  `documentHtml`: `string`
+    The HTML for the document itself.
+
+Notes
+  The following functions return an object satisfying this interface:
+
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.renderDocumentAndTableOfContents]
+  
+
+
 =============
 Configuration
 =============
@@ -2580,6 +2610,7 @@ Rendered inline HTML
   ````
 
 
+
 ================
 `Up.Transformer`
 ================
@@ -2599,7 +2630,7 @@ Constructor arguments
     The custom parsing and/or rendering settings to apply for all subsequent method calls.
 
 Members
-  This class's methods have the same names and aruments as the [topic: functions] in the library:
+  This class's methods have the same names and arguments as the [topic: functions] in the library:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -2662,31 +2693,12 @@ Members
     ````
 
 
-=======================================
-`Up.RenderedDocumentAndTableOfContents`
-=======================================
-
-This interface represents the HTML for a rendered document and table of contents.
-
-Members
-  `tableOfContentsHtml`: `string`
-    The HTML for the table of contents.
-
-  `documentHtml`: `string`
-    The HTML for the document itself.
-
-Notes
-  The following functions return an object satisfying this interface:
-
-  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
-  - [topic: Up.renderDocumentAndTableOfContents]
-
 
 ========================
 The abstract syntax tree
 ========================
 
-Unless you're fiddling with the parsed abstract syntax tree, you don't need to worry about any of these classes or interfaces.
+Unless you're fiddling with the abstract syntax tree of a parsed document, you don't need to worry about any of these classes or interfaces.
 
 
 `Up.Document`
@@ -2702,7 +2714,7 @@ Unique members
   `tableOfContents`: [topic: Document.TableOfContents]
     An object representing the document's table of contents.
 
-  `create` method (`static`)
+  `create` method (static)
     Purpose
       This method returns a ready-to-render syntax tree from a collection of outline syntax nodes.
 

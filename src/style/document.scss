@@ -32,9 +32,10 @@ $headings: 'h1, h2, h3, h4, h5, h6';
   }
   
   h1 {
+    font-size: 220%;
     color: white;
     background: $heading-color;
-    padding: 25px 5px 40px $horizontal-document-padding;
+    padding: 25px 5px 50px $horizontal-document-padding;
     margin: 25px (-$horizontal-document-padding);
 
     clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
@@ -42,6 +43,28 @@ $headings: 'h1, h2, h3, h4, h5, h6';
     &:first-child {
       margin-top: 0;
     }
+  }
+
+  h2 {
+    font-size: 200%;
+    padding-top: 10px;
+  }
+
+  h3 {
+    font-size: 160%;
+    padding-top: 5px;
+  }
+
+  h4 {
+    font-size: 140%;
+  }
+
+  h5 {
+    font-size: 120%;
+  }
+
+  h6 {
+    font-size: 100%;
   }
 
   // Parentheticals
