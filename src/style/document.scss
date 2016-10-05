@@ -1,14 +1,23 @@
+$horizontal-document-padding: 15px;
+$link-color: #09d;$heading-color: #484;
+$headings: 'h1, h2, h3, h4, h5, h6';
+
+
 #document-container {
   font-family: 'Muli', sans-serif;
   line-height: 1.3em;
+  padding: 0 $horizontal-document-padding;
   
-  $link-color: #09d;
   
   // Links
   a {
     border-bottom: dotted 2px $link-color; 
     color: $link-color;
     text-decoration: none;
+
+    &:hover {
+      background-color: lighten($link-color, 50%)
+    }
   }
 
   // Bold, stress
@@ -16,12 +25,23 @@
     text-shadow: 0px 0px 0px;
   }
 
-  $headings: 'h1, h2, h3, h4, h5, h6';
-
   // Headings
   #{$headings} {
     font-family: 'Ovo', serif;
-    color: #909;
+    color: $heading-color;
+  }
+  
+  h1 {
+    color: white;
+    background: $heading-color;
+    padding: 25px 5px 40px $horizontal-document-padding;
+    margin: 25px (-$horizontal-document-padding);
+
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   // Parentheticals
@@ -30,10 +50,10 @@
     opacity: .5;
   }
 
-  // Normally, we fade parentheticals.
+  // Normally, we fade parenthetical text.
   //
-  // However, when we're within elements with colored text, we'll make
-  // parentheticals smaller instead.
+  // However, when we're within elements with colored text, we shrink
+  // parentheticals instead.
   #{$headings}, a {
     small {
       font-size: 80%;
@@ -82,6 +102,19 @@
     border-radius: 0;
     padding: 0;
   }
+
+  // Thematic breaks
+  hr  {
+    padding: 30px 0;
+    border: none;
+    text-align: center;
+  }
+  
+  hr:after {
+    content: "⋯";
+    color: #888;
+    font-size: 400%;
+}
 
   // Example input
   //
