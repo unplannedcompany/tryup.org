@@ -159,17 +159,25 @@ Use the line block convention for addresses, lyrics, or for anything that should
 Example
   Markup
     ````
+    Have you read my new poem?
+    
     Roses are red
     Violets are blue
     Lyrics have lines
     And addresses do, too
+    
+    Poetry is just too easy.
     ````
 
   Output
+    Have you read my new poem?
+    
     Roses are red
     Violets are blue
     Lyrics have lines
     And addresses do, too
+    
+    Poetry is just too easy.
 
 Discussion
   Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists].
