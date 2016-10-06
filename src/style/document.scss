@@ -149,7 +149,13 @@ $headings: 'h1, h2, h3, h4, h5, h6';
     content: "⋯";
     color: #888;
     font-size: 400%;
-}
+  }
+
+  @media speech {
+    hr:after {
+      content: none;
+    }
+  }
 
   // Example input
   //
