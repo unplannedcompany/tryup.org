@@ -113,18 +113,16 @@ $headings: 'h1, h2, h3, h4, h5, h6';
   //
   // https://medium.com/@Florian/freebie-google-material-design-shadow-helper-2a0501295a2d
   pre {
-    border-radius: 3px;
     @include heavy-shadow;
+    border-radius: 3px;
     overflow-x: scroll;
     padding: 7px 9px;    
   }
 
   // Inline code (we overwrite this for code blocks below)
   code {
+    @include mild-shadow;
     border-radius: 2px;
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.12),
-      0 1px 2px rgba(0, 0, 0, 0.24);
     padding: 0 .2em;
   }
   
@@ -269,20 +267,36 @@ $headings: 'h1, h2, h3, h4, h5, h6';
   // Revealable content
   .up-revealable {
     > label {
-      // TODO
+      @include mild-shadow;
+      cursor: pointer;
+      color: white;
       user-select: none;
-      background: red;
+      background: #c00;
+      white-space: nowrap;
+      padding: 7px 12px 5px 12px;
+      margin: 5px;
+      font-size: 75%;
+      text-transform: uppercase;
+      border-radius: 3px;
+
+      &:hover {
+        background: #b00;
+      }
+
+      &:active {
+        background: #a00;
+      }
     }
 
     > input[type="checkbox"] {
       display: none;
 
-      + span,
-      + div { display: none }
+      ~ span,
+      ~ div { display: none }
 
       &:checked {
-        + span { display: inline }
-        + div { display: block }
+        ~ span { display: inline }
+        ~ div { display: block }
       }
     }
   }
