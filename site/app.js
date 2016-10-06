@@ -718,8 +718,29 @@
 	  var codeMirror = (0, _codemirror2.default)(editorContainer, {
 	    value: __webpack_require__(112),
 	    lineNumbers: true,
-	    lineWrapping: true
+	    lineWrapping: true,
+	    tabSize: 2,
+	    extraKeys: {
+	      Tab: function Tab() {
+	        // By default, if there is any selected text, pressing Tab indents the selection using
+	        // any applicable indentation settings. That's exactly what we want, so we'll use that
+	        // behavior.
+	        if (codeMirror.somethingSelected()) {
+	          return _codemirror2.default.Pass;
+	        }
+
+	        // However, if no text is selected, CodeMirror inserts a tab character regardless of
+	        // any applicable indentation settings. Here, we insert spaces instead.
+	        var spacesPerTab = codeMirror.getOption('indentUnit');
+	        var indentation = repeat(' ', spacesPerTab);
+	        codeMirror.replaceSelection(indentation);
+	      }
+	    }
 	  });
+
+	  // When the user presses Shift-Tab, the editor should reduce the indentation level,
+	  // not remove all indentation (which is the default behavior). 
+	  _codemirror2.default.keyMap.default['Shift-Tab'] = 'indentLess';
 
 	  configureCodeMirrorToIndentSoftWrapedLines(codeMirror);
 	  configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer);
@@ -727,6 +748,11 @@
 
 	  codeMirror.refresh();
 	  refreshSourceMappedElements(documentContainer);
+	}
+
+	// Returns a new string consisting of `count` copies of `text`
+	function repeat(text, count) {
+	  return new Array(count + 1).join(text);
 	}
 
 	function configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer) {

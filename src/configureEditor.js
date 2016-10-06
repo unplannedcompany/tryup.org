@@ -27,8 +27,29 @@ export default function configureEditor(editorContainer, documentContainer, tabl
   const codeMirror = CodeMirror(editorContainer, {
     value: require('./content/document.up'),
     lineNumbers: true,
-    lineWrapping: true
+    lineWrapping: true,
+    tabSize: 2,
+    extraKeys: {
+      Tab: () => {
+        // By default, if there is any selected text, pressing Tab indents the selection using
+        // any applicable indentation settings. That's exactly what we want, so we'll use that
+        // behavior.
+        if (codeMirror.somethingSelected()) {
+          return CodeMirror.Pass
+        }
+
+        // However, if no text is selected, CodeMirror inserts a tab character regardless of
+        // any applicable indentation settings. Here, we insert spaces instead.
+        const spacesPerTab = codeMirror.getOption('indentUnit')
+        const indentation = repeat(' ', spacesPerTab)
+        codeMirror.replaceSelection(indentation)
+      }
+    }
   })
+
+  // When the user presses Shift-Tab, the editor should reduce the indentation level,
+  // not remove all indentation (which is the default behavior). 
+  CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
 
   configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
   configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer)
@@ -36,6 +57,11 @@ export default function configureEditor(editorContainer, documentContainer, tabl
 
   codeMirror.refresh()
   refreshSourceMappedElements(documentContainer)
+}
+
+// Returns a new string consisting of `count` copies of `text`
+function repeat(text, count) {
+  return new Array(count + 1).join(text)
 }
 
 
@@ -102,7 +128,7 @@ function syncScrolling(codeMirror, documentContainer) {
           //
           // To work around this, we check `offsetParent`, which is `null` if the element is
           // hidden.
-          continue 
+          continue
         }
 
         // Why -1 and not 0?
