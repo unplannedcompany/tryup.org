@@ -552,7 +552,13 @@
 	  //
 	  // In the meantime, we'll fade the document (using the `dirty` CSS class) to indicate it's
 	  // out of date.
-	  var debouncedRender = (0, _debounce2.default)(function (codeMirror) {
+	  var isDirty = false;
+
+	  var debounceRender = (0, _debounce2.default)(function (codeMirror) {
+	    if (!isDirty) {
+	      return;
+	    }
+
 	    var markup = codeMirror.getValue();
 
 	    var _Up$parseAndRenderDoc = Up.parseAndRenderDocumentAndTableOfContents(markup, {
@@ -570,17 +576,23 @@
 	    markDocumentAsClean();
 	  }, 1200);
 
-	  codeMirror.on('change', function (codeMirror) {
+	  codeMirror.on('change', function () {
 	    markDocumentAsDirty();
-	    debouncedRender(codeMirror);
+	    debounceRender(codeMirror);
+	  });
+
+	  codeMirror.on('keydown', function () {
+	    return debounceRender(codeMirror);
 	  });
 
 	  function markDocumentAsDirty() {
+	    isDirty = true;
 	    documentContainer.classList.remove('clean');
 	    documentContainer.classList.add('dirty');
 	  }
 
 	  function markDocumentAsClean() {
+	    isDirty = false;
 	    documentContainer.classList.remove('dirty');
 	    documentContainer.classList.add('clean');
 	  }

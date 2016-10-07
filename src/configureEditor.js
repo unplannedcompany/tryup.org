@@ -72,7 +72,13 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
   //
   // In the meantime, we'll fade the document (using the `dirty` CSS class) to indicate it's
   // out of date.
-  const debouncedRender = debounce(codeMirror => {
+  let isDirty = false
+
+  const debounceRender = debounce(codeMirror => {
+    if (!isDirty) {
+      return
+    }
+
     const markup = codeMirror.getValue()
     const { documentHtml, tableOfContentsHtml } =
       Up.parseAndRenderDocumentAndTableOfContents(
@@ -87,17 +93,22 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
     markDocumentAsClean()
   }, 1200)
 
-  codeMirror.on('change', codeMirror => {
+  codeMirror.on('change', () => {
     markDocumentAsDirty()
-    debouncedRender(codeMirror)
+    debounceRender(codeMirror)
   })
 
+  codeMirror.on('keydown', () =>
+    debounceRender(codeMirror))
+
   function markDocumentAsDirty() {
+    isDirty = true
     documentContainer.classList.remove('clean')
     documentContainer.classList.add('dirty')
   }
 
   function markDocumentAsClean() {
+    isDirty = false
     documentContainer.classList.remove('dirty')
     documentContainer.classList.add('clean')
   }
