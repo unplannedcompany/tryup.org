@@ -112,8 +112,7 @@ function syncScrolling(codeMirror, documentContainer) {
     throttle(sync, SCROLL_SYNC_INTERVAL)
 
   addScrollSyncingEventListeners({
-    scrollSyncInterval: SCROLL_SYNC_INTERVAL,
-    codeMirror,
+    codeMirrorScrollableContainer: codeMirror.getScrollerElement(),
     documentContainer,
 
     syncScrollingFromDocument: getScrollSyncer(() => {
@@ -193,8 +192,7 @@ function syncScrolling(codeMirror, documentContainer) {
 
 function addScrollSyncingEventListeners(args) {
   const {
-    scrollSyncInterval,
-    codeMirror,
+    codeMirrorScrollableContainer,
     documentContainer,
     syncScrollingFromDocument,
     syncScrollingFromEditor } = args
@@ -203,23 +201,20 @@ function addScrollSyncingEventListeners(args) {
   //
   // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
   // the rendered element produced by that line. However, let's also pretend that line 100
-  // didn't produce any syntax nodes! It's a blank line between paragraphs.
+  // didn't produce any syntax nodes. It's a blank line between paragraphs.
   //
   // So we do the next best thing: we scroll into view the first element produced *after*
   // line 100: a paragraph produced by line 101. This unfortunately triggers the rendered
   // document's scroll event, which in turn determines that the editor should be scrolled
   // to line 101: the line that produced the paragraph. Uh-oh!
   //
-  // To prevent this, whenever our *code* scrolls a container, we ignore the scroll events
-  // from that container for a short period.
-  const PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS =
-    scrollSyncInterval * 2
-
+  // To prevent this, whenever the user scrolls a container, we ignore any scroll events
+  // from the other container.
   let ignoringScrollEventsFromDocument = false
   let ignoringScrollEventsFromEditor = false
 
   const getEventReEnabler = reEnable =>
-    debounce(reEnable, PERIOD_TO_IGNORE_RECIPROCAL_SCROLL_EVENTS)
+    debounce(reEnable, 250)
 
   const eventuallyReEnableScrollEventsFromEditor = getEventReEnabler(() => {
     ignoringScrollEventsFromEditor = false
@@ -246,7 +241,7 @@ function addScrollSyncingEventListeners(args) {
     }
   })
 
-  addScrollEventListener(codeMirror.getScrollerElement(), () => {
+  addScrollEventListener(codeMirrorScrollableContainer, () => {
     if (!ignoringScrollEventsFromEditor) {
       syncScrollingFromEditor()
       temporarilyIgnoreScrollEventsFromDocument()

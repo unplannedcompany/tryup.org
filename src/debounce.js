@@ -7,6 +7,7 @@ export default function debounce(callback, delay) {
     clearTimeout(timeoutHandle)
 
     timeoutHandle =
-      setTimeout(() => { callback(...args) }, delay)
+      setTimeout(() => callback(...args), delay)
   }
 }
+ 
