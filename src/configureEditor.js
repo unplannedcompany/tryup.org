@@ -112,7 +112,7 @@ function syncScrolling(codeMirror, documentContainer) {
     throttle(sync, SCROLL_SYNC_INTERVAL)
 
   addScrollSyncingEventListeners({
-    codeMirrorScrollableContainer: codeMirror.getScrollerElement(),
+    editorContentContainer: codeMirror.getScrollerElement(),
     documentContainer,
 
     syncScrollingFromDocument: getScrollSyncer(() => {
@@ -192,7 +192,7 @@ function syncScrolling(codeMirror, documentContainer) {
 
 function addScrollSyncingEventListeners(args) {
   const {
-    codeMirrorScrollableContainer,
+    editorContentContainer,
     documentContainer,
     syncScrollingFromDocument,
     syncScrollingFromEditor } = args
@@ -241,7 +241,7 @@ function addScrollSyncingEventListeners(args) {
     }
   })
 
-  addScrollEventListener(codeMirrorScrollableContainer, () => {
+  addScrollEventListener(editorContentContainer, () => {
     if (!ignoringScrollEventsFromEditor) {
       syncScrollingFromEditor()
       temporarilyIgnoreScrollEventsFromDocument()

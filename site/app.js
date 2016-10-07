@@ -595,7 +595,7 @@
 	  };
 
 	  addScrollSyncingEventListeners({
-	    codeMirrorScrollableContainer: codeMirror.getScrollerElement(),
+	    editorContentContainer: codeMirror.getScrollerElement(),
 	    documentContainer: documentContainer,
 
 	    syncScrollingFromDocument: getScrollSyncer(function () {
@@ -672,7 +672,7 @@
 	}
 
 	function addScrollSyncingEventListeners(args) {
-	  var codeMirrorScrollableContainer = args.codeMirrorScrollableContainer;
+	  var editorContentContainer = args.editorContentContainer;
 	  var documentContainer = args.documentContainer;
 	  var syncScrollingFromDocument = args.syncScrollingFromDocument;
 	  var syncScrollingFromEditor = args.syncScrollingFromEditor;
@@ -723,7 +723,7 @@
 	    }
 	  });
 
-	  addScrollEventListener(codeMirrorScrollableContainer, function () {
+	  addScrollEventListener(editorContentContainer, function () {
 	    if (!ignoringScrollEventsFromEditor) {
 	      syncScrollingFromEditor();
 	      temporarilyIgnoreScrollEventsFromDocument();
