@@ -1,0 +1,51 @@
+table {
+  border-collapse: collapse;
+  margin: 20px;
+
+  caption {
+    padding-bottom: 10px;
+    font-style: italic;
+  }
+
+  tbody tr {
+    &:hover {
+      background-color: #ddd;
+      td { border-color: #aaa }
+    }
+    
+    &:nth-child(even) {
+      background-color: #eee;
+
+      &:hover {
+        background-color: #ccc;
+        td { border-color: #999 }
+      }
+    }
+  }
+
+  td, th {
+    padding: 10px;
+    border: 1px solid #bbb;
+
+    &.up-numeric {
+      text-align: right;
+    }
+
+    &[colspan] {
+      text-align: center;
+    }
+  }
+
+  th {
+    background-color: #bbb;
+    border-color: #888;
+
+    // When tables have a header column, their header row starts
+    // with an empty cell.
+    &:empty:first-child {
+      background: transparent;
+      border-top: 0;
+      border-left: 0;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@import 'common/link-color';
+
+$highlight-marker-color: yellow;
+
+// Based on this answer on stackoverflow:
+//
+// http://stackoverflow.com/a/33452034
+mark {
+  background-color: transparent;
+  text-shadow: 
+    -4px 0px 4px $highlight-marker-color,
+    4px 0px 4px $highlight-marker-color,
+    8px 0px 6px $highlight-marker-color,
+    -8px 0px 6px $highlight-marker-color;
+}
+
+// Highlighting inside of links
+a mark {
+  color: $link-color;
+}

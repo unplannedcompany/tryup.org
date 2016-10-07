@@ -1,0 +1,11 @@
+@import 'common/link-color';
+
+a {
+  border-bottom: dotted 2px $link-color; 
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover {
+    background-color: lighten($link-color, 50%)
+  }
+}

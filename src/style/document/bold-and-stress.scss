@@ -1,0 +1,3 @@
+@import 'common/bold-shadow';
+
+b, strong { @include bold-shadow }

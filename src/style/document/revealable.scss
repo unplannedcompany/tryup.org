@@ -1,0 +1,35 @@
+.up-revealable {
+  > label {
+    @include mild-shadow;
+    background: #c00;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    font-size: 75%;
+    margin: 5px;
+    user-select: none;
+    white-space: nowrap;
+    padding: 7px 12px 5px 12px;
+    text-transform: uppercase;
+
+    &:hover {
+      background: #b00;
+    }
+
+    &:active {
+      background: #a00;
+    }
+  }
+
+  > input[type="checkbox"] {
+    display: none;
+
+    ~ span,
+    ~ div { display: none }
+
+    &:checked {
+      ~ span { display: inline }
+      ~ div { display: block }
+    }
+  }
+}

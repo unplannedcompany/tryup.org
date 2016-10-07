@@ -1,0 +1,36 @@
+@import 'common/heavy-shadow';
+@import 'common/mild-shadow';
+
+// Inline code and code blocks
+pre, code {
+  background: #234;
+  color: white;
+  font-family: 'Inconsolata', monospace;
+}
+
+// Code blocks
+pre {
+  @include heavy-shadow;
+  border-radius: 3px;
+  overflow-x: scroll;
+  padding: 7px 9px;    
+}
+
+// Inline code (we overwrite this for code blocks below)
+code {
+  @include mild-shadow;
+  border-radius: 2px;
+  padding: 0 .2em;
+}
+
+// Inline code within links
+a code {
+  color: #8df;
+}
+
+// Code blocks
+pre > code {
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+}

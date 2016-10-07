@@ -1,0 +1,8 @@
+@import 'common/heavy-shadow';
+
+blockquote {
+  @include heavy-shadow;
+  background-color: #fafafa;
+  padding: 5px 20px;
+  margin: 15px 0;
+}
