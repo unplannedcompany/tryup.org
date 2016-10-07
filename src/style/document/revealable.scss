@@ -1,3 +1,4 @@
+// Inline revealables and revealable blocks
 .up-revealable {
   > label {
     @include mild-shadow;
@@ -5,11 +6,8 @@
     border-radius: 3px;
     color: white;
     cursor: pointer;
-    font-size: 75%;
-    margin: 5px;
     user-select: none;
     white-space: nowrap;
-    padding: 7px 12px 5px 12px;
     text-transform: uppercase;
 
     &:hover {
@@ -32,4 +30,20 @@
       ~ div { display: block }
     }
   }
+}
+
+
+// Inline revealables
+span.up-revealable > label {
+  font-size: 65%;
+  margin: 0 5px;
+  padding: 4px 12px 3px 12px;
+}
+
+// Revealable blocks
+div.up-revealable > label {
+  display: inline-block;
+  font-size: 75%;
+  margin: 10px auto;
+  padding: 7px 12px 5px 12px;
 }
