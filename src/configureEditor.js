@@ -201,7 +201,7 @@ function addScrollSyncingEventListeners(args) {
   //
   // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
   // the rendered element produced by that line. However, let's also pretend that line 100
-  // didn't produce any syntax nodes. It's a blank line between paragraphs.
+  // didn't produce any syntax nodes. We'll say it's a blank line between paragraphs.
   //
   // So we do the next best thing: we scroll into view the first element produced *after*
   // line 100: a paragraph produced by line 101. This unfortunately triggers the rendered
@@ -269,12 +269,12 @@ function configureCodeMirrorToIndentSoftWrapedLines(codeMirror) {
   const BASE_PADDING = 4
 
   codeMirror.on('renderLine', (codeMirror, line, lineElement) => {
-    const indentation = charWidth * CodeMirror.countColumn(line.text)
+    const indentationWidth = charWidth * CodeMirror.countColumn(line.text)
 
     // First, let's eliminate the natural indentation provided by the leading spaces themselves.
-    lineElement.style.textIndent = `-${indentation}px`
+    lineElement.style.textIndent = `-${indentationWidth}px`
 
     // Now, let's use padding to indent the entire soft-wrapped line!
-    lineElement.style.paddingLeft = `${BASE_PADDING + indentation}px`
+    lineElement.style.paddingLeft = `${BASE_PADDING + indentationWidth}px`
   })
 }
