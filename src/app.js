@@ -1,4 +1,3 @@
-import 'normalize.css'
 import './style/app.scss'
 import configureEditor from './configureEditor'
 
