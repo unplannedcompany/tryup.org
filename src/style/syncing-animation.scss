@@ -4,8 +4,8 @@
 }
 
 @keyframes clean {
-  0% { @include dirty }
-  100% { opacity: 1 }
+  from { @include dirty }
+  to { opacity: 1 }
 }
 
 .dirty, {

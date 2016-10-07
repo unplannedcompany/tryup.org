@@ -1,8 +1,30 @@
 @import 'common/heavy-shadow';
 
+@mixin nested-blockquoted-colors($nesting-level) {
+    $amount-to-darken: $nesting-level * 4%;
+
+    border-color: darken($blockquote-indent-color, $amount-to-darken);
+    background-color: darken($blockquote-bg-color, $amount-to-darken);
+}
+
+$blockquote-bg-color: #fcfcfc;
+$blockquote-indent-color: #ddd;
+
 blockquote {
-  @include heavy-shadow;
-  background-color: #fafafa;
+  border-left: 20px solid $blockquote-indent-color;
+  background-color: $blockquote-bg-color;
   padding: 5px 20px;
   margin: 15px 0;
+
+  blockquote {
+    @include nested-blockquoted-colors(1);
+
+    blockquote {
+      @include nested-blockquoted-colors(2);
+      
+      blockquote {
+        @include nested-blockquoted-colors(3) 
+      }
+    }
+  }
 }
