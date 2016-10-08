@@ -1,9 +1,6 @@
 @import 'common/heading-selector';
 
-b, strong {
+b, strong, th, #{$heading-selector} {
   b, strong { font-size: 120% }
 }
 
-#{$heading-selector}, th {
-  b, strong { font-size: 120% }
-}

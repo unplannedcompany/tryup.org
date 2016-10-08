@@ -1540,7 +1540,7 @@ Discussion
 
   Markup
     ````
-    Table: My *least* favorite fruits
+    Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
 
     Fruit;      Color;      Taste
 
@@ -1550,7 +1550,7 @@ Discussion
     ````
 
   Output
-    Table: My *least* favorite fruits
+    Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
 
     Fruit;      Color;      Taste
 
@@ -1586,7 +1586,7 @@ Discussion
   Cells
   =====
 
-  Cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling the special meaning of characters].
+  Table cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling the special meaning of characters].
 
   Markup
     ````
