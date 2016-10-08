@@ -1,0 +1,7 @@
+@import 'common/heading-color';
+@import 'common/heading-font-family';
+
+dt {
+  color: $heading-color;
+  font-family:  $heading-font-family;
+}

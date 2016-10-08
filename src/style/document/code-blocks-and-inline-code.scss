@@ -21,6 +21,7 @@ code {
   @include mild-shadow;
   border-radius: 2px;
   padding: 0 .2em;
+  margin: 0 1px;
 }
 
 // Inline code within links
@@ -33,4 +34,5 @@ pre > code {
   box-shadow: none;
   border-radius: 0;
   padding: 0;
+  margin: 0;
 }

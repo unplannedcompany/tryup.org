@@ -1,11 +1,12 @@
 @import 'common/horizontal-document-padding';
 @import 'common/heading-selector';
+@import 'common/heading-color';
+@import 'common/heading-font-family';
 
-$heading-color: #788;
 
 #{$heading-selector} {
-  font-family: 'Roboto Slab', serif;
   color: $heading-color;
+  font-family: $heading-font-family;
 }
 
 h1 {

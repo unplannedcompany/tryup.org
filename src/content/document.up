@@ -294,7 +294,7 @@ Discussion
 Inline quotes
 =============
 
-Up automatically recognizes quoted text. You don't need to change how you use quotation marks.
+Up automatically recognizes quoted text.
 
 If you want to quote more a few sentences, considering using [topic: blockquotes].
 
@@ -424,8 +424,6 @@ Parentheticals (parentheses and square brackets)
 
 Up automatically recognizes parenthetical text!
 
-You don't need to change how you use parentheses or square brackets.
-
 Example
   Markup
     ````
@@ -436,7 +434,9 @@ Example
     When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
 Discussion
-  You already know how to use parentheses and square brackets! Up understands that text enclosed within them represents supplemental, de-emphasized content.
+  You already know how to use parentheses and square brackets!
+  
+  Up understands that text enclosed within them represents supplemental, de-emphasized content.
 
 
 ============
@@ -491,7 +491,7 @@ Discussion
   Output
     Press { Start Game } when you are ready.
 
-  Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are recognized, as is [topic: disabling].
+  Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
 
 
 ===========
@@ -514,7 +514,15 @@ Example
 Discussion
   To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
 
-  Within your inline code, text is treated literally. Only one inline writing convention is recognized: [topic: disabling].
+  Within inline code, other writing conventions are ignored.
+
+  Markup
+    ````
+    In Up, surround text with `*asterisks*` to emphasize it.
+    ````
+
+  Output
+    In Up, surround text with `*asterisks*` to emphasize it.
 
 
   Including backticks in your inline code
@@ -781,7 +789,7 @@ Discussion
 
   Media descriptions **always** start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
 
-  Within media descriptions, [topic: typographical writing conventions] are recognized, as is [topic: disabling]. But other inline writing conventions are not recognized---you can't include revealable content or links, for example.
+  Within media descriptions, [topic: typographical writing conventions] are supported, but other writing conventions are not You cannot include revealable content or links, for example.
 
 
   Media URLs
@@ -2043,7 +2051,7 @@ Arguments
   `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]
     The custom parsing settings to apply.
 
-Return type: [topic: Document]
+Return type: [topic: Up.Document]
   This method returns a syntax tree representing the parsed document.
 
 Usage
@@ -2099,7 +2107,7 @@ Usage
 This method converts a syntax tree into HTML and returns the result.
 
 Arguments
-  `document`: [topic: Document]
+  `document`: [topic: Up.Document]
     The syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
@@ -2135,7 +2143,7 @@ This method converts a syntax tree into two pieces of HTML, both of which are re
 2. The document itself
 
 Arguments
-  `document`: [topic: Document]
+  `document`: [topic: Up.Document]
     The syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
@@ -2738,7 +2746,7 @@ Extends
   [topic: Up.OutlineSyntaxNodeContainer]
 
 Unique members
-  `tableOfContents`: [topic: Document.TableOfContents]
+  `tableOfContents`: [topic: Up.Document.TableOfContents]
     An object representing the document's table of contents.
 
   `create` method (static)
@@ -2945,7 +2953,7 @@ Members
     A collection of outline syntax nodes representing the top-level content of the container.
 
   `descendantsToIncludeInTableOfContents` method
-    Return type: array of [topic: Document.TableOfContents.Entry]
+    Return type: array of [topic: Up.Document.TableOfContents.Entry]
       This method returns any descendants (children, grandchildren, etc.) to include in the table of contents.
 
     Arguments
