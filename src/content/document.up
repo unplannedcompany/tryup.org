@@ -16,8 +16,8 @@ Why use Up?
 
 Up isn't the only markup language that can be converted into HTML. Why should you use Up?
 
-- Up uses readable, customizable keywords
-  =======================================
+- Readable, customizable keywords
+  ===============================
 
   Too many markup languages devolve into a dense soup of symbols and punctuation.
 
@@ -25,7 +25,7 @@ Up isn't the only markup language that can be converted into HTML. Why should yo
 
   If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
 
-- Up offers a flexible, forgiving syntax
+- A flexible, forgiving syntax
   ======================================
 
   * Up recognizes [topic: numbered lists] that count backwards.
@@ -83,7 +83,7 @@ Up isn't the only markup language that can be converted into HTML. Why should yo
 - Up produces fully accessible HTML
   =================================
 
-   From the table of contents to the last movie-ruining spoiler, Up produces fully-accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
+   From the table of contents to the last movie-ruining spoiler, Up produces fully accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
 
 
 
@@ -208,6 +208,16 @@ Example
 Discussion
   To emphasize text, enclose it within single asterisks.
 
+  Like most inline writing conventions, emphasis can be nested within itself.
+
+  Markup
+    ````
+    John really, *really, *really** hates Red Delicious apples.
+    ````
+
+  Output
+    John really, *really, *really** hates Red Delicious apples.
+
 
 Stress
 ======
@@ -227,6 +237,16 @@ Example
 
 Discussion
   To stress text, enclose it within double asterisks.
+
+  Like most inline writing conventions, stress can be nested within itself.
+
+  Markup
+    ````
+    Remember to **stand **far** away** from that toaster. 
+    ````
+
+  Output
+    Remember to **stand **far** away** from that toaster. 
 
 
 Italics

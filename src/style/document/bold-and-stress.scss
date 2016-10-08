@@ -1,11 +1,9 @@
+@import 'common/heading-selector';
+
 b, strong {
-  // Our font uses a very subtle bold effect. This makes it stronger.
-  text-shadow: 0px 0px 0px;
-  
-  b, strong {
-     text-shadow:
-      0px 0px 0px,
-      1px 0px 0px,    
-      0px -1px 0px; 
-  }
+  b, strong { font-size: 120% }
+}
+
+#{$heading-selector}, th {
+  b, strong { font-size: 120% }
 }
