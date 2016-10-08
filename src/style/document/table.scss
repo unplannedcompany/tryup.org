@@ -40,16 +40,17 @@ table {
   }
 
   th {
-    color: white;
+    border-color: lighten($heading-color, 15%);
     background-color: $heading-color;
+    color: white;
     font-family: $heading-font-family;
 
     // When tables have a header column, their header row starts
     // with an empty cell.
-    &:empty:first-child {
-      background: transparent;
-      border-top: 0;
-      border-left: 0;
+    &:first-child:empty {
+        background: transparent;
+        border-top: 0;
+        border-left: 0;
     }
   }
 }

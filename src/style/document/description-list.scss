@@ -5,3 +5,6 @@ dt {
   color: $heading-color;
   font-family:  $heading-font-family;
 }
+
+// Without some extra margin, consecutive description lists appear merged together.
+dl + dl { margin-top: 40px }

@@ -1,3 +1,12 @@
 .up-lines {
-  text-align: center
+  text-align: center;
+
+  // Without some extra margin, consecutive line blocks appear merged together. 
+  + .up-lines {
+    margin-top: 20px;
+  }
+
+  > div {
+    margin-bottom: 5px;
+  }
 }

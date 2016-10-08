@@ -939,152 +939,6 @@ Discussion
     > I completely understand.
 
 
-=================
-Description lists
-=================
-
-Use the description list convention to represent a collection of subjects and their descriptions.
-
-You can use description lists for:
-
-- Terms and definitions
-- Questions and answers
-- Any collection of subjects and descriptions!
-
-
-Example
-  Markup
-    ````
-    Kirby's Dreamland
-      A video game about a flying marshmallow.
-
-    Super Mario Land
-      A video game about a jumping plumber.
-    ````
-
-  Output
-    Kirby's Dreamland
-      A video game about a flying marshmallow.
-
-    Super Mario Land
-      A video game about a jumping plumber.
-
-Discussion
-  Every item in a description list consists of two parts:
-
-  1. One or more subjects
-  2. A single description of those subjects
-
-
-  Subjects
-  ========
-
-  Subjects can contain any inline writing convention.
-
-  Markup
-    ````
-    Ash *Ketchum*
-      A ten year-old Pokémon trainer with an odd name.
-
-    Gary "Smell You Later" Oak
-      A ten year-old Pokémon trainer with a keen nose.
-    ````
-
-  Output
-    Ash *Ketchum*
-      A ten year-old Pokémon trainer with an odd name.
-
-    Gary "Smell You Later" Oak
-      A ten year-old Pokémon trainer with a keen nose.
-
-  When there is more than one subject for a given description, they should be listed consecutively, one per line.
-
-  Markup
-    ````
-    Game Boy Light
-    Game Boy Pocket
-    Game Boy Color
-      Handheld videogame systems released by Nintendo in the 1990s.
-    ````
-
-  Output
-    Game Boy Light
-    Game Boy Pocket
-    Game Boy Color
-      Handheld videogame systems released by Nintendo in the 1990s.
-
-
-  Descriptions
-  ============
-
-  Each description follows the subjects it describes.
-
-  Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists!
-
-  Markup
-    ````
-    Bulbasaur
-      A plant Pokémon with a bulb growing from its back.
-
-      Height
-        0.7 m
-      Weight
-        6.9 kg
-
-    Charmander
-      A fire Pokémon with a flame on its tail.
-
-      Height
-        0.6 m
-      Weight
-        8.5 kg
-
-  Output
-    Bulbasaur
-      A plant Pokémon with a bulb growing from its back.
-
-      Height
-        0.7 m
-      Weight
-        6.9 kg
-
-    Charmander
-      A fire Pokémon with a flame on its tail.
-
-      Height
-        0.6 m
-      Weight
-        8.5 kg
-
-  Each description may be followed by an optional blank line. If a description is followed by two blank lines, it marks the end of the description list.
-
-  Markup
-    ````
-    Lime
-      A green fruit.
-    Strawberry
-      A red fruit.
-
-
-    Bulbasaur
-      A green Pokémon.
-    Charmander
-      A red Pokémon.
-    ````
-
-  Output
-    Lime
-      A green fruit.
-    Strawberry
-      A red fruit.
-
-
-    Bulbasaur
-      A green Pokémon.
-    Charmander
-      A red Pokémon.
-
-
 ===============
 Thematic breaks
 ===============
@@ -1433,41 +1287,144 @@ Discussion
     1783. Not a good year for Great Britain.
 
 
-=================================
-Typographical writing conventions
-=================================
+=================
+Description lists
+=================
 
-Consecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character.
+Use the description list convention to represent a collection of subjects and their descriptions.
 
-Markup
-  ````
-  I don't know... I doubt a dog would do this.
-  ````
+You can use description lists for:
 
-Output
-  I don't know... I doubt a dog would do this.
+- Terms and definitions
+- Questions and answers
+- Any collection of subjects and descriptions!
 
-If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more information, see [topic: fancyEllipsis].
 
-Two consecutive hyphens produce an en dash.
+Example
+  Markup
+    ````
+    Kirby's Dreamland
+      A video game about a flying marshmallow.
 
-Markup
-  ````
-  I agree -- to a extent -- with your plan to eat nothing but cereal.
-  ````
+    Super Mario Land
+      A video game about a jumping plumber.
+    ````
 
-Output
-  I agree -- to a extent -- with your plan to eat nothing but cereal.
+  Output
+    Kirby's Dreamland
+      A video game about a flying marshmallow.
 
-Three consecutive hyphens produce an *em* dash.
+    Super Mario Land
+      A video game about a jumping plumber.
 
-Markup
-  ````
-  Use a spoon---a fork won't cut it.
-  ````
+Discussion
+  Every item in a description list consists of two parts:
 
-Output
-  Use a spoon---a fork won't cut it.
+  1. One or more subjects
+  2. A single description of those subjects
+
+
+  Subjects
+  ========
+
+  Subjects can contain any inline writing convention.
+
+  Markup
+    ````
+    [Ash Ketchum] (en.wikipedia.org/wiki/Ash_Ketchum)
+      A ten year-old Pokémon trainer with an odd name.
+    ````
+
+  Output
+    [Ash Ketchum] (en.wikipedia.org/wiki/Ash_Ketchum)
+      A ten year-old Pokémon trainer with an odd name.
+
+  When there is more than one subject for a given description, they should be listed consecutively, one subject per line.
+
+  Markup
+    ````
+    Game Boy Light
+    Game Boy Pocket
+    Game Boy Color
+      Handheld videogame systems released by Nintendo in the 1990s.
+    ````
+
+  Output
+    Game Boy Light
+    Game Boy Pocket
+    Game Boy Color
+      Handheld videogame systems released by Nintendo in the 1990s.
+
+
+  Descriptions
+  ============
+
+  Each description follows the subjects it describes.
+
+  Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists!
+
+  Markup
+    ````
+    Bulbasaur
+      A plant Pokémon with a bulb growing from its back.
+
+      Height
+        0.7 m
+      Weight
+        6.9 kg
+
+    Charmander
+      A fire Pokémon with a flame on its tail.
+
+      Height
+        0.6 m
+      Weight
+        8.5 kg
+
+  Output
+    Bulbasaur
+      A plant Pokémon with a bulb growing from its back.
+
+      Height
+        0.7 m
+      Weight
+        6.9 kg
+
+    Charmander
+      A fire Pokémon with a flame on its tail.
+
+      Height
+        0.6 m
+      Weight
+        8.5 kg
+
+  Each description may be followed by an optional blank line. If a description is followed by two blank lines, it marks the end of the description list.
+
+  Markup
+    ````
+    Lime
+      A green fruit.
+    Strawberry
+      A red fruit.
+
+
+    Bulbasaur
+      A green Pokémon.
+    Charmander
+      A red Pokémon.
+    ````
+
+  Output
+    Lime
+      A green fruit.
+    Strawberry
+      A red fruit.
+
+
+    Bulbasaur
+      A green Pokémon.
+    Charmander
+      A red Pokémon.
 
 
 ======
@@ -1825,6 +1782,43 @@ Markup
 
 Output
   At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
+
+
+=================================
+Typographical writing conventions
+=================================
+
+Consecutive periods represent an ellipsis, so Up replaces them with a fancy ellipsis character.
+
+Markup
+  ````
+  I don't know... I doubt a dog would do this.
+  ````
+
+Output
+  I don't know... I doubt a dog would do this.
+
+If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more information, see [topic: fancyEllipsis].
+
+Two consecutive hyphens produce an en dash.
+
+Markup
+  ````
+  I agree -- to a extent -- with your plan to eat nothing but cereal.
+  ````
+
+Output
+  I agree -- to a extent -- with your plan to eat nothing but cereal.
+
+Three consecutive hyphens produce an *em* dash.
+
+Markup
+  ````
+  Use a spoon---a fork won't cut it.
+  ````
+
+Output
+  Use a spoon---a fork won't cut it.
 
 
 ======================================
