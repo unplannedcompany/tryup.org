@@ -40,13 +40,13 @@ table {
   }
 
   th {
-    border-color: lighten($heading-color, 15%);
+    border-color: lighten($heading-color, 20%);
     background-color: $heading-color;
     color: white;
     font-family: $heading-font-family;
-
+    
     // When tables have a header column, their header row starts
-    // with an empty cell.
+    // with an empty cell. This cell should be invisible.
     &:first-child:empty {
         background: transparent;
         border-top: 0;

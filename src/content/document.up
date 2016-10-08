@@ -1331,13 +1331,19 @@ Discussion
 
   Markup
     ````
-    [Ash Ketchum] (en.wikipedia.org/wiki/Ash_Ketchum)
-      A ten year-old Pokémon trainer with an odd name.
+    `<ol>`
+      An HTML element representing ordered lists.
+
+    `<ul>`
+      An HTML element representing bulleted lists.
     ````
 
   Output
-    [Ash Ketchum] (en.wikipedia.org/wiki/Ash_Ketchum)
-      A ten year-old Pokémon trainer with an odd name.
+    `<ol>`
+      An HTML element representing ordered lists.
+
+    `<ul>`
+      An HTML element representing bulleted lists.
 
   When there is more than one subject for a given description, they should be listed consecutively, one subject per line.
 
