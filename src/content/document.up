@@ -418,9 +418,9 @@ Discussion
   These rules also apply when [topic: linkifying].
 
 
-================================================
-Parentheticals (parentheses and square brackets)
-================================================
+==================
+Parenthetical text
+==================
 
 Up automatically recognizes parenthetical text!
 
@@ -434,9 +434,7 @@ Example
     When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
 Discussion
-  You already know how to use parentheses and square brackets!
-  
-  Up understands that text enclosed within them represents supplemental, de-emphasized content.
+  Up understands that text enclosed within parenthesis or square brackets represents supplemental, de-emphasized content.
 
 
 ============
@@ -670,11 +668,11 @@ Use the section link convention to link another section (heading) in your docume
 Example
   Markup
     ````
-    Unlike many markup languages, Up recognizes [topic: parentheticals].
+    Unlike many markup languages, Up recognizes [topic: parenthetical text].
     ````
 
   Output
-    Unlike many markup languages, Up recognizes [topic: parentheticals].
+    Unlike many markup languages, Up recognizes [topic: parenthetical text].
 
 Discussion
   To produce a section link:
@@ -980,7 +978,7 @@ Markup
   ````
   I vowed never to eat apples again.
 
-  =-=-=-=-=-=-=-=-=-=-=
+  *-=-=-=-=-=-=-=-=-=-*
 
   By mid-March, a second flock of birds had moved into my dining room.
   ````
@@ -988,7 +986,7 @@ Markup
 Output
   I vowed never to eat apples again.
 
-  =-=-=-=-=-=-=-=-=-=-=
+  *-=-=-=-=-=-=-=-=-=-*
 
   By mid-March, a second flock of birds had moved into my dining room.
 
@@ -2995,7 +2993,9 @@ Unique members
 ===============================
 
 Purpose
-  This abstract class represents [topic: parentheticals]. It exists solely to improve the expressiveness of the type system.
+  This abstract class represents [topic: parenthetical text]. It exists solely to improve the expressiveness of the type system.
+
+  It is extended by both [topic: Up.NormalParenthetical] and [topic: Up.SquareParenthetical].
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
@@ -3281,7 +3281,7 @@ Unique members
 ========================
 
 Convention
-  [topic: Parentheses]
+  [topic: Parenthetical text] produced by parentheses
 
 Extends
   [topic: Up.ParentheticalSyntaxNode]
@@ -3380,7 +3380,7 @@ Unique members
 ========================
 
 Convention
-  [topic: Square brackets]
+  [topic: Parenthetical text] produced by square brackets
 
 Extends
   [topic: Up.ParentheticalSyntaxNode]

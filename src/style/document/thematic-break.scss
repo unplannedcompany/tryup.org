@@ -1,13 +1,15 @@
 hr  {
-  padding: 30px 0;
+  margin: 8px 0 45px 0;
+  padding-bottom: 8px;
   border: none;
   text-align: center;
 }
 
 hr:after {
-  content: "⋯";
-  color: #888;
-  font-size: 400%;
+  content: '...';
+  letter-spacing: 25px;
+  color: #dfdfdf;
+  font-size: 40px;
 }
 
 @media speech, braille {
