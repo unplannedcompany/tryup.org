@@ -26,7 +26,7 @@ Up isn't the only markup language that can be converted into HTML. Why should yo
   If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
 
 - A flexible, forgiving syntax
-  ======================================
+  ============================
 
   * Up recognizes [topic: numbered lists] that count backwards.
 
@@ -558,9 +558,9 @@ Discussion
   Output
     ``let output = `score:` + 5``
 
-  ---------------------------------------------------
-  But my inline code starts (or ends) with backticks!
-  ---------------------------------------------------
+  -----------------------------------------------
+  Inline code starting (or ending) with backticks
+  -----------------------------------------------
 
   If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
 
@@ -684,16 +684,16 @@ Discussion
   That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you.
 
 
-  How does Up choose which heading matches your section link?
-  ===========================================================
+  Matching the most appropriate heading
+  =====================================
 
-  Up tries to match your snippet to the first heading in the document whose text is an exact match with your snippet. If there isn't an exact match, Up will match your snippet to the first heading in the document whose text *contains* your snippet.
+  Up tries to match your snippet to the first heading in the document whose text exactly matches your snippet's text. If there isn't an exact match, Up will matches your snippet to the first heading in the document whose text *contains* your snippet.
 
-  ---------------------------------------
-  Up ignores the heading's capitalization
-  ---------------------------------------
+  -------------------------
+  Up ignores capitalization
+  -------------------------
 
-  If your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
+  For example, if your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
 
   Markup
     ````
@@ -713,11 +713,13 @@ Discussion
 
     Everyone should be excited about cleaning their teeth.
 
-  --------------------------------------------------------
-  Up ignores any inline writing conventions in the heading
-  --------------------------------------------------------
+  -------------------------------------
+  Up ignores inline writing conventions
+  -------------------------------------
 
-  If your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match.
+  The text content of the heading is all that matters. Up ignores any inline writing conventions in the heading.
+
+  For example, if your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match.
 
   Markup
     ````
@@ -1847,11 +1849,11 @@ If conventions overlap superficially---only by their start or end delimiters---U
 
 Markup
   ````
-  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
+  At the end of Pokémon Red, [SPOILER: you battle your rival *yet again]* before the credits roll.
   ````
 
 Output
-  At the very end of Pokémon Red, [SPOILER: you must battle your rival *yet again]* before the credits roll.
+  At the end of Pokémon Red, [SPOILER: you battle your rival *yet again]* before the credits roll.
 
 
 ===========================================

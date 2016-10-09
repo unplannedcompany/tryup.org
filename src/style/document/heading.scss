@@ -7,20 +7,19 @@
 #{$heading-selector} {
   color: $heading-color;
   font-family: $heading-font-family;
+  line-height: 1.5em;
 }
 
 h1 {
   font-size: 220%;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
   color: white;
   background: $heading-color;
   padding: 25px 5px 50px $horizontal-document-padding;
   margin: 25px (-$horizontal-document-padding);
+  text-shadow: none;
 
-  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
-
-  &:first-child {
-    margin-top: 0;
-  }
+  &:first-child { margin-top: 0 }
 }
 
 h2 {
