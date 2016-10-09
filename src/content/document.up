@@ -434,14 +434,14 @@ Example
     When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
 Discussion
-  Up understands that text enclosed within parenthesis or square brackets represents supplemental, de-emphasized content.
+  Up understands that text enclosed within parentheses or square brackets represents supplemental, de-emphasized content.
 
 
 ============
 Highlighting
 ============
 
-Use the highlighting convention to indicate a word a phrase is particularly relevant to the reader.
+Highlight text to indicate a word a phrase is particularly relevant to the reader.
 
 Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
 
@@ -589,7 +589,7 @@ Discussion
 Headings
 ========
 
-Use the heading convention to introduce a new section in the document.
+Use headings to introduce a new section in the document.
 
 Example
   Markup
@@ -980,7 +980,7 @@ Markup
   ````
   I vowed never to eat apples again.
 
-  *-=-=-=-=-=-=-=-=-=-*
+  #=*=*=*=*=*=*=*=*=*=#
 
   By mid-March, a second flock of birds had moved into my dining room.
   ````
@@ -988,7 +988,7 @@ Markup
 Output
   I vowed never to eat apples again.
 
-  *-=-=-=-=-=-=-=-=-=-*
+  #=*=*=*=*=*=*=*=*=*=#
 
   By mid-March, a second flock of birds had moved into my dining room.
 
@@ -1032,8 +1032,8 @@ Discussion
   Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
 
 
-  Including streaks of backticks within your code block
-  =====================================================
+  Including streaks of backticks
+  ==============================
 
   Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.
 
@@ -1078,8 +1078,6 @@ Bulleted lists
 
 You already know what a bulleted list is!
 
-Bulleted lists can contain any outline writing convention, including other bulleted lists.
-
 Example
   Markup
     ````
@@ -1105,7 +1103,7 @@ Discussion
 
 
   Spacing between list items
-  ===========================
+  ==========================
 
   Each list item can be followed by a single blank line. This has no impact on the list itself.
 
@@ -1149,7 +1147,7 @@ Discussion
   List items consisting of multiple lines
   =======================================
 
-  List items aren't limited to a single line!
+  List items aren't limited to a single line!  Bulleted lists can contain any outline writing convention, including other bulleted lists.
 
   If your list item contains more than one line, subsequent lines should be indented 2 spaces (or a tab).
 
@@ -1195,8 +1193,6 @@ Numbered lists
 ==============
 
 You already know what a numbered list is!
-
-Numbered lists can contain any outline writing convention, including other numbered lists.
 
 Example
   Markup
@@ -1291,7 +1287,7 @@ Discussion
 Description lists
 =================
 
-Use the description list convention to represent a collection of subjects and their descriptions.
+Use description lists represent a collection of subjects and their descriptions.
 
 You can use description lists for:
 
@@ -1437,7 +1433,7 @@ Discussion
 Tables
 ======
 
-You already know what a table is! Use the table convention to display rows of data organized into columns.
+You already know what a table is! Use tables to display rows of data organized into columns.
 
 Example
   Markup
@@ -1557,8 +1553,8 @@ Discussion
 
     Fruit;      Reason for liking
 
-    Apples;     Easy to eat\; lasts weeks in the fridge
-    Grapes;     Make me feel like Dionysus
+    Apples;     Easy to eat\; stylish
+    Grapes;     Each grape is very cheap
     Oranges;    The color orange is nice
     ````
 
@@ -1567,8 +1563,8 @@ Discussion
 
     Fruit;      Reason for liking
 
-    Apples;     Easy to eat\; lasts weeks in the fridge
-    Grapes;     Make me feel like Dionysus
+    Apples;     Easy to eat\; stylish
+    Grapes;     Each grape is very cheap
     Oranges;    The color orange is nice
 
   -------------------------------
@@ -1623,11 +1619,11 @@ Discussion
   Output
     Table: Games in the Chrono series
 
-    Game;               Release Date
+    Release Date;       Game
 
-    Chrono Trigger;     March 11, 1995
-    Chrono Cross;       November 18, 1999
-    Chrono Break;
+    March 11, 1995;     Chrono Trigger
+    November 18, 1999;  Chrono Cross
+    ;                   Chrono Break
 
   Likewise, to indicate that the *last* cell in a row should be empty, simply end that row with a semicolon. You don't need to add any spaces after it.
 
