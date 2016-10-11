@@ -760,8 +760,6 @@ Example
 Discussion
   To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
 
-  Footnotes in a paragraph are replaced by superscripts containing the ordinal of the footnote within the document. These superscripts link to the actual content of the footnote in its footnote block.
-
 
 ================================
 Media (images, audio, and video)
