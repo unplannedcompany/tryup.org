@@ -751,11 +751,11 @@ Footnotes are automatically extracted into blocks for you.
 Example
   Markup
     ````
-    Pokémon Red begins in Pallet Town, [^ "Pallet" is probably a misspelling of "palette"] where Professor Oak gives Red his first Pokémon.
+    Warlocked [^ No relation to Warcraft!] is a real-time strategy game.
     ````
 
   Output
-    Pokémon Red begins in Pallet Town, [^ "Pallet" is probably a misspelling of "palette"] where Professor Oak gives Red his first Pokémon.
+    Warlocked [^ No relation to Warcraft!] is a real-time strategy game. 
 
 Discussion
   To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
@@ -912,7 +912,7 @@ Example
     > 2. They're not bananas.
 
 Discussion
-  A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space). The space after the `>` is optional, but it's encouraged for readability.
+  A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space).
 
   Blockquotes can contain any outline writing convention, including other blockquotes.
 

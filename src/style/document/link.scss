@@ -9,3 +9,8 @@ a {
     background-color: lighten($link-color, 50%)
   }
 }
+
+.up-footnote-reference a {
+  border-bottom: 0;
+  text-decoration: underline;
+}
