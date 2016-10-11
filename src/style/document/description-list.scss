@@ -7,4 +7,8 @@ dt {
 }
 
 // Without some extra margin, consecutive description lists appear merged together.
-dl + dl { margin-top: 40px }
+dl {
+  margin-top: 15px; 
+  
+  + dl { margin-top: 40px }
+}
