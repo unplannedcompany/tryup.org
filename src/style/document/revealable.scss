@@ -25,25 +25,26 @@
     }
   }
 
-  > input[type="checkbox"] {
+  > input[type="radio"] {
     display: none;
 
     ~ span,
     ~ div { display: none }
 
-    &:checked {
-      ~ span, ~div {
-        animation: 1s reveal
-      }
+    &.up-hide:checked + label { display: none }
+
+    &.up-reveal:checked {
+      + label { display: none }
+
+      ~ span,
+      ~div { animation: 1s reveal }
 
       ~ span { display: inline }
-      
-      ~ div {
-        display: block;
-        margin-left: 35px;
-      }
+      ~ div { display: block }
     }
   }
+
+  > div { margin-left: 35px }
 }
 
 
