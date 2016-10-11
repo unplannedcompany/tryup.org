@@ -559,20 +559,7 @@
 	      return;
 	    }
 
-	    var markup = codeMirror.getValue();
-
-	    var _Up$parseAndRenderDoc = Up.parseAndRenderDocumentAndTableOfContents(markup, {
-	      parsing: { createSourceMap: true }
-	    });
-
-	    var documentHtml = _Up$parseAndRenderDoc.documentHtml;
-	    var tableOfContentsHtml = _Up$parseAndRenderDoc.tableOfContentsHtml;
-
-
-	    documentContainer.innerHTML = documentHtml;
-	    tableOfContentsContainer.innerHTML = tableOfContentsHtml;
-
-	    refreshSourceMappedElements(documentContainer);
+	    render(codeMirror, documentContainer, tableOfContentsContainer);
 	    markDocumentAsClean();
 	  }, 1200);
 
@@ -596,6 +583,23 @@
 	    documentContainer.classList.remove('dirty');
 	    documentContainer.classList.add('clean');
 	  }
+	}
+
+	function render(codeMirror, documentContainer, tableOfContentsContainer) {
+	  var markup = codeMirror.getValue();
+
+	  var _Up$parseAndRenderDoc = Up.parseAndRenderDocumentAndTableOfContents(markup, {
+	    parsing: { createSourceMap: true }
+	  });
+
+	  var documentHtml = _Up$parseAndRenderDoc.documentHtml;
+	  var tableOfContentsHtml = _Up$parseAndRenderDoc.tableOfContentsHtml;
+
+
+	  documentContainer.innerHTML = documentHtml;
+	  tableOfContentsContainer.innerHTML = tableOfContentsHtml;
+
+	  refreshSourceMappedElements(documentContainer);
 	}
 
 	function syncScrolling(codeMirror, documentContainer) {

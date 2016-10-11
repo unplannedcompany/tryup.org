@@ -79,17 +79,7 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
       return
     }
 
-    const markup = codeMirror.getValue()
-    const { documentHtml, tableOfContentsHtml } =
-      Up.parseAndRenderDocumentAndTableOfContents(
-        markup, {
-          parsing: { createSourceMap: true }
-        })
-
-    documentContainer.innerHTML = documentHtml
-    tableOfContentsContainer.innerHTML = tableOfContentsHtml
-
-    refreshSourceMappedElements(documentContainer)
+    render(codeMirror, documentContainer, tableOfContentsContainer)
     markDocumentAsClean()
   }, 1200)
 
@@ -112,6 +102,21 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
     documentContainer.classList.remove('dirty')
     documentContainer.classList.add('clean')
   }
+}
+
+
+function render(codeMirror, documentContainer, tableOfContentsContainer) {
+  const markup = codeMirror.getValue()
+  const { documentHtml, tableOfContentsHtml } =
+    Up.parseAndRenderDocumentAndTableOfContents(
+      markup, {
+        parsing: { createSourceMap: true }
+      })
+
+  documentContainer.innerHTML = documentHtml
+  tableOfContentsContainer.innerHTML = tableOfContentsHtml
+
+  refreshSourceMappedElements(documentContainer)
 }
 
 
