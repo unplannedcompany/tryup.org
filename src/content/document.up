@@ -759,6 +759,8 @@ Example
 
 Discussion
   To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
+  
+  Any spaces after the caret are ignored.
 
 
 ================================
