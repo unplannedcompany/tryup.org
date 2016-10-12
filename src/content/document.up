@@ -2800,6 +2800,18 @@ Unique members
 Notes
   The [topic: Up.parse] function returns an instance of this class.
 
+Rendered HTML
+  When rendered to HTML, the document is *not* put into an outer container element.
+
+  ````
+  <p>
+    Unlike regular dental floss, you can use floss picks even if you're <em>not</em> a trained dental hygienist.
+  </p>
+  <p>
+    Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.
+  </p>
+  ````
+
 
 -----------------------------
 `Up.Document.TableOfContents`
@@ -2811,6 +2823,37 @@ Purpose
 Members
   `entries`: array of [topic: TableOfContents.Entry]
     A collection of entries representing headings in the document.
+
+Rendered HTML
+  Within the table of contents, level 1 headings are rendered as `<h2>`, level 2 headings as `<h3>`, etc.
+  
+  Headings with levels 5 or greater are rendered as `<h6>`.
+  
+  ````
+  <nav class="up-table-of-contents">
+    <h1>Table of Contents</h1>
+    <ul>
+      <li>
+        <h2><a href="#up-topic-1">Video games</a></h2>
+      </li>
+      <li>
+        <h3><a href="#up-topic-2">Game Boy games</a></h3>
+      </li>
+      <li>
+        <h4><a href="#up-topic-3">Warlocked</a></h4>
+      </li>
+      <li>
+        <h4><a href="#up-topic-4">Crystalis</a></h4>
+      </li>
+      <li>
+        <h3><a href="#up-topic-5">Super Nintendo games</a></h3>
+      </li>
+      <li>
+        <h4><a href="#up-topic-6">Chrono Trigger</a></h4>
+      </li>
+    </ul>
+  </nav>
+  ````
 
 
 `Up.Document.TableOfContents.Entry`
@@ -2861,6 +2904,13 @@ Extends
 
 Notes
   The [topic: Up.parseInline] function returns an instance of this class.
+
+Rendered HTML
+  When rendered to HTML, an inline document is *not* put into an outer container element.
+
+  ````
+  I <em>love</em> dental floss!
+  ````
 
 
 `Up.SyntaxNode`
@@ -3257,17 +3307,17 @@ Extends
   [topic: Up.InlineSyntaxNodeContainer]
 
 Implements
-  [topic: Up.OutlineSyntaxNode]
-    Headings are outline syntax nodes.
-
-  [topic: Up.Document.TableOfContents.Entry]
-    Headings can also be in the table of contents!
+  [topic: Up.OutlineSyntaxNode] and [topic: Up.Document.TableOfContents.Entry]
 
 Unique members
   `level`: `number`
-    Represents the significance of the heading. Like HTML heading levels, a `level` of `1` is considered the most significant.
+    A heading's `level` represents its significance in the document. Like HTML heading levels, a `level` of `1` is considered the most significant.
 
 Rendered HTML
+  Level 1 headings are rendered as `<h1>`, level 2 headings as `<h2>`, etc.
+  
+  Headings with levels 6 or greater are rendered as`<h6>`. 
+
   ````
   <h2>I am a second-level heading!</h2>
   ````
@@ -3524,7 +3574,8 @@ Extends
 
 Implements
   [topic: Up.OutlineSyntaxNode]
-    Paragraphs are outline syntax nodes.
+
+Rendered HTML
   ````
   <p>Hi there!</p>
   ````
