@@ -498,7 +498,7 @@ Inline code
 
 Use the inline code convention to represent a small fragment of computer code.
 
-If you need to represent more than a small fragment of computer code, use [topic: code blocks].
+When you need to represent more than a small fragment of computer code, use [topic: code blocks].
 
 Example
   Markup
@@ -1020,85 +1020,6 @@ Output
   #=*=*=*=*=*=*=*=*=*=#
 
   By mid-March, a second flock of birds had moved into my dining room.
-
-
-===========
-Code blocks
-===========
-
-Use the code block convention to represent a block of computer code.
-
-If you need to reference only a small fragment of computer code, use [topic: Inline code].
-
-Example
-  Markup
-    ````````
-    ```
-    function nthFibonacci(n: number): number {
-      return (
-        n <= 2
-        ? n - 1
-        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
-    }
-    ```
-    ````````
-
-  Output
-    ```
-    function nthFibonacci(n: number): number {
-      return (
-        n <= 2
-        ? n - 1
-        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
-    }
-    ```
-
-Discussion
-  Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
-
-  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
-
-  Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
-
-
-  Including streaks of backticks
-  ==============================
-
-  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.
-
-  Markup
-    `````````
-    ``````
-    A code block:
-
-    ```
-    function factorial(n: number): number {
-      return (
-        n <= 1
-          ? 1
-          : n * factorial(n - 1))
-    }
-    ```
-
-    See? Not so hard!
-    ``````
-    `````````
-
-  Output
-    ``````
-    A code block:
-
-    ```
-    function factorial(n: number): number {
-      return (
-        n <= 1
-          ? 1
-          : n * factorial(n - 1))
-    }
-    ```
-
-    See? Not so hard!
-    ``````
 
 
 ==============
@@ -1771,6 +1692,85 @@ Discussion
 
 
 When your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row in the top level corner, above the header column.
+
+
+===========
+Code blocks
+===========
+
+Use the code block convention to represent a block of computer code.
+
+When you need to represent a small fragment of computer code, consider using [topic: inline code].
+
+Example
+  Markup
+    ````````
+    ```
+    function nthFibonacci(n: number): number {
+      return (
+        n <= 2
+        ? n - 1
+        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+    }
+    ```
+    ````````
+
+  Output
+    ```
+    function nthFibonacci(n: number): number {
+      return (
+        n <= 2
+        ? n - 1
+        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+    }
+    ```
+
+Discussion
+  Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
+
+  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
+
+  Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
+
+
+  Including streaks of backticks
+  ==============================
+
+  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.
+
+  Markup
+    `````````
+    ``````
+    A code block:
+
+    ```
+    function factorial(n: number): number {
+      return (
+        n <= 1
+          ? 1
+          : n * factorial(n - 1))
+    }
+    ```
+
+    See? Not so hard!
+    ``````
+    `````````
+
+  Output
+    ``````
+    A code block:
+
+    ```
+    function factorial(n: number): number {
+      return (
+        n <= 1
+          ? 1
+          : n * factorial(n - 1))
+    }
+    ```
+
+    See? Not so hard!
+    ``````
 
 
 =====================================
