@@ -767,9 +767,9 @@ Discussion
 Media
 =====
 
-Up allows you to include images, audio, or video in your document.
+Up allows you to embed [topic: images], [topic: audio], or [topic: video] in your document.
 
-To include media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+To embed media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
 You can use mix and match either type of bracket---they're totally interchangeable.
 
@@ -3042,6 +3042,13 @@ Convention
 Extends
   [topic: Up.MediaSyntaxNode]
 
+Example HTML
+  ````
+  <audio controls src="https://a.clyp.it/ybct5hcl.mp3" title="Sadness theme from Infinity for Game Boy">
+    <a href="https://a.clyp.it/ybct5hcl.mp3">Sadness theme from Infinity for Game Boy</a>
+  </audio>
+  ````
+
 
 `Up.Blockquote`
 ===============
@@ -3052,6 +3059,13 @@ Convention
 Extends
   [topic: Up.RichOutlineSyntaxNode]
 
+Example HTML
+  ````
+  <blockquote>
+    <p>Hi there!</p>
+  </blockquote>
+  ````
+
 
 `Up.Bold`
 =========
@@ -3061,6 +3075,11 @@ Convention
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
+
+Example HTML
+  ````
+  <b>Hi there!</b>
+  ````
 
 
 `Up.CodeBlock`
@@ -3076,6 +3095,11 @@ Unique members
   `code`: `string`
     The code represented by this syntax node.
 
+Example HTML
+  ````
+  <pre><code>const message = "Hi there!"</code></pre>
+  ````
+
 
 `Up.DescriptionList`
 ====================
@@ -3089,6 +3113,20 @@ Implements
 Unique members
   `items`: array of [topic: Up.DescriptionList.Item]
     The collection of items comprising this description list.
+
+Example HTML
+  ````
+  <dl>
+    <dt>Kirby's Dreamland</dt>
+    <dd>
+      <p>A video game about a flying marshmallow.</p>
+    </dd>
+    <dt>Super Mario Land</dt>
+    <dd>
+      <p>A video game about a jumping plumber.</p>
+    </dd>
+  </dl>
+  ````
 
 
 -------------------------
@@ -3135,6 +3173,11 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
+Example HTML
+  ````
+  <em>Hi there!</em>
+  ````
+
 
 `Up.ExampleInput`
 =================
@@ -3148,6 +3191,11 @@ Implements
 Unique members
   `input`: `string`
     The example of user input.
+
+Example HTML
+  ````
+  <kbd>Esc</kbd>
+  ````
 
 
 `Up.Footnote`
