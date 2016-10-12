@@ -403,7 +403,7 @@ Discussion
   Output
     Warlocked is the best game for GameBoy [sic] (other than Pokémon).
 
-  To make it clear that you do intend to produce a link, omit the space between your link's content and its URL.
+  If your URL contains spaces, make it clear that you *do* intend to produce a link by omitting the space between your link's content and its URL.
 
   Markup
     ````
@@ -413,7 +413,7 @@ Discussion
   Output
     I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
 
-  If you omit the space between your link's content and its URL, Up will **always** produce a link.
+  When you omit the space between your link's content and its URL, Up **always** produces a link.
 
   These rules also apply when [topic: linkifying].
 
@@ -763,45 +763,74 @@ Discussion
   Any spaces after the caret are ignored.
 
 
-================================
-Media (images, audio, and video)
-================================
+=====
+Media
+=====
 
 Up allows you to include images, audio, or video in your document.
 
-Example
-  Markup
-    ````
-    [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)
-    ````
+To include media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
-  Output
-    [image: DuckDuckGo's logo] (duckduckgo.com/assets/dax-alt.svg)
+You can use mix and match either type of bracket---they're totally interchangeable.
+
+
+Media descriptions
+==================
+
+Media descriptions **always** start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
+
+Within media descriptions, [topic: typographical writing conventions] are supported, but other writing conventions are not You cannot include revealable content or links, for example.
+
+
+Media URLs
+==========
+
+As demonstrated below, you can omit the [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax) for media. If you do, Up assumes the URL scheme is `https://`.
+
+If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
+
+- [topic: baseForUrlsStartingWithSlash]
+- [topic: baseForUrlsStartingWithHashMark]
+- [topic: renderDangerousContent].
+
+
+Images
+======
+
+Markup
+  ````
+  [image: Kirby's Dream Land box art] (i.imgur.com/GL6WWKm.jpg)
+  ````
+
+Output
+  [image: Kirby's Dream Land box art] (i.imgur.com/GL6WWKm.jpg)
 
 Discussion
-  To include media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
-
-  You can use mix and match either type of bracket---they're totally interchangeable.
+  If you want to link your image to another page, please see [topic: linkifying].
 
 
-  Media descriptions
-  ==================
+Video
+=====
 
-  Media descriptions **always** start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
+Markup
+  ````
+  [video: Professor Leonard] (i.imgur.com/32fBpnh.mp4)
+  ````
 
-  Within media descriptions, [topic: typographical writing conventions] are supported, but other writing conventions are not You cannot include revealable content or links, for example.
+Output
+  [video: Professor Leonard] (i.imgur.com/32fBpnh.mp4)
 
 
-  Media URLs
-  ==========
+Audio
+=====
 
-  As demonstrated above, you can omit the [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax) for media. If you do, Up assumes the URL scheme is `https://`.
+Markup
+  ````
+  [audio: Sadness theme from Infinity for Game Boy] (a.clyp.it/ybct5hcl.mp3)
+  ````
 
-  If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
-
-  - [topic: baseForUrlsStartingWithSlash]
-  - [topic: baseForUrlsStartingWithHashMark]
-  - [topic: renderDangerousContent].
+Output
+  [audio: Sadness theme from Infinity for Game Boy] (a.clyp.it/ybct5hcl.mp3)
 
 
 ==================
@@ -1748,15 +1777,15 @@ When your table has a header column, Up automatically inserts an extra blank cel
 Linkifying another writing convention
 =====================================
 
-You can put [topic: images] inside of [topic: links]. However, the syntax can be a bit messy.
+You can put [topic: images] inside of [topic: links], but the syntax can be a bit messy.
 
 Messy markup
   ````
-  [(image: DuckDuckGo's logo) (duckduckgo.com/assets/dax-alt.svg)] [duckduckgo.com]
+  [(image: Warlocked box art) (i.imgur.com/YaQOZlA.jpg)] [wikipedia.org/wiki/Warlocked]
   ````
 
 Output
-  [(image: DuckDuckGo's logo) (duckduckgo.com/assets/dax-alt.svg)] [duckduckgo.com]
+  [(image: Warlocked box art) (i.imgur.com/YaQOZlA.jpg)] [wikipedia.org/wiki/Warlocked]
 
 That's a lot of brackets! Luckily, there's a shortcut.
 
@@ -1764,11 +1793,13 @@ Simply place the "linkifying" URL after the image's own URL, and Up will produce
 
 Cleaner markup
   ````
-  [image: DuckDuckGo's logo] [duckduckgo.com/assets/dax-alt.svg] (duckduckgo.com)
+  [image: Warlocked box art] [i.imgur.com/fwhs0YV.jpg] (wikipedia.org/wiki/Warlocked)
   ````
 
 Output
-  [image: DuckDuckGo's logo] [duckduckgo.com/assets/dax-alt.svg] (duckduckgo.com)
+  [image: Warlocked box art] [i.imgur.com/fwhs0YV.jpg] (wikipedia.org/wiki/Warlocked)
+
+When linkifying an image, you can use brackets or parentheses interchangeably.
 
 This shortcut also works for the following conventions:
 
