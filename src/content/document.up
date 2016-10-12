@@ -2,7 +2,7 @@
 Up (a markup language for web content)
 ######################################
 
-Up is a [markup language] (wikipedia.org/wiki/Markup_language) that can be converted into HTML. This document is written in Up!
+Up is a [markup language] (wikipedia.org/wiki/Markup_language) for producing rich content for the web.
 
 As a markup language, Up offers a set of (human-friendly) writing conventions for representing rich documents in plain text. To read more about those writing conventions, you can skip ahead to [topic: writing conventions].
 
@@ -147,36 +147,36 @@ Discussion
 
   Typically, paragraphs are separated by one or two blank lines. Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].
 
-  On the other hand, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs!
+  In contrast, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs.
 
 
 ===========
 Line blocks
 ===========
 
-Use the line block convention for addresses, lyrics, or for anything that should be represented by *lines* instead of distinct [topic: paragraphs].
+Use the line block convention for addresses, lyrics, or anything consisting of *lines* instead of actual [topic: paragraphs].
 
 Example
   Markup
     ````
     Have you read my new poem?
-    
+
     Roses are red
     Violets are blue
     Lyrics have lines
     And addresses do, too
-    
+
     Poetry is just too easy.
     ````
 
   Output
     Have you read my new poem?
-    
+
     Roses are red
     Violets are blue
     Lyrics have lines
     And addresses do, too
-    
+
     Poetry is just too easy.
 
 Discussion
@@ -242,11 +242,11 @@ Discussion
 
   Markup
     ````
-    Remember to **stand **far** away** from that toaster. 
+    Remember to **stand **far** away** from that toaster.
     ````
 
   Output
-    Remember to **stand **far** away** from that toaster. 
+    Remember to **stand **far** away** from that toaster.
 
 
 Italics
@@ -274,7 +274,7 @@ Bold
 
 If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.
 
-This convention should be used rarely. Usually, there's a more appropriate convention!
+This convention should rarely be used. Usually, there's a more appropriate convention!
 
 If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].
 
@@ -755,11 +755,11 @@ Example
     ````
 
   Output
-    Warlocked [^ No relation to Warcraft!] is a real-time strategy game. 
+    Warlocked [^ No relation to Warcraft!] is a real-time strategy game.
 
 Discussion
   To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
-  
+
   Any spaces after the caret are ignored.
 
 
@@ -2249,7 +2249,7 @@ Notes
 
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
   - [topic: Up.renderDocumentAndTableOfContents]
-  
+
 
 
 =============

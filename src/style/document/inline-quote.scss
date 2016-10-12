@@ -1,4 +1,10 @@
 q { quotes: '“' '”' "‘" "’" }
 
+q:before,
+q:after {
+  font-family: serif;
+  font-size: 110%;
+}
+
 q:before { content: open-quote }
 q:after { content: close-quote }
