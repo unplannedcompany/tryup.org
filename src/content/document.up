@@ -1194,7 +1194,7 @@ Discussion
 
   Up automatically recognizes when a numbered list is in descending order.
 
-  If a numered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order.
+  If a numbered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order.
 
   Markup
     ````
@@ -2487,7 +2487,7 @@ Context
 Summary
   Up automatically replaces consecutive periods with `fancyEllipsis`.
 
-  By default, `fancyEllipsis` is `…`. If you you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.
+  By default, `fancyEllipsis` is `…`. If you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.
 
 Default
   `"…"`
@@ -3042,7 +3042,7 @@ Convention
 Extends
   [topic: Up.MediaSyntaxNode]
 
-Example HTML
+Rendered HTML
   ````
   <audio controls src="https://a.clyp.it/ybct5hcl.mp3" title="Sadness theme from Infinity for Game Boy">
     <a href="https://a.clyp.it/ybct5hcl.mp3">Sadness theme from Infinity for Game Boy</a>
@@ -3059,7 +3059,7 @@ Convention
 Extends
   [topic: Up.RichOutlineSyntaxNode]
 
-Example HTML
+Rendered HTML
   ````
   <blockquote>
     <p>Hi there!</p>
@@ -3076,7 +3076,7 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
-Example HTML
+Rendered HTML
   ````
   <b>Hi there!</b>
   ````
@@ -3095,7 +3095,7 @@ Unique members
   `code`: `string`
     The code represented by this syntax node.
 
-Example HTML
+Rendered HTML
   ````
   <pre><code>const message = "Hi there!"</code></pre>
   ````
@@ -3114,7 +3114,7 @@ Unique members
   `items`: array of [topic: Up.DescriptionList.Item]
     The collection of items comprising this description list.
 
-Example HTML
+Rendered HTML
   ````
   <dl>
     <dt>Kirby's Dreamland</dt>
@@ -3173,7 +3173,7 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
-Example HTML
+Rendered HTML
   ````
   <em>Hi there!</em>
   ````
@@ -3192,9 +3192,9 @@ Unique members
   `input`: `string`
     The example of user input.
 
-Example HTML
+Rendered HTML
   ````
-  <kbd>Esc</kbd>
+  <kbd>esc</kbd>
   ````
 
 
@@ -3211,7 +3211,7 @@ Unique members
   `referenceNumber`: `number`
     The number that appears in superscript for this footnote.
 
-Example HTML
+Rendered HTML
   ````
   <sup class="up-footnote-reference" id="up-footnote-reference-1">
     <a href="#up-footnote-1">1</a>
@@ -3232,7 +3232,7 @@ Unique members
   `footnotes`: array of [topic: Up.Footnote]
     The collection of footnotes comprising this footnote block.
 
-Example HTML
+Rendered HTML
   ````
   <dl class="up-footnotes">
     <dt id="up-footnote-1">
@@ -3267,7 +3267,7 @@ Unique members
   `level`: `number`
     Represents the significance of the heading. Like HTML heading levels, a `level` of `1` is considered the most significant.
 
-Example HTML
+Rendered HTML
   ````
   <h2>I am a second-level heading!</h2>
   ````
@@ -3282,7 +3282,7 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
-Example HTML
+Rendered HTML
   ````
   <mark>Hi there!</mark>
   ````
@@ -3297,7 +3297,7 @@ Convention
 Extends
   [topic: Up.MediaSyntaxNode]
 
-Example HTML
+Rendered HTML
   ````
   <img alt="Kirby's Dream Land box art" src="https://i.imgur.com/GL6WWKm.jpg" title="Kirby's Dream Land box art">
   ````
@@ -3316,7 +3316,7 @@ Unique members
   `code`: `string`
     The inline code represented by this syntax node.
 
-Example HTML
+Rendered HTML
   ````
   <code>interface</code>
   ````
@@ -3331,7 +3331,7 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
-Example HTML
+Rendered HTML
   ````
   <q>I know!</q>
   ````
@@ -3346,6 +3346,17 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
+Rendered HTML
+  ````
+  <span class="up-revealable">
+    <input checked class="up-hide" id="up-hide-button-1" name="up-revealable-1" type="radio">
+    <label for="up-hide-button-1" role="button" tabindex="0">hide</label>
+    <input class="up-reveal" id="up-reveal-button-1" name="up-revealable-1" type="radio">
+    <label for="up-reveal-button-1" role="button" tabindex="0">reveal</label>
+    <span role="alert">Ash fights Gary</span>
+  </span>
+  ````
+
 
 `Up.Italic`
 ===========
@@ -3355,6 +3366,11 @@ Convention
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
+
+Rendered HTML
+  ````
+  <i>I know!</i>
+  ````
 
 
 `Up.LineBlock`
@@ -3369,6 +3385,14 @@ Implements
 Unique members
   `lines`: array of [topic: Up.LineBlock.Line]
     The collection of lines comprising this line block.
+  
+Rendered HTML
+  ````
+  <div class="up-lines">
+    <div>Roses are red</div>
+    <div>Violets are blue</div>
+  </div>
+  ````
 
 -------------------
 `Up.LineBlock.Line`
@@ -3401,6 +3425,11 @@ Unique members
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
     - [topic: baseForUrlsStartingWithHashmark]
+  
+Rendered HTML
+  ````
+  <a href="https://example.com">Hi there!</a>
+  ````
 
 
 `Up.NormalParenthetical`
@@ -3411,6 +3440,11 @@ Convention
 
 Extends
   [topic: Up.ParentheticalSyntaxNode]
+
+Rendered HTML
+  ````
+  <small class="up-parenthetical">(Hi there!)</small>
+  ````
 
 
 `Up.OrderedList`
@@ -3439,6 +3473,21 @@ Unique members
 
     Arguments
       None.
+
+Rendered HTML
+  ````
+  <ol reversed start="3">
+    <li value="3">
+      <p>Buy milk</p>
+    </li>
+    <li value="2">
+      <p>Buy bread</p>
+    </li>
+    <li>
+      <p>Buy happiness</p>
+    </li>
+  </ol>
+  ````
 
 
 ---------------------
@@ -3476,6 +3525,9 @@ Extends
 Implements
   [topic: Up.OutlineSyntaxNode]
     Paragraphs are outline syntax nodes.
+  ````
+  <p>Hi there!</p>
+  ````
 
 
 `Up.RevealableBlock`
@@ -3486,6 +3538,19 @@ Convention
 
 Extends
   [topic: Up.RichOutlineSyntaxNode]
+
+Rendered HTML
+  ````
+  <div class="up-revealable">
+    <input checked class="up-hide" id="up-hide-button-1" name="up-revealable-1" type="radio">
+    <label for="up-hide-button-1" role="button" tabindex="0">hide</label>
+    <input class="up-reveal" id="up-reveal-button-1" name="up-revealable-1" type="radio">
+    <label for="up-reveal-button-1" role="button" tabindex="0">reveal</label>
+    <div role="alert">
+      <p>Ash fights Gary.</p>
+    </div>
+  </div>
+  ````
 
 
 `Up.SectionLink`
@@ -3501,6 +3566,17 @@ Unique members
   `sectionTitleSnippet`: `string`
     A snippet of text (provided by the author) from the matching table of contents entry.
 
+Rendered HTML
+  When a heading matches `sectionTitleSnippet`
+    ````
+    <a href="#up-topic-79">Using the Up library</a>
+    ````
+  
+  When *no* heading matches `sectionTitleSnippet`
+    ````
+    <i>Using the Up library</i>
+    ````
+
 
 `Up.SquareParenthetical`
 ========================
@@ -3511,6 +3587,11 @@ Convention
 Extends
   [topic: Up.ParentheticalSyntaxNode]
 
+Rendered HTML
+  ````
+  <small class="up-parenthetical up-square-brackets">[Hi there!]</small>
+  ````
+
 
 `Up.Stress`
 ===========
@@ -3520,6 +3601,11 @@ Convention
 
 Extends
   [topic: Up.RichInlineSyntaxNode]
+
+Rendered HTML
+  ````
+  <strong>Hi there!</strong>
+  ````
 
 
 `Up.Table`
@@ -3540,6 +3626,63 @@ Unique members
 
   `caption`: [topic: Up.Table.Caption]
     The optional caption.
+
+Rendered HTML
+  Without header column
+    ````
+    <table>
+      <caption>Moves learned by the Pokémon Bulbasaur</caption>
+      <tr>
+        <th scope="col">Level</th>
+        <th scope="col">Move</th>
+        <th scope="col">Type</th>
+        <th scope="col">Power</th>
+        <th scope="col">Accuracy</th>
+      </tr>
+      <tr>
+        <td class="up-numeric">1</td>
+        <td>Tackle</td>
+        <td>Normal</td>
+        <td class="up-numeric">50</td>
+        <td class="up-numeric">100%</td>
+      </tr>
+      <tr>
+        <td class="up-numeric">3</td>
+        <td>Growl</td>
+        <td>Normal</td>
+        <td></td>
+        <td class="up-numeric">100%</td>
+      </tr>
+    </table>
+    ````
+
+With header column
+  ````
+  <table data-up-source-line="1684">
+    <caption>Moves learned by the Pokémon Bulbasaur</caption>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Level</th>
+      <th scope="col">Type</th>
+      <th scope="col">Power</th>
+      <th scope="col">Accuracy</th>
+    </tr>
+    <tr>
+      <th scope="row">Tackle</th>
+      <td class="up-numeric">1</td>
+      <td>Normal</td>
+      <td class="up-numeric">50</td>
+      <td class="up-numeric">100%</td>
+    </tr>
+    <tr>
+      <th scope="row">Growl</th>
+      <td class="up-numeric">3</td>
+      <td>Normal</td>
+      <td></td>
+      <td class="up-numeric">100%</td>
+    </tr>
+  </table>
+  ````
 
 
 ------------------
@@ -3643,6 +3786,11 @@ Unique members
   `text`: `string`
     The text represented by this syntax node.
 
+Rendered HTML
+  ````
+  Yes, 1 &lt; 2
+  ````
+
 
 `Up.ThematicBreak`
 =================
@@ -3652,6 +3800,11 @@ Convention
 
 Extends
   [topic: Up.OutlineSyntaxNode]
+
+Rendered HTML
+  ````
+  <hr>
+  ````
 
 
 `Up.UnorderedList`
@@ -3666,6 +3819,21 @@ Implements
 Unique members
   `items`: array of [topic: Up.UnorderedList.Item]
     The collection of items comprising this bulleted list.
+  
+Rendered HTML
+  ````
+  <ul>
+    <li>
+      <p>Buy milk</p>
+    </li>
+    <li>
+      <p>Buy bread</p>
+    </li>
+    <li>
+      <p>Buy happiness</p>
+    </li>
+  </ul>
+  ````
 
 
 -----------------------
@@ -3687,3 +3855,10 @@ Convention
 
 Extends
   [topic: Up.MediaSyntaxNode]
+
+Rendered HTML
+  ````
+  <video controls src="https://i.imgur.com/32fBpnh.mp4" title="Professor Leonard">
+    <a href="https://i.imgur.com/32fBpnh.mp4">Professor Leonard</a>
+  </video>
+  ````
