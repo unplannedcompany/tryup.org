@@ -3211,6 +3211,13 @@ Unique members
   `referenceNumber`: `number`
     The number that appears in superscript for this footnote.
 
+Example HTML
+  ````
+  <sup class="up-footnote-reference" id="up-footnote-reference-1">
+    <a href="#up-footnote-1">1</a>
+  </sup>
+  ````
+
 
 `Up.FootnoteBlock`
 ==================
@@ -3224,6 +3231,20 @@ Implements
 Unique members
   `footnotes`: array of [topic: Up.Footnote]
     The collection of footnotes comprising this footnote block.
+
+Example HTML
+  ````
+  <dl class="up-footnotes">
+    <dt id="up-footnote-1">
+      <a href="#up-footnote-reference-1">1</a>
+    </dt>
+    <dd>No relation to Warcraft!</dd>
+    <dt id="up-footnote-2">
+      <a href="#up-footnote-reference-2">2</a>
+    </dt>
+    <dd>The pathfinding algorithm had issues.</dd>
+  </dl>
+  ````
 
 
 `Up.Heading`
@@ -3246,6 +3267,11 @@ Unique members
   `level`: `number`
     Represents the significance of the heading. Like HTML heading levels, a `level` of `1` is considered the most significant.
 
+Example HTML
+  ````
+  <h2>I am a second-level heading!</h2>
+  ````
+
 
 `Up.Highlight`
 ==============
@@ -3256,6 +3282,11 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
+Example HTML
+  ````
+  <mark>Hi there!</mark>
+  ````
+
 
 `Up.Image`
 ==========
@@ -3265,6 +3296,11 @@ Convention
 
 Extends
   [topic: Up.MediaSyntaxNode]
+
+Example HTML
+  ````
+  <img alt="Kirby's Dream Land box art" src="https://i.imgur.com/GL6WWKm.jpg" title="Kirby's Dream Land box art">
+  ````
 
 
 `Up.InlineCode`
@@ -3280,6 +3316,11 @@ Unique members
   `code`: `string`
     The inline code represented by this syntax node.
 
+Example HTML
+  ````
+  <code>interface</code>
+  ````
+
 
 `Up.InlineQuote`
 ================
@@ -3290,9 +3331,14 @@ Convention
 Extends
   [topic: Up.RichInlineSyntaxNode]
 
+Example HTML
+  ````
+  <q>I know!</q>
+  ````
 
-`Up.InlineQuote`
-================
+
+`Up.InlineRevealable`
+=====================
 
 Convention
   [topic: Inline revealables]
