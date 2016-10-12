@@ -595,10 +595,19 @@
 	  var documentHtml = _Up$parseAndRenderDoc.documentHtml;
 	  var tableOfContentsHtml = _Up$parseAndRenderDoc.tableOfContentsHtml;
 
+	  // In Safari, if the document contains any audio or video players, and if the user edits
+	  // markup while the viewport is past the first media player, the viewport automatically
+	  // jumps back to the first media player when its HTML is re-rendered.
+	  //
+	  // To avoid this, we manually restore its `scrollTop` to its pre-render position.
+
+	  var scrollTop = documentContainer.scrollTop;
+
 
 	  documentContainer.innerHTML = documentHtml;
 	  tableOfContentsContainer.innerHTML = tableOfContentsHtml;
 
+	  documentContainer.scrollTop = scrollTop;
 	  refreshSourceMappedElements(documentContainer);
 	}
 
