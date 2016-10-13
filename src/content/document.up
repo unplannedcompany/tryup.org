@@ -2639,9 +2639,6 @@ Members (all of which are optional)
     `sectionReferencedByTableOfContents`: `string`
       Appears in the URLs of headings referenced by the table of contents.
 
-    `tableOfContents`: `string`
-      Appears at the top of the table of contents.
-
     You don't need to worry about escaping any characters in your custom terms! Up handles that for you.
 
 
