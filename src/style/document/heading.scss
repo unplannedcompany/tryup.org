@@ -24,14 +24,22 @@ h1 {
 
 h2 {
   font-size: 200%;
-  padding-top: 10px;
-}
-
-h3 {
-  font-size: 160%;
   padding-top: 5px;
 }
 
-h4 {font-size: 140% }
+h3 { font-size: 160% }
+h4 { font-size: 140% }
 h5 { font-size: 120% }
 h6 { font-size: 100% }
+
+// Headings with levels 7 and higher are rendered as `<div role="heading">`
+// elements with an `aria-level` attribute equal to their level.
+[role="heading"] {
+  font-size: 60%;
+  margin-top: 1em;
+}
+
+[aria-level="7"] { font-size: 100% }
+[aria-level="8"] { font-size: 90% }
+[aria-level="9"] { font-size: 80% }
+[aria-level="10"] { font-size: 70% }

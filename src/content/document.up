@@ -2822,34 +2822,44 @@ Purpose
 
 Members
   `entries`: array of [topic: TableOfContents.Entry]
-    A collection of entries representing headings in the document.
+    A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: Up.Heading] objects in the document itself.
 
 Rendered HTML
-  Within the table of contents, level 1 headings are rendered as `<h2>`, level 2 headings as `<h3>`, etc.
-  
-  Headings with levels 5 or greater are rendered as `<h6>`.
+  Within the table of contents, each entry is rendered as a [topic: Up.Heading].
   
   ````
   <nav class="up-table-of-contents">
     <h1>Table of Contents</h1>
     <ul>
       <li>
-        <h2><a href="#up-topic-1">Video games</a></h2>
+        <h1><a href="#up-topic-1">Fun things</a></h1>
       </li>
       <li>
-        <h3><a href="#up-topic-2">Game Boy games</a></h3>
+        <h2><a href="#up-topic-2">Games</a></h2>
       </li>
       <li>
-        <h4><a href="#up-topic-3">Warlocked</a></h4>
+        <h3><a href="#up-topic-3">Video games</a></h3>
       </li>
       <li>
-        <h4><a href="#up-topic-4">Crystalis</a></h4>
+        <h4><a href="#up-topic-4">Released in the 2000s</a></h4>
       </li>
       <li>
-        <h3><a href="#up-topic-5">Super Nintendo games</a></h3>
+        <h5><a href="#up-topic-5">For Nintendo devices</a></h5>
       </li>
       <li>
-        <h4><a href="#up-topic-6">Chrono Trigger</a></h4>
+        <h6><a href="#up-topic-6">Nintendo 64</a></h6>
+      </li>
+      <li>
+        <div aria-level="7" role="heading"><a href="#up-topic-6">Pokémon Puzzle League</a></div>
+      </li>
+      <li>
+        <h6><a href="#up-topic-8">Game Boy</a></h6>
+      </li>
+      <li>
+        <div aria-level="7" role="heading"><a href="#up-topic-9">Game Boy Color Exclusives</a></div>
+      </li>
+      <li>
+        <div aria-level="8" role="heading"><a href="#up-topic-10">Warlocked</a></div>
       </li>
     </ul>
   </nav>
@@ -3311,16 +3321,35 @@ Implements
 
 Unique members
   `level`: `number`
-    A heading's `level` represents its significance in the document. Like HTML heading levels, a `level` of `1` is considered the most significant.
+    A heading's level represents its significance in the document. Like HTML heading levels, a level of 1 is considered the most significant.
 
 Rendered HTML
-  Level 1 headings are rendered as `<h1>`, level 2 headings as `<h2>`, etc.
-  
-  Headings with levels 6 or greater are rendered as`<h6>`. 
+  Levels 1--6
+    Headings with levels 1 through 6 are rendered using the corresponding heading element. For example, a level 2 heading is rendered as an `<h2>`.
 
-  ````
-  <h2>I am a second-level heading!</h2>
-  ````
+    ````
+    <h1>
+      I am a level 1 heading!
+    </h1>
+
+    <h6>
+      I am a level 6 heading!
+    </h6>
+    ````
+  Levels 7 and higher
+    Headings with levels 7 and higher are rendered as `<div role="heading">` elements with an `aria-level` attribute equal to their level.
+    
+    Headings with levels 6 or greater are rendered as`<h6>`. 
+
+    ````
+    <div aria-level="7" role="heading">
+      I am a level 7 heading!
+    </div>
+
+    <div aria-level="10" role="heading">
+      I am a level 10 heading!
+    </div>
+    ````
 
 
 `Up.Highlight`
@@ -3707,33 +3736,33 @@ Rendered HTML
     </table>
     ````
 
-With header column
-  ````
-  <table data-up-source-line="1684">
-    <caption>Moves learned by the Pokémon Bulbasaur</caption>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Level</th>
-      <th scope="col">Type</th>
-      <th scope="col">Power</th>
-      <th scope="col">Accuracy</th>
-    </tr>
-    <tr>
-      <th scope="row">Tackle</th>
-      <td class="up-numeric">1</td>
-      <td>Normal</td>
-      <td class="up-numeric">50</td>
-      <td class="up-numeric">100%</td>
-    </tr>
-    <tr>
-      <th scope="row">Growl</th>
-      <td class="up-numeric">3</td>
-      <td>Normal</td>
-      <td></td>
-      <td class="up-numeric">100%</td>
-    </tr>
-  </table>
-  ````
+  With header column
+    ````
+    <table data-up-source-line="1684">
+      <caption>Moves learned by the Pokémon Bulbasaur</caption>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Level</th>
+        <th scope="col">Type</th>
+        <th scope="col">Power</th>
+        <th scope="col">Accuracy</th>
+      </tr>
+      <tr>
+        <th scope="row">Tackle</th>
+        <td class="up-numeric">1</td>
+        <td>Normal</td>
+        <td class="up-numeric">50</td>
+        <td class="up-numeric">100%</td>
+      </tr>
+      <tr>
+        <th scope="row">Growl</th>
+        <td class="up-numeric">3</td>
+        <td>Normal</td>
+        <td></td>
+        <td class="up-numeric">100%</td>
+      </tr>
+    </table>
+    ````
 
 
 ------------------
