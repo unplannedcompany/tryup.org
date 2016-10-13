@@ -1313,7 +1313,7 @@ Discussion
 
   Each description follows the subjects it describes.
 
-  Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists!
+  Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists.
 
   Markup
     ````
@@ -2020,7 +2020,7 @@ Usage
         },
         rendering: {
           idPrefix: "article",
-          terms: { tableOfContents: "In This Article" }
+          terms: { reveal: "expand" }
         }
       })
     ````
@@ -2191,7 +2191,7 @@ Usage
     const { tableOfContentsHtml, documentHtml } =
       Up.renderDocumentAndTableOfContents(document, {
         idPrefix: "article",
-        terms: { tableOfContents: "In This Article" }
+        terms: { revveal: "expand" }
       })
     ````
 
@@ -2231,7 +2231,6 @@ Usage
     ````
 
 
-=======================================
 `Up.RenderedDocumentAndTableOfContents`
 =======================================
 
@@ -2249,6 +2248,89 @@ Notes
 
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
   - [topic: Up.renderDocumentAndTableOfContents]
+
+
+
+================
+`Up.Transformer`
+================
+
+Purpose
+  The `Up.Transformer` class can be useful if you need to parse or render several documents all sharing custom settings.
+
+  Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
+
+  ````
+  const up = new Up.Transformer(settings)
+  const html = up.parseAndRender(markup, settingsChanges)
+  ````
+
+Constructor arguments
+  `settings` (optional): [topic: Up.UserProvidedSettings]
+    The custom parsing and/or rendering settings to apply for all subsequent method calls.
+
+Members
+  This class's methods have the same names and arguments as the [topic: functions] in the library:
+
+  - [topic: Up.parseAndRender]
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.parseAndRenderInline]
+  - [topic: Up.parse]
+  - [topic: Up.parseInline]
+  - [topic: Up.render]
+  - [topic: Up.renderDocumentAndTableOfContents]
+  - [topic: Up.renderInline]
+
+  When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
+
+  Example
+    ````
+    const up = new Up.Transformer({
+      parsing: {
+        createSourceMap: true,
+        fancyEllipsis: "⋯",
+        keywords: {
+          audio: ["sound", "song"],
+          highlight: "mark"
+        }
+      },
+      rendering: {
+        terms: { reveal: "expand" }
+      }
+    })
+
+    const html = up.parseAndRender(markup, {
+      parsing: {
+        createSourceMap: false,
+        keywords: {
+          audio: "listen"
+        }
+      },
+      rendering: {
+        idPrefix: "article"
+      }
+    })
+    ````
+
+  Discussion
+    In the above example, the following settings are ultimately applied:
+
+    ````
+    {
+      parsing: {
+        createSourceMap: false,
+        fancyEllipsis: "⋯",
+        keywords: {
+          audio: "listen",
+          highlight: "mark"
+        }
+      },
+      rendering: {
+        idPrefix: "article",
+        terms: { reveal "expand" }
+      }
+    }
+    ````
 
 
 
@@ -2673,89 +2755,6 @@ Rendered inline HTML
   ````
   I <em>really</em> like Starcraft.
   ````
-
-
-
-================
-`Up.Transformer`
-================
-
-Purpose
-  The `Up.Transformer` class can be useful if you need to parse or render several documents all sharing custom settings.
-
-  Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
-
-  ````
-  const up = new Up.Transformer(settings)
-  const html = up.parseAndRender(markup, settingsChanges)
-  ````
-
-Constructor arguments
-  `settings` (optional): [topic: Up.UserProvidedSettings]
-    The custom parsing and/or rendering settings to apply for all subsequent method calls.
-
-Members
-  This class's methods have the same names and arguments as the [topic: functions] in the library:
-
-  - [topic: Up.parseAndRender]
-  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
-  - [topic: Up.parseAndRenderInline]
-  - [topic: Up.parse]
-  - [topic: Up.parseInline]
-  - [topic: Up.render]
-  - [topic: Up.renderDocumentAndTableOfContents]
-  - [topic: Up.renderInline]
-
-  When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
-
-  Example
-    ````
-    const up = new Up.Transformer({
-      parsing: {
-        createSourceMap: true,
-        fancyEllipsis: "⋯",
-        keywords: {
-          audio: ["sound", "song"],
-          highlight: "mark"
-        }
-      },
-      rendering: {
-        terms: { tableOfContents: "Contents" }
-      }
-    })
-
-    const html = up.parseAndRender(markup, {
-      parsing: {
-        createSourceMap: false,
-        keywords: {
-          audio: "listen"
-        }
-      },
-      rendering: {
-        idPrefix: "article"
-      }
-    })
-    ````
-
-  Discussion
-    In the above example, the following settings are ultimately applied:
-
-    ````
-    {
-      parsing: {
-        createSourceMap: false,
-        fancyEllipsis: "⋯",
-        keywords: {
-          audio: "listen",
-          highlight: "mark"
-        }
-      },
-      rendering: {
-        idPrefix: "article",
-        terms: { tableOfContents: "Contents" }
-      }
-    }
-    ````
 
 
 
