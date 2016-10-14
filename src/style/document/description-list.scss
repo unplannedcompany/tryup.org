@@ -1,14 +1,14 @@
 @import 'common/heading-color';
 @import 'common/heading-font-family';
 
-dt {
-  color: $heading-color;
-  font-family:  $heading-font-family;
-}
-
-// Without some extra margin, consecutive description lists appear merged together.
 dl {
   margin-top: 15px; 
-  
-  + dl { margin-top: 40px }
+
+  dt {
+    color: $heading-color;
+    font-family:  $heading-font-family;
+  }
+    
+  // Without some extra spacing, consecutive description lists appear merged together.
+  + dl { margin-top:  45px }
 }

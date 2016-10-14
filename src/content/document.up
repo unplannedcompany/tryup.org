@@ -2,9 +2,9 @@
 Up (a markup language)
 ######################
 
-Up is a markup language for producing rich web content from plain text.
+Up is a [markup language] (wikipedia.org/wiki/Markup_language) that lets you produce rich web content from plain text.
 
-As a markup language, Up offers a collection of plain-text writing conventions for producing rich, meaningful documents. These writing conventions typically take the form of (human-friendly) annotations. For example, to indicate [topic: emphasis], surround text with single asterisks.
+As a markup language, Up offers a collection of plain-text writing conventions for producing meaningful, structured documents. These writing conventions typically take the form of (human-friendly!) annotations.
 
 Markup 
   ```
@@ -13,9 +13,9 @@ Markup
 
 Output
   No one *actually* enjoys running---right?
-  
-To read more about those writing conventions, you can skip ahead to [topic: writing conventions]. 
 
+To learn more about those writing conventions, please see [topic: syntax].
+  
 If you're a software developer, Up is also a [software library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. This website uses that library.
 
 To learn how to incorporate Up into your next project, please see [topic: using the Up library].
@@ -26,7 +26,7 @@ To learn how to incorporate Up into your next project, please see [topic: using 
 Why use Up?
 ===========
 
-Up isn't the only markup language that can be converted into HTML. Why should you use Up?
+Up isn't the only markup language that produces HTML. Why should you use Up?
 
 - Readable, customizable keywords
   ===============================
@@ -122,17 +122,17 @@ Why *not* use Up?
 
 
 
-############################
-Writing conventions (syntax)
-############################
+######
+Syntax
+######
 
 Don't get lost! The following terms are occasionally used in this section:
 
 Writing convention
-  Any "syntax rule" recognized by Up. Writing conventions typically take the form of simple annotations. 
+  Any special annotation or formatting recognized by Up.
 
 Inline writing convention
-  Any writing convention that can be used inside paragraphs. This includes [topic: emphasis] and [topic: highlighting].
+  Any writing convention that can be used within paragraphs. This includes [topic: emphasis] and [topic: highlighting].
 
 Outline writing convention
   Any non-inline writing convention. This includes [topic: paragraphs] and [topic: tables].
@@ -269,7 +269,7 @@ Italics
 
 Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
 
-Some authors also use italics for unfamiliar foreign words.
+Some authors italicize unfamiliar foreign words.
 
 Example
   Markup

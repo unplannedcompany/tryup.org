@@ -1,4 +1,7 @@
-q { quotes: '“' '”' "‘" "’" }
+q {
+  quotes: '“' '”' "‘" "’";
+  margin: 0 (1em / 16);
+}
 
 q:before,
 q:after {

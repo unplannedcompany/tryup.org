@@ -1,8 +1,6 @@
-@import 'document/common/horizontal-document-padding';
-
 #document-container {
   font: 1em/1.6em Roboto, sans-serif;
-  padding: 0 $horizontal-document-padding;
+  padding: 0 15px;
   
   @import 'document/blockquote.scss';
   @import 'document/bold-and-stress.scss';
