@@ -21,7 +21,7 @@ code {
   @include mild-shadow;
   border-radius: 2px;
   padding: 0 .2em;
-  margin: 0 1px;
+  margin: 0 (1em / 16);
 }
 
 // Inline code within links

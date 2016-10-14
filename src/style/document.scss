@@ -1,8 +1,7 @@
 @import 'document/common/horizontal-document-padding';
 
 #document-container {
-  font-family: Roboto, sans-serif;
-  line-height: 1.3em;
+  font: 1em/1.6em Roboto, sans-serif;
   padding: 0 $horizontal-document-padding;
   
   @import 'document/blockquote.scss';

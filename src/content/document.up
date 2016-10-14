@@ -1,12 +1,24 @@
-######################################
-Up (a markup language for web content)
-######################################
+######################
+Up (a markup language)
+######################
 
-Up is a [markup language] (wikipedia.org/wiki/Markup_language) for producing rich content for the web.
+Up is a markup language for producing rich web content from plain text.
 
-As a markup language, Up offers a set of (human-friendly) writing conventions for representing rich documents in plain text. To read more about those writing conventions, you can skip ahead to [topic: writing conventions].
+As a markup language, Up offers a collection of plain-text writing conventions for producing rich, meaningful documents. These writing conventions typically take the form of (human-friendly) annotations. For example, to indicate [topic: emphasis], surround text with single asterisks.
 
-If you're a software developer wondering how to incorporate Up into your next project, please see [topic: using the Up library].
+Markup 
+  ```
+  No one *actually* enjoys running---right?
+  ```
+
+Output
+  No one *actually* enjoys running---right?
+  
+To read more about those writing conventions, you can skip ahead to [topic: writing conventions]. 
+
+If you're a software developer, Up is also a [software library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. This website uses that library.
+
+To learn how to incorporate Up into your next project, please see [topic: using the Up library].
 
 
 
@@ -115,6 +127,9 @@ Writing conventions (syntax)
 ############################
 
 Don't get lost! The following terms are occasionally used in this section:
+
+Writing convention
+  Any "syntax rule" recognized by Up. Writing conventions typically take the form of simple annotations. 
 
 Inline writing convention
   Any writing convention that can be used inside paragraphs. This includes [topic: emphasis] and [topic: highlighting].
