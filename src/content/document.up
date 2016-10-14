@@ -2,11 +2,9 @@
 Up (a markup language)
 ######################
 
-Up offers conventions for writing meaningful, structured documents in plain text.  To learn more about those writing conventions, you can skip ahead to [topic: syntax].
+Up offers conventions for writing meaningful, structured documents in plain text.
 
-If you're a software developer, Up is also a [software library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. This website uses that library.
-
-To learn how to incorporate Up into your next project, please see [topic: using the Up library].
+If you're a software developer, Up is also a software library that converts those writing conventions into HTML. To learn how to incorporate Up into your next project, please see [topic: using the Up library].
 
 
 
@@ -110,11 +108,11 @@ Why *not* use Up?
 
 
 
-######
-Syntax
-######
+###################
+Writing conventions
+###################
 
-Don't get lost! The following terms are occasionally used in this section:
+Let's make sure we're on the same page!
 
 Writing convention
   Any special annotation or formatting recognized by Up.
