@@ -18,7 +18,7 @@ var htmlForDocumentation = Up.parseAndRender(documentationMarkup, {
 module.exports = {
   entry: sourceFilename('app.js'),
   output: {
-    path: './site',
+    path: './docs',
     filename: 'app.js'
   },
   module: {
