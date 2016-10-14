@@ -2,20 +2,8 @@
 Up (a markup language)
 ######################
 
-Up is a [markup language] (wikipedia.org/wiki/Markup_language) that lets you produce rich web content from plain text.
+Up offers conventions for writing meaningful, structured documents in plain text.  To learn more about those writing conventions, you can skip ahead to [topic: syntax].
 
-As a markup language, Up offers a collection of plain-text writing conventions for producing meaningful, structured documents. These writing conventions typically take the form of (human-friendly!) annotations.
-
-Markup 
-  ```
-  No one *actually* enjoys running---right?
-  ```
-
-Output
-  No one *actually* enjoys running---right?
-
-To learn more about those writing conventions, please see [topic: syntax].
-  
 If you're a software developer, Up is also a [software library] (npmjs.com/package/write-up) that converts those writing conventions into HTML. This website uses that library.
 
 To learn how to incorporate Up into your next project, please see [topic: using the Up library].
@@ -2837,7 +2825,7 @@ Members
 
 Rendered HTML
   Within the table of contents, each entry is rendered as a [topic: Up.Heading].
-  
+
   ````
   <nav class="up-table-of-contents">
     <h1>Table of Contents</h1>
@@ -3349,8 +3337,8 @@ Rendered HTML
     ````
   Levels 7 and higher
     Headings with levels 7 and higher are rendered as `<div role="heading">` elements with an `aria-level` attribute equal to their level.
-    
-    Headings with levels 6 or greater are rendered as`<h6>`. 
+
+    Headings with levels 6 or greater are rendered as`<h6>`.
 
     ````
     <div aria-level="7" role="heading">
@@ -3475,7 +3463,7 @@ Implements
 Unique members
   `lines`: array of [topic: Up.LineBlock.Line]
     The collection of lines comprising this line block.
-  
+
 Rendered HTML
   ````
   <div class="up-lines">
@@ -3515,7 +3503,7 @@ Unique members
     - [topic: defaultUrlScheme]
     - [topic: baseForUrlsStartingWithSlash]
     - [topic: baseForUrlsStartingWithHashmark]
-  
+
 Rendered HTML
   ````
   <a href="https://example.com">Hi there!</a>
@@ -3662,7 +3650,7 @@ Rendered HTML
     ````
     <a href="#up-topic-79">Using the Up library</a>
     ````
-  
+
   When *no* heading matches `sectionTitleSnippet`
     ````
     <i>Using the Up library</i>
@@ -3910,7 +3898,7 @@ Implements
 Unique members
   `items`: array of [topic: Up.UnorderedList.Item]
     The collection of items comprising this bulleted list.
-  
+
 Rendered HTML
   ````
   <ul>

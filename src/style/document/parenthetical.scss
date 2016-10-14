@@ -5,10 +5,6 @@ small {
   opacity: .5;
 }
 
-// Normally, we fade parenthetical text.
-//
-// However, when we're within an element with colored text or a
-// colored background, we shrink it instead.
 #{$heading-selector}, a {
   small {
     font-size: 80%;
