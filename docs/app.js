@@ -580,14 +580,14 @@
 
 	  function markRenderedContentAsDirty() {
 	    isDirty = true;
-	    renderingContainer.classList.remove('clean');
-	    renderingContainer.classList.add('dirty');
+	    documentationContainer.classList.remove('clean');
+	    documentationContainer.classList.add('dirty');
 	  }
 
 	  function markRenderedContentAsClean() {
 	    isDirty = false;
-	    renderingContainer.classList.remove('dirty');
-	    renderingContainer.classList.add('clean');
+	    documentationContainer.classList.remove('dirty');
+	    documentationContainer.classList.add('clean');
 	  }
 	}
 
