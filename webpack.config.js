@@ -5,7 +5,7 @@ const Up = require('write-up')
 
 
 const documentationMarkup = fs.readFileSync(
-  sourceFilename('content/document.up'),
+  sourceFilename('content/documentation.up'),
   'utf-8')
 
 const result =
@@ -14,7 +14,7 @@ const result =
       parsing: { createSourceMap: true }
     })
 
-const documentHtml = result.documentHtml
+const documentationHtml = result.documentHtml
 const tableOfContentsHtml = result.tableOfContentsHtml
 
 module.exports = {
@@ -57,7 +57,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: sourceFilename('layout/index.hbs'),
-      documentHtml,
+      documentationHtml,
       tableOfContentsHtml,
       inject: 'body'
     })

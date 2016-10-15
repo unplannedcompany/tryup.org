@@ -4,17 +4,29 @@ body {
   height: 100vh;
 }
 
-#document-container,
-#editor-container {
+#editor-container,
+#table-of-contents-container,
+#documentation-container {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
 
-#document-container {
+#rendering-container {
+  border-left: 1px solid #aaa;
   flex-basis: 0;
   flex-grow: 1.35;
-  height: 100vh;
-  border-left: 1px solid #aaa
+  
+  // Setting `overflow-y` to anything but `visible` prevents wide elements
+  // within the documentation from widening *this* element.   
+  overflow-y: auto;
+
+  #documentation-container {
+    height: 100vh;
+  }
+
+  #table-of-contents-container {
+    display: none
+  }
 }
 
 #editor-container {
@@ -24,8 +36,4 @@ body {
   .CodeMirror {
     height: 100vh;
   }
-}
-
-#table-of-contents-container {
-  display: none
 }

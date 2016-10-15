@@ -6,26 +6,34 @@ import throttle from './throttle'
 
 // WARNING: This collection represents shared state!
 //
-// This is a collection  of every element from the rendered document that has a source
-// line number. Every time we re-render the document, we'll update this collection.
+// This is a collection  of every element from the documentation that has a source line
+// number. Every time we re-render the documentation, we'll update this collection.
 //
-// Whenever the user scrolls through the rendered document, we use this collection to
-// scroll the CodeMirror editor to the line corresponding to the first element from this
+// Whenever the user scrolls through the documentation, we use this collection to scroll
+// the CodeMirror editor to the line corresponding to the first element from this
 // collection that is within the user's viewport.
 //
 // Likewise, whenever the user scrolls through the editor, we use this collection to
-// scroll to the first element in the document produced by (or after) the first visible
-// line in the editor.
-let sourceMappedElements = []
+// scroll to the first element in the documentation produced by (or after) the first
+// visible line in the editor.
+let documentationSourceMappedElements = []
 
-function refreshSourceMappedElements(documentContainer) {
-  sourceMappedElements = documentContainer.querySelectorAll('[data-up-source-line]')
+function refreshSourceMappedElements(documentationContainer) {
+  documentationSourceMappedElements =
+    documentationContainer.querySelectorAll('[data-up-source-line]')
 }
 
 
-export default function configureEditor(editorContainer, documentContainer, tableOfContentsContainer) {
+export default function configureEditor(
+  // Contains the CodeMirror editor
+  editorContainer,
+  // Contains the rendered documentation
+  documentationContainer, 
+  // Contains the rendered table of contents
+  tableOfContentsContainer
+) {
   const codeMirror = CodeMirror(editorContainer, {
-    value: require('./content/document.up'),
+    value: require('./content/documentation.up'),
     lineNumbers: true,
     lineWrapping: true,
     tabSize: 2,
@@ -52,11 +60,11 @@ export default function configureEditor(editorContainer, documentContainer, tabl
   CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
 
   configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
-  configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer)
-  syncScrolling(codeMirror, documentContainer)
+  configureLivePreview(codeMirror, documentationContainer, tableOfContentsContainer)
+  syncScrolling(codeMirror, documentationContainer)
 
   codeMirror.refresh()
-  refreshSourceMappedElements(documentContainer)
+  refreshSourceMappedElements(documentationContainer)
 }
 
 // Returns a new string consisting of `count` copies of `text`
@@ -65,13 +73,12 @@ function repeat(text, count) {
 }
 
 
-function configureLivePreview(codeMirror, documentContainer, tableOfContentsContainer) {
-  // We'll wait until the user is done typing before we re-render the document with their
-  // changes. We consider the user to be done typing once 1.2 seconds has elapsed since
-  // their last keystroke.
+function configureLivePreview(codeMirror, documentationContainer, tableOfContentsContainer) {
+  // We'll wait until the user is done typing before we re-render their changes. We consider the
+  // user to be done typing once 1.2 seconds has elapsed since their last keystroke.
   //
-  // In the meantime, we'll fade the document (using the `dirty` CSS class) to indicate it's
-  // out of date.
+  // In the meantime, we'll fade any rendered content (using the `dirty` CSS class) to indicate
+  // that it's out of date.
   let isDirty = false
 
   const debounceRender = debounce(codeMirror => {
@@ -79,33 +86,33 @@ function configureLivePreview(codeMirror, documentContainer, tableOfContentsCont
       return
     }
 
-    render(codeMirror, documentContainer, tableOfContentsContainer)
-    markDocumentAsClean()
+    render(codeMirror, documentationContainer, tableOfContentsContainer)
+    markRenderedContentAsClean()
   }, 1200)
 
   codeMirror.on('change', () => {
-    markDocumentAsDirty()
+    markRenderedContentAsDirty()
     debounceRender(codeMirror)
   })
 
   codeMirror.on('keydown', () =>
     debounceRender(codeMirror))
 
-  function markDocumentAsDirty() {
+  function markRenderedContentAsDirty() {
     isDirty = true
-    documentContainer.classList.remove('clean')
-    documentContainer.classList.add('dirty')
+    renderingContainer.classList.remove('clean')
+    renderingContainer.classList.add('dirty')
   }
 
-  function markDocumentAsClean() {
+  function markRenderedContentAsClean() {
     isDirty = false
-    documentContainer.classList.remove('dirty')
-    documentContainer.classList.add('clean')
+    renderingContainer.classList.remove('dirty')
+    renderingContainer.classList.add('clean')
   }
 }
 
 
-function render(codeMirror, documentContainer, tableOfContentsContainer) {
+function render(codeMirror, documentationContainer, tableOfContentsContainer) {
   const markup = codeMirror.getValue()
   const { documentHtml, tableOfContentsHtml } =
     Up.parseAndRenderDocumentAndTableOfContents(
@@ -113,22 +120,22 @@ function render(codeMirror, documentContainer, tableOfContentsContainer) {
         parsing: { createSourceMap: true }
       })
 
-  // In Safari, if the document contains any audio or video players, and if the user edits
-  // markup while the viewport is past the first media player, the viewport automatically
+  // In Safari, if the documentation contains any audio or video players, and if the user
+  // edits markup while the viewport is past the first media player, the viewport automatically
   // jumps back to the first media player when its HTML is re-rendered.
   //
   // To avoid this, we manually restore its `scrollTop` to its pre-render position.
-  const { scrollTop } = documentContainer
+  const { scrollTop } = documentationContainer
 
-  documentContainer.innerHTML = documentHtml
+  documentationContainer.innerHTML = documentHtml
   tableOfContentsContainer.innerHTML = tableOfContentsHtml
 
-  documentContainer.scrollTop = scrollTop
-  refreshSourceMappedElements(documentContainer)
+  documentationContainer.scrollTop = scrollTop
+  refreshSourceMappedElements(documentationContainer)
 }
 
 
-function syncScrolling(codeMirror, documentContainer) {
+function syncScrolling(codeMirror, documentationContainer) {
   const FPS_FOR_SCROLL_SYNCING = 60
   const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
 
@@ -137,11 +144,11 @@ function syncScrolling(codeMirror, documentContainer) {
 
   addScrollSyncingEventListeners({
     editorContentContainer: codeMirror.getScrollerElement(),
-    documentContainer,
+    documentationContainer,
 
     syncScrollingFromDocument: getScrollSyncer(() => {
-      for (let i = 0; i < sourceMappedElements.length; i++) {
-        const element = sourceMappedElements[i]
+      for (let i = 0; i < documentationSourceMappedElements.length; i++) {
+        const element = documentationSourceMappedElements[i]
 
         if (!element.offsetParent) {
           // Below, we use `getBoundingClientRect().top` to determine whether the element is
@@ -161,7 +168,7 @@ function syncScrolling(codeMirror, documentContainer) {
         // element is a fraction of a pixel above the top of the viewport. 
         const VIEWPORT_TOP = -1
 
-        // Is this the first document element starting within the viewport?
+        // Is this the first documentation element starting within the viewport?
         if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
           // Line numbers in Up start at 1, not 0.
           const editorLineIndex = element.dataset.upSourceLine - 1
@@ -185,22 +192,20 @@ function syncScrolling(codeMirror, documentContainer) {
       const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
 
       if (firstVisibleLineNumber === 1) {
-        // When browsers scroll an element into view, the element's top margin is ignored.
-        // It is not scrolled into view along with element.
+        // When browsers scroll an element into view, the element's top margin is not
+        // scrolled into view along with the element.
         //
-        // Normally, this is exactly what we want.
+        // Normally, this is exactly what we want!
         //
-        // However, if the first element in the document has a top margin, its odd that
-        // scrolling the editor to its top fails to scroll the document to its top.
-        //
-        // To fix this, if the editor is scrolled to its top, we automatically scroll the
-        // document to its top, too.
-        documentContainer.scrollTop = 0
+        // However, the user probably expects that scrolling the editor to its top will
+        // automatically scroll the documentation to *its* top, too. Here, we make sure
+        // that happens.
+        documentationContainer.scrollTop = 0
         return
       }
 
-      for (let i = 0; i < sourceMappedElements.length; i++) {
-        const element = sourceMappedElements[i]
+      for (let i = 0; i < documentationSourceMappedElements.length; i++) {
+        const element = documentationSourceMappedElements[i]
 
         // Is this the first outline element that was produced by (or after) the first
         // visible line in the editor?
@@ -217,7 +222,7 @@ function syncScrolling(codeMirror, documentContainer) {
 function addScrollSyncingEventListeners(args) {
   const {
     editorContentContainer,
-    documentContainer,
+    documentationContainer,
     syncScrollingFromDocument,
     syncScrollingFromEditor } = args
 
@@ -228,9 +233,9 @@ function addScrollSyncingEventListeners(args) {
   // didn't produce any syntax nodes. We'll say it's a blank line between paragraphs.
   //
   // So we do the next best thing: we scroll into view the first element produced *after*
-  // line 100: a paragraph produced by line 101. This unfortunately triggers the rendered
-  // document's scroll event, which in turn determines that the editor should be scrolled
-  // to line 101: the line that produced the paragraph. Uh-oh!
+  // line 100: a paragraph produced by line 101. This unfortunately triggers the
+  // documentation's scroll event, which in turn determines that the editor should be
+  // scrolled to line 101: the line that produced the paragraph. Uh-oh!
   //
   // To prevent this, whenever the user scrolls a container, we ignore any scroll events
   // from the other container.
@@ -258,7 +263,7 @@ function addScrollSyncingEventListeners(args) {
     eventuallyReEnableScrollEventsFromDocument()
   }
 
-  addScrollEventListener(documentContainer, () => {
+  addScrollEventListener(documentationContainer, () => {
     if (!ignoringScrollEventsFromDocument) {
       syncScrollingFromDocument()
       temporarilyIgnoreScrollEventsFromEditor()

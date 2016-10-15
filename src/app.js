@@ -5,38 +5,39 @@ import configureEditor from './configureEditor'
 const getElementById = document.getElementById.bind(document)
 
 document.addEventListener('DOMContentLoaded', () => {
-  const documentContainer = getElementById('document-container')
+  const documentationContainer = getElementById('documentation-container')
 
   configureEditor(
     getElementById('editor-container'),
-    documentContainer,
+    documentationContainer,
     getElementById('table-of-contents-container'))
 
   // Because we're using a scrolling panel, the browser fails to restore the
-  // document's scroll position when the user navigates backward (or forward).
+  // documentation's scroll position when the user navigates backward (or
+  // forward).
   //
   // To work around this, we save the user's scroll position every time they
   // click a link, then use the `popstate` event to manually restore their
   // scroll position.  
   function saveDocumentScrollPosition() {
-    const { scrollTop } = documentContainer
+    const { scrollTop } = documentationContainer
     window.history.replaceState({ scrollTop }, '')
   }
 
   function recallDocumentScrollPosition(historyState) {
     if (historyState) {
-      documentContainer.scrollTop = historyState.scrollTop
+      documentationContainer.scrollTop = historyState.scrollTop
     }
   }
 
-  // If the user scrolls halfway down the document, then navigates backward to
-  // some external page, then navigates forward to return to our page again, we
-  // want to be able to restore their scroll position. 
+  // If the user scrolls halfway down the documentation, then navigates backward
+  // to some external page, then navigates forward to return to our page again,
+  // we want to be able to restore their scroll position. 
   window.addEventListener('beforeunload', () => {
     saveDocumentScrollPosition()
   })
 
-  documentContainer.addEventListener('click', (event) => {
+  documentationContainer.addEventListener('click', (event) => {
     if (event.target.tagName === 'A') {
       saveDocumentScrollPosition()
     }
