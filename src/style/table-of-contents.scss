@@ -1,22 +1,48 @@
-@import 'document/common/heading-color';
+@import 'common/heading-color';
+@import 'common/heading-selector';
 
-$indent: 40px;
+@function entry-indentation($level) {
+  $base-indent: 5px;
+  $indent-per-level: 40px;
+
+  @return $base-indent + ($indent-per-level * ($level - 1)); 
+}
 
 #table-of-contents-container {
   background-color: $heading-color;
-  color: white;
 
   a {
     color: white;
-    border-bottom: 1px dotted white;
-    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    border: 0;
+
+    &:hover { background-color: mix(white, $heading-color, 30%) }
   }
 
-  ul { list-style: none }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-  h2 { margin-left: $indent }
-  h3 { margin-left: $indent * 2}
-  h4 { margin-left: $indent * 3}
-  h5 { margin-left: $indent * 4}
-  h6 { margin-left: $indent * 5}
+  #{$heading-selector} {    
+    margin: 0;
+    padding: 0;
+    
+    // Below, we set indentation for headings with levels 1 through 10. 
+    a { padding-left: entry-indentation(11) }
+  }
+
+  @for $level from 1 through 10 {
+    $selector-for-this-heading-level:
+      if($level <= 6,
+        'h#{$level}',
+        '[aria-level="#{$level}"]');
+
+    #{$selector-for-this-heading-level} a {
+      padding-left: entry-indentation($level);
+      padding-top: 10px / $level;
+    }
+  }
 }

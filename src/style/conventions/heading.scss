@@ -1,5 +1,5 @@
-@import 'common/heading-selector';
-@import 'common/heading-color';
+@import '../common/heading-selector';
+@import '../common/heading-color';
 @import 'common/heading-font-family';
 
 
@@ -7,6 +7,7 @@
   color: $heading-color;
   font-family: $heading-font-family;
   line-height: 1.5em;
+  font-weight: normal;
 }
 
 h1 {
@@ -29,10 +30,10 @@ h6 { font-size: 100% }
 // elements with an `aria-level` attribute equal to their level.
 [role="heading"] {
   font-size: 60%;
-  margin-top: 1em;
+  margin: 1.5em 0;
 }
 
-[aria-level="7"] { font-size: 100% }
-[aria-level="8"] { font-size: 90% }
-[aria-level="9"] { font-size: 80% }
-[aria-level="10"] { font-size: 70% }
+[aria-level="7"] { font-size: 90% }
+[aria-level="8"] { font-size: 83% }
+[aria-level="9"] { font-size: 76% }
+[aria-level="10"] { font-size: 68% }
