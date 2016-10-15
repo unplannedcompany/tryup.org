@@ -7,9 +7,11 @@
 </head>
 
 <body>
-  <div id="table-of-contents-container" aria-role="alert"></div>
+  <div id="table-of-contents-container" aria-role="alert">
+    {{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
+  </div>
   <main id="document-container" aria-role="alert">
-    {{{ htmlWebpackPlugin.options.htmlForDocumentation }}}
+    {{{ htmlWebpackPlugin.options.documentHtml }}}
   </main>
   <div id="editor-container"></div>
 </body>

@@ -1,0 +1,22 @@
+@import 'document/common/heading-color';
+
+$indent: 40px;
+
+#table-of-contents-container {
+  background-color: $heading-color;
+  color: white;
+
+  a {
+    color: white;
+    border-bottom: 1px dotted white;
+    text-decoration: none;
+  }
+
+  ul { list-style: none }
+
+  h2 { margin-left: $indent }
+  h3 { margin-left: $indent * 2}
+  h4 { margin-left: $indent * 3}
+  h5 { margin-left: $indent * 4}
+  h6 { margin-left: $indent * 5}
+}
