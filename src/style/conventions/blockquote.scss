@@ -1,4 +1,4 @@
-@import 'common/heavy-shadow';
+@import '../common/heavy-shadow';
 
 @mixin nested-blockquoted-colors($nesting-level) {
     $amount-to-darken: $nesting-level * 4%;

@@ -1,5 +1,5 @@
-@import 'conventions/common/heading-color';
-@import 'conventions/common/heading-selector';
+@import 'common/heading-color';
+@import 'common/heading-selector';
 
 @function entry-indentation($level) {
   $base-indent: 5px;
