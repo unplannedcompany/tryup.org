@@ -1878,6 +1878,31 @@ Output
   Use a spoon---a fork won't cut it.
 
 
+===========================================
+Disabling the special meaning of characters
+===========================================
+
+To disable the special meaning of a character, put a backslash before it.
+
+Example
+  ````
+  I love \*asterisks*!
+  ````
+
+Output
+  I love \*asterisks\*!
+
+Likewise, to disable the special meaning of a backslash, put another backslash before it.
+
+Example
+  ````
+  My favorite kind of slash is the backslash: \\. What is yours?
+  ````
+
+Output
+  My favorite kind of slash is the backslash: \\. What is yours?
+
+
 ======================================
 Overlapping inline writing conventions
 ======================================
@@ -1905,31 +1930,6 @@ Markup
 
 Output
   At the end of Pokémon Red, [SPOILER: you battle your rival *yet again]* before the credits roll.
-
-
-===========================================
-Disabling the special meaning of characters
-===========================================
-
-To disable the special meaning of a character, put a backslash before it.
-
-Example
-  ````
-  I love \*asterisks*!
-  ````
-
-Output
-  I love \*asterisks\*!
-
-Likewise, to disable the special meaning of a backslash, put another backslash before it.
-
-Example
-  ````
-  My favorite kind of slash is the backslash: \\. What is yours?
-  ````
-
-Output
-  My favorite kind of slash is the backslash: \\. What is yours?
 
 
 
