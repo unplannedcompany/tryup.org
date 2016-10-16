@@ -1782,11 +1782,11 @@ You can put [topic: images] inside of [topic: links], but the syntax can be a bi
 
 Messy markup
   ````
-  [(image: Warlocked box art) (i.imgur.com/YaQOZlA.jpg)] [wikipedia.org/wiki/Warlocked]
+  [(image: Warlocked box art) (i.imgur.com/fwhs0YV.jpg)] [wikipedia.org/wiki/Warlocked]
   ````
 
 Output
-  [(image: Warlocked box art) (i.imgur.com/YaQOZlA.jpg)] [wikipedia.org/wiki/Warlocked]
+  [(image: Warlocked box art) (i.imgur.com/fwhs0YV.jpg)] [wikipedia.org/wiki/Warlocked]
 
 That's a lot of brackets! Luckily, there's a shortcut.
 

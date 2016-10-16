@@ -31,7 +31,6 @@ kbd {
 // We don't need to worry about removing the underline, because
 // `display: inline-block` above) takes care of that for us.
 a kbd {
-
   @include example-input-shading(
     $text-color: $link-color,
     $background-color: mix($link-color, white, 20%),
