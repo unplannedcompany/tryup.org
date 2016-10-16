@@ -1,5 +1,6 @@
 @import 'common/heading-color';
 @import 'common/heading-selector';
+@import 'common/default-example-input-shading';
 
 @function entry-indentation($level) {
   $base-indent: 5px;
@@ -14,19 +15,32 @@ $max-indent-level: 11;
 #table-of-contents-container {
   background-color: $heading-color;
 
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
   a {
     color: white;
     display: inline-block;
     width: 100%;
     border: 0;
+    text-decoration: none;
 
     &:hover { background-color: mix(white, $heading-color, 30%) }
   }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  // Normally, we style example input differently if it's within a link.
+  //
+  // In the table of contents, everything is a link, so there's no need. 
+  kbd {
+    @include default-example-input-shading;
+  }
+
+  // The same logic applies for inline code.
+  code {
+    text-decoration: none;
   }
 
   #{$heading-selector} {    

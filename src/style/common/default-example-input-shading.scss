@@ -1,3 +1,5 @@
+@import 'example-input-shading';
+
 @mixin default-example-input-shading {
   @include example-input-shading(
     $text-color: #444,
