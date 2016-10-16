@@ -1,16 +1,9 @@
 @import 'common/link-color';
 
 a {
-  border-bottom: dotted 2px $link-color; 
   color: $link-color;
-  text-decoration: none;
 
-  &:hover {
-    background-color: lighten($link-color, 50%)
-  }
+  &:hover { text-decoration: none; }
 }
 
-.up-footnote-reference a {
-  border-bottom: 0;
-  text-decoration: underline;
-}
+.up-footnote-reference a { border-bottom: 0; }

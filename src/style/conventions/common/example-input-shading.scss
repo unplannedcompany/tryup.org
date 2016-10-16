@@ -1,0 +1,13 @@
+@mixin example-input-shading(
+  $text-color,
+  $background-color,
+  $border-color,
+  $shadow-color
+) {
+  background-color: $background-color;
+  border-color: $border-color;
+  box-shadow:
+    0 (1em / 6) 0 $shadow-color,
+    0 0 0 (1em / 7) white inset;
+  color: $text-color;
+}

@@ -1,13 +1,18 @@
 @import 'common/link-color';
+@import 'common/example-input-shading';
 
 // This is mostly taken from Stackoverflow's <kbd> styling.
 kbd {
+  @include example-input-shading(
+    $text-color: #444,
+    $background-color: #eee,
+    $border-color: #aaa,
+    $shadow-color: rgba(#0d0d0d, 0.2));
+  
   background-color: #eee;
-  border: (1em / 12) solid #aaa;
+  border-width: (1em / 12);
+  border-style: solid;
   border-radius: (1em / 4);
-  box-shadow:
-    0 (1em / 6) 0 rgba(13, 13, 13, 0.3),
-    0 0 0 (1em / 7) white inset;
   color: #444;
   display: inline-block;
   font-family: sans-serif;
@@ -17,13 +22,19 @@ kbd {
   padding: .1em .6em;
   position: relative;
   text-shadow: 0 (1em / 10) 0 white;
-  top: (-1em / 6);
+  top: (-1em / 8);
   white-space: nowrap;
 }
 
 // Example input within links
+//
+// We don't need to worry about removing the underline, because
+// `display: inline-block` above) takes care of that for us.
 a kbd {
-  background-color: lighten($link-color, 50%);
-  color: $link-color;
-  border-color: $link-color
+
+  @include example-input-shading(
+    $text-color: $link-color,
+    $background-color: mix($link-color, white, 20%),
+    $border-color: $link-color,
+    $shadow-color: rgba($link-color, 0.3));
 }

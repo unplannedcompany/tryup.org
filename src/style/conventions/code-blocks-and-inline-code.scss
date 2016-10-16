@@ -1,4 +1,5 @@
 @import 'common/heavy-shadow';
+@import 'common/link-color';
 @import 'common/mild-shadow';
 
 // Inline code and code blocks
@@ -11,7 +12,7 @@ pre, code {
 // Code blocks
 pre {
   @include heavy-shadow;
-  border-radius: 3px;
+  border-radius: (3em / 16);
   overflow-x: scroll;
   padding: 7px 9px;    
 }
@@ -19,7 +20,7 @@ pre {
 // Inline code (we overwrite this for code blocks below)
 code {
   @include mild-shadow;
-  border-radius: 2px;
+  border-radius: (1em / 8);
   padding: 0 .2em;
   margin: 0 (1em / 16);
 }
@@ -27,7 +28,13 @@ code {
 // Inline code within links
 a code {
   color: #8df;
+  
+  // Links are already underlined, but we want the underline
+  // to be the same color as the code itself. 
+  text-decoration: underline;
 }
+
+a:hover code { text-decoration: none; }
 
 // Code blocks
 pre > code {
