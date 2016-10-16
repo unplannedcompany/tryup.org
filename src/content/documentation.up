@@ -900,7 +900,7 @@ Example
       3. Rhydon
 
 Discussion
-  To hide a block of content, first indent it two spaces (or a tab). Then, on the line before your indented block, put one of the [topic: revealable keywords].
+  To hide a block of content, first indent it two spaces (or a tab). Then, on the line *before* your indented block, put one of the [topic: revealable keywords].
 
   In the example above, the revealable keyword is followed by a colon. This isn't necessary.
 
@@ -1896,7 +1896,7 @@ Output
 Superficial overlapping
 =======================
 
-If conventions overlap superficially---only by their start or end delimiters---Up pretends they weren't overlapped at all.
+If conventions overlap superficially---by only their start or end delimiters---Up pretends they weren't overlapped at all.
 
 Markup
   ````
