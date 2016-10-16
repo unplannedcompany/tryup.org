@@ -2899,15 +2899,6 @@ Members
   `level`: `number`
     Represents the heading level of the entry.
 
-  `searchableText` method
-    Arguments
-      None.
-
-    Return type: `string`
-      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images do have searchable text (footnotes have content, and images have a description).
-
-      This is used to help [topic: section links] match the most appropriate table of content entry.
-
   `contentWithinTableOfContents` method
     Arguments
       None.
@@ -2921,6 +2912,13 @@ Members
 
     Arguments
       None.
+
+  `searchableText` method
+    Arguments
+      None.
+
+    Return type: `string`
+      This method returns the entry's searchable text, which helps match [topic: section links] to the the most appropriate entry.
 
 
 `Up.InlineDocument`
@@ -2968,20 +2966,20 @@ Extends
   [topic: Up.SyntaxNode]
 
 Unique members
-  `textAppearingInline` method
+  `searchableText` method
     Return type: `string`
-      This method returns the text of the syntax node as it should appear inline. Some inline writing conventions don't have any text appearing inline, including [topic: footnotes] and [topic: images].
-
-      This method is used to help determine whether table cells are numeric.
+      This method returns the searchable text of the syntax node.
+      
+      Ultimately, this method helps match [topic: section links] to the the most appropriate table of content entry.
 
     Arguments
       None.
 
-  `searchableText` method
+  `textAppearingInline` method
     Return type: `string`
-      This method returns the searchable text of the syntax node. In contrast to `textAppearingInline`, footnotes and images should have searchable text (footnotes have content, and images have a description).
+      This method returns the text of the syntax node as it should appear inline. Some inline writing conventions don't have any text appearing inline, including [topic: footnotes] and [topic: images].
 
-      This method is used to help [topic: section links] match the most appropriate table of content entry.
+      This method is helps determine whether table cells are numeric.
 
     Arguments
       None.
