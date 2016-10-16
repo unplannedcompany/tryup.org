@@ -14,7 +14,7 @@ mark {
     -8px 0px 6px $highlight-marker-color;
 }
 
-// Highlighting inside of links
-a mark {
-  color: $link-color;
+// When a link is highlighted, we increase the text contrast.
+a mark, mark a {
+  color: black;
 }

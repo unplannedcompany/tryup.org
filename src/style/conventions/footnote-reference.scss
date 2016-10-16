@@ -1,0 +1,8 @@
+.up-footnote-reference a {
+  font-size: 110%;
+  margin-left: (1em / 8);
+  text-decoration: none;
+   
+  &:before { content: '[' }
+  &:after { content: ']' }
+}

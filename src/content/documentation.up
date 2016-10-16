@@ -1804,18 +1804,41 @@ When linkifying an image, you can use brackets or parentheses interchangeably.
 
 This shortcut also works for the following conventions:
 
-- [topic: Highlighting]
-- [topic: Example input]
-- [topic: Footnotes]
-- [topic: Inline revealables]
+[topic: Example input]
+  Markup
+    ````
+    Press {space} (wikipedia.org/wiki/Space_bar) to continue.
+    ````
 
-Markup
-  ````
-  At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
-  ````
+  Output
+    Press {space} (wikipedia.org/wiki/Space_bar) to continue.
 
-Output
-  At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
+[topic: Footnotes]
+  Markup
+    ````
+    Pokémon is old [^ Released in 1996!] (wikipedia.org/wiki/Pokémon_Red_and_Blue) but it maintains its charm.
+    ````
+
+  Output
+    Pokémon is old [^ Released in 1996!] (wikipedia.org/wiki/Pokémon_Red_and_Blue) but it maintains its charm.
+
+[topic: Highlighting]
+  Markup
+    ````
+    I take [highlight: vitamin D] (wikipedia.org/wiki/Vitamin_D) and vitamin C.
+    ````
+
+  Output
+    I take [highlight: vitamin D] (wikipedia.org/wiki/Vitamin_D) and vitamin C.
+
+[topic: Inline revealables]
+  Markup
+    ````
+    At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
+    ````
+
+  Output
+    At the end of Pokémon Red, [SPOILER: you battle your rival] (pokemon.wikia.com/wiki/Rival) before the credits roll.
 
 
 =================================
