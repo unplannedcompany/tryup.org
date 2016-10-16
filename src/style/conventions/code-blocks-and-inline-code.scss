@@ -26,14 +26,10 @@ code {
 }
 
 // Inline code within links
-a code {
-  color: #8df;
-  
-  // Links are already underlined, but we want the underline
-  // to be the same color as the code itself. 
-  text-decoration: underline;
-}
-
+//
+// Links are already underlined, but we want the underline
+// to be the same color as the code itself.
+a code { text-decoration: underline }
 a:hover code { text-decoration: none; }
 
 // Code blocks
