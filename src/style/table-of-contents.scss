@@ -43,6 +43,11 @@ $max-indent-level: 11;
     text-decoration: none;
   }
 
+  // Let's increase the contrast!
+  mark {
+    color: $heading-color;
+  }
+
   #{$heading-selector} {    
     margin: 0;
     padding: 0;

@@ -1,20 +1,16 @@
 @import '../common/link-color';
+@import '../common/heading-color';
+@import '../common/heading-selector';
 
-$highlight-marker-color: yellow;
-
-// Based on this answer on stackoverflow:
-//
-// http://stackoverflow.com/a/33452034
 mark {
-  background-color: transparent;
-  text-shadow: 
-    -4px 0px 4px $highlight-marker-color,
-    4px 0px 4px $highlight-marker-color,
-    8px 0px 6px $highlight-marker-color,
-    -8px 0px 6px $highlight-marker-color;
+  background-color: yellow;
+  color: inherit;
+  padding: (1em / 8);
 }
 
-// When a link is highlighted, we increase the text contrast.
-a mark, mark a {
-  color: black;
+// Table headers use white text, and they use the heading color for
+// their background. Considering highlighting is yellow, we'll need
+// to increase the contrast.
+th mark {
+  color: $heading-color;
 }
