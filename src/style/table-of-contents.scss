@@ -1,5 +1,5 @@
-@import 'common/heading-color';
-@import 'common/heading-selector';
+@import 'conventions/common/heading-color';
+@import 'conventions/common/heading-selector';
 
 @function entry-indentation($level) {
   $base-indent: 5px;
@@ -7,6 +7,9 @@
 
   @return $base-indent + ($indent-per-level * ($level - 1)); 
 }
+
+// We use the same indentation for headings level 11 and up.
+$max-indent-level: 11;
 
 #table-of-contents-container {
   background-color: $heading-color;
@@ -30,11 +33,10 @@
     margin: 0;
     padding: 0;
     
-    // Below, we set indentation for headings with levels 1 through 10. 
-    a { padding-left: entry-indentation(11) }
+    a { padding-left: entry-indentation($max-indent-level) }
   }
 
-  @for $level from 1 through 10 {
+  @for $level from 1 through ($max-indent-level - 1) {
     $selector-for-this-heading-level:
       if($level <= 6,
         'h#{$level}',
