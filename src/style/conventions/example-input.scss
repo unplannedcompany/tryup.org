@@ -3,19 +3,21 @@
 // This is mostly taken from Stackoverflow's <kbd> styling.
 kbd {
   background-color: #eee;
-  border: 1px solid #aaa;
-  border-radius: 3px;
+  border: (1em / 12) solid #aaa;
+  border-radius: (1em / 4);
   box-shadow:
-    0 2px 0 rgba(13, 13, 13, 0.2),
-    0 0 0 2px white inset;
+    0 (1em / 6) 0 rgba(13, 13, 13, 0.3),
+    0 0 0 (1em / 7) white inset;
   color: #444;
   display: inline-block;
   font-family: sans-serif;
-  font-size: 11px;
+  font-size: 70%;
   line-height: 1.4;
   margin: 0 .1em;
   padding: .1em .6em;
-  text-shadow: 0 1px 0 white;
+  position: relative;
+  text-shadow: 0 (1em / 10) 0 white;
+  top: (-1em / 6);
   white-space: nowrap;
 }
 
