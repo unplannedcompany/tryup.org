@@ -1800,9 +1800,9 @@ Cleaner markup
 Output
   [image: Warlocked box art] [i.imgur.com/fwhs0YV.jpg] (wikipedia.org/wiki/Warlocked)
 
-When linkifying an image, you can use brackets or parentheses interchangeably.
+When linkifying an image, you can mix and match square brackets and parentheses---they're totally interchangeable.
 
-This shortcut also works for the following conventions:
+This shortcut also works for the following inline writing conventions:
 
 [topic: Example input]
   Markup
