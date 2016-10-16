@@ -1946,7 +1946,7 @@ const html = Up.parseAndRender(markup, settings)
 
 For a full description of the functions you can use, please see [topic: functions].
 
-Alternatively, you can create an instance of the `Up.Transformer` class. This can be useful if you need to parse or render several documents all sharing custom settings. For more information, see [topic: Up.Transformer].
+Alternatively, you can use the [topic: Up.Transformer] class, which can be useful if you need to parse or render several documents sharing custom settings.
 
 
 =========
@@ -2706,7 +2706,7 @@ Inline documents
 
 In certain contexts, you might want to restrict a document to just a single line:
 
-- An online chat message
+- An chat message
 - The title of a thread on a message board
 - The byline for a user's profile
 
