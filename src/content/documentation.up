@@ -2411,7 +2411,7 @@ Summary
   - [topic: Up.parse]
   - [topic: Up.parseInline]
 
-  As part of [topic: Up.UserProvidedSettings], this interface also provides custom settings to functions that both parse markup *and* render the result to HTML:
+  As part of [topic: Up.UserProvidedSettings], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -2461,7 +2461,7 @@ Members (all of which are optional)
     })
     ````
 
-    Like the default keywords, any custom keyword variations are case-insensitive.
+    Like the default keywords, custom keyword variations are case-insensitive.
 
     `audio`: `string` or `string[]`
       Recognized by [topic: audio].
@@ -2623,7 +2623,7 @@ Summary
   - [topic: Up.renderDocumentAndTableOfContents]
   - [topic: Up.renderInline]
 
-  As part of [topic: Up.UserProvidedSettings], this interface also provides custom settings to functions that both parse markup *and* render the result to HTML:
+  As part of [topic: Up.UserProvidedSettings], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -2649,7 +2649,7 @@ Members (all of which are optional)
 
   `terms` (all of which are optional)
     `footnote`: `string`
-      Appears in the URLs of footnotes definitions (i.e. in their respective footnote blocks).
+      Appears in the URLs of footnotes definitions (in their respective footnote blocks).
 
     `footnoteReference`: `string`
       Appears in the URLs of footnotes references (i.e. the superscripts within paragraphs).
@@ -2673,7 +2673,7 @@ Members (all of which are optional)
 Summary
   If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
 
-  By default, `idPrefix` is `up` to prevent ID collisions any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.
+  By default, `idPrefix` is `up` to prevent ID collisions with any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.
 
 Usage
   ````
