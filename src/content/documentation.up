@@ -1496,7 +1496,7 @@ Discussion
   Cells
   =====
 
-  Table cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling the special meaning of characters].
+  Table cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling special characters].
 
   Markup
     ````
@@ -1878,9 +1878,9 @@ Output
   Use a spoon---a fork won't cut it.
 
 
-===========================================
-Disabling the special meaning of characters
-===========================================
+============================
+Disabling special characters
+============================
 
 To disable the special meaning of a character, put a backslash before it.
 

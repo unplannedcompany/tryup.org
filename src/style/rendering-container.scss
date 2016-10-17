@@ -1,6 +1,6 @@
 #rendering-container {
+  @import 'nav';
   @import 'documentation-container';
-  @import 'table-of-contents';
 
   @import 'conventions/blockquote.scss';
   @import 'conventions/bold-and-stress.scss';

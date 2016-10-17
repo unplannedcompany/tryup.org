@@ -3,17 +3,16 @@
 @import 'common/default-example-input-shading';
 
 @function entry-indentation($level) {
-  $base-indent: 5px;
   $indent-per-level: 40px;
 
-  @return $base-indent + ($indent-per-level * ($level - 1)); 
+  @return $indent-per-level * ($level - 1); 
 }
 
 // We use the same indentation for headings level 11 and up.
 $max-indent-level: 11;
 
 #table-of-contents-container {
-  background-color: $heading-color;
+  font-size: 75%;
 
   a {
     color: white;
@@ -37,7 +36,8 @@ $max-indent-level: 11;
     text-decoration: none;
   }
 
-  // Let's increase the contrast!
+  // Let's increase the contrast! White text on a yellow background is
+  // impossible to see.
   mark {
     color: $heading-color;
   }

@@ -8,9 +8,18 @@
 
 <body>
 	<div id="rendering-container">
-    <nav id="table-of-contents-container" aria-role="alert">
-      {{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
-    </nav>
+		<nav>
+			<!-- This is the same HTML that is rendered by revealable blocks-->
+			<div class="up-revealable">
+				<input checked class="up-hide" id="hide-table-of-contents" name="toggle-table-of-contents" type="radio">
+				<label for="hide-table-of-contents" role="button" tabindex="0">Hide table of contents</label>
+				<input class="up-reveal" id="reveal-table-of-contents" name="toggle-table-of-contents" type="radio">
+				<label for="reveal-table-of-contents" role="button" tabindex="0">Show table of contents</label>
+				<div id="table-of-contents-container" aria-role="alert">
+					{{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
+				</div>
+			</div>
+		</nav>
 		<main id="documentation-container" aria-role="alert">
 			{{{ htmlWebpackPlugin.options.documentationHtml }}}
 		</main>
