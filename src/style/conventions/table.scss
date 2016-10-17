@@ -3,7 +3,7 @@
 
 table {
   border-collapse: collapse;
-  margin: 20px;
+  margin: 20px 0;
 
   caption {
     padding-bottom: 10px;
@@ -44,6 +44,7 @@ table {
     background-color: $heading-color;
     color: white;
     font-family: $heading-font-family;
+    font-weight: normal;
     
     // When tables have a header column, their header row starts
     // with an empty cell. This cell should be invisible.

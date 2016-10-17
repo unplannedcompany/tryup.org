@@ -1645,7 +1645,7 @@ Discussion
     7;      Leech Seed;   Grass;    ;       90%
     9;      Vine Whip;    Grass;    45;     100%
 
-    With moves *that* exciting, I had to choose Bulbasaur!
+    I love Bulbasaur!
 
     ````
 
@@ -1659,7 +1659,7 @@ Discussion
     7;      Leech Seed;   Grass;    ;       90%
     9;      Vine Whip;    Grass;    45;     100%
 
-    With moves *that* exciting, I had to choose Bulbasaur!
+    I love Bulbasaur!
 
   Content row cells can contain any inline writing convention.
 
@@ -1667,7 +1667,9 @@ Discussion
   Including a header column in your table
   =======================================
 
-  To indicate your table has a header column, simply indent the header *row* at least two spaces (or a tab)! The first cell in each row is treated as its header column.
+  To indicate your table has a header column, simply indent its header *row* at least two spaces (or a tab).
+  
+  When you indent a table's the header row, Up automatically treats the first cell in each subsequent row as the header column.
 
   Markup
     ````
@@ -1729,7 +1731,7 @@ Example
 Discussion
   Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
 
-  If no matching end streak is found, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
+  If there is no matching end streak, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
 
   Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
 
@@ -2699,7 +2701,7 @@ Default
 ------------------------
 
 Summary
-  Normally, Up will not render links or media elements with potentially exploitable URI schemes (`javascript`, `vbscript`, `data`, and `file`).
+  Normally, Up will not render links or media elements with potentially exploitable URI schemes: `javascript`, `vbscript`, `data`, and `file`.
 
   When this setting is enabled, Up will dutifully render all links and media elements.
 
