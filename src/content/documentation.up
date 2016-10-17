@@ -2845,21 +2845,41 @@ Members
     A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: Up.Heading] objects in the document itself.
 
 Rendered HTML
-  Each [topic: Up.Document.TableOfContents.Entry] is rendered as a heading of the appropriate `level`.
+  Each [topic: Up.Document.TableOfContents.Entry] renders a heading element of the appropriate `level` containing a link to the appropriate section in the document.
 
   For more information on how headings are rendered, please see [topic: Up.Heading].
 
   ````
-  <h1><a href="#up-topic-1">Fun things</a></h1>
-  <h2><a href="#up-topic-2">Games</a></h2>
-  <h3><a href="#up-topic-3">Video games</a></h3>
-  <h4><a href="#up-topic-4">Released in the 2000s</a></h4>
-  <h5><a href="#up-topic-5">For Nintendo devices</a></h5>
-  <h6><a href="#up-topic-6">Nintendo 64</a></h6>
-  <div aria-level="7" role="heading"><a href="#up-topic-6">Pokémon Puzzle League</a></div>
-  <h6><a href="#up-topic-8">Game Boy</a></h6>
-  <div aria-level="7" role="heading"><a href="#up-topic-9">Game Boy Color Exclusives</a></div>
-  <div aria-level="8" role="heading"><a href="#up-topic-10">Warlocked</a></div>
+  <h1>
+    <a href="#up-topic-1">Fun things</a>
+  </h1>
+  <h2>
+    <a href="#up-topic-2">Games</a>
+  </h2>
+  <h3>
+    <a href="#up-topic-3">Video games</a>
+  </h3>
+  <h4>
+    <a href="#up-topic-4">Released in the 2000s</a>
+  </h4>
+  <h5>
+    <a href="#up-topic-5">For Nintendo devices</a>
+  </h5>
+  <h6>
+    <a href="#up-topic-6">Nintendo 64</a>
+  </h6>
+  <div aria-level="7" role="heading">
+    <a href="#up-topic-6">Pokémon Puzzle League</a>
+  </div>
+  <h6>
+    <a href="#up-topic-8">Game Boy</a>
+  </h6>
+  <div aria-level="7" role="heading">
+    <a href="#up-topic-9">Game Boy Color Exclusives</a>
+  </div>
+  <div aria-level="8" role="heading">
+    <a href="#up-topic-10">Warlocked</a>
+  </div>
   ````
 
 
@@ -2946,7 +2966,7 @@ Unique members
   `searchableText` method
     Return type: `string`
       This method returns the searchable text of the syntax node.
-      
+
       Ultimately, this method helps match [topic: section links] to the the most appropriate table of content entry.
 
     Arguments
@@ -3325,7 +3345,7 @@ Unique members
 
 Rendered HTML
   Levels 1--6
-    Headings with levels 1 through 6 are rendered using the corresponding heading element. For example, a level 2 heading is rendered as an `<h2>`.
+    Headings with levels 1 through 6 render the appropriate heading element.
 
     ````
     <h1>
@@ -3337,9 +3357,7 @@ Rendered HTML
     </h6>
     ````
   Levels 7 and higher
-    Headings with levels 7 and higher are rendered as `<div role="heading">` elements with an `aria-level` attribute equal to their level.
-
-    Headings with levels 6 or greater are rendered as`<h6>`.
+    Headings with levels 7 and higher render `<div role="heading">` elements with an `aria-level` attribute equal to their level.
 
     ````
     <div aria-level="7" role="heading">
