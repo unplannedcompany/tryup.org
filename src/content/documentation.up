@@ -2052,6 +2052,26 @@ Usage
     ````
 
 
+---------------------------------------
+`Up.RenderedDocumentAndTableOfContents`
+---------------------------------------
+
+This interface represents the HTML for a rendered document and table of contents.
+
+Members
+  `tableOfContentsHtml`: `string`
+    The HTML for the table of contents.
+
+  `documentHtml`: `string`
+    The HTML for the document itself.
+
+Notes
+  The following functions return an object satisfying this interface:
+
+  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
+  - [topic: Up.renderDocumentAndTableOfContents]
+
+
 `Up.parseAndRenderInline`
 =========================
 
@@ -2255,25 +2275,6 @@ Usage
       }
     })
     ````
-
-
-`Up.RenderedDocumentAndTableOfContents`
-=======================================
-
-This interface represents the HTML for a rendered document and table of contents.
-
-Members
-  `tableOfContentsHtml`: `string`
-    The HTML for the table of contents.
-
-  `documentHtml`: `string`
-    The HTML for the document itself.
-
-Notes
-  The following functions return an object satisfying this interface:
-
-  - [topic: Up.parseAndRenderDocumentAndTableOfContents]
-  - [topic: Up.renderDocumentAndTableOfContents]
 
 
 
