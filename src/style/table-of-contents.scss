@@ -15,12 +15,6 @@ $max-indent-level: 11;
 #table-of-contents-container {
   background-color: $heading-color;
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
   a {
     color: white;
     display: inline-block;

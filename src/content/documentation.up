@@ -2845,44 +2845,21 @@ Members
     A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: Up.Heading] objects in the document itself.
 
 Rendered HTML
-  Within the table of contents, each entry is rendered as a [topic: Up.Heading].
+  Each [topic: Up.Document.TableOfContents.Entry] is rendered as a heading of the appropriate `level`.
+
+  For more information on how headings are rendered, please see [topic: Up.Heading].
 
   ````
-  <nav class="up-table-of-contents">
-    <h1>Table of Contents</h1>
-    <ul>
-      <li>
-        <h1><a href="#up-topic-1">Fun things</a></h1>
-      </li>
-      <li>
-        <h2><a href="#up-topic-2">Games</a></h2>
-      </li>
-      <li>
-        <h3><a href="#up-topic-3">Video games</a></h3>
-      </li>
-      <li>
-        <h4><a href="#up-topic-4">Released in the 2000s</a></h4>
-      </li>
-      <li>
-        <h5><a href="#up-topic-5">For Nintendo devices</a></h5>
-      </li>
-      <li>
-        <h6><a href="#up-topic-6">Nintendo 64</a></h6>
-      </li>
-      <li>
-        <div aria-level="7" role="heading"><a href="#up-topic-6">Pokémon Puzzle League</a></div>
-      </li>
-      <li>
-        <h6><a href="#up-topic-8">Game Boy</a></h6>
-      </li>
-      <li>
-        <div aria-level="7" role="heading"><a href="#up-topic-9">Game Boy Color Exclusives</a></div>
-      </li>
-      <li>
-        <div aria-level="8" role="heading"><a href="#up-topic-10">Warlocked</a></div>
-      </li>
-    </ul>
-  </nav>
+  <h1><a href="#up-topic-1">Fun things</a></h1>
+  <h2><a href="#up-topic-2">Games</a></h2>
+  <h3><a href="#up-topic-3">Video games</a></h3>
+  <h4><a href="#up-topic-4">Released in the 2000s</a></h4>
+  <h5><a href="#up-topic-5">For Nintendo devices</a></h5>
+  <h6><a href="#up-topic-6">Nintendo 64</a></h6>
+  <div aria-level="7" role="heading"><a href="#up-topic-6">Pokémon Puzzle League</a></div>
+  <h6><a href="#up-topic-8">Game Boy</a></h6>
+  <div aria-level="7" role="heading"><a href="#up-topic-9">Game Boy Color Exclusives</a></div>
+  <div aria-level="8" role="heading"><a href="#up-topic-10">Warlocked</a></div>
   ````
 
 
