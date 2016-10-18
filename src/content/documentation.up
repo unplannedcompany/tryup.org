@@ -1963,7 +1963,7 @@ const Up = require('write-up')
 
 Hooray! `Up` now serves as the namespace for the library.
 
-Typically, you'll want to use the various functions within that namespace, such as [topic: Up.parseAndRender].
+Typically, you'll want to use the various functions within that namespace.
 
 ````
 const html = Up.parseAndRender(markup, settings)
