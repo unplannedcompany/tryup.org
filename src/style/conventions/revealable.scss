@@ -1,4 +1,5 @@
 @import 'common/faux-button';
+@import 'common/faux-inline-button';
 
 @keyframes reveal {
   0% { opacity: 1; }
@@ -33,16 +34,7 @@
 }
 
 // Inline revealables
-span.up-revealable > label {
-  font-size: 65%;
-  margin: 0 5px;
-  padding: 4px 12px 3px 12px;
-}
+span.up-revealable > label { @include faux-inline-button }
 
 // Revealable blocks
-div.up-revealable > label {
-  display: inline-block;
-  font-size: 75%;
-  margin: 10px 0;
-  padding: 7px 12px 5px 12px;
-}
+div.up-revealable > label { @include faux-button }

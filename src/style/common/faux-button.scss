@@ -7,9 +7,13 @@
   border-radius: 3px;
   color: white;
   cursor: pointer;
-  user-select: none;
-  white-space: nowrap;
+  display: inline-block;
+  font-size: 75%;
+  margin: 10px 0;
+  padding: 7px 12px 5px 12px;
   text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
 
   &:hover {
     background: #b00;

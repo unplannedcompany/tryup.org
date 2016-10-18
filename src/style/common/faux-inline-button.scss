@@ -1,0 +1,10 @@
+@import 'faux-button';
+
+@mixin faux-inline-button {
+  @include faux-button;
+    
+  display: inline;
+  font-size: 65%;
+  margin: 0 5px;
+  padding: 4px 12px 3px 12px;
+}
