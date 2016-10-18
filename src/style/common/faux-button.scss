@@ -1,0 +1,21 @@
+@import 'mild-shadow';
+
+@mixin faux-button {
+  @include mild-shadow;
+    
+  background-color: #c00;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  text-transform: uppercase;
+
+  &:hover {
+    background: #b00;
+  }
+
+  &:active {
+    background: #a00;
+  }
+}

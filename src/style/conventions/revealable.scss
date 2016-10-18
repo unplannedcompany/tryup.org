@@ -1,3 +1,5 @@
+@import 'common/faux-button';
+
 @keyframes reveal {
   0% { opacity: 1; }
   30% { opacity: .5 }  
@@ -6,24 +8,7 @@
 
 // Inline revealables and revealable blocks
 .up-revealable {
-  > label {
-    @include mild-shadow;
-    background-color: #c00;
-    border-radius: 3px;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-    white-space: nowrap;
-    text-transform: uppercase;
-
-    &:hover {
-      background: #b00;
-    }
-
-    &:active {
-      background: #a00;
-    }
-  }
+  > label { @include faux-button }
 
   > input[type="radio"] {
     display: none;
@@ -46,7 +31,6 @@
 
   > div { margin-left: 35px }
 }
-
 
 // Inline revealables
 span.up-revealable > label {
