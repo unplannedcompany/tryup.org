@@ -1,6 +1,4 @@
-@import 'common/tab-list-height';
-
-$full-height-with-tab-list: calc(100vh - #{$tab-list-height}); 
+$tab-list-height: 44px;
 
 body {
   display: flex;
@@ -8,37 +6,37 @@ body {
   height: 100vh;
 }
 
-#editor-container,
-#toc-container,
-#documentation-container {
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-#rendering-container {
-  border-left: 1px solid #aaa;
-  flex-basis: 0;
-  flex-grow: 1.35;
-  
-  // Setting `overflow-y` to anything but `visible` prevents wide elements
-  // within the documentation from widening *this* element.   
-  overflow-y: auto;
-
-  #documentation-container {
-    height: $full-height-with-tab-list;
-  }
-
-  #toc-container {
-    display: none;
-    height: $full-height-with-tab-list;
-  }
-}
-
 #editor-container {
+  border-right: 1px solid #aaa;
   flex-basis: 0;
   flex-grow: 1;
     
-  .CodeMirror {
-    height: 100vh;
+  .CodeMirror { height: 100vh }
+}
+
+#non-editor-container {
+  flex-basis: 0;
+  flex-grow: 1.35;
+  height: 100vh; 
+  
+  div[role="tablist"] {
+    align-items: center;
+    display: flex;
+    height: $tab-list-height;
   }
+
+  #tab-panel-container {
+    // Setting `overflow-y` to anything but `visible` prevents wide elements
+    // within the documentation from widening this element.   
+    overflow-y: auto;
+    height: calc(100vh - #{$tab-list-height} - 20px);
+
+    #toc-container { display: none }
+  }
+}
+
+#editor-container,
+#non-editor-container {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }

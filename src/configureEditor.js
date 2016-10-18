@@ -6,7 +6,7 @@ import throttle from './throttle'
 
 // WARNING: This collection represents shared state!
 //
-// This is a collection  of every element from the documentation that has a source line
+// If the table of contents is visible, thiscollection of every element from the documentation that has a source line
 // number. Every time we re-render the documentation, we'll update this collection.
 //
 // Whenever the user scrolls through the documentation, we use this collection to scroll
@@ -16,19 +16,28 @@ import throttle from './throttle'
 // Likewise, whenever the user scrolls through the editor, we use this collection to
 // scroll to the first element in the documentation produced by (or after) the first
 // visible line in the editor.
-let documentationSourceMappedElements = []
+//
+// TODO: Deal with table of contents
+let sourceMappedElements = []
 
-function refreshSourceMappedElements(documentationContainer) {
-  documentationSourceMappedElements =
-    documentationContainer.querySelectorAll('[data-up-source-line]')
+function refreshSourceMappedElements(documentationContainer, tableOfContentsContainer) {
+  const visibleTab =
+    isHidden(documentationContainer)
+      ? tableOfContentsContainer
+      : documentationContainer
+
+  sourceMappedElements =
+    visibleTab.querySelectorAll('[data-up-source-line]')
 }
 
 
 export default function configureEditor(
   // Contains the CodeMirror editor
   editorContainer,
+  // Contains the rendered documentation or table of contents, depending on which is visible
+  tabPanelContainer,
   // Contains the rendered documentation
-  documentationContainer, 
+  documentationContainer,
   // Contains the rendered table of contents
   tableOfContentsContainer
 ) {
@@ -60,11 +69,11 @@ export default function configureEditor(
   CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
 
   configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
-  configureLivePreview(codeMirror, documentationContainer, tableOfContentsContainer)
-  syncScrolling(codeMirror, documentationContainer)
+  configureLivePreview(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer)
+  syncScrolling(codeMirror, tabPanelContainer)
 
   codeMirror.refresh()
-  refreshSourceMappedElements(documentationContainer)
+  refreshSourceMappedElements(documentationContainer, tableOfContentsContainer)
 }
 
 // Returns a new string consisting of `count` copies of `text`
@@ -73,7 +82,7 @@ function repeat(text, count) {
 }
 
 
-function configureLivePreview(codeMirror, documentationContainer, tableOfContentsContainer) {
+function configureLivePreview(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer) {
   // We'll wait until the user is done typing before we re-render their changes. We consider the
   // user to be done typing once 1.2 seconds has elapsed since their last keystroke.
   //
@@ -100,14 +109,14 @@ function configureLivePreview(codeMirror, documentationContainer, tableOfContent
 
   function markRenderedContentAsDirty() {
     isDirty = true
-    documentationContainer.classList.remove('clean')
-    documentationContainer.classList.add('dirty')
+    tabPanelContainer.classList.remove('clean')
+    tabPanelContainer.classList.add('dirty')
   }
 
   function markRenderedContentAsClean() {
     isDirty = false
-    documentationContainer.classList.remove('dirty')
-    documentationContainer.classList.add('clean')
+    tabPanelContainer.classList.remove('dirty')
+    tabPanelContainer.classList.add('clean')
   }
 }
 
@@ -135,7 +144,7 @@ function render(codeMirror, documentationContainer, tableOfContentsContainer) {
 }
 
 
-function syncScrolling(codeMirror, documentationContainer) {
+function syncScrolling(codeMirror, tabPanelContainer) {
   const FPS_FOR_SCROLL_SYNCING = 60
   const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
 
@@ -144,20 +153,17 @@ function syncScrolling(codeMirror, documentationContainer) {
 
   addScrollSyncingEventListeners({
     editorContentContainer: codeMirror.getScrollerElement(),
-    documentationContainer,
+    tabPanelContainer,
 
-    syncScrollingFromDocument: getScrollSyncer(() => {
-      for (let i = 0; i < documentationSourceMappedElements.length; i++) {
-        const element = documentationSourceMappedElements[i]
+    syncScrollingFromTabPanel: getScrollSyncer(() => {
+      for (let i = 0; i < sourceMappedElements.length; i++) {
+        const element = sourceMappedElements[i]
 
-        if (!element.offsetParent) {
+        if (isHidden(element)) {
           // Below, we use `getBoundingClientRect().top` to determine whether the element is
           // within the viewport. Unfortunately,  if the element is hidden (as opposed to
           // merely off-screen), we always get an unhelpful value of `0`, which implies the
           // element is at the top of the viewport.
-          //
-          // To work around this, we check `offsetParent`, which is `null` if the element is
-          // hidden.
           continue
         }
 
@@ -166,7 +172,7 @@ function syncScrolling(codeMirror, documentationContainer) {
         // When you click a link pointing to fragment URL (e.g. a section link), the browser
         // scrolls the appropriate element into view. Oddly, in some browsers, the top of that
         // element is a fraction of a pixel above the top of the viewport. 
-        const VIEWPORT_TOP = documentationContainer.offsetTop - 1
+        const VIEWPORT_TOP = tabPanelContainer.offsetTop - 1
 
         // Is this the first documentation element starting within the viewport?
         if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
@@ -200,12 +206,12 @@ function syncScrolling(codeMirror, documentationContainer) {
         // However, the user probably expects that scrolling the editor to its top will
         // automatically scroll the documentation to *its* top, too. Here, we make sure
         // that happens.
-        documentationContainer.scrollTop = 0
+        tabPanelContainer.scrollTop = 0
         return
       }
 
-      for (let i = 0; i < documentationSourceMappedElements.length; i++) {
-        const element = documentationSourceMappedElements[i]
+      for (let i = 0; i < sourceMappedElements.length; i++) {
+        const element = sourceMappedElements[i]
 
         // Is this the first outline element that was produced by (or after) the first
         // visible line in the editor?
@@ -222,8 +228,8 @@ function syncScrolling(codeMirror, documentationContainer) {
 function addScrollSyncingEventListeners(args) {
   const {
     editorContentContainer,
-    documentationContainer,
-    syncScrollingFromDocument,
+    tabPanelContainer,
+    syncScrollingFromTabPanel,
     syncScrollingFromEditor } = args
 
   // We need to watch out for feedback loops!
@@ -233,13 +239,13 @@ function addScrollSyncingEventListeners(args) {
   // didn't produce any syntax nodes. We'll say it's a blank line between paragraphs.
   //
   // So we do the next best thing: we scroll into view the first element produced *after*
-  // line 100: a paragraph produced by line 101. This unfortunately triggers the
-  // documentation's scroll event, which in turn determines that the editor should be
-  // scrolled to line 101: the line that produced the paragraph. Uh-oh!
+  // line 100: a paragraph produced by line 101. This unfortunately triggers the tab panel's
+  // scroll event, which in turn determines that the editor should be scrolled to line 101,
+  // which is the line that produced the paragraph. Uh-oh!
   //
   // To prevent this, whenever the user scrolls a container, we ignore any scroll events
   // from the other container.
-  let ignoringScrollEventsFromDocument = false
+  let ignoringScrollEventsFromTabPanel = false
   let ignoringScrollEventsFromEditor = false
 
   const getEventReEnabler = reEnable =>
@@ -249,8 +255,8 @@ function addScrollSyncingEventListeners(args) {
     ignoringScrollEventsFromEditor = false
   })
 
-  const eventuallyReEnableScrollEventsFromDocument = getEventReEnabler(() => {
-    ignoringScrollEventsFromDocument = false
+  const eventuallyReEnableScrollEventsFromTabPanel = getEventReEnabler(() => {
+    ignoringScrollEventsFromTabPanel = false
   })
 
   function temporarilyIgnoreScrollEventsFromEditor() {
@@ -258,14 +264,14 @@ function addScrollSyncingEventListeners(args) {
     eventuallyReEnableScrollEventsFromEditor()
   }
 
-  function temporarilyIgnoreScrollEventsFromDocument() {
-    ignoringScrollEventsFromDocument = true
-    eventuallyReEnableScrollEventsFromDocument()
+  function temporarilyIgnoreScrollEventsFromTabPanel() {
+    ignoringScrollEventsFromTabPanel = true
+    eventuallyReEnableScrollEventsFromTabPanel()
   }
 
-  addScrollEventListener(documentationContainer, () => {
-    if (!ignoringScrollEventsFromDocument) {
-      syncScrollingFromDocument()
+  addScrollEventListener(tabPanelContainer, () => {
+    if (!ignoringScrollEventsFromTabPanel) {
+      syncScrollingFromTabPanel()
       temporarilyIgnoreScrollEventsFromEditor()
     }
   })
@@ -273,7 +279,7 @@ function addScrollSyncingEventListeners(args) {
   addScrollEventListener(editorContentContainer, () => {
     if (!ignoringScrollEventsFromEditor) {
       syncScrollingFromEditor()
-      temporarilyIgnoreScrollEventsFromDocument()
+      temporarilyIgnoreScrollEventsFromTabPanel()
     }
   })
 }
@@ -281,6 +287,16 @@ function addScrollSyncingEventListeners(args) {
 
 function addScrollEventListener(element, listener) {
   element.addEventListener('scroll', listener)
+}
+
+function isHidden(element) {
+  // If an element's `display` is set to `none`, its `offsetParent` returns `null`.
+  //
+  // See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent
+  //
+  // We don't check `style.display` directly, because it returns an empty string if
+  // it wasn't set by JavaScript.   
+  return !element.offsetParent;
 }
 
 

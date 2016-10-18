@@ -1,4 +1,4 @@
-export default function configureScrollPositionAfterNavigation(documentationContainer) {
+export default function configureScrollPositionAfterNavigation(tabPanelContainer) {
   // Because we're using a scrolling panel, the browser fails to restore the
   // documentation's scroll position when the user navigates backward (or
   // forward).
@@ -6,14 +6,14 @@ export default function configureScrollPositionAfterNavigation(documentationCont
   // To work around this, we save the user's scroll position every time they
   // click a link, then use the `popstate` event to manually restore their
   // scroll position.  
-  function saveDocumentationScrollPosition() {
-    const { scrollTop } = documentationContainer
+  function saveTabPanelScrollPosition() {
+    const { scrollTop } = tabPanelContainer
     window.history.replaceState({ scrollTop }, '')
   }
 
-  function recallDocumentationScrollPosition(historyState) {
+  function recallTabPanelScrollPosition(historyState) {
     if (historyState) {
-      documentationContainer.scrollTop = historyState.scrollTop
+      tabPanelContainer.scrollTop = historyState.scrollTop
     }
   }
 
@@ -21,26 +21,24 @@ export default function configureScrollPositionAfterNavigation(documentationCont
   // to some external page, then navigates forward to return to our page again,
   // we want to be able to restore their scroll position. 
   window.addEventListener('beforeunload', () => {
-    saveDocumentationScrollPosition()
+    saveTabPanelScrollPosition()
   })
 
-  documentationContainer.addEventListener('click', (event) => {
+  tabPanelContainer.addEventListener('click', (event) => {
     if (event.target.tagName === 'A') {
-      console.log('saved!')
-      saveDocumentationScrollPosition()
+      saveTabPanelScrollPosition()
     }
   })
 
   window.addEventListener('popstate', (event) => {
     const { state } = event
-    recallDocumentationScrollPosition(state)
+    recallTabPanelScrollPosition(state)
   })
 
   // In Chrome, the `popstate` event does not fire when the user navigates
   // backward from an external page. 
   window.addEventListener('pageshow', () => {
-    console.log('pageshow')
     const { state } = window.history
-    recallDocumentationScrollPosition(state)
+    recallTabPanelScrollPosition(state)
   })
 }
