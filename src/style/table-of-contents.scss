@@ -11,6 +11,7 @@ $max-indent-level: 11;
 
 #toc-container {
   background-color: $heading-color;
+  user-select: none;
   font-size: 75%;
 
   a {
