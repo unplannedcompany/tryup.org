@@ -1,0 +1,12 @@
+@import 'common/heading-color';
+@import 'common/faux-inline-button';
+@import 'common/tab-list-height';
+
+div[role="tablist"] {
+  align-items: center;
+  background-color: $heading-color;
+  display: flex;
+  height: $tab-list-height;
+
+  span[role="tab"] { @include faux-inline-button }
+}

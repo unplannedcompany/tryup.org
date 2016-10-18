@@ -1,3 +1,7 @@
+@import 'common/tab-list-height';
+
+$full-height-with-tab-list: calc(100vh - #{$tab-list-height}); 
+
 body {
   display: flex;
   flex-flow: wrap row-reverse;
@@ -5,7 +9,7 @@ body {
 }
 
 #editor-container,
-#table-of-contents-container,
+#toc-container,
 #documentation-container {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -21,11 +25,11 @@ body {
   overflow-y: auto;
 
   #documentation-container {
-    height: 100vh;
+    height: $full-height-with-tab-list;
   }
 
-  #table-of-contents-container {
-    height: 100vh;
+  #toc-container {
+    height: $full-height-with-tab-list;
   }
 }
 

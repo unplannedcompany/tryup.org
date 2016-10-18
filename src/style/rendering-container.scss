@@ -1,5 +1,7 @@
 #rendering-container {
-  @import 'nav';
+  @import 'tab-list';
+
+  @import 'table-of-contents';
   @import 'documentation-container';
 
   @import 'conventions/blockquote.scss';

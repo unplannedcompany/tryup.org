@@ -3,22 +3,21 @@
 @import 'common/default-example-input-shading';
 
 @function entry-indentation($level) {
-  $indent-per-level: 40px;
-
-  @return $indent-per-level * ($level - 1); 
+  @return ($level - 1) * 40px; 
 }
 
 // We use the same indentation for headings level 11 and up.
 $max-indent-level: 11;
 
-#table-of-contents-container {
+#toc-container {
+  background-color: $heading-color;
   font-size: 75%;
 
   a {
+    border: 0;
     color: white;
     display: inline-block;
     width: 100%;
-    border: 0;
     text-decoration: none;
 
     &:hover { background-color: mix(white, $heading-color, 30%) }
@@ -27,20 +26,14 @@ $max-indent-level: 11;
   // Normally, we style example input differently if it's within a link.
   //
   // In the table of contents, everything is a link, so there's no need. 
-  kbd {
-    @include default-example-input-shading;
-  }
+  kbd { @include default-example-input-shading }
 
   // The same logic applies for inline code.
-  code {
-    text-decoration: none;
-  }
+  code { text-decoration: none }
 
   // Let's increase the contrast! White text on a yellow background is
   // impossible to see.
-  mark {
-    color: $heading-color;
-  }
+  mark { color: $heading-color }
 
   #{$heading-selector} {    
     margin: 0;
