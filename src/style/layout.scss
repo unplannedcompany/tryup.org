@@ -29,7 +29,7 @@ body {
     // Setting `overflow-y` to anything but `visible` prevents wide elements
     // within the documentation from widening this element.   
     overflow-y: auto;
-    height: calc(100vh - #{$tab-list-height} - 20px);
+    height: calc(100vh - #{$tab-list-height});
 
     #documentation-container {
       max-width: 700px;
