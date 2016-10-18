@@ -8,15 +8,15 @@ body {
 
 #editor-container {
   border-right: 1px solid #aaa;
-  flex-basis: 0;
-  flex-grow: 1;
+  flex-basis: 500px;
+  flex-grow: .1;
     
   .CodeMirror { height: 100vh }
 }
 
 #non-editor-container {
   flex-basis: 0;
-  flex-grow: 1.35;
+  flex-grow: 1;
   height: 100vh; 
   
   div[role="tablist"] {
@@ -30,6 +30,11 @@ body {
     // within the documentation from widening this element.   
     overflow-y: auto;
     height: calc(100vh - #{$tab-list-height} - 20px);
+
+    #documentation-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
 
     #toc-container { display: none }
   }
