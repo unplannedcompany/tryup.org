@@ -15,12 +15,12 @@
 				<label for="hide-table-of-contents" role="button" tabindex="0">Hide table of contents</label>
 				<input class="up-reveal" id="reveal-table-of-contents" name="toggle-table-of-contents" type="radio">
 				<label for="reveal-table-of-contents" role="button" tabindex="0">Show table of contents</label>
-				<div id="table-of-contents-container" aria-role="alert">
+				<div aria-live="polite" id="table-of-contents-container">
 					{{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
 				</div>
 			</div>
 		</nav>
-		<main id="documentation-container" aria-role="alert">
+		<main aria-live="polite" id="documentation-container">
 			{{{ htmlWebpackPlugin.options.documentationHtml }}}
 		</main>
 	</div>
