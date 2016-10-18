@@ -93,7 +93,7 @@ function configureLivePreview(codeMirror, tabPanelContainer, documentationContai
       return
     }
 
-    render(codeMirror, documentationContainer, tableOfContentsContainer)
+    render(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer)
     markRenderedContentAsClean()
   }, 1200)
 
@@ -119,7 +119,7 @@ function configureLivePreview(codeMirror, tabPanelContainer, documentationContai
 }
 
 
-function render(codeMirror, documentationContainer, tableOfContentsContainer) {
+function render(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer) {
   const markup = codeMirror.getValue()
   const { documentHtml, tableOfContentsHtml } =
     Up.parseAndRenderDocumentAndTableOfContents(
@@ -132,13 +132,13 @@ function render(codeMirror, documentationContainer, tableOfContentsContainer) {
   // jumps back to the first media player when its HTML is re-rendered.
   //
   // To avoid this, we manually restore its `scrollTop` to its pre-render position.
-  const { scrollTop } = documentationContainer
+  const { scrollTop } = tabPanelContainer
 
   documentationContainer.innerHTML = documentHtml
   tableOfContentsContainer.innerHTML = tableOfContentsHtml
 
-  documentationContainer.scrollTop = scrollTop
-  refreshSourceMappedElements(documentationContainer)
+  tabPanelContainer.scrollTop = scrollTop
+  refreshSourceMappedElements(documentationContainer, tableOfContentsContainer)
 }
 
 

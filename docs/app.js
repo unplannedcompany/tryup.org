@@ -529,7 +529,7 @@
 	      return;
 	    }
 
-	    render(codeMirror, documentationContainer, tableOfContentsContainer);
+	    render(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer);
 	    markRenderedContentAsClean();
 	  }, 1200);
 
@@ -555,7 +555,7 @@
 	  }
 	}
 
-	function render(codeMirror, documentationContainer, tableOfContentsContainer) {
+	function render(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer) {
 	  var markup = codeMirror.getValue();
 
 	  var _Up$parseAndRenderDoc = Up.parseAndRenderDocumentAndTableOfContents(markup, {
@@ -571,14 +571,14 @@
 	  //
 	  // To avoid this, we manually restore its `scrollTop` to its pre-render position.
 
-	  var scrollTop = documentationContainer.scrollTop;
+	  var scrollTop = tabPanelContainer.scrollTop;
 
 
 	  documentationContainer.innerHTML = documentHtml;
 	  tableOfContentsContainer.innerHTML = tableOfContentsHtml;
 
-	  documentationContainer.scrollTop = scrollTop;
-	  refreshSourceMappedElements(documentationContainer);
+	  tabPanelContainer.scrollTop = scrollTop;
+	  refreshSourceMappedElements(documentationContainer, tableOfContentsContainer);
 	}
 
 	function syncScrolling(codeMirror, tabPanelContainer) {
