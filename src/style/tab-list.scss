@@ -1,5 +1,5 @@
 @import 'common/heading-color';
-@import 'common/faux-inline-button';
+@import 'common/faux-button';
 @import 'common/tab-list-height';
 
 div[role="tablist"] {
@@ -8,5 +8,10 @@ div[role="tablist"] {
   display: flex;
   height: $tab-list-height;
 
-  span[role="tab"] { @include faux-inline-button }
+  span[role="tab"] {
+    @include faux-button;
+
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;    
+  }
 }

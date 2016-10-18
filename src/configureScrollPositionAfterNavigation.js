@@ -6,12 +6,12 @@ export default function configureScrollPositionAfterNavigation(documentationCont
   // To work around this, we save the user's scroll position every time they
   // click a link, then use the `popstate` event to manually restore their
   // scroll position.  
-  function saveDocumentScrollPosition() {
+  function saveDocumentationScrollPosition() {
     const { scrollTop } = documentationContainer
     window.history.replaceState({ scrollTop }, '')
   }
 
-  function recallDocumentScrollPosition(historyState) {
+  function recallDocumentationScrollPosition(historyState) {
     if (historyState) {
       documentationContainer.scrollTop = historyState.scrollTop
     }
@@ -21,24 +21,26 @@ export default function configureScrollPositionAfterNavigation(documentationCont
   // to some external page, then navigates forward to return to our page again,
   // we want to be able to restore their scroll position. 
   window.addEventListener('beforeunload', () => {
-    saveDocumentScrollPosition()
+    saveDocumentationScrollPosition()
   })
 
   documentationContainer.addEventListener('click', (event) => {
     if (event.target.tagName === 'A') {
-      saveDocumentScrollPosition()
+      console.log('saved!')
+      saveDocumentationScrollPosition()
     }
   })
 
   window.addEventListener('popstate', (event) => {
     const { state } = event
-    recallDocumentScrollPosition(state)
+    recallDocumentationScrollPosition(state)
   })
 
   // In Chrome, the `popstate` event does not fire when the user navigates
   // backward from an external page. 
   window.addEventListener('pageshow', () => {
+    console.log('pageshow')
     const { state } = window.history
-    recallDocumentScrollPosition(state)
+    recallDocumentationScrollPosition(state)
   })
 }

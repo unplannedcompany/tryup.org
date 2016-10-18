@@ -29,6 +29,7 @@ body {
   }
 
   #toc-container {
+    display: none;
     height: $full-height-with-tab-list;
   }
 }

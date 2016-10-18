@@ -161,12 +161,12 @@ function syncScrolling(codeMirror, documentationContainer) {
           continue
         }
 
-        // Why -1 and not 0?
+        // Why do we subtract 1?
         //
         // When you click a link pointing to fragment URL (e.g. a section link), the browser
         // scrolls the appropriate element into view. Oddly, in some browsers, the top of that
         // element is a fraction of a pixel above the top of the viewport. 
-        const VIEWPORT_TOP = -1
+        const VIEWPORT_TOP = documentationContainer.offsetTop - 1
 
         // Is this the first documentation element starting within the viewport?
         if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
