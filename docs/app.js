@@ -449,18 +449,16 @@
 
 	// WARNING: This collection represents shared state!
 	//
-	// If the table of contents is visible, thiscollection of every element from the documentation that has a source line
-	// number. Every time we re-render the documentation, we'll update this collection.
+	// This collection contains every element with a source line number in the visible tab.
+	// Every time we re-render changes from the editor, we'll update this collection.
 	//
-	// Whenever the user scrolls through the documentation, we use this collection to scroll
-	// the CodeMirror editor to the line corresponding to the first element from this
-	// collection that is within the user's viewport.
+	// Whenever the user scrolls through the tab panel container, we use this collection to
+	// scroll the CodeMirror editor to the line corresponding to the first visible element
+	// from this collection.
 	//
 	// Likewise, whenever the user scrolls through the editor, we use this collection to
-	// scroll to the first element in the documentation produced by (or after) the first
-	// visible line in the editor.
-	//
-	// TODO: Deal with table of contents
+	// scroll to the first element in the tab panel produced by (or after) the first visible
+	// line in the editor.
 	var sourceMappedElements = [];
 
 	function refreshSourceMappedElements(documentationContainer, tableOfContentsContainer) {
