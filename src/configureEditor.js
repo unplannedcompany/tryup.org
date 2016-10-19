@@ -73,9 +73,14 @@ export default function configureEditor(
     syncScrollingFromEditor
   )
 
+  // Whenever the visibility of the table of contents is toggled, we need to re-sync the
+  // scroll positions of the editor and the tab panel container.
+  //
+  // The tab panel container contains both the table of contents and the documentation
+  // itself, and the scroll position for one is not valid for the other.
   new MutationObserver(() => {
     syncScrollingFromEditor(codeMirror, tabPanelContainer)
-  }).observe(documentationContainer, { attributes: true })
+  }).observe(tableOfContentsContainer, { attributes: true })
 
   codeMirror.refresh()
   refreshSourceMappedElements(tabPanelContainer)

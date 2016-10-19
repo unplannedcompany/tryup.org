@@ -8,7 +8,7 @@ body {
 
 #editor-container {
   border-right: 1px solid #aaa;
-  flex-basis: 500px;
+  flex-basis: 460px;
   flex-grow: .1;
     
   .CodeMirror { height: 100vh }
@@ -31,6 +31,11 @@ body {
     overflow-y: auto;
     height: calc(100vh - #{$tab-list-height});
 
+    #documentation-container,
+    #table-of-contents-container {
+      overflow-x: hidden;
+    }
+
     #documentation-container {
       max-width: 700px;
       margin: 0 auto;
@@ -44,4 +49,8 @@ body {
 #non-editor-container {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+@media only screen and (max-width: 980px) {
+  #editor-container { display: none }
 }
