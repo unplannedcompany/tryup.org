@@ -15285,9 +15285,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function configureScrollPositionAfterNavigation(tabPanelContainer) {
-	  // Because we're using a scrolling panel, the browser fails to restore the
-	  // documentation's scroll position when the user navigates backward (or
-	  // forward).
+	  // Because we're using a scrolling panel, some browsers fail to restore the
+	  // documentation's scroll position when the user navigates backward or
+	  // forward.
 	  //
 	  // To work around this, we save the user's scroll position every time they
 	  // click a link, then use the `popstate` event to manually restore their
@@ -15320,13 +15320,36 @@
 	  function saveTabPanelScrollPosition() {
 	    var scrollTop = tabPanelContainer.scrollTop;
 
-	    console.log('saving: ' + scrollTop);
 	    window.history.replaceState({ scrollTop: scrollTop }, '');
 	  }
 
 	  function recallTabPanelScrollPosition(historyState) {
 	    if (historyState) {
+	      console.log(historyState.scrollTop);
 	      tabPanelContainer.scrollTop = historyState.scrollTop;
+	      return;
+	    }
+
+	    // If the user clicks an internal link, navigates backward, then tries
+	    // to navigate forward again, there won't be any special history state,
+	    // and thus we won't be able to tell the browser where to scroll.
+	    //
+	    // Luckily, we do have the URL hash of the location the user is trying
+	    // to navigate to!
+	    scrollUrlHashElementIntoView();
+	  }
+	}
+
+	function scrollUrlHashElementIntoView() {
+	  var hash = window.location.hash;
+
+
+	  if (hash) {
+	    var elementId = hash.substring(1);
+	    var element = document.getElementById(elementId);
+
+	    if (element) {
+	      element.scrollIntoView();
 	    }
 	  }
 	}
