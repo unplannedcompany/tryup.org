@@ -15331,8 +15331,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function configureTableOfContentsVisibility(documentationTab, tableOfContentsTab) {
-	  configure({ tab: documentationTab, otherTab: tableOfContentsTab });
-	  configure({ tab: tableOfContentsTab, otherTab: documentationTab });
+	  configureTab({ tab: documentationTab, otherTab: tableOfContentsTab });
+	  configureTab({ tab: tableOfContentsTab, otherTab: documentationTab });
 
 	  // When the user clicks on a table of contents entry, we hide the
 	  // table of contents.
@@ -15353,17 +15353,17 @@
 	      return;
 	    }
 
-	    select({ tab: documentationTab, otherTab: tableOfContentsTab });
+	    selectTab({ tab: documentationTab, otherTab: tableOfContentsTab });
 	  });
 	}
 
-	function configure(args /* { tab, otherTab } */) {
+	function configureTab(args /* { tab, otherTab } */) {
 	  args.tab.addEventListener('click', function () {
-	    return select(args);
+	    return selectTab(args);
 	  });
 	}
 
-	function select(args /* { tab, otherTab } */) {
+	function selectTab(args /* { tab, otherTab } */) {
 	  var tab = args.tab;
 	  var otherTab = args.otherTab;
 
