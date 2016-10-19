@@ -14,74 +14,77 @@ Why use Up?
 
 Up isn't the only markup language that produces HTML. Why should you use it?
 
-- Readable, customizable keywords
-  ===============================
 
-  Too many markup languages devolve into a dense soup of symbols and punctuation.
+Readable, customizable keywords
+===============================
 
-  When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
+Too many markup languages devolve into a dense soup of symbols and punctuation.
 
-  If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
+When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
 
-- A flexible, forgiving syntax
-  ============================
+If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
 
-  * Up recognizes [topic: numbered lists] that count backwards.
 
-    Markup
-      ````
-      3) Buy milk
-      2) Buy bread
-      #) Buy happiness
-      ````
+A flexible, forgiving syntax
+============================
 
-    Output
-      3) Buy milk
-      2) Buy bread
-      #) Buy happiness
+- Up recognizes [topic: numbered lists] that count backwards.
 
-  * Up isn't picky about which brackets you use for [topic: links].
+  Markup
+    ````
+    3) Buy milk
+    2) Buy bread
+    #) Buy happiness
+    ````
 
-    Markup
-      ````
-      - Buy [milk] (wikipedia.org/wiki/Milk)
-      - Buy (bread) [wikipedia.org/wiki/Bread]
-      - Buy [sugar] [wikipedia.org/wiki/Sugar]
-      - Buy (happiness) (wikipedia.org/wiki/Happiness)
-      ````
+  Output
+    3) Buy milk
+    2) Buy bread
+    #) Buy happiness
 
-    Output
-      - Buy [milk] (wikipedia.org/wiki/Milk)
-      - Buy (bread) [wikipedia.org/wiki/Bread]
-      - Buy [sugar] [wikipedia.org/wiki/Sugar]
-      - Buy (happiness) (wikipedia.org/wiki/Happiness)
+- Up isn't picky about which brackets you use for [topic: links].
 
-  * Up ignores any [topic: excessive inflection].
+  Markup
+    ````
+    * Buy [milk] (wikipedia.org/wiki/Milk)
+    * Buy (bread) [wikipedia.org/wiki/Bread]
+    * Buy [sugar] [wikipedia.org/wiki/Sugar]
+    * Buy (happiness) (wikipedia.org/wiki/Happiness)
+    ````
 
-    For example, you don't need to perfectly balance asterisks when stressing or emphasizing text.
+  Output
+    * Buy [milk] (wikipedia.org/wiki/Milk)
+    * Buy (bread) [wikipedia.org/wiki/Bread]
+    * Buy [sugar] [wikipedia.org/wiki/Sugar]
+    * Buy (happiness) (wikipedia.org/wiki/Happiness)
 
-    Markup
-      ````
-      I ***love****** asterisks!
-      ````
+- Up ignores any [topic: excessive inflection].
 
-    Output
-      I ***love****** asterisks!
+  For example, you don't need to perfectly balance asterisks when stressing or emphasizing text.
 
-  * Up even supports [topic: overlapping].
+  Markup
+    ````
+    I ***love****** asterisks!
+    ````
 
-    Markup
-      ````
-      I *enjoy [highlight: sleeping* late] whenever I can.
-      ````
+  Output
+    I ***love****** asterisks!
 
-    Output
-      I *enjoy [highlight: sleeping* late] whenever I can.
+- Up even supports [topic: overlapping].
 
-- Up produces fully accessible HTML
-  =================================
+  Markup
+    ````
+    I *enjoy [highlight: sleeping* late] whenever I can.
+    ````
 
-   From the table of contents to the last movie-ruining spoiler, Up produces fully accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
+  Output
+    I *enjoy [highlight: sleeping* late] whenever I can.
+
+
+Up produces fully accessible HTML
+=================================
+
+From the table of contents to the last movie-ruining spoiler, Up produces fully accessible HTML. This means people who have trouble viewing a screen or a using mouse can enjoy every document.
 
 
 
@@ -89,22 +92,22 @@ Up isn't the only markup language that produces HTML. Why should you use it?
 Why *not* use Up?
 =================
 
-- You want a rich ecosystem of tools
-  ==================================
+You want a rich ecosystem of tools
+==================================
 
-  So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start).
+So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start).
 
-  In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
+In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
 
-- You need speed
-  ==============
+You need speed
+==============
 
-  Up is not terribly slow, but it's not terribly fast, either---at least not yet. If you need instant, real-time parsing and rendering of large documents, Up isn't the right markup language for you.
+Up is not terribly slow, but it's not terribly fast, either---at least not yet. If you need instant, real-time parsing and rendering of large documents, Up isn't the right markup language for you.
 
-- You want to embed HTML within your markup
-  =========================================
+You want to embed HTML within your markup
+=========================================
 
-  Some markup languages allow authors to embed HTML in their markup. Up does not.
+Some markup languages allow authors to embed HTML in their markup. Up does not.
 
 
 
@@ -130,25 +133,23 @@ Paragraphs
 
 Paragraphs are the simplest writing convention in Up.
 
-Example
-  Markup
-    ````
-    Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.
+Markup
+  ````
+  Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.
 
-    Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.
-    ````
+  Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.
+  ````
 
-  Output
-    Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.
+Output
+  Unlike regular dental floss, you can use floss picks even if you're not a trained dental hygienist.
 
-    Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.
+  Floss picks are sold in stylish, resealable plastic bags. You have no excuse not to buy some today.
 
-Discussion
-  To produce a paragraph, write a line of text. That's all there is to it!
+To produce a paragraph, write a line of text. That's all there is to it!
 
-  Typically, paragraphs are separated by one or two blank lines. Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].
+Typically, paragraphs are separated by one or two blank lines. Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].
 
-  In contrast, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs.
+In contrast, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs.
 
 
 ===========
@@ -157,33 +158,31 @@ Line blocks
 
 Use the line block convention for addresses, lyrics, or anything consisting of *lines* instead of actual [topic: paragraphs].
 
-Example
-  Markup
-    ````
-    Have you read my new poem?
+Markup
+  ````
+  Have you read my new poem?
 
-    Roses are red
-    Violets are blue
-    Lyrics have lines
-    And addresses do, too
+  Roses are red
+  Violets are blue
+  Lyrics have lines
+  And addresses do, too
 
-    Poetry is just too easy.
-    ````
+  Poetry is just too easy.
+  ````
 
-  Output
-    Have you read my new poem?
+Output
+  Have you read my new poem?
 
-    Roses are red
-    Violets are blue
-    Lyrics have lines
-    And addresses do, too
+  Roses are red
+  Violets are blue
+  Lyrics have lines
+  And addresses do, too
 
-    Poetry is just too easy.
+  Poetry is just too easy.
 
-Discussion
-  Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists].
+Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists].
 
-  Line blocks can contain any inline writing convention.
+Line blocks can contain any inline writing convention.
 
 
 ==========
@@ -197,27 +196,25 @@ Use the emphasis convention to emphasize a word or phrase.
 
 If the reader should pronounce a word or phrase differently (e.g. to indicate contrast or sarcasm), consider emphasizing it.
 
-Example
-  Markup
-    ````
-    Only eat the *green* grapes. The red grapes are for Pikachu.
-    ````
+Markup
+  ````
+  Only eat the *green* grapes. The red grapes are for Pikachu.
+  ````
 
-  Output
-    Only eat the *green* grapes. The red grapes are for Pikachu.
+Output
+  Only eat the *green* grapes. The red grapes are for Pikachu.
 
-Discussion
-  To emphasize text, enclose it within single asterisks.
+To emphasize text, enclose it within single asterisks.
 
-  Like most inline writing conventions, emphasis can be nested within itself.
+Like most inline writing conventions, emphasis can be nested within itself.
 
-  Markup
-    ````
-    John really, *really, *really** hates Red Delicious apples.
-    ````
+Markup
+  ````
+  John really, *really, *really** hates Red Delicious apples.
+  ````
 
-  Output
-    John really, *really, *really** hates Red Delicious apples.
+Output
+  John really, *really, *really** hates Red Delicious apples.
 
 
 Stress
@@ -227,27 +224,25 @@ Use the stress convention to indicate a word or phrase is particularly important
 
 If the reader should raise their voice while reading a word or phrase, consider stressing it.
 
-Example
-  Markup
-    ````
-    Do **not** step on the dinosaur!
-    ````
+Markup
+  ````
+  Do **not** step on the dinosaur!
+  ````
 
-  Output
-    Do **not** step on the dinosaur!
+Output
+  Do **not** step on the dinosaur!
 
-Discussion
-  To stress text, enclose it within double asterisks.
+To stress text, enclose it within double asterisks.
 
-  Like most inline writing conventions, stress can be nested within itself.
+Like most inline writing conventions, stress can be nested within itself.
 
-  Markup
-    ````
-    Remember to **stand **far** away** from that toaster.
-    ````
+Markup
+  ````
+  Remember to **stand **far** away** from that toaster.
+  ````
 
-  Output
-    Remember to **stand **far** away** from that toaster.
+Output
+  Remember to **stand **far** away** from that toaster.
 
 
 Italics
@@ -257,17 +252,15 @@ Use the italic convention to stylistically offset a word or phrase from the surr
 
 Some authors italicize unfamiliar foreign words.
 
-Example
-  Markup
-    ````
-    My favorite video game is _Chrono Cross_.
-    ````
+Markup
+  ````
+  My favorite video game is _Chrono Cross_.
+  ````
 
-  Output
-    My favorite video game is _Chrono Cross_.
+Output
+  My favorite video game is _Chrono Cross_.
 
-Discussion
-  To italicize text, enclose it within single underscores.
+To italicize text, enclose it within single underscores.
 
 
 Bold
@@ -279,17 +272,15 @@ This convention should rarely be used. Usually, there's a more appropriate conve
 
 If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].
 
-Example
-  Markup
-    ````
-    Has anyone actually used __KABOOM__ cleaning products?
-    ````
+Markup
+  ````
+  Has anyone actually used __KABOOM__ cleaning products?
+  ````
 
-  Output
-    Has anyone actually used  __KABOOM__ cleaning products?
+Output
+  Has anyone actually used  __KABOOM__ cleaning products?
 
-Discussion
-  To make text bold, enclose it within double underscores.
+To make text bold, enclose it within double underscores.
 
 
 Inline quotes
@@ -299,27 +290,25 @@ Up automatically recognizes quoted text.
 
 If you want to quote more a few sentences, considering using [topic: blockquotes].
 
-Example
-  Markup
-    ````
-    "Only eat the green grapes," John said.
-    ````
+Markup
+  ````
+  "Only eat the green grapes," John said.
+  ````
 
-  Output
-    "Only eat the green grapes," John said.
+Output
+  "Only eat the green grapes," John said.
 
-Discussion
-  You already know how to use quotation marks! Just keep doing what you're doing.
+You already know how to use quotation marks! Just keep doing what you're doing.
 
-  Like most inline writing conventions, inline quotes can be nested within themselves.
+Like most inline writing conventions, inline quotes can be nested within themselves.
 
-  Markup
-    ````
-    Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
-    ````
+Markup
+  ````
+  Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
+  ````
 
-  Output
-    Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
+Output
+  Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
 
 
 Excessive inflection
@@ -352,71 +341,69 @@ Links
 
 You already know what a link is!
 
-Example
-  Markup
-    ````
-    The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
-    ````
+Markup
+  ````
+  The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
+  ````
 
-  Output
-    The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
+Output
+  The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
 
-Discussion
-  A link consists of two parts: content and a URL.
+A link consists of two parts: content and a URL.
 
-  To produce a link, simply enclose its content in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+To produce a link, simply enclose its content in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
 
-  You can use mix and match either type of bracket---they're totally interchangeable.
+You can use mix and match either type of bracket---they're totally interchangeable.
 
-  Markup
-    ````
-    - Buy [milk] (wikipedia.org/wiki/Milk)
-    - Buy (bread) [wikipedia.org/wiki/Bread]
-    - Buy [sugar] [wikipedia.org/wiki/Sugar]
-    - Buy (happiness) (wikipedia.org/wiki/Happiness)
-    ````
+Markup
+  ````
+  - Buy [milk] (wikipedia.org/wiki/Milk)
+  - Buy (bread) [wikipedia.org/wiki/Bread]
+  - Buy [sugar] [wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (wikipedia.org/wiki/Happiness)
+  ````
 
-  Output
-    - Buy [milk] (wikipedia.org/wiki/Milk)
-    - Buy (bread) [wikipedia.org/wiki/Bread]
-    - Buy [sugar] [wikipedia.org/wiki/Sugar]
-    - Buy (happiness) (wikipedia.org/wiki/Happiness)
+Output
+  - Buy [milk] (wikipedia.org/wiki/Milk)
+  - Buy (bread) [wikipedia.org/wiki/Bread]
+  - Buy [sugar] [wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (wikipedia.org/wiki/Happiness)
 
-  As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.
+As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.
 
-  If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
+If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
 
-  - [topic: baseForUrlsStartingWithSlash]
-  - [topic: baseForUrlsStartingWithHashMark]
-  - [topic: renderDangerousContent].
+- [topic: baseForUrlsStartingWithSlash]
+- [topic: baseForUrlsStartingWithHashMark]
+- [topic: renderDangerousContent].
 
 
-  URLs that don't look like URLs
-  ==============================
+URLs that don't look like URLs
+==============================
 
-  If Up suspects you aren't intending to produce a link, it won't produce one. For example, Up won't produce a link if the potential URL contains spaces.
+If Up suspects you aren't intending to produce a link, it won't produce one. For example, Up won't produce a link if the potential URL contains spaces.
 
-  Markup
-    ````
-    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
-    ````
+Markup
+  ````
+  Warlocked is the best game for GameBoy [sic] (other than Pokémon).
+  ````
 
-  Output
-    Warlocked is the best game for GameBoy [sic] (other than Pokémon).
+Output
+  Warlocked is the best game for GameBoy [sic] (other than Pokémon).
 
-  If your URL contains spaces, make it clear that you *do* intend to produce a link by omitting the space between your link's content and its URL.
+If your URL contains spaces, make it clear that you *do* intend to produce a link by omitting the space between your link's content and its URL.
 
-  Markup
-    ````
-    I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
-    ````
+Markup
+  ````
+  I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
+  ````
 
-  Output
-    I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
+Output
+  I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
 
-  When you omit the space between your link's content and its URL, Up **always** produces a link.
+When you omit the space between your link's content and its URL, Up **always** produces a link.
 
-  These rules also apply when [topic: linkifying].
+These rules also apply when [topic: linkifying].
 
 
 ==================
@@ -425,17 +412,15 @@ Parenthetical text
 
 Up automatically recognizes parenthetical text!
 
-Example
-  Markup
-    ````
-    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
-    ````
+Markup
+  ````
+  When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
+  ````
 
-  Output
-    When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
+Output
+  When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
-Discussion
-  Up understands that text enclosed within parentheses or square brackets represents supplemental, de-emphasized content.
+Up understands that text enclosed within parentheses or square brackets represents supplemental, de-emphasized content.
 
 
 ============
@@ -446,17 +431,15 @@ Highlight text to indicate a word a phrase is particularly relevant to the reade
 
 Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
 
-Example
-  Markup
-    ````
-    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
-    ````
+Markup
+  ````
+  Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
+  ````
 
-  Output
-    Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
+Output
+  Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
 
-Discussion
-  To highlight text, enclose it within square brackets or parentheses. Then, insert `highlight:` directly after your opening bracket.
+To highlight text, enclose it within square brackets or parentheses. Then, insert `highlight:` directly after your opening bracket.
 
 
 =============
@@ -469,28 +452,26 @@ Use the example input convention to represent user input, including:
 - Buttons the user should click
 - Menu items the user should access
 
-Example
-  Markup
-    ````
-     Press {esc} to quit.
-    ````
-
-  Output
+Markup
+  ````
     Press {esc} to quit.
+  ````
 
-Discussion
-  To indicate that text represents user input, enclose the text within curly brackets.
+Output
+  Press {esc} to quit.
 
-  Up ignores any spaces separating the curly brackets from the content they enclose.
+To indicate that text represents user input, enclose the text within curly brackets.
 
-  Markup
-    ````
-    Press { Start Game } when you are ready.
-    ````
-  Output
-    Press { Start Game } when you are ready.
+Up ignores any spaces separating the curly brackets from the content they enclose.
 
-  Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
+Markup
+  ````
+  Press { Start Game } when you are ready.
+  ````
+Output
+  Press { Start Game } when you are ready.
+
+Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
 
 
 ===========
@@ -501,89 +482,87 @@ Use the inline code convention to represent a small fragment of computer code.
 
 When you need to represent more than a small fragment of computer code, use [topic: code blocks].
 
-Example
-  Markup
-    ````
-    In HTML, you probably shouldn't use the `<font>` element.
-    ````
+Markup
+  ````
+  In HTML, you probably shouldn't use the `<font>` element.
+  ````
 
-  Output
-    In HTML, you probably shouldn't use the `<font>` element.
+Output
+  In HTML, you probably shouldn't use the `<font>` element.
 
-Discussion
-  To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
+To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
 
-  Within inline code, other writing conventions are ignored.
+Within inline code, other writing conventions are ignored.
 
-  Markup
-    ````
-    In Up, surround text with `*asterisks*` to emphasize it.
-    ````
+Markup
+  ````
+  In Up, surround text with `*asterisks*` to emphasize it.
+  ````
 
-  Output
-    In Up, surround text with `*asterisks*` to emphasize it.
+Output
+  In Up, surround text with `*asterisks*` to emphasize it.
 
 
-  Including backticks in your inline code
-  =======================================
+Including backticks in your inline code
+=======================================
 
-  Within inline code, backticks can be escaped with a backslash.
+Within inline code, backticks can be escaped with a backslash.
 
-  Markup
-    ````
-    `let output = \`score:\` + 5`
-    ````
+Markup
+  ````
+  `let output = \`score:\` + 5`
+  ````
 
-  Output
-    `let output = \`score:\` + 5`
+Output
+  `let output = \`score:\` + 5`
 
-  Alternatively, inline code can also contain streaks of *unescaped* backticks that aren't exactly as long as the delimiters.
+Alternatively, inline code can also contain streaks of *unescaped* backticks that aren't exactly as long as the delimiters.
 
-  In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:
+In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:
 
-  Markup
-    ````
-    `let output = ``score:`` + 5`
-    ````
+Markup
+  ````
+  `let output = ``score:`` + 5`
+  ````
 
-  Output
-    `let output = ``score:`` + 5`
+Output
+  `let output = ``score:`` + 5`
 
-  In this example, the delimiters are **2** backticks long, so the inline code can contain "streaks" of **1** backtick:
+In this example, the delimiters are **2** backticks long, so the inline code can contain "streaks" of **1** backtick:
 
-  Markup
-    ````
-    ``let output = `score:` + 5``
-    ````
+Markup
+  ````
+  ``let output = `score:` + 5``
+  ````
 
-  Output
-    ``let output = `score:` + 5``
+Output
+  ``let output = `score:` + 5``
 
-  -----------------------------------------------
-  Inline code starting (or ending) with backticks
-  -----------------------------------------------
+-----------------------------------------------
+Inline code starting (or ending) with backticks
+-----------------------------------------------
 
-  If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
+If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
 
-  Markup
-    ````
-    `` `inline_code` ``
-    ````
+Markup
+  ````
+  `` `inline_code` ``
+  ````
 
-  Output
-    `` `inline_code` ``
+Output
+  `` `inline_code` ``
 
-  Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.
+Anything beyond that single space is preserved. If there are two spaces between the delimiter and the starting/ending backticks, only one is trimmed away.
 
-  Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given "side" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.
+Furthermore, that single space is only trimmed away when it's used to separate a delimiter from backticks in your inline code. If a given "side" of inline code has any non-space characters between the delimiter and the first backtick, nothing gets trimmed from that side.
 
-  Markup
-    ````
-    `` (`inline_code`) ``
-    ````
+Markup
+  ````
+  `` (`inline_code`) ``
+  ````
 
-  Output
-    `` (`inline_code`) ``
+Output
+  `` (`inline_code`) ``
 
 
 ========
@@ -592,72 +571,70 @@ Headings
 
 Use headings to introduce a new section in the document.
 
-Example
-  Markup
-    ````
-    Why I love breakfast cereal
-    ===========================
-    ````
+Markup
+  ````
+  Why I love breakfast cereal
+  ===========================
+  ````
 
-  Output
-    Why I love breakfast cereal
-    ===========================
+Output
+  Why I love breakfast cereal
+  ===========================
 
-Discussion
-  If text is underlined, it's treated as a heading. The underline can consist of any combination of the following characters:
+If text is underlined, it's treated as a heading. The underline can consist of any combination of the following characters:
 
-  - Hyphens: `-`
-  - Number signs: `#`
-  - Equal signs: `=`
-  - Plus signs: `+`
-  - Tildes: `~`
-  - Colons: `:`
-  - Asterisks: `*`
-  - At signs: `@`
+- Hyphens: `-`
+- Number signs: `#`
+- Equal signs: `=`
+- Plus signs: `+`
+- Tildes: `~`
+- Colons: `:`
+- Asterisks: `*`
+- At signs: `@`
 
-  A heading's underline must be at least three characters long, but it does *not* need to be the same length as the text of the heading.
+A heading's underline must be at least three characters long, but it does *not* need to be the same length as the text of the heading.
 
-  Markup
-    ````
-    Why I hate bagels
-    ===
-    ````
+Markup
+  ````
+  Why I hate bagels
+  ===
+  ````
 
-  Output
-    Why I hate bagels
-    ===
+Output
+  Why I hate bagels
+  ===
 
 
-  Heading levels
-  ==============
+Heading levels
+==============
 
-  The first heading in a document is always a top-level heading. All subsequent headings with underlines consisting of the same characters are considered top-level.
+The first heading in a document is always a top-level heading. All subsequent headings with underlines consisting of the same characters are considered top-level.
 
-  The first heading with a different combination of underline characters is considered a second-level heading. Unsurprisingly, all subsequent headings with underlines consisting of the same characters are also considered second-level.
+The first heading with a different combination of underline characters is considered a second-level heading. Unsurprisingly, all subsequent headings with underlines consisting of the same characters are also considered second-level.
 
-  This process continues _ad infinitum_. Every new combination of heading underline characters introduces a new heading level. There is no limit to the number of heading levels in a document.
+This process continues _ad infinitum_. Every new combination of heading underline characters introduces a new heading level. There is no limit to the number of heading levels in a document.
 
 
-  Headings with "overlines"
-  =========================
+Headings with "overlines"
+=========================
 
-  A heading can have an optional "overline", but its overline must consist of the same combination of characters as its underline.
+A heading can have an optional "overline", but its overline must consist of the same combination of characters as its underline.
 
-  Markup
-    ````
-    ---------------------------------
-    Reasons never to own a pet parrot
-    ---------------------------------
-    ````
+Markup
+  ````
+  ---------------------------------
+  Reasons never to own a pet parrot
+  ---------------------------------
+  ````
 
-  Output
-    ---------------------------------
-    Reasons never to own a pet parrot
-    ---------------------------------
+Output
+  ---------------------------------
+  Reasons never to own a pet parrot
+  ---------------------------------
 
-  For the purpose of determining heading levels, a heading with an overline is always considered distinct from a heading without one, even if both headings use the same combination of underline characters.
+For the purpose of determining heading levels, a heading with an overline is always considered distinct from a heading without one, even if both headings use the same combination of underline characters.
 
-  Therefore, a heading with an overline will never have the same level as a heading without an overline.
+Therefore, a heading with an overline will never have the same level as a heading without an overline.
 
 
 =============
@@ -666,71 +643,69 @@ Section links
 
 Use the section link convention to link another section (heading) in your document.
 
-Example
-  Markup
-    ````
-    Unlike many markup languages, Up recognizes [topic: parenthetical text].
-    ````
+Markup
+  ````
+  Unlike many markup languages, Up recognizes [topic: parenthetical text].
+  ````
 
-  Output
-    Unlike many markup languages, Up recognizes [topic: parenthetical text].
+Output
+  Unlike many markup languages, Up recognizes [topic: parenthetical text].
 
-Discussion
-  To produce a section link:
+To produce a section link:
 
-  1. Choose a snippet of text from the heading you want to link to
-  2. Enclose the snippet within square brackets or parentheses
-  3. Insert `topic:` or `section:` directly inside your opening bracket
+1. Choose a snippet of text from the heading you want to link to
+2. Enclose the snippet within square brackets or parentheses
+3. Insert `topic:` or `section:` directly inside your opening bracket
 
-  That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you.
+That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you.
 
 
-  Matching the most appropriate heading
-  =====================================
+Matching the most appropriate heading
+=====================================
 
-  Up tries to match your snippet to the first heading in the document whose text exactly matches your snippet's text. If there isn't an exact match, Up will matches your snippet to the first heading in the document whose text *contains* your snippet.
+Up tries to match your snippet to the first heading in the document whose text exactly matches your snippet's text. If there isn't an exact match, Up will matches your snippet to the first heading in the document whose text *contains* your snippet.
 
-  -------------------------
-  Up ignores capitalization
-  -------------------------
+-------------------------
+Up ignores capitalization
+-------------------------
 
-  For example, if your document has a heading whose text is "Capitalization example", "CAPITALIZATION EXAMPLE" would be an exact match.
+For example, if your document has a heading whose text is "Capitalization example", "CAPITALIZATION EXAMPLE" would be an exact match.
 
-  Markup
-    ````
-    Capitalization example
-    ----------------------
+Markup
+  ````
+  Capitalization example
+  ----------------------
 
-    Please see [topic: CAPITALIZATION EXAMPLE]
-    ````
+  Please see [topic: CAPITALIZATION EXAMPLE]
+  ````
 
-  Output
-    Capitalization example
-    ----------------------
+Output
+  Capitalization example
+  ----------------------
 
-    Please see [topic: CAPITALIZATION EXAMPLE].
+  Please see [topic: CAPITALIZATION EXAMPLE].
 
-  -------------------------------------
-  Up ignores inline writing conventions
-  -------------------------------------
+-------------------------------------
+Up ignores inline writing conventions
+-------------------------------------
 
-  The text content of the heading is all that matters. Up ignores any inline writing conventions in the heading.
+The text content of the heading is all that matters. Up ignores any inline writing conventions in the heading.
 
-  For example, if your document has a heading whose text is "*Emphasis* example", "emphasis example" would be an exact match.
+For example, if your document has a heading whose text is "*Emphasis* example", "emphasis example" would be an exact match.
 
-  Markup
-    ````
-    *Emphasis* example
-    ------------------
+Markup
+  ````
+  *Emphasis* example
+  ------------------
 
-    Please see [topic: emphasis example].
-    ````
+  Please see [topic: emphasis example].
+  ````
 
-  Output
-    *Emphasis* example
-    ------------------
+Output
+  *Emphasis* example
+  ------------------
 
-    Please see [topic: emphasis example].
+  Please see [topic: emphasis example].
 
 
 =========
@@ -741,17 +716,15 @@ Use the footnote convention for asides or citations---anything you want to say w
 
 Footnotes are automatically extracted into blocks for you.
 
-Example
-  Markup
-    ````
-    Warlocked [^ No relation to Warcraft!] is a real-time strategy game.
-    ````
+Markup
+  ````
+  Warlocked [^ No relation to Warcraft!] is a real-time strategy game.
+  ````
 
-  Output
-    Warlocked [^ No relation to Warcraft!] is a real-time strategy game.
+Output
+  Warlocked [^ No relation to Warcraft!] is a real-time strategy game.
 
-Discussion
-  To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
+To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
 
 
 =====
@@ -788,16 +761,14 @@ If you're a software developer using the Up library, you can specify a different
 Images
 ======
 
-Markup
-  ````
-  [image: Kirby's Dream Land box art] (i.imgur.com/GL6WWKm.jpg)
-  ````
+````
+[image: Kirby's Dream Land box art] (i.imgur.com/GL6WWKm.jpg)
+````
 
 Output
-  [image: Kirby's Dream Land box art] (i.imgur.com/GL6WWKm.jpg)
+[image: Kirby's Dream Land box art] (i.imgur.com/GL6WWKm.jpg)
 
-Discussion
-  If you want to link your image to another page, please see [topic: linkifying].
+If you want to link your image to another page, please see [topic: linkifying].
 
 
 Video
@@ -844,19 +815,17 @@ Use the inline revealable convention to hide content within a paragraph.
 
 When you want to hide more than a sentence or two, use [topic: revealable blocks] instead.
 
-Example
-  Markup
-    ````
-    At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
-    ````
+Markup
+  ````
+  At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
+  ````
 
-  Output
-    At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
+Output
+  At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
 
-Discussion
-  To hide content within a paragraph, first enclose that content within square brackets or parentheses. Then, insert one of the [topic: revealable keywords] directly inside your opening bracket, followed by a colon.
+To hide content within a paragraph, first enclose that content within square brackets or parentheses. Then, insert one of the [topic: revealable keywords] directly inside your opening bracket, followed by a colon.
 
-  Inline revealables can contain any inline writing convention.
+Inline revealables can contain any inline writing convention.
 
 
 Revealable blocks
@@ -866,33 +835,31 @@ Use revealable block convention to hide a block of content.
 
 When you want to hide content within a paragraph, use [topic: inline revealables] instead.
 
-Example
-  Markup
-    ````
-    SPOILER:
-      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
+Markup
+  ````
+  SPOILER:
+    After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
 
-      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+    Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
 
-      1. Pidgeot
-      2. Alakazam
-      3. Rhydon
-    ````
+    1. Pidgeot
+    2. Alakazam
+    3. Rhydon
+  ````
 
-  Output
-    SPOILER:
-      After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
+Output
+  SPOILER:
+    After defeating the Elite Four at the end of Pokémon Red, you still have to battle your rival one last time.
 
-      Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
+    Your rival's specific lineup depends on the Pokémon you selected at the beginning of the game. However, his first three Pokémon are always the same:
 
-      1. Pidgeot
-      2. Alakazam
-      3. Rhydon
+    1. Pidgeot
+    2. Alakazam
+    3. Rhydon
 
-Discussion
-  To hide a block of content, first indent it two spaces (or a tab). Then, on the line *before* your indented block, put one of the [topic: revealable keywords].
+To hide a block of content, first indent it two spaces (or a tab). Then, on the line *before* your indented block, put one of the [topic: revealable keywords].
 
-  In the example above, the revealable keyword is followed by a colon. This isn't necessary.
+In the example above, the revealable keyword is followed by a colon. This isn't necessary.
 
 
 Revealable keywords
@@ -916,47 +883,45 @@ Use the blockquote convention to quote a large section of text.
 
 For typical dialog, you should probably use [topic: inline quotes] instead.
 
-Example
-  Markup
-    ````
-    > I hate oranges for the following reasons:
-    >
-    > 1. They're not apples.
-    > 2. They're not bananas.
-    ````
+Markup
+  ````
+  > I hate oranges for the following reasons:
+  >
+  > 1. They're not apples.
+  > 2. They're not bananas.
+  ````
 
-  Output
-    > I hate oranges for the following reasons:
-    >
-    > 1. They're not apples.
-    > 2. They're not bananas.
+Output
+  > I hate oranges for the following reasons:
+  >
+  > 1. They're not apples.
+  > 2. They're not bananas.
 
-Discussion
-  A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space).
+A blockquote consists of consecutive lines starting with `> ` (a greater-than symbol followed by a space).
 
-  Blockquotes can contain any outline writing convention, including other blockquotes.
+Blockquotes can contain any outline writing convention, including other blockquotes.
 
-  Markup
-    ````
-    > Thank you for replying to my blog!
-    >
-    > > I hate oranges for the following reasons:
-    > >
-    > > 1. They're not apples.
-    > > 2. They're not bananas.
-    >
-    > I completely understand.
-    ````
+Markup
+  ````
+  > Thank you for replying to my blog!
+  >
+  > > I hate oranges for the following reasons:
+  > >
+  > > 1. They're not apples.
+  > > 2. They're not bananas.
+  >
+  > I completely understand.
+  ````
 
-  Output
-    > Thank you for replying to my blog!
-    >
-    > > I hate oranges for the following reasons:
-    > >
-    > > 1. They're not apples.
-    > > 2. They're not bananas.
-    >
-    > I completely understand.
+Output
+  > Thank you for replying to my blog!
+  >
+  > > I hate oranges for the following reasons:
+  > >
+  > > 1. They're not apples.
+  > > 2. They're not bananas.
+  >
+  > I completely understand.
 
 
 ===============
@@ -1019,114 +984,112 @@ Bulleted lists
 
 You already know what a bulleted list is!
 
-Example
-  Markup
-    ````
-    - Buy milk
-    - Buy bread
-    - Buy happiness
-    ````
+Markup
+  ````
+  - Buy milk
+  - Buy bread
+  - Buy happiness
+  ````
 
-  Output
-    - Buy milk
-    - Buy bread
-    - Buy happiness
+Output
+  - Buy milk
+  - Buy bread
+  - Buy happiness
 
-Discussion
-  Bullets
-  =======
+Bullets
+=======
 
-  Every bulleted list item starts with a bullet followed by a space. The following characters can serve as a bullet:
+Every bulleted list item starts with a bullet followed by a space. The following characters can serve as a bullet:
 
-  - A hyphen: `-`
-  - An asterisk: `*`
-  - An actual bullet character: `•`
+- A hyphen: `-`
+- An asterisk: `*`
+- An actual bullet character: `•`
 
 
-  Spacing between list items
-  ==========================
+Spacing between list items
+==========================
 
-  Each list item can be followed by a single blank line. This has no impact on the list itself.
+Each list item can be followed by a single blank line. This has no impact on the list itself.
 
-  Markup
-    ````
-    - Buy milk
+Markup
+  ````
+  - Buy milk
 
-    - Buy bread
+  - Buy bread
 
-    - Buy happiness
-    ````
+  - Buy happiness
+  ````
 
-  Output
-    - Buy milk
+Output
+  - Buy milk
 
-    - Buy bread
+  - Buy bread
 
-    - Buy happiness
+  - Buy happiness
 
-  On the other hand, if a list item is followed by 2 blank lines, it marks the end of the list.
+On the other hand, if a list item is followed by 2 blank lines, it marks the end of the list.
 
-  Markup
-    ````
-    - Buy milk
-    - Buy bread
-
-
-    - Fix squeaky cabinet
-    - Fix self-esteem
-    ````
-
-  Output
-    - Buy milk
-    - Buy bread
+Markup
+  ````
+  - Buy milk
+  - Buy bread
 
 
-    - Fix squeaky cabinet
-    - Fix self-esteem
+  - Fix squeaky cabinet
+  - Fix self-esteem
+  ````
+
+Output
+  - Buy milk
+  - Buy bread
 
 
-  List items consisting of multiple lines
-  =======================================
+  - Fix squeaky cabinet
+  - Fix self-esteem
 
-  List items aren't limited to a single line!  Bulleted lists can contain any outline writing convention, including other bulleted lists.
 
-  If your list item contains more than one line, subsequent lines should be indented 2 spaces (or a tab).
+List items consisting of multiple lines
+=======================================
 
-  Markup
-    ````
-    - Buy milk.
+List items aren't limited to a single line!  Bulleted lists can contain any outline writing convention, including other bulleted lists.
 
-      If whole milk is on sale, buy that. Otherwise, buy 2%.
+If your list item contains more than one line, subsequent lines should be indented 2 spaces (or a tab).
 
-    - Buy bread.
+Markup
+  ````
+  - Buy milk.
 
-      Only buy bread from one of the following brands:
+    If whole milk is on sale, buy that. Otherwise, buy 2%.
 
-      * Little Northern Bakehouse
-      * Udi's
-      * Canyon Bakehouse
+  - Buy bread.
 
-    - Buy happiness.
+    Only buy bread from one of the following brands:
 
-      Don't spend more than a few cents on this.
-    ````
+    * Little Northern Bakehouse
+    * Udi's
+    * Canyon Bakehouse
 
-  Output
-    - Buy milk.
+  - Buy happiness.
 
-      If whole milk is on sale, buy that. Otherwise, buy 2%.
+    Don't spend more than a few cents on this.
+  ````
 
-    - Buy bread.
+Output
+  - Buy milk.
 
-      Only buy bread from one of the following brands:
+    If whole milk is on sale, buy that. Otherwise, buy 2%.
 
-      * Little Northern Bakehouse
-      * Udi's
-      * Canyon Bakehouse
+  - Buy bread.
 
-    - Buy happiness.
+    Only buy bread from one of the following brands:
 
-      Don't spend more than a few cents on this. Not worth it.
+    * Little Northern Bakehouse
+    * Udi's
+    * Canyon Bakehouse
+
+  - Buy happiness.
+
+    Don't spend more than a few cents on this. Not worth it.
 
 
 ==============
@@ -1135,93 +1098,91 @@ Numbered lists
 
 You already know what a numbered list is!
 
-Example
-  Markup
-    ````
-    1. Buy milk
-    2. Buy bread
-    3. Buy happiness
-    ````
+Markup
+  ````
+  1. Buy milk
+  2. Buy bread
+  3. Buy happiness
+  ````
 
-  Output
-    1. Buy milk
-    2. Buy bread
-    3. Buy happiness
+Output
+  1. Buy milk
+  2. Buy bread
+  3. Buy happiness
 
-Discussion
-  Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered list items have ordinals, not bullets.
+Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered list items have ordinals, not bullets.
 
-  The ordinal for a numbered list item can be expressed several ways:
+The ordinal for a numbered list item can be expressed several ways:
 
-  - An integer followed by a period: `1.`
-  - An integer followed by a closing parenthesis: `1)`
-  - A number sign: `#`
-  - A number sign followed by a period: `#.`
-  - A number sign followed by a closing parenthesis: `#)`
+- An integer followed by a period: `1.`
+- An integer followed by a closing parenthesis: `1)`
+- A number sign: `#`
+- A number sign followed by a period: `#.`
+- A number sign followed by a closing parenthesis: `#)`
 
-  Like each bullet in a bulleted list, each ordinal in a numbered list must be followed by a space.
+Like each bullet in a bulleted list, each ordinal in a numbered list must be followed by a space.
 
 
-  Lists starting at a specific number
-  ===================================
+Lists starting at a specific number
+===================================
 
-  Numbered lists don't have to start at `1`.
+Numbered lists don't have to start at `1`.
 
-  Markup
-    ````
-    3) March
-    #) April
-    #) May
-    ````
+Markup
+  ````
+  3) March
+  #) April
+  #) May
+  ````
 
-  Output
-    3) March
-    #) April
-    #) May
-
-
-  Lists in descending order
-  =========================
-
-  Up automatically recognizes when a numbered list is in descending order.
-
-  If a numbered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order.
-
-  Markup
-    ````
-    3) Buy milk
-    2) Buy bread
-    #) Buy happiness
-    ````
-
-  Output
-    3) Buy milk
-    2) Buy bread
-    #) Buy happiness
+Output
+  3) March
+  #) April
+  #) May
 
 
-  Single-item numbered lists
-  ==========================
+Lists in descending order
+=========================
 
-  Like bulleted lists, numbered lists can consist of a single item.
+Up automatically recognizes when a numbered list is in descending order.
 
-  Markup
-    ````
-    1) Buy milk
-    ````
+If a numbered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order.
 
-  Output
-    1) Buy milk
+Markup
+  ````
+  3) Buy milk
+  2) Buy bread
+  #) Buy happiness
+  ````
 
-  There's a small exception to this rule: If your list item's ordinal is expressed as an integer followed by a period (e.g. `1.`), you must have more than one list item. This exception helps prevent "accidental" numbered lists.
+Output
+  3) Buy milk
+  2) Buy bread
+  #) Buy happiness
 
-  Markup
-    ````
-    1783. Not a good year for Great Britain.
-    ````
 
-  Output
-    1783. Not a good year for Great Britain.
+Single-item numbered lists
+==========================
+
+Like bulleted lists, numbered lists can consist of a single item.
+
+Markup
+  ````
+  1) Buy milk
+  ````
+
+Output
+  1) Buy milk
+
+There's a small exception to this rule: If your list item's ordinal is expressed as an integer followed by a period (e.g. `1.`), you must have more than one list item. This exception helps prevent "accidental" numbered lists.
+
+Markup
+  ````
+  1783. Not a good year for Great Britain.
+  ````
+
+Output
+  1783. Not a good year for Great Britain.
 
 
 =================
@@ -1236,138 +1197,135 @@ You can use description lists for:
 - Questions and answers
 - Any collection of subjects and descriptions!
 
+Markup
+  ````
+  Kirby's Dreamland
+    A video game about a flying marshmallow.
 
-Example
-  Markup
-    ````
-    Kirby's Dreamland
-      A video game about a flying marshmallow.
+  Super Mario Land
+    A video game about a jumping plumber.
+  ````
 
-    Super Mario Land
-      A video game about a jumping plumber.
-    ````
+Output
+  Kirby's Dreamland
+    A video game about a flying marshmallow.
 
-  Output
-    Kirby's Dreamland
-      A video game about a flying marshmallow.
+  Super Mario Land
+    A video game about a jumping plumber.
 
-    Super Mario Land
-      A video game about a jumping plumber.
+Every item in a description list consists of two parts:
 
-Discussion
-  Every item in a description list consists of two parts:
-
-  1. One or more subjects
-  2. A single description of those subjects
+1. One or more subjects
+2. A single description of those subjects
 
 
-  Subjects
-  ========
+Subjects
+========
 
-  Subjects can contain any inline writing convention.
+Subjects can contain any inline writing convention.
 
-  Markup
-    ````
-    `<ol>`
-      An HTML element representing ordered lists.
+Markup
+  ````
+  `<ol>`
+    An HTML element representing ordered lists.
 
-    `<ul>`
-      An HTML element representing bulleted lists.
-    ````
+  `<ul>`
+    An HTML element representing bulleted lists.
+  ````
 
-  Output
-    `<ol>`
-      An HTML element representing ordered lists.
+Output
+  `<ol>`
+    An HTML element representing ordered lists.
 
-    `<ul>`
-      An HTML element representing bulleted lists.
+  `<ul>`
+    An HTML element representing bulleted lists.
 
-  When there is more than one subject for a given description, they should be listed consecutively, one subject per line.
+When there is more than one subject for a given description, they should be listed consecutively, one subject per line.
 
-  Markup
-    ````
-    Game Boy Light
-    Game Boy Pocket
-    Game Boy Color
-      Handheld videogame systems released by Nintendo in the 1990s.
-    ````
+Markup
+  ````
+  Game Boy Light
+  Game Boy Pocket
+  Game Boy Color
+    Handheld videogame systems released by Nintendo in the 1990s.
+  ````
 
-  Output
-    Game Boy Light
-    Game Boy Pocket
-    Game Boy Color
-      Handheld videogame systems released by Nintendo in the 1990s.
-
-
-  Descriptions
-  ============
-
-  Each description follows the subjects it describes.
-
-  Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists.
-
-  Markup
-    ````
-    Bulbasaur
-      A plant Pokémon with a bulb growing from its back.
-
-      Height
-        0.7 m
-      Weight
-        6.9 kg
-
-    Charmander
-      A fire Pokémon with a flame on its tail.
-
-      Height
-        0.6 m
-      Weight
-        8.5 kg
-
-  Output
-    Bulbasaur
-      A plant Pokémon with a bulb growing from its back.
-
-      Height
-        0.7 m
-      Weight
-        6.9 kg
-
-    Charmander
-      A fire Pokémon with a flame on its tail.
-
-      Height
-        0.6 m
-      Weight
-        8.5 kg
-
-  Each description may be followed by an optional blank line. If a description is followed by two blank lines, it marks the end of the description list.
-
-  Markup
-    ````
-    Lime
-      A green fruit.
-    Strawberry
-      A red fruit.
+Output
+  Game Boy Light
+  Game Boy Pocket
+  Game Boy Color
+    Handheld videogame systems released by Nintendo in the 1990s.
 
 
-    Bulbasaur
-      A green Pokémon.
-    Charmander
-      A red Pokémon.
-    ````
+Descriptions
+============
 
-  Output
-    Lime
-      A green fruit.
-    Strawberry
-      A red fruit.
+Each description follows the subjects it describes.
+
+Descriptions are indented 2 spaces (or a tab). They can contain any outline writing convention, including other description lists.
+
+Markup
+  ````
+  Bulbasaur
+    A plant Pokémon with a bulb growing from its back.
+
+    Height
+      0.7 m
+    Weight
+      6.9 kg
+
+  Charmander
+    A fire Pokémon with a flame on its tail.
+
+    Height
+      0.6 m
+    Weight
+      8.5 kg
+
+Output
+  Bulbasaur
+    A plant Pokémon with a bulb growing from its back.
+
+    Height
+      0.7 m
+    Weight
+      6.9 kg
+
+  Charmander
+    A fire Pokémon with a flame on its tail.
+
+    Height
+      0.6 m
+    Weight
+      8.5 kg
+
+Each description may be followed by an optional blank line. If a description is followed by two blank lines, it marks the end of the description list.
+
+Markup
+  ````
+  Lime
+    A green fruit.
+  Strawberry
+    A red fruit.
 
 
-    Bulbasaur
-      A green Pokémon.
-    Charmander
-      A red Pokémon.
+  Bulbasaur
+    A green Pokémon.
+  Charmander
+    A red Pokémon.
+  ````
+
+Output
+  Lime
+    A green fruit.
+  Strawberry
+    A red fruit.
+
+
+  Bulbasaur
+    A green Pokémon.
+  Charmander
+    A red Pokémon.
 
 
 ======
@@ -1376,313 +1334,309 @@ Tables
 
 You already know what a table is! Use tables to display rows of data organized into columns.
 
-Example
-  Markup
-    ````
-    Table: Moves learned by the Pokémon Bulbasaur
+Markup
+  ````
+  Table: Moves learned by the Pokémon Bulbasaur
 
-    Title;  Move;         Type;     Power;  Accuracy
+  Title;  Move;         Type;     Power;  Accuracy
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-    ````
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
+  ````
 
-  Output
-    Table: Moves learned by the Pokémon Bulbasaur
+Output
+  Table: Moves learned by the Pokémon Bulbasaur
 
-    Level;  Move;         Type;     Power;  Accuracy
+  Level;  Move;         Type;     Power;  Accuracy
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
 
-Discussion
+A table consists of:
 
-  A table consists of:
+- An optional caption, representing the table's title
+- A header row, describing each column
+- Content rows, representing the actual data
+- An optional header column, describing each row
 
-  - An optional caption, representing the table's title
-  - A header row, describing each column
-  - Content rows, representing the actual data
-  - An optional header column, describing each row
+Table cells are separated by semicolons. For more information, see [topic: cells].
 
-  Table cells are separated by semicolons. For more information, see [topic: cells].
+Our examples use extra spaces to align cells. This makes our markup more readable, but it's strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
 
-  Our examples use extra spaces to align cells. This makes our markup more readable, but it's strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
+Squished markup
+  ````
+  Table: My favorite fruits
 
-  Squished markup
-    ````
-    Table: My favorite fruits
+  Fruit;Color;Taste
 
-    Fruit;Color;Taste
+  Lime;Green;Sour
+  Lemon;Yellow;Sour
+  Banana;Yellow;Sweet
+  ````
 
-    Lime;Green;Sour
-    Lemon;Yellow;Sour
-    Banana;Yellow;Sweet
-    ````
+Output
+  Table: My favorite fruits
 
-  Output
-    Table: My favorite fruits
+  Fruit;Color;Taste
 
-    Fruit;Color;Taste
+  Lime;Green;Sour
+  Lemon;Yellow;Sour
+  Banana;Yellow;Sweet
 
-    Lime;Green;Sour
-    Lemon;Yellow;Sour
-    Banana;Yellow;Sweet
 
+The caption
+===========
 
-  The caption
-  ===========
+Tables start with a caption. Captions can contain any inline writing convention.
 
-  Tables start with a caption. Captions can contain any inline writing convention.
+Markup
+  ````
+  Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
 
-  Markup
-    ````
-    Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
+  Fruit;      Color;      Taste
 
-    Fruit;      Color;      Taste
+  Lime;       Green;      Sour
+  Lemon;      Yellow;     Sour
+  Banana;     Yellow;     Sweet
+  ````
 
-    Lime;       Green;      Sour
-    Lemon;      Yellow;     Sour
-    Banana;     Yellow;     Sweet
-    ````
+Output
+  Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
 
-  Output
-    Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
+  Fruit;      Color;      Taste
 
-    Fruit;      Color;      Taste
+  Lime;       Green;      Sour
+  Lemon;      Yellow;     Sour
+  Banana;     Yellow;     Sweet
 
-    Lime;       Green;      Sour
-    Lemon;      Yellow;     Sour
-    Banana;     Yellow;     Sweet
+Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put "Table" on its own line.
 
-  Captions are strongly encouraged, but they're not required. To create a table without a caption, simply put "Table" on its own line.
+Markup
+  ````
+  Table
 
-  Markup
-    ````
-    Table
+  Level;  Move;         Type;     Power;  Accuracy
 
-    Level;  Move;         Type;     Power;  Accuracy
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
+  ````
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-    ````
+Output
+  Table
 
-  Output
-    Table
+  Level;  Move;         Type;     Power;  Accuracy
 
-    Level;  Move;         Type;     Power;  Accuracy
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
 
+Cells
+=====
 
-  Cells
-  =====
+Table cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling special characters].
 
-  Table cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling special characters].
+Markup
+  ````
+  Table: My favorite fruits
 
-  Markup
-    ````
-    Table: My favorite fruits
+  Fruit;      Reason for liking
 
-    Fruit;      Reason for liking
+  Apples;     Easy to eat\; stylish
+  Grapes;     Each grape is very cheap
+  Oranges;    The color orange is nice
+  ````
 
-    Apples;     Easy to eat\; stylish
-    Grapes;     Each grape is very cheap
-    Oranges;    The color orange is nice
-    ````
+Output
+  Table: My favorite fruits
 
-  Output
-    Table: My favorite fruits
+  Fruit;      Reason for liking
 
-    Fruit;      Reason for liking
+  Apples;     Easy to eat\; stylish
+  Grapes;     Each grape is very cheap
+  Oranges;    The color orange is nice
 
-    Apples;     Easy to eat\; stylish
-    Grapes;     Each grape is very cheap
-    Oranges;    The color orange is nice
+-------------------------------
+Cells spanning multiple columns
+-------------------------------
 
-  -------------------------------
-  Cells spanning multiple columns
-  -------------------------------
+If you want a cell to span two columns, terminate that cell with two semicolons.
 
-  If you want a cell to span two columns, terminate that cell with two semicolons.
+Markup
+  ````
+  Table: My favorite fruits
 
-  Markup
-    ````
-    Table: My favorite fruits
+  Fruit;      Color;      Taste
 
-    Fruit;      Color;      Taste
+  Lime;       Green;      Sour
+  Orange;;                Sweet and tart
+  Banana;     Yellow;     Sweet
+  ````
 
-    Lime;       Green;      Sour
-    Orange;;                Sweet and tart
-    Banana;     Yellow;     Sweet
-    ````
+Output
+  Table: My favorite fruits
 
-  Output
-    Table: My favorite fruits
+  Fruit;      Color;      Taste
 
-    Fruit;      Color;      Taste
+  Lime;       Green;      Sour
+  Orange;;                Sweet and tart
+  Banana;     Yellow;     Sweet
 
-    Lime;       Green;      Sour
-    Orange;;                Sweet and tart
-    Banana;     Yellow;     Sweet
+Likewise, if you want a cell to span six columns, terminate that cell with six semicolons.
 
-  Likewise, if you want a cell to span six columns, terminate that cell with six semicolons.
+-----------
+Empty cells
+-----------
 
-  -----------
-  Empty cells
-  -----------
+A cell consisting solely of spaces (one or more) is considered empty.
 
-  A cell consisting solely of spaces (one or more) is considered empty.
+Normally, you have to put at least one space in the cell, because consecutive semicolons indicate that you want the previous cell to span multiple columns.
 
-  Normally, you have to put at least one space in the cell, because consecutive semicolons indicate that you want the previous cell to span multiple columns.
+However, to indicate that the *first* cell in a row should be empty, simply start that row with a semicolon. You don't need to put any spaces before it.
 
-  However, to indicate that the *first* cell in a row should be empty, simply start that row with a semicolon. You don't need to put any spaces before it.
+Markup
+  ````
+  Table: Games in the Chrono series
 
-  Markup
-    ````
-    Table: Games in the Chrono series
+  Release Date;       Game;
 
-    Release Date;       Game;
+  March 11, 1995;     Chrono Trigger
+  November 18, 1999;  Chrono Cross
+  ;                   Chrono Break
+  ````
 
-    March 11, 1995;     Chrono Trigger
-    November 18, 1999;  Chrono Cross
-    ;                   Chrono Break
-    ````
+Output
+  Table: Games in the Chrono series
 
-  Output
-    Table: Games in the Chrono series
+  Release Date;       Game
 
-    Release Date;       Game
+  March 11, 1995;     Chrono Trigger
+  November 18, 1999;  Chrono Cross
+  ;                   Chrono Break
 
-    March 11, 1995;     Chrono Trigger
-    November 18, 1999;  Chrono Cross
-    ;                   Chrono Break
+Likewise, to indicate that the *last* cell in a row should be empty, simply end that row with a semicolon. You don't need to add any spaces after it.
 
-  Likewise, to indicate that the *last* cell in a row should be empty, simply end that row with a semicolon. You don't need to add any spaces after it.
+Markup
+  ````
+  Table: Games in the Chrono series
 
-  Markup
-    ````
-    Table: Games in the Chrono series
+  Game;               Release Date
 
-    Game;               Release Date
+  Chrono Trigger;     March 11, 1995
+  Chrono Cross;       November 18, 1999
+  Chrono Break;
+  ````
 
-    Chrono Trigger;     March 11, 1995
-    Chrono Cross;       November 18, 1999
-    Chrono Break;
-    ````
+Output
+  Table: Games in the Chrono series
 
-  Output
-    Table: Games in the Chrono series
+  Game;               Release Date
 
-    Game;               Release Date
+  Chrono Trigger;     March 11, 1995
+  Chrono Cross;       November 18, 1999
+  Chrono Break;
 
-    Chrono Trigger;     March 11, 1995
-    Chrono Cross;       November 18, 1999
-    Chrono Break;
 
+The header row
+==============
 
-  The header row
-  ==============
+The header defines each column in the table.
 
-  The header defines each column in the table.
+The single blank lines before and after the header are not required.
 
-  The single blank lines before and after the header are not required.
+Markup
+  ````
+  Table: Moves learned by the Pokémon Bulbasaur
+  Level;  Move;         Type;     Power;  Accuracy
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
+  ````
 
-  Markup
-    ````
-    Table: Moves learned by the Pokémon Bulbasaur
-    Level;  Move;         Type;     Power;  Accuracy
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
-    ````
+Output
+  Table: Moves learned by the Pokémon Bulbasaur
+  Level;  Move;         Type;     Power;  Accuracy
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
 
-  Output
-    Table: Moves learned by the Pokémon Bulbasaur
-    Level;  Move;         Type;     Power;  Accuracy
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
+Cells in a table's header can contain any inline writing convention.
 
-  Cells in a table's header can contain any inline writing convention.
 
+Content rows
+============
 
-  Content rows
-  ============
+The "content rows" of a table follow its header row. The content rows contain the table's actual data.
 
-  The "content rows" of a table follow its header row. The content rows contain the table's actual data.
+If a content row is followed by a blank line, it ends the table.
 
-  If a content row is followed by a blank line, it ends the table.
+Markup
+  ````
+  Table: Moves learned by the Pokémon Bulbasaur
 
-  Markup
-    ````
-    Table: Moves learned by the Pokémon Bulbasaur
+  Level;  Move;         Type;     Power;  Accuracy
 
-    Level;  Move;         Type;     Power;  Accuracy
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
+  I love Bulbasaur!
 
-    I love Bulbasaur!
+  ````
 
-    ````
+Output
+  Table: Moves learned by the Pokémon Bulbasaur
 
-  Output
-    Table: Moves learned by the Pokémon Bulbasaur
+  Level;  Move;         Type;     Power;  Accuracy
 
-    Level;  Move;         Type;     Power;  Accuracy
+  1;      Tackle;       Normal;   50;     100%
+  3;      Growl;        Normal;   ;       100%
+  7;      Leech Seed;   Grass;    ;       90%
+  9;      Vine Whip;    Grass;    45;     100%
 
-    1;      Tackle;       Normal;   50;     100%
-    3;      Growl;        Normal;   ;       100%
-    7;      Leech Seed;   Grass;    ;       90%
-    9;      Vine Whip;    Grass;    45;     100%
+  I love Bulbasaur!
 
-    I love Bulbasaur!
+Content row cells can contain any inline writing convention.
 
-  Content row cells can contain any inline writing convention.
 
+Including a header column in your table
+=======================================
 
-  Including a header column in your table
-  =======================================
+To indicate your table has a header column, simply indent its header *row* at least two spaces (or a tab).
 
-  To indicate your table has a header column, simply indent its header *row* at least two spaces (or a tab).
+When you indent a table's the header row, Up automatically treats the first cell in each subsequent row as the header column.
 
-  When you indent a table's the header row, Up automatically treats the first cell in each subsequent row as the header column.
+Markup
+  ````
+  Table: Moves learned by the Pokémon Bulbasaur
 
-  Markup
-    ````
-    Table: Moves learned by the Pokémon Bulbasaur
+                Level;    Type;     Power;  Accuracy
 
-                  Level;    Type;     Power;  Accuracy
+  Tackle;       1;        Normal;   50;     100%
+  Growl;        3;        Normal;   ;       100%
+  Leech Seed;   7;        Grass;    ;       90%
+  Vine Whip;    9;        Grass;    45;     100%
+  ````
 
-    Tackle;       1;        Normal;   50;     100%
-    Growl;        3;        Normal;   ;       100%
-    Leech Seed;   7;        Grass;    ;       90%
-    Vine Whip;    9;        Grass;    45;     100%
-    ````
+Output
+  Table: Moves learned by the Pokémon Bulbasaur
 
-  Output
-    Table: Moves learned by the Pokémon Bulbasaur
+                Level;    Type;     Power;  Accuracy
 
-                  Level;    Type;     Power;  Accuracy
-
-    Tackle;       1;        Normal;   50;     100%
-    Growl;        3;        Normal;   ;       100%
-    Leech Seed;   7;        Grass;    ;       90%
-    Vine Whip;    9;        Grass;    45;     100%
-
+  Tackle;       1;        Normal;   50;     100%
+  Growl;        3;        Normal;   ;       100%
+  Leech Seed;   7;        Grass;    ;       90%
+  Vine Whip;    9;        Grass;    45;     100%
 
 When your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row in the top level corner, above the header column.
 
@@ -1695,75 +1649,73 @@ Use the code block convention to represent a block of computer code.
 
 When you need to represent a small fragment of computer code, consider using [topic: inline code].
 
-Example
-  Markup
-    ````````
-    ```
-    function nthFibonacci(n: number): number {
-      return (
-        n <= 2
-        ? n - 1
-        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
-    }
-    ```
-    ````````
+Markup
+  ````````
+  ```
+  function nthFibonacci(n: number): number {
+    return (
+      n <= 2
+      ? n - 1
+      : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+  }
+  ```
+  ````````
 
-  Output
-    ```
-    function nthFibonacci(n: number): number {
-      return (
-        n <= 2
-        ? n - 1
-        : nthFibonacci(n - 1) + nthFibonacci(n - 2))
-    }
-    ```
+Output
+  ```
+  function nthFibonacci(n: number): number {
+    return (
+      n <= 2
+      ? n - 1
+      : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+  }
+  ```
 
-Discussion
-  Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
+Code blocks are surrounded (underlined and "overlined") by matching streaks of 3 or more backticks.
 
-  If there is no matching end streak, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
+If there is no matching end streak, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
 
-  Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
+Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
 
 
-  Including streaks of backticks
-  ==============================
+Including streaks of backticks
+==============================
 
-  Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.
+Code blocks can contain streaks of backticks that aren't exactly as long as the enclosing streaks.
 
-  Markup
-    `````````
-    ``````
-    A code block:
+Markup
+  `````````
+  ``````
+  A code block:
 
-    ```
-    function factorial(n: number): number {
-      return (
-        n <= 1
-          ? 1
-          : n * factorial(n - 1))
-    }
-    ```
+  ```
+  function factorial(n: number): number {
+    return (
+      n <= 1
+        ? 1
+        : n * factorial(n - 1))
+  }
+  ```
 
-    See? Not so hard!
-    ``````
-    `````````
+  See? Not so hard!
+  ``````
+  `````````
 
-  Output
-    ``````
-    A code block:
+Output
+  ``````
+  A code block:
 
-    ```
-    function factorial(n: number): number {
-      return (
-        n <= 1
-          ? 1
-          : n * factorial(n - 1))
-    }
-    ```
+  ```
+  function factorial(n: number): number {
+    return (
+      n <= 1
+        ? 1
+        : n * factorial(n - 1))
+  }
+  ```
 
-    See? Not so hard!
-    ``````
+  See? Not so hard!
+  ``````
 
 
 =====================================
@@ -1876,7 +1828,7 @@ Disabling special characters
 
 To disable the special meaning of a character, put a backslash before it.
 
-Example
+Markup
   ````
   I love \*asterisks*!
   ````
@@ -1886,7 +1838,7 @@ Output
 
 Likewise, to disable the special meaning of a backslash, put another backslash before it.
 
-Example
+Markup
   ````
   My favorite kind of slash is the backslash: \\. What is yours?
   ````
