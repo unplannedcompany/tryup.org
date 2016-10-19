@@ -1,3 +1,6 @@
+import onLinkClick from './onLinkClick'
+
+
 export default function configureScrollPositionAfterNavigation(tabPanelContainer) {
   // Because we're using a scrolling panel, the browser fails to restore the
   // documentation's scroll position when the user navigates backward (or
@@ -6,16 +9,7 @@ export default function configureScrollPositionAfterNavigation(tabPanelContainer
   // To work around this, we save the user's scroll position every time they
   // click a link, then use the `popstate` event to manually restore their
   // scroll position.  
-  function saveTabPanelScrollPosition() {
-    const { scrollTop } = tabPanelContainer
-    window.history.replaceState({ scrollTop }, '')
-  }
-
-  function recallTabPanelScrollPosition(historyState) {
-    if (historyState) {
-      tabPanelContainer.scrollTop = historyState.scrollTop
-    }
-  }
+  onLinkClick(tabPanelContainer, () => { saveTabPanelScrollPosition() })
 
   // If the user scrolls halfway down the documentation, then navigates backward
   // to some external page, then navigates forward to return to our page again,
@@ -24,13 +18,7 @@ export default function configureScrollPositionAfterNavigation(tabPanelContainer
     saveTabPanelScrollPosition()
   })
 
-  tabPanelContainer.addEventListener('click', (event) => {
-    if (event.target.tagName === 'A') {
-      saveTabPanelScrollPosition()
-    }
-  })
-
-  window.addEventListener('popstate', (event) => {
+  window.addEventListener('popstate', event => {
     const { state } = event
     recallTabPanelScrollPosition(state)
   })
@@ -41,4 +29,16 @@ export default function configureScrollPositionAfterNavigation(tabPanelContainer
     const { state } = window.history
     recallTabPanelScrollPosition(state)
   })
+
+  function saveTabPanelScrollPosition() {
+    const { scrollTop } = tabPanelContainer
+    console.log('saving: ' + scrollTop)
+    window.history.replaceState({ scrollTop }, '')
+  }
+
+  function recallTabPanelScrollPosition(historyState) {
+    if (historyState) {
+      tabPanelContainer.scrollTop = historyState.scrollTop
+    }
+  }
 }

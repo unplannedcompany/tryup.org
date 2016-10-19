@@ -15269,7 +15269,7 @@
 
 /***/ },
 /* 103 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -15277,6 +15277,13 @@
 	  value: true
 	});
 	exports.default = configureScrollPositionAfterNavigation;
+
+	var _onLinkClick = __webpack_require__(104);
+
+	var _onLinkClick2 = _interopRequireDefault(_onLinkClick);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function configureScrollPositionAfterNavigation(tabPanelContainer) {
 	  // Because we're using a scrolling panel, the browser fails to restore the
 	  // documentation's scroll position when the user navigates backward (or
@@ -15285,29 +15292,15 @@
 	  // To work around this, we save the user's scroll position every time they
 	  // click a link, then use the `popstate` event to manually restore their
 	  // scroll position.  
-	  function saveTabPanelScrollPosition() {
-	    var scrollTop = tabPanelContainer.scrollTop;
-
-	    window.history.replaceState({ scrollTop: scrollTop }, '');
-	  }
-
-	  function recallTabPanelScrollPosition(historyState) {
-	    if (historyState) {
-	      tabPanelContainer.scrollTop = historyState.scrollTop;
-	    }
-	  }
+	  (0, _onLinkClick2.default)(tabPanelContainer, function () {
+	    saveTabPanelScrollPosition();
+	  });
 
 	  // If the user scrolls halfway down the documentation, then navigates backward
 	  // to some external page, then navigates forward to return to our page again,
 	  // we want to be able to restore their scroll position. 
 	  window.addEventListener('beforeunload', function () {
 	    saveTabPanelScrollPosition();
-	  });
-
-	  tabPanelContainer.addEventListener('click', function (event) {
-	    if (event.target.tagName === 'A') {
-	      saveTabPanelScrollPosition();
-	    }
 	  });
 
 	  window.addEventListener('popstate', function (event) {
@@ -15322,6 +15315,42 @@
 	    var state = window.history.state;
 
 	    recallTabPanelScrollPosition(state);
+	  });
+
+	  function saveTabPanelScrollPosition() {
+	    var scrollTop = tabPanelContainer.scrollTop;
+
+	    console.log('saving: ' + scrollTop);
+	    window.history.replaceState({ scrollTop: scrollTop }, '');
+	  }
+
+	  function recallTabPanelScrollPosition(historyState) {
+	    if (historyState) {
+	      tabPanelContainer.scrollTop = historyState.scrollTop;
+	    }
+	  }
+	}
+
+/***/ },
+/* 104 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = onLinkClick;
+	function onLinkClick(container, callback) {
+	  container.addEventListener('click', function (event) {
+	    var clickedElement = event.target;
+
+	    do {
+	      if (clickedElement.tagName === 'A') {
+	        callback();
+	        return;
+	      }
+	    } while (clickedElement = clickedElement.parentNode);
 	  });
 	}
 
