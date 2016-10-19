@@ -1,3 +1,4 @@
+import getElementById from './getElementById'
 import onLinkClick from './onLinkClick'
 
 
@@ -37,7 +38,6 @@ export default function configureScrollPositionAfterNavigation(tabPanelContainer
 
   function recallTabPanelScrollPosition(historyState) {
     if (historyState) {
-      console.log(historyState.scrollTop)
       tabPanelContainer.scrollTop = historyState.scrollTop
     } else {
       // If the user clicks an internal link, navigates backward, then tries
@@ -56,7 +56,7 @@ function scrollUrlHashElementIntoView() {
 
   if (hash) {
     const elementId = hash.substring(1)
-    const element = document.getElementById(elementId)
+    const element = getElementById(elementId)
 
     if (element) {
       element.scrollIntoView()

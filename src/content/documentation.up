@@ -4,7 +4,7 @@ Up (a markup language)
 
 Up offers conventions for writing structured documents in plain text.
 
-For software developers, Up also offers a software library that converts those writing conventions into HTML. To learn how to incorporate Up into your next project, please see [topic: using the Up library].
+For software developers, Up offers a software library that converts those writing conventions into HTML. To learn how to incorporate Up into your next project, please see [topic: using the Up library].
 
 
 
@@ -12,7 +12,7 @@ For software developers, Up also offers a software library that converts those w
 Why use Up?
 ===========
 
-Up isn't the only markup language that produces HTML. Why should you use Up?
+Up isn't the only markup language that produces HTML. Why should you use it?
 
 - Readable, customizable keywords
   ===============================

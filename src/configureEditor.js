@@ -16,6 +16,8 @@ import throttle from './throttle'
 // Likewise, whenever the user scrolls through the editor, we use this collection to
 // scroll to the first element in the tab panel produced by (or after) the first visible
 // line in the editor.
+//
+// TODO: Handle toggling visibility of table of contents
 let sourceMappedElements = []
 
 function refreshSourceMappedElements(documentationContainer, tableOfContentsContainer) {
