@@ -612,25 +612,20 @@
 	      continue;
 	    }
 
-	    var viewportTop = tabPanelContainer.offsetTop;
-
-	    var _element$getBoundingC = element.getBoundingClientRect();
-
-	    var bottom = _element$getBoundingC.bottom;
-	    var top = _element$getBoundingC.top;
-
-	    // We cheat here. We know the previous element in the list is *not* mostly within
-	    // the viewport; if it were, we wouldn't still be in this loop!
+	    // Why do we subtract 10 pixels?
 	    //
-	    // So if the top of the viewport is closer to the top of this element than to the
-	    // bottom of this element, the element is either:
+	    // Well, it's a bit arbitrary! The general idea is that we don't care whether
+	    // every single pixel of an element is within the viewport (particularly not its
+	    // margin and padding). If all but the top 10 pixels are within the viewport, we'll
+	    // consider it within view.  
 	    //
-	    // 1. Mostly within the viewport (though starting slightly above it)
-	    // 2. Starting within the viewport
-	    //
-	    // That's good enough for us.
+	    // A better solution would be to check the margin and padding of each element, but
+	    // this is good enough. 
+	    var viewportTop = tabPanelContainer.offsetTop - 10;
 
-	    var isMostlyWithinViewport = Math.abs(top - viewportTop) < Math.abs(bottom - viewportTop);
+	    // We cheat here. We know the previous element in the list is *not* within the
+	    // viewport; if it were, we wouldn't still be in this loop!
+	    var isMostlyWithinViewport = element.getBoundingClientRect().top >= viewportTop;
 
 	    // Is this the first documentation element starting within the viewport?
 	    if (isMostlyWithinViewport) {
