@@ -1,7 +1,6 @@
 import CodeMirror from 'codemirror'
 import * as Up from 'write-up'
 import debounce from './debounce'
-import throttle from './throttle'
 import addScrollSyncingEventListeners from './addScrollSyncingEventListeners'
 
 
@@ -67,7 +66,12 @@ export default function configureEditor(
   configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
   configureLivePreview(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer)
 
-  syncScrolling(codeMirror, tabPanelContainer)
+  addScrollSyncingEventListeners(
+    codeMirror,
+    tabPanelContainer,
+    syncScrollingFromTabPanel,
+    syncScrollingFromEditor
+  )
 
   new MutationObserver(() => {
     syncScrollingFromEditor(codeMirror, tabPanelContainer)
@@ -75,11 +79,6 @@ export default function configureEditor(
 
   codeMirror.refresh()
   refreshSourceMappedElements(tabPanelContainer)
-}
-
-// Returns a new string consisting of `count` copies of `text`
-function repeat(text, count) {
-  return new Array(count + 1).join(text)
 }
 
 
@@ -142,28 +141,6 @@ function render(codeMirror, tabPanelContainer, documentationContainer, tableOfCo
 
   tabPanelContainer.scrollTop = scrollTop
   refreshSourceMappedElements(tabPanelContainer)
-}
-
-
-function syncScrolling(codeMirror, tabPanelContainer) {
-  const FPS_FOR_SCROLL_SYNCING = 60
-  const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
-
-  const getScrollSyncer = sync =>
-    throttle(sync, SCROLL_SYNC_INTERVAL)
-
-  addScrollSyncingEventListeners({
-    editorContentContainer: codeMirror.getScrollerElement(),
-    tabPanelContainer,
-
-    syncScrollingFromTabPanel: getScrollSyncer(() => {
-      syncScrollingFromTabPanel(codeMirror, tabPanelContainer)
-    }),
-
-    syncScrollingFromEditor: getScrollSyncer(() => {
-      syncScrollingFromEditor(codeMirror, tabPanelContainer)
-    })
-  })
 }
 
 
@@ -248,6 +225,12 @@ function isTotallyHidden(element) {
   // We don't check `style.display` directly, because it returns an empty string if
   // it wasn't set by JavaScript.   
   return !element.offsetParent;
+}
+
+
+// Returns a new string consisting of `count` copies of `text`
+function repeat(text, count) {
+  return new Array(count + 1).join(text)
 }
 
 

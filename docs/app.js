@@ -458,11 +458,7 @@
 
 	var _debounce2 = _interopRequireDefault(_debounce);
 
-	var _throttle = __webpack_require__(102);
-
-	var _throttle2 = _interopRequireDefault(_throttle);
-
-	var _addScrollSyncingEventListeners = __webpack_require__(103);
+	var _addScrollSyncingEventListeners = __webpack_require__(102);
 
 	var _addScrollSyncingEventListeners2 = _interopRequireDefault(_addScrollSyncingEventListeners);
 
@@ -529,7 +525,7 @@
 	  configureCodeMirrorToIndentSoftWrapedLines(codeMirror);
 	  configureLivePreview(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer);
 
-	  syncScrolling(codeMirror, tabPanelContainer);
+	  (0, _addScrollSyncingEventListeners2.default)(codeMirror, tabPanelContainer, syncScrollingFromTabPanel, syncScrollingFromEditor);
 
 	  new MutationObserver(function () {
 	    syncScrollingFromEditor(codeMirror, tabPanelContainer);
@@ -537,11 +533,6 @@
 
 	  codeMirror.refresh();
 	  refreshSourceMappedElements(tabPanelContainer);
-	}
-
-	// Returns a new string consisting of `count` copies of `text`
-	function repeat(text, count) {
-	  return new Array(count + 1).join(text);
 	}
 
 	function configureLivePreview(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer) {
@@ -607,28 +598,6 @@
 
 	  tabPanelContainer.scrollTop = scrollTop;
 	  refreshSourceMappedElements(tabPanelContainer);
-	}
-
-	function syncScrolling(codeMirror, tabPanelContainer) {
-	  var FPS_FOR_SCROLL_SYNCING = 60;
-	  var SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING;
-
-	  var getScrollSyncer = function getScrollSyncer(sync) {
-	    return (0, _throttle2.default)(sync, SCROLL_SYNC_INTERVAL);
-	  };
-
-	  (0, _addScrollSyncingEventListeners2.default)({
-	    editorContentContainer: codeMirror.getScrollerElement(),
-	    tabPanelContainer: tabPanelContainer,
-
-	    syncScrollingFromTabPanel: getScrollSyncer(function () {
-	      syncScrollingFromTabPanel(codeMirror, tabPanelContainer);
-	    }),
-
-	    syncScrollingFromEditor: getScrollSyncer(function () {
-	      syncScrollingFromEditor(codeMirror, tabPanelContainer);
-	    })
-	  });
 	}
 
 	function syncScrollingFromTabPanel(codeMirror, tabPanelContainer) {
@@ -709,6 +678,11 @@
 	  // We don't check `style.display` directly, because it returns an empty string if
 	  // it wasn't set by JavaScript.   
 	  return !element.offsetParent;
+	}
+
+	// Returns a new string consisting of `count` copies of `text`
+	function repeat(text, count) {
+	  return new Array(count + 1).join(text);
 	}
 
 	// This is adapted from this demo: https://codemirror.net/demo/indentwrap.html
@@ -15192,6 +15166,98 @@
 
 /***/ },
 /* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = addScrollSyncingEventListeners;
+
+	var _debounce = __webpack_require__(101);
+
+	var _debounce2 = _interopRequireDefault(_debounce);
+
+	var _throttle = __webpack_require__(103);
+
+	var _throttle2 = _interopRequireDefault(_throttle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function addScrollSyncingEventListeners(codeMirror, tabPanelContainer, syncScrollingFromTabPanel, syncScrollingFromEditor) {
+	  // We need to watch out for feedback loops!
+	  //
+	  // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
+	  // the rendered element produced by that line. However, let's also pretend that line 100
+	  // didn't produce any syntax nodes. We'll say it's a blank line between paragraphs.
+	  //
+	  // So we do the next best thing: we scroll into view the first element produced *after*
+	  // line 100: a paragraph produced by line 101. This unfortunately triggers the tab panel's
+	  // scroll event, which in turn determines that the editor should be scrolled to line 101,
+	  // which is the line that produced the paragraph. Uh-oh!
+	  //
+	  // To prevent this, whenever the user scrolls a container, we ignore any scroll events
+	  // from the other container.
+	  var ignoringScrollEventsFromTabPanel = false;
+	  var ignoringScrollEventsFromEditor = false;
+
+	  var getEventReEnabler = function getEventReEnabler(reEnable) {
+	    return (0, _debounce2.default)(reEnable, 250);
+	  };
+
+	  var eventuallyReEnableScrollEventsFromEditor = getEventReEnabler(function () {
+	    ignoringScrollEventsFromEditor = false;
+	  });
+
+	  var eventuallyReEnableScrollEventsFromTabPanel = getEventReEnabler(function () {
+	    ignoringScrollEventsFromTabPanel = false;
+	  });
+
+	  function temporarilyIgnoreScrollEventsFromEditor() {
+	    ignoringScrollEventsFromEditor = true;
+	    eventuallyReEnableScrollEventsFromEditor();
+	  }
+
+	  function temporarilyIgnoreScrollEventsFromTabPanel() {
+	    ignoringScrollEventsFromTabPanel = true;
+	    eventuallyReEnableScrollEventsFromTabPanel();
+	  }
+
+	  var throttledSyncingFromTabPanel = throttleScrollSyncing(syncScrollingFromTabPanel, codeMirror, tabPanelContainer);
+
+	  var throttledSyncingFromEditor = throttleScrollSyncing(syncScrollingFromEditor, codeMirror, tabPanelContainer);
+
+	  addScrollEventListener(tabPanelContainer, function () {
+	    if (!ignoringScrollEventsFromTabPanel) {
+	      throttledSyncingFromTabPanel();
+	      temporarilyIgnoreScrollEventsFromEditor();
+	    }
+	  });
+
+	  addScrollEventListener(codeMirror.getScrollerElement(), function () {
+	    if (!ignoringScrollEventsFromEditor) {
+	      throttledSyncingFromEditor();
+	      temporarilyIgnoreScrollEventsFromTabPanel();
+	    }
+	  });
+	}
+
+	function throttleScrollSyncing(syncScrolling, codeMirror, tabPanelContainer) {
+	  var FPS_FOR_SCROLL_SYNCING = 60;
+	  var SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING;
+
+	  return (0, _throttle2.default)(function () {
+	    return syncScrolling(codeMirror, tabPanelContainer);
+	  }, SCROLL_SYNC_INTERVAL);
+	}
+
+	function addScrollEventListener(element, listener) {
+	  element.addEventListener('scroll', listener);
+	}
+
+/***/ },
+/* 103 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15235,87 +15301,6 @@
 	      }
 	    }
 	  };
-	}
-
-/***/ },
-/* 103 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = addScrollSyncingEventListeners;
-
-	var _debounce = __webpack_require__(101);
-
-	var _debounce2 = _interopRequireDefault(_debounce);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function addScrollSyncingEventListeners(args) {
-	  var editorContentContainer = args.editorContentContainer;
-	  var tabPanelContainer = args.tabPanelContainer;
-	  var syncScrollingFromTabPanel = args.syncScrollingFromTabPanel;
-	  var syncScrollingFromEditor = args.syncScrollingFromEditor;
-
-	  // We need to watch out for feedback loops!
-	  //
-	  // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
-	  // the rendered element produced by that line. However, let's also pretend that line 100
-	  // didn't produce any syntax nodes. We'll say it's a blank line between paragraphs.
-	  //
-	  // So we do the next best thing: we scroll into view the first element produced *after*
-	  // line 100: a paragraph produced by line 101. This unfortunately triggers the tab panel's
-	  // scroll event, which in turn determines that the editor should be scrolled to line 101,
-	  // which is the line that produced the paragraph. Uh-oh!
-	  //
-	  // To prevent this, whenever the user scrolls a container, we ignore any scroll events
-	  // from the other container.
-
-	  var ignoringScrollEventsFromTabPanel = false;
-	  var ignoringScrollEventsFromEditor = false;
-
-	  var getEventReEnabler = function getEventReEnabler(reEnable) {
-	    return (0, _debounce2.default)(reEnable, 250);
-	  };
-
-	  var eventuallyReEnableScrollEventsFromEditor = getEventReEnabler(function () {
-	    ignoringScrollEventsFromEditor = false;
-	  });
-
-	  var eventuallyReEnableScrollEventsFromTabPanel = getEventReEnabler(function () {
-	    ignoringScrollEventsFromTabPanel = false;
-	  });
-
-	  function temporarilyIgnoreScrollEventsFromEditor() {
-	    ignoringScrollEventsFromEditor = true;
-	    eventuallyReEnableScrollEventsFromEditor();
-	  }
-
-	  function temporarilyIgnoreScrollEventsFromTabPanel() {
-	    ignoringScrollEventsFromTabPanel = true;
-	    eventuallyReEnableScrollEventsFromTabPanel();
-	  }
-
-	  addScrollEventListener(tabPanelContainer, function () {
-	    if (!ignoringScrollEventsFromTabPanel) {
-	      syncScrollingFromTabPanel();
-	      temporarilyIgnoreScrollEventsFromEditor();
-	    }
-	  });
-
-	  addScrollEventListener(editorContentContainer, function () {
-	    if (!ignoringScrollEventsFromEditor) {
-	      syncScrollingFromEditor();
-	      temporarilyIgnoreScrollEventsFromTabPanel();
-	    }
-	  });
-	}
-
-	function addScrollEventListener(element, listener) {
-	  element.addEventListener('scroll', listener);
 	}
 
 /***/ },

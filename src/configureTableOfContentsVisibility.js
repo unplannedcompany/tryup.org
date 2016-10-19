@@ -1,6 +1,7 @@
 import getElementById from './getElementById'
 import onLinkClick from './onLinkClick'
 
+
 export default function configureTableOfContentsVisibility(documentationTab, tableOfContentsTab) {
   configure({ tab: documentationTab, otherTab: tableOfContentsTab })
   configure({ tab: tableOfContentsTab, otherTab: documentationTab })
@@ -27,9 +28,11 @@ export default function configureTableOfContentsVisibility(documentationTab, tab
   })
 }
 
+
 function configure(args /* { tab, otherTab } */) {
   args.tab.addEventListener('click', () => select(args))
 }
+
 
 function select(args /* { tab, otherTab } */) {
   const { tab, otherTab } = args
@@ -41,9 +44,11 @@ function select(args /* { tab, otherTab } */) {
   getAssociatedTabPanel(otherTab).style.display = 'none'
 }
 
+
 function setSelectedAttribute(tab, value) {
   tab.setAttribute('aria-selected', value)
 }
+
 
 function getAssociatedTabPanel(tab) {
   return getElementById(tab.getAttribute('aria-controls'))

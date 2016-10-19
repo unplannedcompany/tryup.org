@@ -1,12 +1,13 @@
 import debounce from './debounce'
+import throttle from './throttle'
 
-export default function addScrollSyncingEventListeners(args) {
-  const {
-    editorContentContainer,
-    tabPanelContainer,
-    syncScrollingFromTabPanel,
-    syncScrollingFromEditor } = args
 
+export default function addScrollSyncingEventListeners(
+  codeMirror,
+  tabPanelContainer,
+  syncScrollingFromTabPanel,
+  syncScrollingFromEditor
+) {
   // We need to watch out for feedback loops!
   //
   // Let's say the user scrolls to line 100 in the editor. Normally, we'd scroll into view
@@ -44,19 +45,35 @@ export default function addScrollSyncingEventListeners(args) {
     eventuallyReEnableScrollEventsFromTabPanel()
   }
 
+  const throttledSyncingFromTabPanel =
+    throttleScrollSyncing(syncScrollingFromTabPanel, codeMirror, tabPanelContainer)
+
+  const throttledSyncingFromEditor =
+    throttleScrollSyncing(syncScrollingFromEditor, codeMirror, tabPanelContainer)
+
   addScrollEventListener(tabPanelContainer, () => {
     if (!ignoringScrollEventsFromTabPanel) {
-      syncScrollingFromTabPanel()
+      throttledSyncingFromTabPanel()
       temporarilyIgnoreScrollEventsFromEditor()
     }
   })
 
-  addScrollEventListener(editorContentContainer, () => {
+  addScrollEventListener(codeMirror.getScrollerElement(), () => {
     if (!ignoringScrollEventsFromEditor) {
-      syncScrollingFromEditor()
+      throttledSyncingFromEditor()
       temporarilyIgnoreScrollEventsFromTabPanel()
     }
   })
+}
+
+
+function throttleScrollSyncing(syncScrolling, codeMirror, tabPanelContainer) {
+  const FPS_FOR_SCROLL_SYNCING = 60
+  const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
+
+  return throttle(
+    () => syncScrolling(codeMirror, tabPanelContainer),
+    SCROLL_SYNC_INTERVAL)
 }
 
 

@@ -51,6 +51,7 @@ export default function configureScrollPositionAfterNavigation(tabPanelContainer
   }
 }
 
+
 function scrollUrlHashElementIntoView() {
   const { hash } = window.location
 
