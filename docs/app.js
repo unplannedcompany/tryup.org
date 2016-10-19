@@ -56,11 +56,11 @@
 
 	var _configureEditor2 = _interopRequireDefault(_configureEditor);
 
-	var _configureTabControls = __webpack_require__(104);
+	var _configureTableOfContentsVisibility = __webpack_require__(104);
 
-	var _configureTabControls2 = _interopRequireDefault(_configureTabControls);
+	var _configureTableOfContentsVisibility2 = _interopRequireDefault(_configureTableOfContentsVisibility);
 
-	var _configureScrollPositionAfterNavigation = __webpack_require__(105);
+	var _configureScrollPositionAfterNavigation = __webpack_require__(106);
 
 	var _configureScrollPositionAfterNavigation2 = _interopRequireDefault(_configureScrollPositionAfterNavigation);
 
@@ -73,7 +73,7 @@
 
 	  (0, _configureEditor2.default)((0, _getElementById2.default)('editor-container'), tabPanelContainer, (0, _getElementById2.default)('documentation-container'), (0, _getElementById2.default)('table-of-contents-container'));
 
-	  (0, _configureTabControls2.default)((0, _getElementById2.default)('tab-container'), tabPanelContainer);
+	  (0, _configureTableOfContentsVisibility2.default)((0, _getElementById2.default)('show-documentation'), (0, _getElementById2.default)('show-table-of-contents'));
 	});
 
 /***/ },
@@ -15297,76 +15297,96 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = configureTabControls;
+	exports.default = configureTableOfContentsVisibility;
 
 	var _getElementById = __webpack_require__(5);
 
 	var _getElementById2 = _interopRequireDefault(_getElementById);
 
+	var _onLinkClick = __webpack_require__(105);
+
+	var _onLinkClick2 = _interopRequireDefault(_onLinkClick);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function configureTabControls(tabContainer, tabPanelContainer) {
-	  var tabs = tabContainer.querySelectorAll('[role="tab"]');
-	  var tabPanels = tabPanelContainer.querySelectorAll('[role="tabpanel"]');
+	function configureTableOfContentsVisibility(documentationTab, tableOfContentsTab) {
+	  configure({ tab: documentationTab, otherTab: tableOfContentsTab });
+	  configure({ tab: tableOfContentsTab, otherTab: documentationTab });
 
-	  // Right now, we just have two tabs: one for showing the table of contents,
-	  // and one for showing the documentation itself.
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
+	  // When the user clicks on a table of contents entry, we hide the
+	  // table of contents.
+	  (0, _onLinkClick2.default)(getAssociatedTabPanel(tableOfContentsTab), function (event) {
+	    var tagName = event.target.tagName;
 
-	  try {
-	    var _loop = function _loop() {
-	      var tab = _step.value;
+	    // However, if the user clicks a revealable convention's "reveal"
+	    // button within a table of contents entry, we want the table of
+	    // contents remain visible.
+	    //
+	    // Each "reveal" button is actually a <label> element associated
+	    // with an <input> element. When clicking on a label with an
+	    // associated input element, two click events are generated: one
+	    // for the label, and the other for the input element. We want
+	    // to ignore both.
 
-	      tab.addEventListener('click', function () {
-	        return selectTab(tab, tabs, tabPanels);
-	      });
-	    };
-
-	    for (var _iterator = tabs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      _loop();
+	    if (tagName === 'LABEL' || tagName === 'INPUT') {
+	      return;
 	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
+
+	    select({ tab: documentationTab, otherTab: tableOfContentsTab });
+	  });
 	}
 
-	function selectTab(tab, tabs, tabPanels) {
-	  // First, let's mark every tab as unselected
-	  for (var i = 0; i < tabs.length; i++) {
-	    setSelectedAttribute(tabs[i], 'false');
-	  }
+	function configure(args /* { tab, otherTab } */) {
+	  args.tab.addEventListener('click', function () {
+	    return select(args);
+	  });
+	}
 
-	  // Next, let's hide every tab panel
-	  for (var _i = 0; _i < tabPanels.length; _i++) {
-	    tabPanels[_i].style.display = 'none';
-	  }
+	function select(args /* { tab, otherTab } */) {
+	  var tab = args.tab;
+	  var otherTab = args.otherTab;
 
-	  // Now, we'll mark the tab the user just clicked as selected
+
 	  setSelectedAttribute(tab, 'true');
+	  setSelectedAttribute(otherTab, 'false');
 
-	  // And finally, we'll show the associated table panel 
-	  (0, _getElementById2.default)(tab.getAttribute('aria-controls')).style.display = 'block';
+	  getAssociatedTabPanel(tab).style.display = 'block';
+	  getAssociatedTabPanel(otherTab).style.display = 'none';
 	}
 
 	function setSelectedAttribute(tab, value) {
 	  tab.setAttribute('aria-selected', value);
 	}
 
+	function getAssociatedTabPanel(tab) {
+	  return (0, _getElementById2.default)(tab.getAttribute('aria-controls'));
+	}
+
 /***/ },
 /* 105 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = onLinkClick;
+	function onLinkClick(container, callback) {
+	  container.addEventListener('click', function (event) {
+	    var clickedElement = event.target;
+
+	    do {
+	      if (clickedElement.tagName === 'A') {
+	        callback(event);
+	        return;
+	      }
+	    } while (clickedElement = clickedElement.parentNode);
+	  });
+	}
+
+/***/ },
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15380,7 +15400,7 @@
 
 	var _getElementById2 = _interopRequireDefault(_getElementById);
 
-	var _onLinkClick = __webpack_require__(106);
+	var _onLinkClick = __webpack_require__(105);
 
 	var _onLinkClick2 = _interopRequireDefault(_onLinkClick);
 
@@ -15452,29 +15472,6 @@
 	      element.scrollIntoView();
 	    }
 	  }
-	}
-
-/***/ },
-/* 106 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = onLinkClick;
-	function onLinkClick(container, callback) {
-	  container.addEventListener('click', function (event) {
-	    var clickedElement = event.target;
-
-	    do {
-	      if (clickedElement.tagName === 'A') {
-	        callback();
-	        return;
-	      }
-	    } while (clickedElement = clickedElement.parentNode);
-	  });
 	}
 
 /***/ }

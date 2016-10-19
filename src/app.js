@@ -1,7 +1,7 @@
 import './style/app.scss'
 import getElementById from './getElementById'
 import configureEditor from './configureEditor'
-import configureTabControls from './configureTabControls'
+import configureTableOfContentsVisibility from './configureTableOfContentsVisibility'
 import configureScrollPositionAfterNavigation from './configureScrollPositionAfterNavigation'
 
 
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     getElementById('documentation-container'),
     getElementById('table-of-contents-container'))
   
-  configureTabControls(
-    getElementById('tab-container'),
-    tabPanelContainer)
+  configureTableOfContentsVisibility(
+    getElementById('show-documentation'),
+    getElementById('show-table-of-contents'))
 })

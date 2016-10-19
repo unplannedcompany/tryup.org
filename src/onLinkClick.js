@@ -4,7 +4,7 @@ export default function onLinkClick(container, callback) {
 
     do {
       if (clickedElement.tagName === 'A') {
-        callback()
+        callback(event)
         return
       }
     } while (clickedElement = clickedElement.parentNode)
