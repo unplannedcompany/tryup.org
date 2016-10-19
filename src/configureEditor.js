@@ -156,15 +156,24 @@ function syncScrollingFromTabPanel(codeMirror, tabPanelContainer) {
       continue
     }
 
-    // Why do we subtract 1?
+    const viewportTop = tabPanelContainer.offsetTop
+    const { bottom, top } = element.getBoundingClientRect()
+
+    // We cheat here. We know the previous element in the list is *not* mostly within
+    // the viewport; if it were, we wouldn't still be in this loop!
     //
-    // When you click a link pointing to fragment URL (e.g. a section link), the browser
-    // scrolls the appropriate element into view. Oddly, in some browsers, the top of that
-    // element is a fraction of a pixel above the top of the viewport. 
-    const VIEWPORT_TOP = tabPanelContainer.offsetTop - 1
+    // So if the top of the viewport is closer to the top of this element than to the
+    // bottom of this element, the element is either:
+    //
+    // 1. Mostly within the viewport (though starting slightly above it)
+    // 2. Starting within the viewport
+    //
+    // That's good enough for us.
+    const isMostlyWithinViewport =
+      Math.abs(top - viewportTop) < Math.abs(bottom - viewportTop)
 
     // Is this the first documentation element starting within the viewport?
-    if (element.getBoundingClientRect().top >= VIEWPORT_TOP) {
+    if (isMostlyWithinViewport) {
       // Line numbers in Up start at 1, not 0.
       const editorLineIndex = element.dataset.upSourceLine - 1
 
