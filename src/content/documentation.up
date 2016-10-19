@@ -694,25 +694,21 @@ Discussion
   Up ignores capitalization
   -------------------------
 
-  For example, if your document has a heading whose text is "TOOTHPASTE", "Toothpaste" would be an exact match.
+  For example, if your document has a heading whose text is "Capitalization example", "CAPITALIZATION EXAMPLE" would be an exact match.
 
   Markup
     ````
-    Please see [topic: toothpaste].
+    Capitalization example
+    ----------------------
 
-    TOOTHPASTE
-    ----------
-
-    Everyone should be excited about cleaning their teeth.
+    Please see [topic: CAPITALIZATION EXAMPLE]
     ````
 
   Output
-    Please see [topic: toothpaste].
+    Capitalization example
+    ----------------------
 
-    TOOTHPASTE
-    ----------
-
-    Everyone should be excited about cleaning their teeth.
+    Please see [topic: CAPITALIZATION EXAMPLE].
 
   -------------------------------------
   Up ignores inline writing conventions
@@ -720,25 +716,21 @@ Discussion
 
   The text content of the heading is all that matters. Up ignores any inline writing conventions in the heading.
 
-  For example, if your document has a heading whose text is "Everyone *loves* toothpaste" (note the emphasis), "everyone loves toothpaste" would be an exact match.
+  For example, if your document has a heading whose text is "*Emphasis* example", "emphasis example" would be an exact match.
 
   Markup
     ````
-    Please see [topic: everyone loves toothpaste].
+    *Emphasis* example
+    ------------------
 
-    Everyone *loves* toothpaste
-    ---------------------------
-
-    According to a recent survey, Americans prefer toothpaste to soda.
+    Please see [topic: emphasis example].
     ````
 
   Output
-    Please see [topic: everyone loves toothpaste].
+    *Emphasis* example
+    ------------------
 
-    Everyone *loves* toothpaste
-    ---------------------------
-
-    According to a recent survey, Americans prefer toothpaste to soda.
+    Please see [topic: emphasis example].
 
 
 =========
@@ -1668,7 +1660,7 @@ Discussion
   =======================================
 
   To indicate your table has a header column, simply indent its header *row* at least two spaces (or a tab).
-  
+
   When you indent a table's the header row, Up automatically treats the first cell in each subsequent row as the header column.
 
   Markup
