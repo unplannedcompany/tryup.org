@@ -753,8 +753,6 @@ Example
 Discussion
   To produce a footnote, enclose its content within parentheses or square brackets. Then, insert a caret `^` directly after your opening bracket.
 
-  Any spaces after the caret are ignored.
-
 
 =====
 Media
@@ -770,7 +768,7 @@ You can use mix and match either type of bracket---they're totally interchangeab
 Media descriptions
 ==================
 
-Media descriptions **always** start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
+Media descriptions always start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
 
 Within media descriptions, [topic: typographical writing conventions] are supported, but other writing conventions are not You cannot include revealable content or links, for example.
 
