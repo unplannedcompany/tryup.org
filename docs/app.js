@@ -15309,7 +15309,7 @@
 	    recallTabPanelScrollPosition(state);
 	  });
 
-	  // In Chrome, the `popstate` event does not fire when the user navigates
+	  // In Chrome, the `popstate` event doesn't' fire when the user navigates
 	  // backward from an external page. 
 	  window.addEventListener('pageshow', function () {
 	    var state = window.history.state;
@@ -15327,16 +15327,15 @@
 	    if (historyState) {
 	      console.log(historyState.scrollTop);
 	      tabPanelContainer.scrollTop = historyState.scrollTop;
-	      return;
+	    } else {
+	      // If the user clicks an internal link, navigates backward, then tries
+	      // to navigate forward again, there won't be any special history state,
+	      // and thus we won't be able to tell the browser where to scroll.
+	      //
+	      // Luckily, we do have the URL hash of the location the user is trying
+	      // to navigate to!
+	      scrollUrlHashElementIntoView();
 	    }
-
-	    // If the user clicks an internal link, navigates backward, then tries
-	    // to navigate forward again, there won't be any special history state,
-	    // and thus we won't be able to tell the browser where to scroll.
-	    //
-	    // Luckily, we do have the URL hash of the location the user is trying
-	    // to navigate to!
-	    scrollUrlHashElementIntoView();
 	  }
 	}
 
