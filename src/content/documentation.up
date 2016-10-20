@@ -1,10 +1,12 @@
-######################
-Up (a markup language)
-######################
+#########
+Write Up!
+#########
 
-Up offers conventions for writing structured documents in plain text.
+Up is a markup language for writing structured documents in plain text.
 
-For software developers, Up offers a software library that converts those writing conventions into HTML. To learn how to incorporate Up into your next project, please see [topic: using the Up library].
+For software developers, Up offers a software library that converts Up markup into HTML. For more information, please see [topic: using the Up library].
+
+
 
 
 
@@ -46,17 +48,17 @@ Up isn't picky about which brackets you use for [topic: links].
 
 Markup
   ````
-  * Buy [milk] (wikipedia.org/wiki/Milk)
-  * Buy (bread) [wikipedia.org/wiki/Bread]
-  * Buy [sugar] [wikipedia.org/wiki/Sugar]
-  * Buy (happiness) (wikipedia.org/wiki/Happiness)
+  - Buy [milk] (wikipedia.org/wiki/Milk)
+  - Buy (bread) [wikipedia.org/wiki/Bread]
+  - Buy [sugar] [wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (wikipedia.org/wiki/Happiness)
   ````
 
 Output
-  * Buy [milk] (wikipedia.org/wiki/Milk)
-  * Buy (bread) [wikipedia.org/wiki/Bread]
-  * Buy [sugar] [wikipedia.org/wiki/Sugar]
-  * Buy (happiness) (wikipedia.org/wiki/Happiness)
+  - Buy [milk] (wikipedia.org/wiki/Milk)
+  - Buy (bread) [wikipedia.org/wiki/Bread]
+  - Buy [sugar] [wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (wikipedia.org/wiki/Happiness)
 
 Up ignores any [topic: excessive inflection].
 
@@ -1926,7 +1928,7 @@ This method converts Up markup into HTML and returns the result.
 Arguments
   `markup`: `string`
     The Up markup to convert into HTML.
-  `settings` (optional): [topic: Up.UserProvidedSettings]
+  `settings` (optional): [topic: Up.Settings]
     The custom parsing and/or rendering settings to apply.
 
 Return type: `string`
@@ -1963,7 +1965,7 @@ This method converts Up markup into two pieces of HTML, both of which are return
 Arguments
   `markup`: `string`
     The Up markup to parse and render.
-  `settings` (optional): [topic: Up.UserProvidedSettings]
+  `settings` (optional): [topic: Up.Settings]
     The custom parsing and/or rendering settings to apply.
 
 Return type: [topic: Up.RenderedDocumentAndTableOfContents]
@@ -2022,7 +2024,7 @@ For more information about inline documents, see [topic: inline documents].
 Arguments
   `inlineMarkup`: `string`
     The inline Up markup to convert into inline HTML.
-  `parsingSettings` (optional): [topic: Up.UserProvidedSettings]
+  `parsingSettings` (optional): [topic: Up.Settings]
     The custom parsing and/or rendering settings to apply.
 
 Return type: `string`
@@ -2061,7 +2063,7 @@ Arguments
   `markup`: `string`
     The Up markup to parse.
 
-  `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]
+  `parsingSettings` (optional): [topic: Up.Settings.Parsing]
     The custom parsing settings to apply.
 
 Return type: [topic: Up.Document]
@@ -2093,7 +2095,7 @@ Arguments
   `inlineMarkup`: `string`
     The inline Up markup to parse.
 
-  `parsingSettings` (optional): [topic: Up.UserProvidedSettings.Parsing]
+  `parsingSettings` (optional): [topic: Up.Settings.Parsing]
     The custom parsing settings to apply.
 
 Return type: [topic: Up.InlineDocument]
@@ -2123,7 +2125,7 @@ Arguments
   `document`: [topic: Up.Document]
     The syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
+  `renderingSettings` (optional): [topic: Up.Settings.Rendering]
     The custom rendering settings to apply.
 
 Return type: `string`
@@ -2159,7 +2161,7 @@ Arguments
   `document`: [topic: Up.Document]
     The syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
+  `renderingSettings` (optional): [topic: Up.Settings.Rendering]
     The custom rendering settings to apply.
 
 Return type: [topic: Up.RenderedDocumentAndTableOfContents]
@@ -2193,7 +2195,7 @@ Arguments
   `inlineDocument`: [topic: Up.InlineDocument]
     The inline syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: Up.UserProvidedSettings.Rendering]
+  `renderingSettings` (optional): [topic: Up.Settings.Rendering]
     The custom rendering settings to apply.
 
 Return type: `string`
@@ -2228,12 +2230,14 @@ Purpose
   Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
   ````
+  const Up = require('write-up')
+
   const up = new Up.Transformer(settings)
   const html = up.parseAndRender(markup, settingsChanges)
   ````
 
 Constructor arguments
-  `settings` (optional): [topic: Up.UserProvidedSettings]
+  `settings` (optional): [topic: Up.Settings]
     The custom parsing and/or rendering settings to apply for all subsequent method calls.
 
 Members
@@ -2310,11 +2314,11 @@ All functions accept custom settings!
 For a full description of Up's functions, see [topic: functions].
 
 
-`Up.UserProvidedSettings`
+`Up.Settings`
 ======================
 
 Summary
-  The `UserProvidedSettings` interface includes both parsing settings and rendering settings.
+  The `Settings` interface includes both parsing settings and rendering settings.
 
   Use this interface to provide custom settings to functions that both parse markup *and* render the result to HTML:
 
@@ -2336,25 +2340,25 @@ Usage
   ````
 
 Members (both of which are optional)
-  `parsing`: [topic: Up.UserProvidedSettings.Parsing]
+  `parsing`: [topic: Up.Settings.Parsing]
     The custom parsing settings to apply.
 
-  `rendering`: [topic: Up.UserProvidedSettings.Rendering]
+  `rendering`: [topic: Up.Settings.Rendering]
     The custom rendering settings to apply.
 
 
-`Up.UserProvidedSettings.Parsing`
+`Up.Settings.Parsing`
 =================================
 
 Summary
-  The `UserProvidedSettings.Parsing` interface includes all parsing settings.
+  The `Settings.Parsing` interface includes all parsing settings.
 
   Use this interface to provide custom settings to functions that parse markup and return the resulting syntax tree:
 
   - [topic: Up.parse]
   - [topic: Up.parseInline]
 
-  As part of [topic: Up.UserProvidedSettings], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
+  As part of [topic: Up.Settings], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -2450,7 +2454,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
+  This setting belongs to [topic: Up.Settings.Parsing].
 
 Details
   `createSourceMap` works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.
@@ -2480,7 +2484,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
+  This setting belongs to [topic: Up.Settings.Parsing].
 
 
 ------------------------------
@@ -2503,7 +2507,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
+  This setting belongs to [topic: Up.Settings.Parsing].
 
 
 ---------------------------------
@@ -2526,7 +2530,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
+  This setting belongs to [topic: Up.Settings.Parsing].
 
 
 ---------------
@@ -2551,14 +2555,14 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Parsing].
+  This setting belongs to [topic: Up.Settings.Parsing].
 
 
-`Up.UserProvidedSettings.Rendering`
+`Up.Settings.Rendering`
 ===================================
 
 Summary
-  The `UserProvidedSettings.Parsing` interface includes all rendering settings.
+  The `Settings.Parsing` interface includes all rendering settings.
 
   Use this interface to provide custom settings to functions that render syntax trees to HTML:
 
@@ -2566,7 +2570,7 @@ Summary
   - [topic: Up.renderDocumentAndTableOfContents]
   - [topic: Up.renderInline]
 
-  As part of [topic: Up.UserProvidedSettings], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
+  As part of [topic: Up.Settings], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: Up.parseAndRender]
   - [topic: Up.parseAndRenderDocumentAndTableOfContents]
@@ -2628,7 +2632,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Rendering].
+  This setting belongs to [topic: Up.Settings.Rendering].
 
 Details
   You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
@@ -2656,7 +2660,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Up.UserProvidedSettings.Rendering].
+  This setting belongs to [topic: Up.Settings.Rendering].
 
 Details
   By default, dangerous media elements produce no HTML at all. Dangerous links produce no HTML of their own, though their child elements are rendered.
