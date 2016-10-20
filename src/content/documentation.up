@@ -427,8 +427,6 @@ Up understands that text enclosed within parentheses or square brackets represen
 Highlighting
 ============
 
-Highlight text to indicate a word a phrase is particularly relevant to the reader.
-
 Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
 
 Markup

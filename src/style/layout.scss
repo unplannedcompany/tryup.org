@@ -1,3 +1,6 @@
+@import 'common/on-small-screens';
+@import 'common/on-very-small-screens';
+
 $tab-list-height: 44px;
 
 body {
@@ -51,7 +54,12 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-@media only screen and (max-width: 980px) {
+@include on-small-screens {
   #editor-container { display: none }
   #tab-panel-container { height: 100% }
+}
+
+
+@include on-very-small-screens {
+  body { font-size: 90% }
 }

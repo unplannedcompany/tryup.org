@@ -17,5 +17,6 @@ build: install
 
 .PHONY: dev
 dev: build
-	$(local_modules_dir)/webpack-dev-server --content-base docs/ --inline --hot
+	$(local_modules_dir)/webpack-dev-server --content-base docs/ --inline --hot --host 0.0.0.0
+
   

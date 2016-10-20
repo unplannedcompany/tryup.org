@@ -30,7 +30,12 @@ pre {
   border-radius: (3em / 16);
   overflow-x: scroll;
   padding: 7px 9px;    
-  margin: 20px 0;  
+  margin: 20px 0;
+
+
+  @include on-very-small-screens {
+    font-size: 80%;
+  }
 }
 
 pre > code {

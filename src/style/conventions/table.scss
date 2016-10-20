@@ -1,9 +1,15 @@
 @import '../common/heading-color';
 @import '../common/heading-font-family';
+@import 'common/on-very-small-screens';
+
 
 table {
   border-collapse: collapse;
   margin: 20px 0;
+
+  @include on-very-small-screens {
+    font-size: 80%;
+  }
 
   caption {
     padding-bottom: 10px;

@@ -8,6 +8,12 @@ dl {
     color: $heading-color;
     font-family:  $heading-font-family;
   }
+
+  dd {
+    margin-left: 20px;
+
+    dd { margin-left: 40px; }    
+  }
     
   // Without some extra spacing, consecutive description lists appear merged together.
   + dl { margin-top:  45px }
