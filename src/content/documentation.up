@@ -15,8 +15,8 @@ Why use Up?
 Up isn't the only markup language that produces HTML. What makes it special?
 
 
-Up uses readable, customizable keywords
-=======================================
+Up uses customizable keywords
+=============================
 
 Too many markup languages devolve into a dense soup of symbols and punctuation.
 
@@ -423,7 +423,9 @@ Up understands that text enclosed within parentheses or square brackets represen
 Highlighting
 ============
 
-Highlighted text is for drawing attention to text without altering its semantics. It should *not* be used to emphasize or stress text; if that's your purpose, see [topic: emphasis] or [topic: stress].
+To draw attention to text without altering its semantics, using the highlighting convention.
+
+Highlighting should not be used to emphasize or stress text! If that's your purpose, see [topic: emphasis] or [topic: stress].
 
 Markup
   ````
