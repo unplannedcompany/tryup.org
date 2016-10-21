@@ -1,14 +1,13 @@
 @import 'common/heading-color';
 @import 'common/faux-button';
 
-div[role="tablist"] {
+#tab-container {
   background-color: $heading-color;
+  display: flex;
+  justify-content: center;
 
   span[role="tab"] {
     @include faux-button;
-
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
 
     &[aria-selected="true"] { display: none }    
   }

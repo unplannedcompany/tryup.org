@@ -22,7 +22,7 @@ body {
 
   $top-bar-height: 44px;
   
-  div[role="tablist"] {
+  #tab-container {
     align-items: center;
     display: flex;
     height: $top-bar-height;
