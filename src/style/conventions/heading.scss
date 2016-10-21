@@ -1,6 +1,7 @@
 @import '../common/heading-selector';
 @import '../common/heading-color';
 @import '../common/heading-font-family';
+@import '../common/on-very-small-screens';
 
 
 #{$heading-selector} {
@@ -37,3 +38,18 @@ h6 { font-size: 100% }
 [aria-level="8"] { font-size: 83% }
 [aria-level="9"] { font-size: 76% }
 [aria-level="10"] { font-size: 68% }
+
+
+@include on-very-small-screens {
+   h1 { font-size: 200% }
+   h2 { font-size: 160% }
+   h3 { font-size: 130% }
+   h4 { font-size: 120% }
+   h5 { font-size: 110% }
+   h6 { font-size: 100% }
+
+  [aria-level="7"] { font-size: 92% }
+  [aria-level="8"] { font-size: 86% }
+  [aria-level="9"] { font-size: 81% }
+  [aria-level="10"] { font-size: 75% }
+}

@@ -1,8 +1,6 @@
 @import 'common/on-small-screens';
 @import 'common/on-very-small-screens';
 
-$tab-list-height: 44px;
-
 body {
   display: flex;
   flex-flow: wrap row-reverse;
@@ -21,18 +19,20 @@ body {
   flex-basis: 0;
   flex-grow: 1;
   height: 100vh; 
+
+  $top-bar-height: 44px;
   
   div[role="tablist"] {
     align-items: center;
     display: flex;
-    height: $tab-list-height;
+    height: $top-bar-height;
   }
 
   #tab-panel-container {
     // Setting `overflow-y` to anything but `visible` prevents wide elements
     // within the documentation from widening this element.   
     overflow-y: auto;
-    height: calc(100vh - #{$tab-list-height});
+    height: calc(100vh - #{$top-bar-height});
 
     #documentation-container,
     #table-of-contents-container {
@@ -54,12 +54,12 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+
 @include on-small-screens {
   #editor-container { display: none }
   #tab-panel-container { height: 100% }
 }
 
-
 @include on-very-small-screens {
-  body { font-size: 90% }
+   body { font-size: 90% }
 }

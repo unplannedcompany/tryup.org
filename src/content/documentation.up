@@ -8,8 +8,6 @@ For software developers, Up offers a software library that converts Up markup in
 
 
 
-
-
 ===========
 Why use Up?
 ===========
@@ -17,8 +15,8 @@ Why use Up?
 Up isn't the only markup language that produces HTML. Why should you use it?
 
 
-Readable, customizable keywords
-===============================
+Up uses readable, customizable keywords
+=======================================
 
 Too many markup languages devolve into a dense soup of symbols and punctuation.
 
@@ -27,8 +25,8 @@ When a keyword would provide more clarity than a symbol, Up takes advantage of t
 If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
 
 
-A flexible, forgiving syntax
-============================
+Up has a flexible, forgiving syntax
+===================================
 
 Up recognizes [topic: numbered lists] that count backwards.
 
@@ -101,15 +99,11 @@ So far, there is only one [software library for Up] (npmjs.com/package/write-up)
 
 In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
 
+
 You need speed
 ==============
 
 Up is not terribly slow, but it's not terribly fast, either---at least not yet. If you need instant, real-time parsing and rendering of large documents, Up isn't the right markup language for you.
-
-You want to embed HTML within your markup
-=========================================
-
-Some markup languages allow authors to embed HTML in their markup. Up does not.
 
 
 
@@ -117,7 +111,7 @@ Some markup languages allow authors to embed HTML in their markup. Up does not.
 Writing conventions
 ###################
 
-Let's make sure we're on the same page!
+The following terms are occasionally used through this section.
 
 Writing convention
   Any special annotation or formatting recognized by Up.
@@ -1146,7 +1140,7 @@ Lists in descending order
 
 Up automatically recognizes when a numbered list is in descending order.
 
-If a numbered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first two of those integers are in descending order, Up considers the list to be in descending order.
+If a numbered list has at least two items with *integer* ordinals (as opposed to number signs), and if the first integer is greater than the second, Up considers the list to be in descending order.
 
 Markup
   ````
@@ -2315,7 +2309,7 @@ For a full description of Up's functions, see [topic: functions].
 
 
 `Up.Settings`
-======================
+=============
 
 Summary
   The `Settings` interface includes both parsing settings and rendering settings.
@@ -2348,10 +2342,10 @@ Members (both of which are optional)
 
 
 `Up.Settings.Parsing`
-=================================
+=====================
 
 Summary
-  The `Settings.Parsing` interface includes all parsing settings.
+  The `Up.Settings.Parsing` interface includes all parsing settings.
 
   Use this interface to provide custom settings to functions that parse markup and return the resulting syntax tree:
 
@@ -2439,8 +2433,6 @@ Members (all of which are optional)
 Summary
   When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline writing convention.
 
-  This document uses source mapping to synchronize the scrolling between itself and its markup.
-
 Default
   `false`
 
@@ -2457,9 +2449,7 @@ Context
   This setting belongs to [topic: Up.Settings.Parsing].
 
 Details
-  `createSourceMap` works by setting the `sourceLineNumber` of each `OutlineSyntaxNode`. Source line numbers start at `1`, not `0`.
-
-  When these syntax nodes are rendered to HTML, the HTML elements they produce each have a `data-up-source-line` attribute set the appropriate line number.
+  `createSourceMap` works by setting the `sourceLineNumber` of each [topic: Up.OutlineSyntaxNode].
 
 
 ------------------
@@ -2559,10 +2549,10 @@ Context
 
 
 `Up.Settings.Rendering`
-===================================
+=======================
 
 Summary
-  The `Settings.Parsing` interface includes all rendering settings.
+  The `Up.Settings.Rendering` interface includes all rendering settings.
 
   Use this interface to provide custom settings to functions that render syntax trees to HTML:
 
@@ -2843,6 +2833,17 @@ Members
   `level`: `number`
     Represents the heading level of the entry.
 
+  `sourceLineNumber`: `number`
+    If the [topic: createSourceMap] setting is enabled, this field is set to the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
+
+    When rendered to HTML, entries with source line numbers are given a `data-up-source-line` attribute set the appropriate line number.
+
+    ````
+    <h3 data-up-source-line="51">
+      <a href="#up-topic-5">Video games</a>
+    </h3>
+    ````
+
   `contentWithinTableOfContents` method
     Arguments
       None.
@@ -2940,7 +2941,13 @@ Extends
 
 Unique members
   `sourceLineNumber`: `number`
-    The first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
+    If the [topic: createSourceMap] setting is enabled, this field is set to the first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
+
+    HTML elements rendered by outline syntax nodes with source line numbers are given a `data-up-source-line` attribute set the appropriate line number.
+
+    ````
+    <p data-up-source-line="24">Hi there!</p>
+    ````
 
   `descendantsToIncludeInTableOfContents` method
     Return type: array of [topic: Up.Document.TableOfContents.Entry]
@@ -3703,7 +3710,7 @@ Rendered HTML
 
   With header column
     ````
-    <table data-up-source-line="1684">
+    <table>
       <caption>Moves learned by the Pokémon Bulbasaur</caption>
       <tr>
         <th scope="col"></th>
