@@ -569,13 +569,13 @@ Use headings to introduce a new section in the document.
 
 Markup
   ````
-  Why I love breakfast cereal
-  ===========================
+  Example heading
+  ===============
   ````
 
 Output
-  Why I love breakfast cereal
-  ===========================
+  Example heading
+  ===============
 
 If text is underlined, it's treated as a heading. The underline can consist of any combination of the following characters:
 
@@ -592,12 +592,12 @@ A heading's underline must be at least three characters long, but it does *not* 
 
 Markup
   ````
-  Why I hate bagels
+  Example heading with a short underline
   ===
   ````
 
 Output
-  Why I hate bagels
+  Example heading with a short underline
   ===
 
 
@@ -618,15 +618,15 @@ A heading can have an optional "overline", but its overline must consist of the 
 
 Markup
   ````
-  ---------------------------------
-  Reasons never to own a pet parrot
-  ---------------------------------
+  --------------------------------
+  Example heading with an overline
+  --------------------------------
   ````
 
 Output
-  ---------------------------------
-  Reasons never to own a pet parrot
-  ---------------------------------
+  --------------------------------
+  Example heading with an overline
+  --------------------------------
 
 For the purpose of determining heading levels, a heading with an overline is always considered distinct from a heading without one, even if both headings use the same combination of underline characters.
 
@@ -647,13 +647,11 @@ Markup
 Output
   Unlike many markup languages, Up recognizes [topic: parenthetical text].
 
-To produce a section link:
+To produce a section link, choose a snippet of text from the heading you want to link to.
 
-1. Choose a snippet of text from the heading you want to link to
-2. Enclose the snippet within square brackets or parentheses
-3. Insert `topic:` or `section:` directly inside your opening bracket
+Simply enclose that snippet within square brackets or parentheses, then insert `topic:` or `section:` directly inside your opening bracket.
 
-That's all it takes! Up automatically matches your snippet to the most appropriate heading, then produces a link for you.
+Up automatically matches your snippet to the most appropriate heading, then produces a link for you.
 
 
 Matching the most appropriate heading
@@ -687,7 +685,7 @@ Up ignores inline writing conventions
 
 The text content of the heading is all that matters. Up ignores any inline writing conventions in the heading.
 
-For example, if your document has a heading whose text is "*Emphasis* example", "emphasis example" would be an exact match.
+For example, if your document has a heading whose content is "*Emphasis* example", "emphasis example" would be an exact match.
 
 Markup
   ````
