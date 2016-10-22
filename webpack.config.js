@@ -1,18 +1,17 @@
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const fs = require('fs');
+const fs = require('fs')
 const Up = require('write-up')
+const upSettings = require('./src/upSettings')
 
 
 const documentationMarkup = fs.readFileSync(
-  sourceFilename('content/documentation.up'),
-  'utf-8')
+  sourceFilename('content/documentation.up'), 'utf-8')
+
+console.log(upSettings)
 
 const result =
-  Up.parseAndRenderDocumentAndTableOfContents(
-    documentationMarkup, {
-      parsing: { createSourceMap: true }
-    })
+  Up.parseAndRenderDocumentAndTableOfContents(documentationMarkup, upSettings)
 
 const documentationHtml = result.documentHtml
 const tableOfContentsHtml = result.tableOfContentsHtml
