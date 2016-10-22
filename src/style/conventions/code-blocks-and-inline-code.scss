@@ -9,12 +9,13 @@ pre, code {
   font-family: 'Inconsolata', monospace;
 }
 
-// Inline code (we overwrite this for code blocks below)
-code {
+// Inline code
+code.up-inline-code {
   @include mild-shadow;
   border-radius: (1em / 8);
-  padding: 0 .2em;
   margin: 0 (1em / 16);
+  padding: 0 .2em;
+  white-space: pre-wrap;
 }
 
 // Inline code within links
