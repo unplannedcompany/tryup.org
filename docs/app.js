@@ -552,7 +552,7 @@
 	  // that it's out of date.
 	  var isDirty = false;
 
-	  var debounceRender = (0, _debounce2.default)(function (codeMirror) {
+	  var debounceRender = (0, _debounce2.default)(function () {
 	    if (!isDirty) {
 	      return;
 	    }
@@ -563,12 +563,14 @@
 
 	  codeMirror.on('change', function () {
 	    markRenderedContentAsDirty();
-	    debounceRender(codeMirror);
+	    debounceRender();
 	  });
 
-	  codeMirror.on('keydown', function () {
-	    return debounceRender(codeMirror);
-	  });
+	  var _arr = ['keydown', 'cursorActivity'];
+	  for (var _i = 0; _i < _arr.length; _i++) {
+	    var event = _arr[_i];
+	    codeMirror.on(event, debounceRender);
+	  }
 
 	  function markRenderedContentAsDirty() {
 	    isDirty = true;

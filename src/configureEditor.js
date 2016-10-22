@@ -96,7 +96,7 @@ function configureLivePreview(codeMirror, tabPanelContainer, documentationContai
   // that it's out of date.
   let isDirty = false
 
-  const debounceRender = debounce(codeMirror => {
+  const debounceRender = debounce(() => {
     if (!isDirty) {
       return
     }
@@ -107,11 +107,12 @@ function configureLivePreview(codeMirror, tabPanelContainer, documentationContai
 
   codeMirror.on('change', () => {
     markRenderedContentAsDirty()
-    debounceRender(codeMirror)
+    debounceRender()
   })
 
-  codeMirror.on('keydown', () =>
-    debounceRender(codeMirror))
+  for (let event of ['keydown', 'cursorActivity']) {
+    codeMirror.on(event, debounceRender)
+  }
 
   function markRenderedContentAsDirty() {
     isDirty = true

@@ -8,8 +8,6 @@ const upSettings = require('./src/upSettings')
 const documentationMarkup = fs.readFileSync(
   sourceFilename('content/documentation.up'), 'utf-8')
 
-console.log(upSettings)
-
 const result =
   Up.parseAndRenderDocumentAndTableOfContents(documentationMarkup, upSettings)
 
