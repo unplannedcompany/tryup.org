@@ -6,6 +6,8 @@ mark {
   background-color: yellow;
   color: inherit;
   padding: (1em / 16);
+
+  mark { background-color: greenyellow }
 }
 
 // Table headers use white text, and they use the heading color for

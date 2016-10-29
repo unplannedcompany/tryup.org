@@ -20,7 +20,7 @@ Up uses customizable keywords
 
 Too many markup languages devolve into a dense soup of symbols and punctuation.
 
-When a keyword would provide more clarity than a symbol, Up takes advantage of that! Many writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
+When a keyword would provide more clarity than a symbol, Up takes advantage of that! Several writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
 
 If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
 
@@ -58,7 +58,7 @@ Output
   - Buy [sugar] [wikipedia.org/wiki/Sugar]
   - Buy (happiness) (wikipedia.org/wiki/Happiness)
 
-Up ignores any [topic: excessive inflection].
+Up usually ignores [topic: excessive delimiter characters].
 
 For example, you don't need to perfectly balance asterisks when stressing or emphasizing text.
 
@@ -74,11 +74,11 @@ Up even supports [topic: overlapping].
 
 Markup
   ````
-  I *enjoy [highlight: sleeping* late] whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
   ````
 
 Output
-  I *enjoy [highlight: sleeping* late] whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
 
 
 Up produces fully accessible HTML
@@ -181,10 +181,7 @@ Consecutive non-blank lines produce a line block---unless those lines represent 
 Line blocks can contain any inline writing convention.
 
 
-==========
-Inflection
-==========
-
+========
 Emphasis
 ========
 
@@ -241,6 +238,7 @@ Output
   Remember to **stand **far** away** from that toaster.
 
 
+=======
 Italics
 =======
 
@@ -259,6 +257,7 @@ Output
 To italicize text, enclose it within single underscores.
 
 
+====
 Bold
 ====
 
@@ -277,58 +276,6 @@ Output
   Has anyone actually used  __KABOOM__ cleaning products?
 
 To make text bold, enclose it within double underscores.
-
-
-Inline quotes
-=============
-
-Up automatically recognizes quoted text.
-
-If you want to quote more a few sentences, considering using [topic: blockquotes].
-
-Markup
-  ````
-  "Only eat the green grapes," John said.
-  ````
-
-Output
-  "Only eat the green grapes," John said.
-
-You already know how to use quotation marks! Just keep doing what you're doing.
-
-Like most inline writing conventions, inline quotes can be nested within themselves.
-
-Markup
-  ````
-  Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
-  ````
-
-Output
-  Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
-
-
-Excessive inflection
-====================
-
-For all five inflection conventions, Up ignores any excessive delimiter characters.
-
-Markup
-  ````
-  This is a """"great"""" pie.
-  ````
-
-Output
-  This is a """"great"""" pie.
-
-This includes when delimiter characters aren't perfectly balanced on either side.
-
-Markup
-  ````
-  My favorite video game is _Chrono Cross__.
-  ````
-
-Output
-  My favorite video game is _Chrono Cross__.
 
 
 =====
@@ -402,6 +349,54 @@ When you omit the space between your link's content and its URL, Up **always** p
 These rules also apply when [topic: linkifying].
 
 
+============
+Highlighting
+============
+
+To draw attention to text without altering its semantics, using the highlighting convention.
+
+Highlighting should not be used to emphasize or stress text! If that's your purpose, see [topic: emphasis] or [topic: stress].
+
+Markup
+  ````
+  Our cupcakes are vegan, ==gluten-free==, and made using only the most expensive ingredients.
+  ````
+
+Output
+  Our cupcakes are vegan, ==gluten-free==, and made using only the most expensive ingredients.
+
+To highlight text, enclose it within two or more equal signs.
+
+
+=============
+Inline quotes
+=============
+
+Up automatically recognizes quoted text.
+
+If you want to quote more a few sentences, considering using [topic: blockquotes].
+
+Markup
+  ````
+  "Only eat the green grapes," John said.
+  ````
+
+Output
+  "Only eat the green grapes," John said.
+
+You already know how to use quotation marks! Just keep doing what you're doing.
+
+Like most inline writing conventions, inline quotes can be nested within themselves.
+
+Markup
+  ````
+  Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
+  ````
+
+Output
+  Bob replied, "Yesterday, Harvey yelled "I'll take the case!", but I doubt he will."
+
+
 ==================
 Parenthetical text
 ==================
@@ -417,25 +412,6 @@ Output
   When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
 Up understands that text enclosed within parentheses or square brackets represents supplemental, de-emphasized content.
-
-
-============
-Highlighting
-============
-
-To draw attention to text without altering its semantics, using the highlighting convention.
-
-Highlighting should not be used to emphasize or stress text! If that's your purpose, see [topic: emphasis] or [topic: stress].
-
-Markup
-  ````
-  Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
-  ````
-
-Output
-  Our cupcakes are vegan, [highlight: gluten-free], and made using only the most expensive ingredients.
-
-To highlight text, enclose it within square brackets or parentheses. Then, insert `highlight:` directly after your opening bracket.
 
 
 =============
@@ -1760,15 +1736,6 @@ This shortcut also works for the following inline writing conventions:
   Output
     Pokémon is old [^ Released in 1996!] (wikipedia.org/wiki/Pokémon_Red_and_Blue) but it maintains its charm.
 
-[topic: Highlighting]
-  Markup
-    ````
-    I take [highlight: vitamin D] (wikipedia.org/wiki/Vitamin_D) and vitamin C.
-    ````
-
-  Output
-    I take [highlight: vitamin D] (wikipedia.org/wiki/Vitamin_D) and vitamin C.
-
 [topic: Inline revealables]
   Markup
     ````
@@ -1841,6 +1808,31 @@ Output
   I ate 5 waffles +- 2.
 
 
+==============================
+Excessive delimiter characters
+==============================
+
+For [topic: emphasis], [topic: stress], [topic: italic], [topic: bold], [topic: highlighting], and [topic: inline quotes], Up ignores any excessive delimiter characters.
+
+Markup
+  ````
+  This is a """"great"""" pie.
+  ````
+
+Output
+  This is a """"great"""" pie.
+
+This includes when delimiter characters aren't perfectly balanced on either side.
+
+Markup
+  ````
+  My favorite video game is _Chrono Cross__.
+  ````
+
+Output
+  My favorite video game is _Chrono Cross__.
+
+
 ============================
 Disabling special characters
 ============================
@@ -1874,11 +1866,11 @@ In Up, inline writing conventions can freely overlap.
 
 Markup
   ````
-  I *enjoy [highlight: sleeping* late] whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
   ````
 
 Output
-  I *enjoy [highlight: sleeping* late] whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
 
 
 Superficial overlapping
@@ -1964,7 +1956,7 @@ Usage
     const html = Up.parseAndRender(markup, {
       parsing: {
         createSourceMap: true,
-        keywords: { highlight: "mark" }
+        keywords: { audio: "listen" }
       },
       rendering: {
         idPrefix: "article"
@@ -2003,7 +1995,7 @@ Usage
       Up.parseAndRenderDocumentAndTableOfContents(markup, {
         parsing: {
           createSourceMap: true,
-          keywords: { highlight: "mark" }
+          keywords: { audio: "listen" }
         },
         rendering: {
           idPrefix: "article",
@@ -2060,7 +2052,7 @@ Usage
     const html = Up.parseAndRenderInline(markup, {
       parsing: {
         baseForUrlsStartingWithSlash: "https://example.com/en-us",
-        keywords: { highlight: "mark" }
+        keywords: { audio: "listen" }
       },
       rendering: {
         idPrefix: "byline",
@@ -2098,7 +2090,7 @@ Usage
     ````
     const document = Up.parse(markup, {
       createSourceMap: true,
-      keywords: { highlight: "mark" }
+      keywords: { audio: "listen" }
     })
     ````
 
@@ -2130,7 +2122,7 @@ Usage
     ````
     const html = Up.parseInline(markup, {
       baseForUrlsStartingWithSlash: "https://example.com/en-us",
-      keywords: { highlight: "mark" }
+      keywords: { audio: "listen" }
     })
     ````
 
@@ -2281,7 +2273,7 @@ Members
         fancyEllipsis: "⋯",
         keywords: {
           audio: ["sound", "song"],
-          highlight: "mark"
+          audio: "listen"
         }
       },
       rendering: {
@@ -2312,7 +2304,7 @@ Members
         fancyEllipsis: "⋯",
         keywords: {
           audio: "listen",
-          highlight: "mark"
+          audio: "listen"
         }
       },
       rendering: {
@@ -2350,7 +2342,7 @@ Usage
   const html = Up.parseAndRender(markup, {
     parsing: {
       createSourceMap: true,
-      keywords: { highlight: "mark" }
+      keywords: { audio: "listen" }
     },
     rendering: {
       idPrefix: "article"
@@ -2389,7 +2381,7 @@ Usage
     createSourceMap: true,
     keywords: {
       audio: ["sound", "song"],
-      highlight: "mark"
+      audio: "listen"
     }
   })
   ````
@@ -2422,7 +2414,7 @@ Members (all of which are optional)
     const document = Up.parse(markup, {
       keywords: {
         audio: ["sound", "song"],
-        highlight: "mark"
+        audio: "listen"
       }
     })
     ````
@@ -2431,9 +2423,6 @@ Members (all of which are optional)
 
     `audio`: `string` or `string[]`
       Recognized by [topic: audio].
-
-    `highlight`: `string` or `string[]`
-      Recognized by [topic: highlighting].
 
     `image`: `string` or `string[]`
       Recognized by [topic: images].
@@ -3375,7 +3364,7 @@ Extends
 
 Rendered HTML
   ````
-  <img alt="Super Mario Land box art" src="http://i.imgur.com/TxlFlkX.jpg" title="Super Mario Land box art">
+  <img alt="Super Mario Land box art" src="https://i.imgur.com/TxlFlkX.jpg" title="Super Mario Land box art">
   ````
 
 
