@@ -4,7 +4,7 @@ import throttle from './throttle'
 
 export default function addScrollSyncingEventListeners(
   codeMirror,
-  tabPanelContainer,
+  documentationScrollerElement,
   syncScrollingFromTabPanel,
   syncScrollingFromEditor
 ) {
@@ -46,12 +46,12 @@ export default function addScrollSyncingEventListeners(
   }
 
   const throttledSyncingFromTabPanel =
-    throttleScrollSyncing(syncScrollingFromTabPanel, codeMirror, tabPanelContainer)
+    throttleScrollSyncing(syncScrollingFromTabPanel, codeMirror, documentationScrollerElement)
 
   const throttledSyncingFromEditor =
-    throttleScrollSyncing(syncScrollingFromEditor, codeMirror, tabPanelContainer)
+    throttleScrollSyncing(syncScrollingFromEditor, codeMirror, documentationScrollerElement)
 
-  addScrollEventListener(tabPanelContainer, () => {
+  addScrollEventListener(documentationScrollerElement, () => {
     if (!ignoringScrollEventsFromTabPanel) {
       throttledSyncingFromTabPanel()
       temporarilyIgnoreScrollEventsFromEditor()

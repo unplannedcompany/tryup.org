@@ -7,37 +7,35 @@ import upSettings from './upSettings'
 
 // WARNING: This collection represents shared state!
 //
-// This collection contains every element with a source line number in the visible tab.
+// This collection contains every element with a source line number in the documentation.
 // Every time we re-render changes from the editor, we'll update this collection.
 //
-// Whenever the user scrolls through the tab panel container, we use this collection to
-// scroll the CodeMirror editor to the line corresponding to the first visible element
-// from this collection.
+// Whenever the user scrolls through the documentation, we use this collection to scroll the
+// CodeMirror editor to the line corresponding to the first visible element from this
+// collection.
 //
 // Likewise, whenever the user scrolls through the editor, we use this collection to
-// scroll to the first element in the tab panel produced by (or after) the first visible
+// scroll to the first element in the document produced by (or after) the first visible
 // line in the editor.
-//
-// TODO: Handle toggling visibility of table of contents
 let sourceMappedElements = []
 
-function refreshSourceMappedElements(tabPanelContainer) {
+function refreshSourceMappedElements(documentationElement) {
   sourceMappedElements =
-    tabPanelContainer.querySelectorAll('[data-up-source-line]')
+    documentationElement.querySelectorAll('[data-up-source-line]')
 }
 
 
 export default function configureEditor(
   // Contains the CodeMirror editor
-  editorContainer,
-  // Contains the rendered documentation or table of contents, depending on which is visible
-  tabPanelContainer,
+  editorContainerElement,
+  // When the user scrolls the documentation, this is the element that does the scrolling  
+  documentationScrollerElement,
   // Contains the rendered documentation
-  documentationContainer,
+  documentationElement,
   // Contains the rendered table of contents
-  tableOfContentsContainer
+  tableOfContentsElement
 ) {
-  const codeMirror = CodeMirror(editorContainer, {
+  const codeMirror = CodeMirror(editorContainerElement, {
     value: require('./content/documentation.up'),
     lineNumbers: true,
     lineWrapping: true,
@@ -65,30 +63,21 @@ export default function configureEditor(
   CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
 
   configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
-  configureLivePreview(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer)
+  configureLivePreview(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement)
 
   addScrollSyncingEventListeners(
     codeMirror,
-    tabPanelContainer,
-    syncScrollingFromTabPanel,
+    documentationScrollerElement,
+    syncScrollingFromDocumentation,
     syncScrollingFromEditor
   )
 
-  // Whenever the visibility of the table of contents is toggled, we need to re-sync the
-  // scroll positions of the editor and the tab panel container.
-  //
-  // The tab panel container contains both the table of contents and the documentation
-  // itself, and the scroll position for one is not valid for the other.
-  new MutationObserver(() => {
-    syncScrollingFromEditor(codeMirror, tabPanelContainer)
-  }).observe(tableOfContentsContainer, { attributes: true })
-
   codeMirror.refresh()
-  refreshSourceMappedElements(tabPanelContainer)
+  refreshSourceMappedElements(documentationScrollerElement)
 }
 
 
-function configureLivePreview(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer) {
+function configureLivePreview(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement) {
   // We'll wait until the user is done typing before we re-render their changes. We consider the
   // user to be done typing once 1.2 seconds has elapsed since their last keystroke.
   //
@@ -101,7 +90,7 @@ function configureLivePreview(codeMirror, tabPanelContainer, documentationContai
       return
     }
 
-    render(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer)
+    render(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement)
     markRenderedContentAsClean()
   }, 1200)
 
@@ -116,19 +105,19 @@ function configureLivePreview(codeMirror, tabPanelContainer, documentationContai
 
   function markRenderedContentAsDirty() {
     isDirty = true
-    tabPanelContainer.classList.remove('clean')
-    tabPanelContainer.classList.add('dirty')
+    documentationScrollerElement.classList.remove('clean')
+    documentationScrollerElement.classList.add('dirty')
   }
 
   function markRenderedContentAsClean() {
     isDirty = false
-    tabPanelContainer.classList.remove('dirty')
-    tabPanelContainer.classList.add('clean')
+    documentationScrollerElement.classList.remove('dirty')
+    documentationScrollerElement.classList.add('clean')
   }
 }
 
 
-function render(codeMirror, tabPanelContainer, documentationContainer, tableOfContentsContainer) {
+function render(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement) {
   const markup = codeMirror.getValue()
   const { documentHtml, tableOfContentsHtml } =
     Up.parseAndRenderDocumentAndTableOfContents(markup, upSettings)
@@ -138,17 +127,17 @@ function render(codeMirror, tabPanelContainer, documentationContainer, tableOfCo
   // jumps back to the first media player when its HTML is re-rendered.
   //
   // To avoid this, we manually restore its `scrollTop` to its pre-render position.
-  const { scrollTop } = tabPanelContainer
+  const { scrollTop } = documentationScrollerElement
 
-  documentationContainer.innerHTML = documentHtml
-  tableOfContentsContainer.innerHTML = tableOfContentsHtml
+  documentationElement.innerHTML = documentHtml
+  tableOfContentsElement.innerHTML = tableOfContentsHtml
 
-  tabPanelContainer.scrollTop = scrollTop
-  refreshSourceMappedElements(tabPanelContainer)
+  documentationScrollerElement.scrollTop = scrollTop
+  refreshSourceMappedElements(documentationScrollerElement)
 }
 
 
-function syncScrollingFromTabPanel(codeMirror, tabPanelContainer) {
+function syncScrollingFromDocumentation(codeMirror, documentationElement) {
   for (let i = 0; i < sourceMappedElements.length; i++) {
     const element = sourceMappedElements[i]
 
@@ -169,7 +158,7 @@ function syncScrollingFromTabPanel(codeMirror, tabPanelContainer) {
     //
     // A better solution would be to check the margin and padding of each element, but
     // this is good enough. 
-    const viewportTop = tabPanelContainer.offsetTop - 10
+    const viewportTop = documentationElement.offsetTop - 10
 
     // We cheat here. We know the previous element in the list is *not* within the
     // viewport; if it were, we wouldn't still be in this loop!
@@ -196,7 +185,7 @@ function syncScrollingFromTabPanel(codeMirror, tabPanelContainer) {
 }
 
 
-function syncScrollingFromEditor(codeMirror, tabPanelContainer) {
+function syncScrollingFromEditor(codeMirror, documentationScrollerElement) {
   // Line numbers in the CodeMirror editor start at 0. 
   const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
 
@@ -209,7 +198,7 @@ function syncScrollingFromEditor(codeMirror, tabPanelContainer) {
     // However, the user probably expects that scrolling the editor to its top will
     // automatically scroll the documentation to *its* top, too. Here, we make sure
     // that happens.
-    tabPanelContainer.scrollTop = 0
+    documentationScrollerElement.scrollTop = 0
     return
   }
 

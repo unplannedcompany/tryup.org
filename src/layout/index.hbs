@@ -18,12 +18,16 @@
       </span>
 		</div>
 		<div id="tab-panel-container">
-			<nav aria-labelledby="show-table-of-contents" aria-live="polite" id="table-of-contents-container" role="tabpanel">
-				{{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
-			</nav>
-			<main aria-labelledby="show-documentation" aria-live="polite" id="documentation-container" role="tabpanel">
-				{{{ htmlWebpackPlugin.options.documentationHtml }}}
-			</main>
+			<div id="table-of-contents-container">
+				<nav aria-labelledby="show-table-of-contents" aria-live="polite" id="table-of-contents" role="tabpanel">
+					{{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
+				</nav>
+			</div>
+			<div id="documentation-container">
+				<main aria-labelledby="show-documentation" aria-live="polite" id="documentation" role="tabpanel">
+					{{{ htmlWebpackPlugin.options.documentationHtml }}}
+				</main>
+			</div>			
 		</div>
 	</div>
 

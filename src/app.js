@@ -6,15 +6,16 @@ import configureScrollPositionAfterNavigation from './configureScrollPositionAft
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tabPanelContainer = getElementById('tab-panel-container')
+  const documentationContainerElement = getElementById('documentation-container')
   
-  configureScrollPositionAfterNavigation(tabPanelContainer)
+  configureScrollPositionAfterNavigation(
+    documentationContainerElement)
 
   configureEditor(
     getElementById('editor-container'),
-    tabPanelContainer,
-    getElementById('documentation-container'),
-    getElementById('table-of-contents-container'))
+    documentationContainerElement,
+    getElementById('documentation'),
+    getElementById('table-of-contents'))
   
   configureTableOfContentsVisibility(
     getElementById('show-documentation'),
