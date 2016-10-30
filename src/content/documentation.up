@@ -74,11 +74,11 @@ Up even supports [topic: overlapping].
 
 Markup
   ````
-  I **enjoy ==sleeping** late== whenever I can.
+  I *enjoy ==sleeping* late== whenever I can.
   ````
 
 Output
-  I **enjoy ==sleeping** late== whenever I can.
+  I *enjoy ==sleeping* late== whenever I can.
 
 
 Up produces fully accessible HTML
@@ -1856,11 +1856,11 @@ In Up, inline writing conventions can freely overlap.
 
 Markup
   ````
-  I **enjoy ==sleeping** late== whenever I can.
+  I *enjoy ==sleeping* late== whenever I can.
   ````
 
 Output
-  I **enjoy ==sleeping** late== whenever I can.
+  I *enjoy ==sleeping* late== whenever I can.
 
 
 Superficial overlapping

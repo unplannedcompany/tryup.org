@@ -1,16 +1,20 @@
 @import 'common/heading-color';
 @import 'common/heading-selector';
 @import 'common/default-example-input-shading';
+@import 'common/media-queries/on-very-small-screens';
 
-@function entry-indentation($level) {
+@function entry-indentation($level, $indent-per-level:  40px) {
   // Level 1 headings are centered, so they don't need to be indented.
   @return if($level == 1,
     0,
-    ($level - 2) * 40px); 
+    ($level - 2) * $indent-per-level); 
 }
 
 // We use the same indentation for headings level 11 and up.
 $max-indent-level: 11;
+
+// Small screens don't have enough room for our default indentation.
+$indent-per-level-on-very-small-screens: 20px;
 
 #table-of-contents-container {
   background-color: $heading-color;
@@ -45,7 +49,13 @@ $max-indent-level: 11;
     margin: 0;
     padding: 0;
     
-    a { padding-left: entry-indentation($max-indent-level) }
+    a {
+      padding-left: entry-indentation($max-indent-level);
+
+      @include on-very-small-screens {
+        padding-left: entry-indentation($max-indent-level, $indent-per-level-on-very-small-screens)
+      }
+    }
   }
 
   @for $level from 1 through ($max-indent-level - 1) {
@@ -57,6 +67,10 @@ $max-indent-level: 11;
     #{$selector-for-this-heading-level} a {
       padding-left: entry-indentation($level);
       padding-top: 10px / $level;
+
+      @include on-very-small-screens {
+        padding-left: entry-indentation($level, $indent-per-level-on-very-small-screens)
+      }
     }
   }
 }
