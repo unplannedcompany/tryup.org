@@ -1,60 +1,73 @@
-@import 'common/on-small-screens';
-@import 'common/on-very-small-screens';
+@import 'common/media-queries/on-regular-screens';
+@import 'common/media-queries/on-small-screens';
+@import 'common/media-queries/on-very-small-screens';
 
-body {
+$top-bar-height: 44px;
+
+#tab-container {
+  align-items: center;
   display: flex;
-  flex-flow: wrap row-reverse;
-  height: 100vh;
+  height: $top-bar-height;
 }
 
-#editor-container {
-  border-right: 1px solid #aaa;
-  flex-basis: 460px;
-  flex-grow: .1;
-    
-  .CodeMirror { height: 100vh }
+#table-of-contents-container { display: none }
+
+#documentation,
+#table-of-contents {
+  margin: 0 auto;
+  max-width: 700px;
+  overflow-x: hidden;
 }
 
-#non-editor-container {
-  flex-basis: 0;
-  flex-grow: 1;
-  height: 100vh;
-  overflow-y: hidden;
-
-  $top-bar-height: 44px;
-  
-  #tab-container {
-    align-items: center;
+@include on-regular-screens {
+  body {
     display: flex;
-    height: $top-bar-height;
+    flex-flow: wrap row-reverse;
+    height: 100vh;
   }
 
-  #tab-panel-container {
-    height: calc(100vh - #{$top-bar-height});
-    // Setting `overflow-y` to anything but `visible` prevents wide elements
-    // within the documentation from widening this element.   
+  #editor-container {
+    border-right: 1px solid #aaa;
+    flex-basis: 460px;
+    flex-grow: .1;
+      
+    .CodeMirror { height: 100vh }
+  }
+
+  #non-editor-container {
+    flex-basis: 0;
+    flex-grow: 1;
+    height: 100vh;
     overflow-y: hidden;
 
-    #documentation-container,
-    #table-of-contents-container {
-      height: 100%;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
+    #tab-panel-container {
+      height: calc(100vh - #{$top-bar-height});
+      // Setting `overflow-y` to anything but `visible` prevents wide elements
+      // within the documentation from widening this element.   
+      overflow-y: hidden;
 
-    #documentation,
-    #table-of-contents {
-      margin: 0 auto;
-      max-width: 700px;
+      #documentation-container,
+      #table-of-contents-container {
+        height: 100%;
+        overflow-x: hidden;
+      }
     }
-
-    #table-of-contents-container { display: none }
   }
 }
 
 @include on-small-screens {
+  body { overflow-x: hidden }
   #editor-container { display: none }
-  #tab-panel-container { height: 100% }
+  
+  #non-editor-container {
+    #tab-panel-container {
+      min-height: 100%;
+
+      #documentation-container,
+      #table-of-contents-container { min-height: 100% }
+    }
+  }
+
 }
 
 @include on-very-small-screens {

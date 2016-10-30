@@ -5,10 +5,6 @@ small {
   opacity: .5;
 }
 
-#{$heading-selector} {
-  small:last-child { white-space: nowrap }
-}
-
 #{$heading-selector}, th, mark, a {
   small {
     font-size: 80%;

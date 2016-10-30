@@ -1,0 +1,7 @@
+@import 'max-width-for-small-screens';
+
+@mixin on-regular-screens {
+  @media only screen and (min-width: 1 + $max-width-for-small-screens) {
+    @content;
+  }
+}
