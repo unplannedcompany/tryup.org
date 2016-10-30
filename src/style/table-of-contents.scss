@@ -4,8 +4,7 @@
 
 @function entry-indentation($level) {
   // Level 1 headings are centered, so they don't need to be indented.
-  @return if(
-    $level == 1,
+  @return if($level == 1,
     0,
     ($level - 2) * 40px); 
 }
@@ -16,6 +15,8 @@ $max-indent-level: 11;
 #table-of-contents-container {
   background-color: $heading-color;
   font-size: 75%;
+  padding-left: 10px;
+  padding-right: 10px;
   user-select: none;
 
   a {
