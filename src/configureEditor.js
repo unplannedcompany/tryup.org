@@ -1,8 +1,10 @@
 import CodeMirror from 'codemirror'
 import * as Up from 'write-up'
-import debounce from './debounce'
 import addScrollSyncingEventListeners from './addScrollSyncingEventListeners'
+import isTotallyHidden from './isTotallyHidden'
+import debounce from './debounce'
 import upSettings from './upSettings'
+import repeat from './repeat'
 
 
 // WARNING: This collection represents shared state!
@@ -216,23 +218,6 @@ function syncScrollingFromEditor(codeMirror, documentationScrollerElement) {
       return
     }
   }
-}
-
-
-function isTotallyHidden(element) {
-  // If an element's `display` is set to `none`, its `offsetParent` returns `null`.
-  //
-  // See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent
-  //
-  // We don't check `style.display` directly, because it returns an empty string if
-  // it wasn't set by JavaScript.   
-  return !element.offsetParent;
-}
-
-
-// Returns a new string consisting of `count` copies of `text`
-function repeat(text, count) {
-  return new Array(count + 1).join(text)
 }
 
 

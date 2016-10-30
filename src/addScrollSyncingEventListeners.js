@@ -5,7 +5,7 @@ import throttle from './throttle'
 export default function addScrollSyncingEventListeners(
   codeMirror,
   documentationScrollerElement,
-  syncScrollingFromTabPanel,
+  syncScrollingFromDocumentation,
   syncScrollingFromEditor
 ) {
   // We need to watch out for feedback loops!
@@ -21,7 +21,7 @@ export default function addScrollSyncingEventListeners(
   //
   // To prevent this, whenever the user scrolls a container, we ignore any scroll events
   // from the other container.
-  let ignoringScrollEventsFromTabPanel = false
+  let ignoringScrollEventsFromDocumentation = false
   let ignoringScrollEventsFromEditor = false
 
   const getEventReEnabler = reEnable =>
@@ -31,8 +31,8 @@ export default function addScrollSyncingEventListeners(
     ignoringScrollEventsFromEditor = false
   })
 
-  const eventuallyReEnableScrollEventsFromTabPanel = getEventReEnabler(() => {
-    ignoringScrollEventsFromTabPanel = false
+  const eventuallyReEnableScrollEventsFromDocumentation = getEventReEnabler(() => {
+    ignoringScrollEventsFromDocumentation = false
   })
 
   function temporarilyIgnoreScrollEventsFromEditor() {
@@ -40,20 +40,20 @@ export default function addScrollSyncingEventListeners(
     eventuallyReEnableScrollEventsFromEditor()
   }
 
-  function temporarilyIgnoreScrollEventsFromTabPanel() {
-    ignoringScrollEventsFromTabPanel = true
-    eventuallyReEnableScrollEventsFromTabPanel()
+  function temporarilyIgnoreScrollEventsFromDocumentation() {
+    ignoringScrollEventsFromDocumentation = true
+    eventuallyReEnableScrollEventsFromDocumentation()
   }
 
-  const throttledSyncingFromTabPanel =
-    throttleScrollSyncing(syncScrollingFromTabPanel, codeMirror, documentationScrollerElement)
+  const throttledSyncingFromDocumentation =
+    throttleScrollSyncing(syncScrollingFromDocumentation, codeMirror, documentationScrollerElement)
 
   const throttledSyncingFromEditor =
     throttleScrollSyncing(syncScrollingFromEditor, codeMirror, documentationScrollerElement)
 
   addScrollEventListener(documentationScrollerElement, () => {
-    if (!ignoringScrollEventsFromTabPanel) {
-      throttledSyncingFromTabPanel()
+    if (!ignoringScrollEventsFromDocumentation) {
+      throttledSyncingFromDocumentation()
       temporarilyIgnoreScrollEventsFromEditor()
     }
   })
@@ -61,18 +61,18 @@ export default function addScrollSyncingEventListeners(
   addScrollEventListener(codeMirror.getScrollerElement(), () => {
     if (!ignoringScrollEventsFromEditor) {
       throttledSyncingFromEditor()
-      temporarilyIgnoreScrollEventsFromTabPanel()
+      temporarilyIgnoreScrollEventsFromDocumentation()
     }
   })
 }
 
 
-function throttleScrollSyncing(syncScrolling, codeMirror, tabPanelContainer) {
+function throttleScrollSyncing(syncScrolling, codeMirror, documentationContainerElement) {
   const FPS_FOR_SCROLL_SYNCING = 60
   const SCROLL_SYNC_INTERVAL = 1000 / FPS_FOR_SCROLL_SYNCING
 
   return throttle(
-    () => syncScrolling(codeMirror, tabPanelContainer),
+    () => syncScrolling(codeMirror, documentationContainerElement),
     SCROLL_SYNC_INTERVAL)
 }
 

@@ -10,33 +10,33 @@ export default function configureScrollPositionAfterNavigation(documentationCont
   // To work around this, we save the user's scroll position every time they
   // click a link, then use the `popstate` event to manually restore their
   // scroll position.  
-  onLinkClick(documentationContainerElement, () => { saveTabPanelScrollPosition() })
+  onLinkClick(documentationContainerElement, () => { saveDocumentationScrollPosition() })
 
   // If the user scrolls halfway down the documentation, then navigates backward
   // to some external page, then navigates forward to return to our page again,
   // we want to be able to restore their scroll position. 
   window.addEventListener('beforeunload', () => {
-    saveTabPanelScrollPosition()
+    saveDocumentationScrollPosition()
   })
 
   window.addEventListener('popstate', event => {
     const { state } = event
-    recallTabPanelScrollPosition(state)
+    recallDocumentationScrollPosition(state)
   })
 
   // In Chrome, the `popstate` event doesn't' fire when the user navigates
   // backward from an external page. 
   window.addEventListener('pageshow', () => {
     const { state } = window.history
-    recallTabPanelScrollPosition(state)
+    recallDocumentationScrollPosition(state)
   })
 
-  function saveTabPanelScrollPosition() {
+  function saveDocumentationScrollPosition() {
     const { scrollTop } = documentationContainerElement
     window.history.replaceState({ scrollTop }, '')
   }
 
-  function recallTabPanelScrollPosition(historyState) {
+  function recallDocumentationScrollPosition(historyState) {
     if (historyState) {
       documentationContainerElement.scrollTop = historyState.scrollTop
     } else {

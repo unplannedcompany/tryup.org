@@ -29,7 +29,7 @@ a:hover code { text-decoration: none; }
 pre {
   @include heavy-shadow;
   border-radius: (3em / 16);
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 7px 9px;    
   margin: 20px 0;
 
