@@ -111,7 +111,7 @@ Up is not terribly slow, but it's not terribly fast, either---at least not yet. 
 Writing conventions
 ###################
 
-The following terms are occasionally used through this section.
+The following terms are occasionally used throughout this section.
 
 Writing convention
   Any special annotation or formatting recognized by Up.
@@ -769,13 +769,14 @@ Output
 Revealable content
 ==================
 
-Sometimes, you want to give readers the option to avoid certain content. This includes:
+Both [topic: inline revealables] and [topic: revealable blocks] recognize any of the following keywords:
 
-- Movie spoilers
-- Sexual content
-- Graphic/disturbing content
+- `spoiler`
+- `nsfw`
+- `nsfl`
+- `revealable`
 
-To facilitate this, Up supports revealable content.
+Like all keywords in Up, you can capitalize them however you want.
 
 
 Inline revealables
@@ -793,7 +794,9 @@ Markup
 Output
   At the end of Pokémon Red, [SPOILER: you battle your rival] before the credits roll.
 
-To hide content within a paragraph, first enclose that content within square brackets or parentheses. Then, insert one of the [topic: revealable keywords] directly inside your opening bracket, followed by a colon.
+To hide content within a paragraph, first enclose that content within square brackets or parentheses.
+
+Then, directly inside your opening bracket, insert one of the revealable keywords followed by a colon: `spoiler:`, `nsfw:`, `nsfl:`, or `revealable:`.
 
 Inline revealables can contain any inline writing convention.
 
@@ -827,22 +830,11 @@ Output
     2. Alakazam
     3. Rhydon
 
-To hide a block of content, first indent it two spaces (or a tab). Then, on the line *before* your indented block, put one of the [topic: revealable keywords].
+To hide a block of content, first indent it two spaces (or a tab).
 
-In the example above, the revealable keyword is followed by a colon. This isn't necessary.
+Then, on the line *before* your indented block, put one of the revealable keywords: `spoiler`, `nsfw`, `nsfl`, or `revealable`.
 
-
-Revealable keywords
-===================
-
-Both [topic: inline revealables] and [topic: revealable blocks] recognize any of the following keywords:
-
-- `spoiler`
-- `nsfw`
-- `nsfl`
-- `revealable`
-
-Like all keywords in Up, you can capitalize these keywords however you want.
+In the example above, the chosen revealable keyword (`spoiler`) is followed by a colon. The colon is optional.
 
 
 ===========
@@ -1361,7 +1353,7 @@ Output
 The caption
 ===========
 
-Tables start with a caption. Captions can contain any inline writing convention.
+The text after `Table:` is treated as the table's caption. Captions can contain any inline writing convention.
 
 Markup
   ````
@@ -1389,23 +1381,21 @@ Markup
   ````
   Table
 
-  Level;  Move;         Type;     Power;  Accuracy
+  Fruit;      Color;      Taste
 
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Lime;       Green;      Sour
+  Lemon;      Yellow;     Sour
+  Banana;     Yellow;     Sweet
   ````
 
 Output
   Table
 
-  Level;  Move;         Type;     Power;  Accuracy
+  Fruit;      Color;      Taste
 
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Lime;       Green;      Sour
+  Lemon;      Yellow;     Sour
+  Banana;     Yellow;     Sweet
 
 
 Cells
