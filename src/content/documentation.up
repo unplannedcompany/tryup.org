@@ -1848,9 +1848,9 @@ Output
   My favorite kind of slash is the backslash: \\. What is yours?
 
 
-======================================
-Overlapping inline writing conventions
-======================================
+===============================
+Overlapping writing conventions
+===============================
 
 In Up, inline writing conventions can freely overlap.
 
@@ -2670,7 +2670,7 @@ Inline documents
 
 In certain contexts, you might want to restrict a document to just a single line:
 
-- An chat message
+- A chat message
 - The title of a thread on a message board
 - The byline for a user's profile
 
