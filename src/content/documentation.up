@@ -1909,7 +1909,7 @@ Hooray! `Up` now serves as the namespace for the library.
 Typically, you'll want to use the various functions within that namespace.
 
 ````
-const html = Up.parseAndRender(markup, settings)
+const html = Up.parseAndRender(markup, optionalSettings)
 ````
 
 For a full description of the functions you can use, please see [topic: functions].
@@ -2263,7 +2263,7 @@ Members
         fancyEllipsis: "⋯",
         keywords: {
           audio: ["sound", "song"],
-          audio: "listen"
+          revealable: "hide"
         }
       },
       rendering: {
@@ -2294,12 +2294,12 @@ Members
         fancyEllipsis: "⋯",
         keywords: {
           audio: "listen",
-          audio: "listen"
+          revealable: "hide"
         }
       },
       rendering: {
         idPrefix: "article",
-        terms: { reveal "expand" }
+        terms: { reveal: "expand" }
       }
     }
     ````
