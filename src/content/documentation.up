@@ -1916,6 +1916,8 @@ For a full description of the functions you can use, please see [topic: function
 
 Alternatively, you can use the [topic: Up.Transformer] class, which can be useful if you need to parse or render several documents sharing custom settings.
 
+If you need to analyze or alter a parsed document, please see [topic: abstract syntax tree].
+
 
 =========
 Functions
@@ -2711,7 +2713,9 @@ Rendered HTML
 When inline documents are rendered, the resulting HTML is *not* enclosed within any container element (e.g. `<p>`).
 
 Inline markup
+  ````
   I *really* like Starcraft.
+  ````
 
 Rendered inline HTML
   ````
@@ -2720,9 +2724,9 @@ Rendered inline HTML
 
 
 
-========================
-The abstract syntax tree
-========================
+====================
+Abstract syntax tree
+====================
 
 Unless you're fiddling with the abstract syntax tree of a parsed document, you don't need to worry about any of these classes or interfaces.
 
@@ -2879,15 +2883,15 @@ Purpose
 Extends
   [topic: Up.InlineSyntaxNodeContainer]
 
-Notes
-  The [topic: Up.parseInline] function returns an instance of this class.
-
 Rendered HTML
   When rendered to HTML, an inline document is *not* put into an outer container element.
 
   ````
   I <em>love</em> dental floss!
   ````
+Ï
+Notes
+  The [topic: Up.parseInline] function returns an instance of this class.
 
 
 `Up.SyntaxNode`
