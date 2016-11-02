@@ -8,11 +8,11 @@ const upSettings = require('./src/upSettings')
 const documentationMarkup =
   fs.readFileSync(getSourceFilename('content/documentation.up'), 'utf-8')
 
-const result =
+const renderedResult =
   Up.parseAndRenderDocumentAndTableOfContents(documentationMarkup, upSettings)
 
-const documentationHtml = result.documentHtml
-const tableOfContentsHtml = result.tableOfContentsHtml
+const documentationHtml = renderedResult.documentHtml
+const tableOfContentsHtml = renderedResult.tableOfContentsHtml
 
 module.exports = {
   entry: getSourceFilename('app.js'),
@@ -56,7 +56,7 @@ module.exports = {
       template: getSourceFilename('layout/index.hbs'),
       documentationHtml,
       tableOfContentsHtml,
-      inject: 'body'
+      inject: 'head'
     })
   ]
 }
