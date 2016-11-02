@@ -176,7 +176,7 @@ Output
 
   Poetry is just too easy.
 
-Consecutive non-blank lines produce a line block---unless those lines represent another convention, like [topic: numbered lists].
+Consecutive non-blank lines produce a line block, unless those lines represent another convention, like [topic: numbered lists].
 
 Line blocks can contain any inline writing convention.
 
@@ -1912,7 +1912,7 @@ Typically, you'll want to use the various [topic: functions] within that namespa
 const html = Up.parseAndRender(markup, optionalSettings)
 ````
 
-Alternatively, you can use the [topic: Up.Transformer] class, which can be useful if you need to parse or render several documents sharing custom settings.
+Alternatively, you can use the [topic: Up.Transformer] class, which can be helpful if you need to parse or render several documents sharing custom settings.
 
 
 =========
