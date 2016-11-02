@@ -1906,17 +1906,13 @@ const Up = require('write-up')
 
 Hooray! `Up` now serves as the namespace for the library.
 
-Typically, you'll want to use the various functions within that namespace.
+Typically, you'll want to use the various [topic: functions] within that namespace.
 
 ````
 const html = Up.parseAndRender(markup, optionalSettings)
 ````
 
-For a full description of the functions you can use, please see [topic: functions].
-
 Alternatively, you can use the [topic: Up.Transformer] class, which can be useful if you need to parse or render several documents sharing custom settings.
-
-If you need to analyze or alter a parsed document, please see [topic: abstract syntax tree].
 
 
 =========
