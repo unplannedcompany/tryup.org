@@ -713,7 +713,7 @@ Media descriptions
 
 Media descriptions always start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
 
-Within media descriptions, [topic: typographical writing conventions] are supported, but other writing conventions are not You cannot include revealable content or links, for example.
+Within media descriptions, [topic: typographical writing conventions] are supported, but other writing conventions are not. You cannot include revealable content or links, for example.
 
 
 Media URLs
@@ -1890,7 +1890,7 @@ Installation
 ============
 
 ````
-npm install write-up --save-dev
+npm install write-up --save
 ````
 
 
