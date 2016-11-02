@@ -1,12 +1,12 @@
+const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs')
 const Up = require('write-up')
 const upSettings = require('./src/upSettings')
 
-
-const documentationMarkup = fs.readFileSync(
-  sourceFilename('content/documentation.up'), 'utf-8')
+const documentationMarkup =
+  fs.readFileSync(getSourceFilename('content/documentation.up'), 'utf-8')
 
 const result =
   Up.parseAndRenderDocumentAndTableOfContents(documentationMarkup, upSettings)
@@ -15,7 +15,7 @@ const documentationHtml = result.documentHtml
 const tableOfContentsHtml = result.tableOfContentsHtml
 
 module.exports = {
-  entry: sourceFilename('app.js'),
+  entry: getSourceFilename('app.js'),
   output: {
     path: './docs',
     filename: 'app.js'
@@ -53,7 +53,7 @@ module.exports = {
   ],
   plugins: [
     new HtmlWebpackPlugin({
-      template: sourceFilename('layout/index.hbs'),
+      template: getSourceFilename('layout/index.hbs'),
       documentationHtml,
       tableOfContentsHtml,
       inject: 'body'
@@ -61,7 +61,15 @@ module.exports = {
   ]
 }
 
+const isForProduction = process.env.NODE_ENV === "production";
 
-function sourceFilename(path) {
+if (isForProduction) {
+  module.exports.plugins.push(
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }))
+}
+
+function getSourceFilename(path) {
   return './src/' + path
 }
