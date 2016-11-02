@@ -2224,7 +2224,7 @@ Usage
 ================
 
 Purpose
-  The `Up.Transformer` class can be useful if you need to parse or render several documents all sharing custom settings.
+  The `Up.Transformer` class can be helpful if you need to parse or render several documents sharing custom settings.
 
   Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
