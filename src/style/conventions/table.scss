@@ -49,12 +49,6 @@ table {
     color: $heading-color;
     font-family: $heading-font-family;
 
-    // When tables have a header column, their header row starts
-    // with an empty cell. This cell should be invisible.
-    &:first-child:empty {
-        background: transparent;
-        border-top: 0;
-        border-left: 0;
-    }
+    &[scope="row"] { text-align: right }
   }
 }

@@ -13,8 +13,8 @@ $blockquote-indent-color: #ddd;
 blockquote {
   border-left: 20px solid $blockquote-indent-color;
   background-color: $blockquote-bg-color;
-  padding: 5px 20px;
   margin: 15px 0;
+  padding: 5px 20px;
 
   blockquote {
     @include nested-blockquoted-colors(1);
