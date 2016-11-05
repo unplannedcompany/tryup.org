@@ -74,11 +74,11 @@ Up even supports [topic: overlapping].
 
 Markup
   ````
-  I *enjoy ==sleeping* late== whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
   ````
 
 Output
-  I *enjoy ==sleeping* late== whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
 
 
 Up produces fully accessible HTML
@@ -1745,11 +1745,11 @@ Two consecutive hyphens produce an en dash.
 
 Markup
   ````
-  I agree -- to a extent -- with your plan to eat nothing but cereal.
+  I agree -- to an extent -- with your plan to eat nothing but cereal.
   ````
 
 Output
-  I agree -- to a extent -- with your plan to eat nothing but cereal.
+  I agree -- to an extent -- with your plan to eat nothing but cereal.
 
 
 Em dash
@@ -1838,11 +1838,11 @@ In Up, inline writing conventions can freely overlap.
 
 Markup
   ````
-  I *enjoy ==sleeping* late== whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
   ````
 
 Output
-  I *enjoy ==sleeping* late== whenever I can.
+  I **enjoy ==sleeping** late== whenever I can.
 
 
 Superficial overlapping
