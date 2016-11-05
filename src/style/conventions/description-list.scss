@@ -10,11 +10,7 @@ dl {
     font-weight: bold;
   }
 
-  dd {
-    margin-left: 20px;
-
-    dd { margin-left: 40px; }
-  }
+  dd { margin-left: 20px }
 
   // Without some extra spacing, consecutive description lists appear merged together.
   + dl { margin-top:  45px }

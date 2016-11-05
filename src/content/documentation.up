@@ -512,9 +512,9 @@ Markup
 Output
   ``let output = `score:` + 5``
 
------------------------------------------------
-Inline code starting (or ending) with backticks
------------------------------------------------
+---------------------------------------------
+Inline code starting or ending with backticks
+---------------------------------------------
 
 If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
 
@@ -1888,9 +1888,9 @@ const { parseAndRender } = require('write-up')
 const html = parseAndRender(markup, optionalSettings)
 ````
 
-Alternatively, you can use the exported `Up` class, which can be helpful if you need to parse or render several documents sharing custom settings. For more information, please see [topic: `Up`].
+Alternatively, you can use the exported `Up` class, which can be helpful if you need to parse or render several documents sharing custom settings. Please see [topic: `Up`] for more information.
 
-If you plan to modify or analyze a parsed document, please see [topic: abstract syntax tree].
+If you plan to modify or analyze a parsed document, you'll want to check out the [topic: abstract syntax tree classes].
 
 
 =========
@@ -2698,11 +2698,23 @@ Rendered inline HTML
 
 
 
-====================
-Abstract syntax tree
-====================
+============================
+Abstract syntax tree classes
+============================
 
-Unless you're fiddling with the abstract syntax tree of a parsed document, this section isn't relevant to you.
+Unless you're fiddling with the abstract syntax tree of a parsed document, this section isn't relevant for you.
+
+The Up library exports every class used in the abstract syntax tree. 
+
+````
+const { Blockquote } = require("write-up")
+
+if (syntaxNode instanceof Blockquote) {
+  // Do something exciting
+}
+````
+
+If you're using TypeScript, you can take advantage of the library's built-in type declarations. This includes several interface types, all of which are described below.
 
 
 `Document` (class)
