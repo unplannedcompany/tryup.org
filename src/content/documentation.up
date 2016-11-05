@@ -941,6 +941,7 @@ Output
   - Buy bread
   - Buy happiness
 
+
 Bullets
 =======
 
@@ -2563,10 +2564,10 @@ Members (all of which are optional)
 
   `terms` (all of which are optional)
     `footnote`: `string`
-      Appears in the URLs of footnotes definitions (in their respective footnote blocks).
+      Appears in the URLs of links pointing to footnotes in their footnote blocks.
 
     `footnoteReference`: `string`
-      Appears in the URLs of footnotes references (i.e. the superscripts within paragraphs).
+      Appears in the URLs of links pointing back to footnote references (i.e. back to the superscripts within paragraphs).
 
     `hide`: `string`
       Appears on the button that hides revealable content.
@@ -2575,7 +2576,7 @@ Members (all of which are optional)
       Appears on the button that reveals revealable content.
 
     `sectionReferencedByTableOfContents`: `string`
-      Appears in the URLs of headings referenced by the table of contents.
+      Appears in the URLs of table of contents entries.
 
     You don't need to worry about escaping any characters in your custom terms! Up handles that for you.
 
