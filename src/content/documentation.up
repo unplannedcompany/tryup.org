@@ -2200,7 +2200,9 @@ Usage
 ============
 
 Purpose
-  The `Up` class can be helpful if you need to parse or render several documents sharing custom settings.
+  Anything you can accomplish using the `Up` class, you can accomplish using the regular [topic: functions] exported by the library.
+
+  However, the `Up` class can be helpful if you need to parse or render several documents sharing custom settings.
 
   Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
@@ -2210,6 +2212,7 @@ Purpose
   const up = new Up(settings)
   const html = up.parseAndRender(markup, settingsChanges)
   ````
+
 
 Constructor arguments
   `settings` (optional): [topic: `Settings`]

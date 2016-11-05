@@ -2,7 +2,7 @@
 
 @mixin faux-inline-button {
   @include faux-button;
-    
+
   display: inline;
   font-size: 65%;
   margin: 0 5px;

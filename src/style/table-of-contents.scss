@@ -1,4 +1,3 @@
-@import 'common/link-color';
 @import 'common/heading-selector';
 @import 'common/default-example-input-shading';
 @import 'common/media-queries/on-very-small-screens';
@@ -17,15 +16,13 @@ $max-indent-level: 11;
 $indent-per-level-on-very-small-screens: 20px;
 
 #table-of-contents-container {
-  background-color: $link-color;
-  font-size: 75%;
   padding-left: 10px;
   padding-right: 10px;
   user-select: none;
 
   a {
     border: 0;
-    color: white;
+    color: black;
     display: inline-block;
     width: 100%;
     text-decoration: none;
@@ -41,12 +38,9 @@ $indent-per-level-on-very-small-screens: 20px;
   // The same logic applies for inline code.
   code { text-decoration: none }
 
-  // Let's increase the contrast! White text on a yellow background is
-  // impossible to see.
-  mark { color: $link-color }
-
   #{$heading-selector} {
     font-weight: normal;
+    font-size: 100%;
     margin: 0;
     padding: 0;
 
@@ -58,6 +52,8 @@ $indent-per-level-on-very-small-screens: 20px;
       }
     }
   }
+
+  h1, h2 { font-weight: bold }
 
   @for $level from 1 through ($max-indent-level - 1) {
     $selector-for-this-heading-level:
