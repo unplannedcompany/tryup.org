@@ -312,9 +312,11 @@ Output
   - Buy [sugar] [wikipedia.org/wiki/Sugar]
   - Buy (happiness) (wikipedia.org/wiki/Happiness)
 
-As demonstrated above, you can omit a link's URL scheme (`http://` and `https://` are examples of URL schemes). If you do, Up assumes the link's URL scheme is `https://`.
+As demonstrated above, you can omit a link's URL scheme. [^ `http://` and `https://` are examples of URL schemes.] If you do, Up uses `https://` for the URL scheme.
 
-If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`]. Other URL-related settings are:
+If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`].
+
+Other settings affecting links are:
 
 - [topic: `baseForUrlsStartingWithSlash`]
 - [topic: `baseForUrlsStartingWithHashmark`]
@@ -691,15 +693,17 @@ Media descriptions
 
 Media descriptions always start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
 
-Within media descriptions, [topic: typographical writing conventions] are supported, but other writing conventions are not. You cannot include revealable content or links, for example.
+Within media descriptions, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
 
 
 Media URLs
 ==========
 
-As demonstrated below, you can omit the URL scheme for media URLs (`http://` and `https://` are examples of URL schemes). If you do, Up assumes the URL scheme is `https://`.
+As demonstrated below, you can omit the URL scheme for media URLs. If you do, Up uses `https://` for the URL scheme.
 
-If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`]. Other URL-related settings are:
+If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`].
+
+Other settings affecting media are:
 
 - [topic: `baseForUrlsStartingWithSlash`]
 - [topic: `baseForUrlsStartingWithHashmark`]
@@ -1884,7 +1888,7 @@ const { parseAndRender } = require('write-up')
 const html = parseAndRender(markup, optionalSettings)
 ````
 
-Alternatively, you can use the exported [topic: `Up` class], which can be helpful if you need to parse or render several documents sharing custom settings.
+Alternatively, you can use the exported `Up` class, which can be helpful if you need to parse or render several documents sharing custom settings. For more information, please see [topic: `Up`].
 
 If you plan to modify or analyze a parsed document, please see [topic: abstract syntax tree].
 
@@ -2433,7 +2437,7 @@ Details
 ------------------
 
 Summary
-  The `defaultUrlScheme` is prefixed to any link URL or media URL without a URL scheme (`http://` and `https://` are examples of URL schemes).
+  The `defaultUrlScheme` is prefixed to any link URL or media URL without a URL scheme.
 
   For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: `baseForUrlsStartingWithSlash`] or [topic: `baseForUrlsStartingWithHashmark`].
 

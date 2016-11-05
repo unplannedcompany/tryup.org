@@ -6,7 +6,7 @@
 // This is mostly taken from Stackoverflow's <kbd> styling.
 kbd {
   @include default-example-input-shading;
-  
+
   border-width: (1em / 8);
   border-style: solid;
   border-radius: (1em / 4);

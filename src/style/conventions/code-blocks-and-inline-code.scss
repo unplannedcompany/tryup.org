@@ -14,6 +14,7 @@ pre, code {
 // Inline code
 code.up-inline-code {
   @include mild-shadow;
+
   border-radius: (1em / 8);
   font-weight: normal;
   margin: 0 (1em / 16);
@@ -31,10 +32,12 @@ a:hover code { text-decoration: none; }
 // Code blocks
 pre {
   @include heavy-shadow;
+
   border-radius: (3em / 16);
-  overflow-x: auto;
-  padding: 7px 9px;    
+  line-height: 1.5;
   margin: 20px 0;
+  overflow-x: auto;
+  padding: 7px 9px;
 
 
   @include on-very-small-screens {
