@@ -641,6 +641,7 @@ When matching the markup snippet to the most appropriate heading, Up completey i
 
 Markup
   ````
+  ----------------------
   Capitalization example
   ----------------------
 
@@ -648,6 +649,7 @@ Markup
   ````
 
 Output
+  ----------------------
   Capitalization example
   ----------------------
 
