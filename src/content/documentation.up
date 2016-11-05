@@ -46,17 +46,17 @@ Up isn't picky about which brackets you use for [topic: links].
 
 Markup
   ````
-  - Buy [milk] (wikipedia.org/wiki/Milk)
-  - Buy (bread) [wikipedia.org/wiki/Bread]
-  - Buy [sugar] [wikipedia.org/wiki/Sugar]
-  - Buy (happiness) (wikipedia.org/wiki/Happiness)
+  - Buy [milk] (en.wikipedia.org/wiki/Milk)
+  - Buy (bread) [en.wikipedia.org/wiki/Bread]
+  - Buy [sugar] [en.wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (en.wikipedia.org/wiki/Happiness)
   ````
 
 Output
-  - Buy [milk] (wikipedia.org/wiki/Milk)
-  - Buy (bread) [wikipedia.org/wiki/Bread]
-  - Buy [sugar] [wikipedia.org/wiki/Sugar]
-  - Buy (happiness) (wikipedia.org/wiki/Happiness)
+  - Buy [milk] (en.wikipedia.org/wiki/Milk)
+  - Buy (bread) [en.wikipedia.org/wiki/Bread]
+  - Buy [sugar] [en.wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (en.wikipedia.org/wiki/Happiness)
 
 Up usually ignores [topic: excessive delimiter characters].
 
@@ -287,11 +287,11 @@ You already know what a link is!
 
 Markup
   ````
-  The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
+  The [Game Boy] (en.wikipedia.org/wiki/Game_Boy) was my first video game system.
   ````
 
 Output
-  The [Game Boy] (wikipedia.org/wiki/Game_Boy) was my first video game system.
+  The [Game Boy] (en.wikipedia.org/wiki/Game_Boy) was my first video game system.
 
 A link consists of two parts: content and a URL.
 
@@ -301,17 +301,17 @@ You can use mix and match either type of bracket---they're totally interchangeab
 
 Markup
   ````
-  - Buy [milk] (wikipedia.org/wiki/Milk)
-  - Buy (bread) [wikipedia.org/wiki/Bread]
-  - Buy [sugar] [wikipedia.org/wiki/Sugar]
-  - Buy (happiness) (wikipedia.org/wiki/Happiness)
+  - Buy [milk] (en.wikipedia.org/wiki/Milk)
+  - Buy (bread) [en.wikipedia.org/wiki/Bread]
+  - Buy [sugar] [en.wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (en.wikipedia.org/wiki/Happiness)
   ````
 
 Output
-  - Buy [milk] (wikipedia.org/wiki/Milk)
-  - Buy (bread) [wikipedia.org/wiki/Bread]
-  - Buy [sugar] [wikipedia.org/wiki/Sugar]
-  - Buy (happiness) (wikipedia.org/wiki/Happiness)
+  - Buy [milk] (en.wikipedia.org/wiki/Milk)
+  - Buy (bread) [en.wikipedia.org/wiki/Bread]
+  - Buy [sugar] [en.wikipedia.org/wiki/Sugar]
+  - Buy (happiness) (en.wikipedia.org/wiki/Happiness)
 
 As demonstrated above, you can omit a link's URL scheme. [^ `http://` and `https://` are examples of URL schemes.] If you do, Up uses `https://` for the URL scheme.
 
@@ -1341,7 +1341,7 @@ The text after `Table:` is treated as the table's caption. Captions can contain 
 
 Markup
   ````
-  Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
+  Table: My favorite [fruits] (en.wikipedia.org/wiki/Fruit)
 
   Fruit;      Color;      Taste
 
@@ -1351,7 +1351,7 @@ Markup
   ````
 
 Output
-  Table: My favorite [fruits] (wikipedia.org/wiki/Fruit)
+  Table: My favorite [fruits] (en.wikipedia.org/wiki/Fruit)
 
   Fruit;      Color;      Taste
 
@@ -1666,11 +1666,11 @@ You can put [topic: images] inside of [topic: links], but the syntax can be a bi
 
 Messy markup
   ````
-  [(image: Warlocked box art) (i.imgur.com/879AeYU.jpg)] [wikipedia.org/wiki/Warlocked]
+  [(image: Warlocked box art) (i.imgur.com/879AeYU.jpg)] [en.wikipedia.org/wiki/Warlocked]
   ````
 
 Output
-  [(image: Warlocked box art) (i.imgur.com/879AeYU.jpg)] [wikipedia.org/wiki/Warlocked]
+  [(image: Warlocked box art) (i.imgur.com/879AeYU.jpg)] [en.wikipedia.org/wiki/Warlocked]
 
 That's a lot of brackets! Luckily, there's a shortcut.
 
@@ -1678,11 +1678,11 @@ Simply place the "linkifying" URL after the image's own URL, and Up will produce
 
 Cleaner markup
   ````
-  [image: Warlocked box art] [i.imgur.com/879AeYU.jpg] (wikipedia.org/wiki/Warlocked)
+  [image: Warlocked box art] [i.imgur.com/879AeYU.jpg] (en.wikipedia.org/wiki/Warlocked)
   ````
 
 Output
-  [image: Warlocked box art] [i.imgur.com/879AeYU.jpg] (wikipedia.org/wiki/Warlocked)
+  [image: Warlocked box art] [i.imgur.com/879AeYU.jpg] (en.wikipedia.org/wiki/Warlocked)
 
 When linkifying an image, you can mix and match square brackets and parentheses---they're totally interchangeable.
 
@@ -1691,20 +1691,20 @@ This shortcut also works for the following inline writing conventions:
 [topic: Example input]
   Markup
     ````
-    Press {space} (wikipedia.org/wiki/Space_bar) to continue.
+    Press {space} (en.wikipedia.org/wiki/Space_bar) to continue.
     ````
 
   Output
-    Press {space} (wikipedia.org/wiki/Space_bar) to continue.
+    Press {space} (en.wikipedia.org/wiki/Space_bar) to continue.
 
 [topic: Footnotes]
   Markup
     ````
-    Pokémon is old [^ Released in 1996!] (wikipedia.org/wiki/Pokémon_Red_and_Blue) but it maintains its charm.
+    Pokémon is old [^ Released in 1996!] (en.wikipedia.org/wiki/Pokémon_Red_and_Blue) but it maintains its charm.
     ````
 
   Output
-    Pokémon is old [^ Released in 1996!] (wikipedia.org/wiki/Pokémon_Red_and_Blue) but it maintains its charm.
+    Pokémon is old [^ Released in 1996!] (en.wikipedia.org/wiki/Pokémon_Red_and_Blue) but it maintains its charm.
 
 [topic: Inline revealables]
   Markup
