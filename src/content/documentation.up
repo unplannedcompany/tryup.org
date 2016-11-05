@@ -210,6 +210,7 @@ Output
   John really, *really, *really** hates Red Delicious apples.
 
 
+======
 Stress
 ======
 
@@ -231,11 +232,11 @@ Like most inline writing conventions, stress can be nested within itself.
 
 Markup
   ````
-  Remember to **stand **far** away** from that toaster.
+  John really, **really, **really**** hates Red Delicious apples.
   ````
 
 Output
-  Remember to **stand **far** away** from that toaster.
+  John really, **really, **really**** hates Red Delicious apples.
 
 
 =======
@@ -346,7 +347,7 @@ Markup
 Output
   I love the [music](duckduckgo.com/?q=chrono cross music) for Chrono Cross.
 
-When you omit the space between your link's content and its URL, Up **always** produces a link.
+When you omit the space between your link's content and its URL, Up always produces a link.
 
 These rules also apply when [topic: linkifying].
 
@@ -1595,10 +1596,9 @@ Markup
   ````````
   ```
   function nthFibonacci(n: number): number {
-    return (
-      n <= 2
+    return n <= 2
       ? n - 1
-      : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+      : nthFibonacci(n - 1) + nthFibonacci(n - 2)
   }
   ```
   ````````
@@ -1606,10 +1606,9 @@ Markup
 Output
   ```
   function nthFibonacci(n: number): number {
-    return (
-      n <= 2
+    return n <= 2
       ? n - 1
-      : nthFibonacci(n - 1) + nthFibonacci(n - 2))
+      : nthFibonacci(n - 1) + nthFibonacci(n - 2)
   }
   ```
 
@@ -1632,10 +1631,9 @@ Markup
 
   ```
   function factorial(n: number): number {
-    return (
-      n <= 1
-        ? 1
-        : n * factorial(n - 1))
+    return n <= 1
+      ? 1
+      : n * factorial(n - 1)
   }
   ```
 
@@ -1649,10 +1647,9 @@ Output
 
   ```
   function factorial(n: number): number {
-    return (
-      n <= 1
-        ? 1
-        : n * factorial(n - 1))
+    return n <= 1
+      ? 1
+      : n * factorial(n - 1)
   }
   ```
 

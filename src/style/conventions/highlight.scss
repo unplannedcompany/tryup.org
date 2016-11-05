@@ -9,8 +9,3 @@ mark {
 
   mark { background-color: gold }
 }
-
-// Table headers use white text, and they use the heading color for
-// their background. Considering highlighting is yellow, we'll need
-// to increase the contrast.
-th mark { color: $heading-color }
