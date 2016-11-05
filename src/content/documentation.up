@@ -74,11 +74,11 @@ Up even supports [topic: overlapping].
 
 Markup
   ````
-  I **enjoy ==sleeping** late== whenever I can.
+  John **enjoys ==sleeping** late== whenever he can.
   ````
 
 Output
-  I **enjoy ==sleeping** late== whenever I can.
+  John **enjoys ==sleeping** late== whenever he can.
 
 
 Up produces fully accessible HTML
@@ -1838,11 +1838,11 @@ In Up, inline writing conventions can freely overlap.
 
 Markup
   ````
-  I **enjoy ==sleeping** late== whenever I can.
+  John **enjoys ==sleeping** late== whenever he can.
   ````
 
 Output
-  I **enjoy ==sleeping** late== whenever I can.
+  John **enjoys ==sleeping** late== whenever he can.
 
 
 Superficial overlapping
@@ -1905,7 +1905,7 @@ This function converts Up markup into HTML and returns the result.
 Arguments
   `markup`: `string`
     The Up markup to convert into HTML.
-  `settings` (optional): [topic: Settings]
+  `settings` (optional): [topic: `Settings`]
     The custom parsing and/or rendering settings to apply.
 
 Return type: `string`
@@ -1942,7 +1942,7 @@ This function converts Up markup into two pieces of HTML, both of which are retu
 Arguments
   `markup`: `string`
     The Up markup to parse and render.
-  `settings` (optional): [topic: Settings]
+  `settings` (optional): [topic: `Settings`]
     The custom parsing and/or rendering settings to apply.
 
 Return type: [topic: RenderedDocumentAndTableOfContents]
@@ -2001,7 +2001,7 @@ For more information about inline documents, see [topic: inline documents].
 Arguments
   `inlineMarkup`: `string`
     The inline Up markup to convert into inline HTML.
-  `parsingSettings` (optional): [topic: Settings]
+  `parsingSettings` (optional): [topic: `Settings`]
     The custom parsing and/or rendering settings to apply.
 
 Return type: `string`
@@ -2214,7 +2214,7 @@ Purpose
   ````
 
 Constructor arguments
-  `settings` (optional): [topic: Settings]
+  `settings` (optional): [topic: `Settings`]
     The custom parsing and/or rendering settings to apply for all subsequent method calls.
 
 Members
@@ -2335,7 +2335,7 @@ Summary
   - [topic: `parse`]
   - [topic: `parseInline`]
 
-  As part of [topic: Settings], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
+  As part of [topic: `Settings`], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: `parseAndRender`]
   - [topic: `parseAndRenderDocumentAndTableOfContents`]
@@ -2406,9 +2406,9 @@ Members (all of which are optional)
       Recognized by [topic: video].
 
 
------------------
-`createSourceMap`
------------------
+---------------------------
+`createSourceMap` (setting)
+---------------------------
 
 Summary
   When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline writing convention.
@@ -2432,9 +2432,9 @@ Details
   `createSourceMap` works by setting the `sourceLineNumber` of each [topic: `OutlineSyntaxNode`].
 
 
-------------------
-`defaultUrlScheme`
-------------------
+----------------------------
+`defaultUrlScheme` (setting)
+----------------------------
 
 Summary
   The `defaultUrlScheme` is prefixed to any link URL or media URL without a URL scheme.
@@ -2457,9 +2457,9 @@ Context
   This setting belongs to [topic: Settings.Parsing].
 
 
-------------------------------
-`baseForUrlsStartingWithSlash`
-------------------------------
+----------------------------------------
+`baseForUrlsStartingWithSlash` (setting)
+----------------------------------------
 
 Summary
   The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `/`.
@@ -2480,9 +2480,9 @@ Context
   This setting belongs to [topic: Settings.Parsing].
 
 
----------------------------------
-`baseForUrlsStartingWithHashMark`
----------------------------------
+-------------------------------------------
+`baseForUrlsStartingWithHashMark` (setting)
+-------------------------------------------
 
 Summary
   The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `#`.
@@ -2503,9 +2503,9 @@ Context
   This setting belongs to [topic: Settings.Parsing].
 
 
----------------
-`fancyEllipsis`
----------------
+-------------------------
+`fancyEllipsis` (setting)
+-------------------------
 
 Summary
   Up automatically replaces consecutive periods with `fancyEllipsis`.
@@ -2540,7 +2540,7 @@ Summary
   - [topic: `renderDocumentAndTableOfContents`]
   - [topic: `renderInline`]
 
-  As part of [topic: Settings], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
+  As part of [topic: `Settings`], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: `parseAndRender`]
   - [topic: `parseAndRenderDocumentAndTableOfContents`]
@@ -2583,9 +2583,9 @@ Members (all of which are optional)
     You don't need to worry about escaping any characters in your custom terms! Up handles that for you.
 
 
-----------
-`idPrefix`
-----------
+--------------------
+`idPrefix` (setting)
+--------------------
 
 Summary
   If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
@@ -2611,9 +2611,9 @@ Default
   `"up"`
 
 
-------------------------
-`renderDangerousContent`
-------------------------
+----------------------------------
+`renderDangerousContent` (setting)
+----------------------------------
 
 Summary
   Normally, Up will not render links or media elements with potentially exploitable URI schemes: `javascript`, `vbscript`, `data`, and `file`.
@@ -2702,7 +2702,7 @@ Rendered inline HTML
 Abstract syntax tree classes
 ============================
 
-Unless you're fiddling with the abstract syntax tree of a parsed document, this section isn't relevant for you.
+Unless you're fiddling with the abstract syntax tree of a parsed document, you can safely ignore this section.
 
 The Up library exports every class used in the abstract syntax tree.
 
@@ -2825,7 +2825,7 @@ Members
     Represents the heading level of the entry.
 
   `sourceLineNumber`: `number`
-    If the [topic: `createSourceMap`] setting is enabled, this field is set to the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
+    If [topic: `createSourceMap`] is enabled, this field is set to the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
 
     When rendered to HTML, entries with source line numbers are given a `data-up-source-line` attribute set the appropriate line number.
 
@@ -2929,7 +2929,7 @@ Extends
 
 Unique members
   `sourceLineNumber`: `number`
-    If the [topic: `createSourceMap`] setting is enabled, this field is set to the first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
+    If [topic: `createSourceMap`] is enabled, this field is set to the first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
 
     HTML elements rendered by outline syntax nodes with source line numbers are given a `data-up-source-line` attribute set the appropriate line number.
 

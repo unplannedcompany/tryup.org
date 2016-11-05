@@ -8,6 +8,7 @@
   color: $heading-color;
   font-family: $heading-font-family;
   line-height: 1.5;
+  padding-top: 10px;
 }
 
 h1 {
@@ -16,11 +17,7 @@ h1 {
   text-align: center;
 }
 
-h2 {
-  font-size: 150%;
-  padding-top: 5px;
-}
-
+h2 { font-size: 150% }
 h3 { font-size: 130% }
 h4 { font-size: 120% }
 h5 { font-size: 110% }
