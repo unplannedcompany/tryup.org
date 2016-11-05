@@ -623,7 +623,7 @@ Markup
 Output
   Unlike many markup languages, Up recognizes [topic: parenthetical text].
 
-To produce a section link, choose a snippet of text from the heading you want to link to.
+To produce a section link, choose a snippet of markup from the heading you want to link to (ignoring the heading's underline and optional overline).
 
 Simply enclose that snippet within square brackets or parentheses, then insert `topic:` or `section:` directly inside your opening bracket.
 
@@ -633,13 +633,11 @@ Up automatically matches your snippet to the most appropriate heading, then prod
 Matching the most appropriate heading
 =====================================
 
-Up tries to match your snippet to the first heading in the document whose text exactly matches your snippet's text. If there isn't an exact match, Up will matches your snippet to the first heading in the document whose text *contains* your snippet.
+As mentioned above, Up ignores the heading's underline and optional overline---it only cares about the markup for the content of the heading.
 
--------------------------
-Up ignores capitalization
--------------------------
+Up tries to match your snippet to the first heading in the document whose content markup exactly matches your snippet. If there isn't an exact match, Up will matches your snippet to the first heading in the document whose content markup *contains* your snippet.
 
-For example, if your document has a heading whose text is "Capitalization example", "CAPITALIZATION EXAMPLE" would be an exact match.
+When matching the markup snippet to the most appropriate heading, Up completey ignores capitalization. 
 
 Markup
   ````
@@ -654,28 +652,6 @@ Output
   ----------------------
 
   Please see [topic: CAPITALIZATION EXAMPLE].
-
--------------------------------------
-Up ignores inline writing conventions
--------------------------------------
-
-The text content of the heading is all that matters. Up ignores any inline writing conventions in the heading.
-
-For example, if your document has a heading whose content is "*Emphasis* example", "emphasis example" would be an exact match.
-
-Markup
-  ````
-  *Emphasis* example
-  ------------------
-
-  Please see [topic: emphasis example].
-  ````
-
-Output
-  *Emphasis* example
-  ------------------
-
-  Please see [topic: emphasis example].
 
 
 =========
@@ -1898,21 +1874,17 @@ npm install write-up --save
 Usage Overview
 ==============
 
-First, `require` the library.
+Typically, you'll want to use one of the various [topic: functions] exported by the library.
 
 ````
-const Up = require('write-up')
+const { parseAndRender } = require('write-up')
+
+const html = parseAndRender(markup, optionalSettings)
 ````
 
-Hooray! `Up` now serves as the namespace for the library.
+Alternatively, you can use the exported [topic: `Up`] class, which can be helpful if you need to parse or render several documents sharing custom settings.
 
-Typically, you'll want to use the various [topic: functions] within that namespace.
-
-````
-const html = Up.parseAndRender(markup, optionalSettings)
-````
-
-Alternatively, you can use the [topic: Transformer] class, which can be helpful if you need to parse or render several documents sharing custom settings.
+If you plan to modify or analyze a parsed document, please see [topic: abstract syntax tree].
 
 
 =========
@@ -1922,7 +1894,7 @@ Functions
 `parseAndRender`
 ================
 
-This method converts Up markup into HTML and returns the result.
+This function converts Up markup into HTML and returns the result.
 
 Arguments
   `markup`: `string`
@@ -1931,17 +1903,17 @@ Arguments
     The custom parsing and/or rendering settings to apply.
 
 Return type: `string`
-  This method returns HTML representing the rendered document.
+  This function returns HTML representing the rendered document.
 
 Usage
   Without custom settings
     ````
-    const html = Up.parseAndRender(markup)
+    const html = parseAndRender(markup)
     ````
 
   With custom settings
     ````
-    const html = Up.parseAndRender(markup, {
+    const html = parseAndRender(markup, {
       parsing: {
         createSourceMap: true,
         keywords: { audio: "listen" }
@@ -1956,7 +1928,7 @@ Usage
 `parseAndRenderDocumentAndTableOfContents`
 ==========================================
 
-This method converts Up markup into two pieces of HTML, both of which are returned:
+This function converts Up markup into two pieces of HTML, both of which are returned:
 
 1. A table of contents
 2. The document itself
@@ -1968,19 +1940,19 @@ Arguments
     The custom parsing and/or rendering settings to apply.
 
 Return type: [topic: RenderedDocumentAndTableOfContents]
-  This method returns HTML representing the rendered document and table of contents.
+  This function returns HTML representing the rendered document and table of contents.
 
 Usage
   Without custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      Up.parseAndRenderDocumentAndTableOfContents(markup)
+      parseAndRenderDocumentAndTableOfContents(markup)
     ````
 
   With custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      Up.parseAndRenderDocumentAndTableOfContents(markup, {
+      parseAndRenderDocumentAndTableOfContents(markup, {
         parsing: {
           createSourceMap: true,
           keywords: { audio: "listen" }
@@ -2016,7 +1988,7 @@ Notes
 `parseAndRenderInline`
 ======================
 
-This method converts inline Up markup into inline HTML and returns the result.
+This function converts inline Up markup into inline HTML and returns the result.
 
 For more information about inline documents, see [topic: inline documents].
 
@@ -2027,17 +1999,17 @@ Arguments
     The custom parsing and/or rendering settings to apply.
 
 Return type: `string`
-  This method returns HTML representing the rendered inline document.
+  This function returns HTML representing the rendered inline document.
 
 Usage
   Without custom settings
     ````
-    const html = Up.parseAndRenderInline(markup)
+    const html = parseAndRenderInline(markup)
     ````
 
   With custom settings
     ````
-    const html = Up.parseAndRenderInline(markup, {
+    const html = parseAndRenderInline(markup, {
       parsing: {
         baseForUrlsStartingWithSlash: "https://example.com/en-us",
         keywords: { audio: "listen" }
@@ -2056,7 +2028,7 @@ Usage
 `parse`
 =======
 
-This method parses Up markup and returns the resulting syntax tree.
+This function parses Up markup and returns the resulting syntax tree.
 
 Arguments
   `markup`: `string`
@@ -2066,17 +2038,17 @@ Arguments
     The custom parsing settings to apply.
 
 Return type: [topic: Document]
-  This method returns a syntax tree representing the parsed document.
+  This function returns a syntax tree representing the parsed document.
 
 Usage
   Without custom settings
     ````
-    const html = Up.parse(markup)
+    const html = parse(markup)
     ````
 
   With custom settings
     ````
-    const document = Up.parse(markup, {
+    const document = parse(markup, {
       createSourceMap: true,
       keywords: { audio: "listen" }
     })
@@ -2086,7 +2058,7 @@ Usage
 `parseInline`
 =============
 
-This method parses inline Up markup and returns the resulting inline syntax tree.
+This function parses inline Up markup and returns the resulting inline syntax tree.
 
 For more information about inline documents, see [topic: inline documents].
 
@@ -2098,17 +2070,17 @@ Arguments
     The custom parsing settings to apply.
 
 Return type: [topic: InlineDocument]
-  This method returns an inline syntax tree representing the parsed document.
+  This function returns an inline syntax tree representing the parsed document.
 
 Usage
   Without custom settings
     ````
-    const html = Up.parseInline(markup)
+    const html = parseInline(markup)
     ````
 
   With custom settings
     ````
-    const html = Up.parseInline(markup, {
+    const html = parseInline(markup, {
       baseForUrlsStartingWithSlash: "https://example.com/en-us",
       keywords: { audio: "listen" }
     })
@@ -2118,7 +2090,7 @@ Usage
 `render`
 ========
 
-This method converts a syntax tree into HTML and returns the result.
+This function converts a syntax tree into HTML and returns the result.
 
 Arguments
   `document`: [topic: Document]
@@ -2128,17 +2100,17 @@ Arguments
     The custom rendering settings to apply.
 
 Return type: `string`
-  This method returns HTML representing the rendered document.
+  This function returns HTML representing the rendered document.
 
 Usage
   Without custom settings
     ````
-    const html = Up.render(document)
+    const html = render(document)
     ````
 
   With custom settings
     ````
-    const html = Up.render(document, {
+    const html = render(document, {
       idPrefix: "article",
       terms: {
         footnoteReference: "footnote mention",
@@ -2151,7 +2123,7 @@ Usage
 `renderDocumentAndTableOfContents`
 ==================================
 
-This method converts a syntax tree into two pieces of HTML, both of which are returned:
+This function converts a syntax tree into two pieces of HTML, both of which are returned:
 
 1. A table of contents
 2. The document itself
@@ -2164,19 +2136,19 @@ Arguments
     The custom rendering settings to apply.
 
 Return type: [topic: RenderedDocumentAndTableOfContents]
-  This method returns HTML representing the rendered document and table of contents.
+  This function returns HTML representing the rendered document and table of contents.
 
 Usage
   Without custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      Up.renderDocumentAndTableOfContents(document)
+      renderDocumentAndTableOfContents(document)
     ````
 
   With custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      Up.renderDocumentAndTableOfContents(document, {
+      renderDocumentAndTableOfContents(document, {
         idPrefix: "article",
         terms: { revveal: "expand" }
       })
@@ -2186,7 +2158,7 @@ Usage
 `renderInline`
 ==============
 
-This method converts an inline syntax tree into inline HTML and returns the result.
+This function converts an inline syntax tree into inline HTML and returns the result.
 
 For more information about inline documents, see [topic: inline documents].
 
@@ -2198,17 +2170,17 @@ Arguments
     The custom rendering settings to apply.
 
 Return type: `string`
-  This method returns HTML representing the rendered inline document.
+  This function returns HTML representing the rendered inline document.
 
 Usage
   Without custom settings
     ````
-    const html = Up.renderInline(inlineDocument)
+    const html = renderInline(inlineDocument)
     ````
 
   With custom settings
     ````
-    const html = Up.renderInline(inlineDocument, {
+    const html = renderInline(inlineDocument, {
       idPrefix: "byline",
       terms: {
         footnoteReference: "footnote mention",
@@ -2219,19 +2191,19 @@ Usage
 
 
 
-=============
-`Transformer`
-=============
+====
+`Up`
+====
 
 Purpose
-  The `Transformer` class can be helpful if you need to parse or render several documents sharing custom settings.
+  The `Up` class can be helpful if you need to parse or render several documents sharing custom settings.
 
   Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
   ````
-  const Up = require('write-up')
+  const { Up } = require('write-up')
 
-  const up = new Up.Transformer(settings)
+  const up = new Up(settings)
   const html = up.parseAndRender(markup, settingsChanges)
   ````
 
@@ -2255,7 +2227,7 @@ Members
 
   Example
     ````
-    const up = new Up.Transformer({
+    const up = new Up({
       parsing: {
         createSourceMap: true,
         fancyEllipsis: "⋯",
@@ -2327,7 +2299,7 @@ Summary
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     parsing: {
       createSourceMap: true,
       keywords: { audio: "listen" }
@@ -2365,7 +2337,7 @@ Summary
 
 Usage
   ````
-  const document = Up.parse(markup, {
+  const document = parse(markup, {
     createSourceMap: true,
     keywords: {
       audio: ["sound", "song"],
@@ -2399,7 +2371,7 @@ Members (all of which are optional)
     You can provide unlimited custom variations for each keyword. Custom keyword variations do not overwrite the default keywords.
 
     ````
-    const document = Up.parse(markup, {
+    const document = parse(markup, {
       keywords: {
         audio: ["sound", "song"],
         audio: "listen"
@@ -2440,7 +2412,7 @@ Default
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     parsing: {
       createSourceMap: true
     }
@@ -2468,7 +2440,7 @@ Default
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     parsing: {
       defaultUrlScheme: "my-app://"
     }
@@ -2491,7 +2463,7 @@ Default
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     parsing: {
       baseForUrlsStartingWithSlash: "https://example.com/blog/"
     }
@@ -2514,7 +2486,7 @@ Default
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     parsing: {
       baseForUrlsStartingWithHashMark: "https://example.com/blog/post/28"
     }
@@ -2539,7 +2511,7 @@ Default
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     parsing: {
       fancyEllipsis: "⋯"
     }
@@ -2570,7 +2542,7 @@ Summary
 
 Usage
   ````
-  const html = Up.render(document, {
+  const html = render(document, {
     idPrefix: "article",
     terms: {
       footnoteReference: "footnote mention",
@@ -2616,7 +2588,7 @@ Summary
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     rendering: {
       idPrefix: "article"
     }
@@ -2644,7 +2616,7 @@ Summary
 
 Usage
   ````
-  const html = Up.parseAndRender(markup, {
+  const html = parseAndRender(markup, {
     rendering: {
       renderDangerousContent: true
     }
@@ -2724,7 +2696,7 @@ Rendered inline HTML
 Abstract syntax tree
 ====================
 
-Unless you're fiddling with the abstract syntax tree of a parsed document, you don't need to worry about any of these classes or interfaces.
+Unless you're fiddling with the abstract syntax tree of a parsed document, this section isn't relevant to you.
 
 
 `Document`
