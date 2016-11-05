@@ -7,24 +7,23 @@
 #{$heading-selector} {
   color: $heading-color;
   font-family: $heading-font-family;
-  line-height: 1.5em;
-  font-weight: normal;
+  line-height: 1.5;
 }
 
 h1 {
-  font-size: 300%;
+  font-size: 220%;
   padding-bottom: 15px;
   text-align: center;
 }
 
 h2 {
-  font-size: 200%;
+  font-size: 150%;
   padding-top: 5px;
 }
 
-h3 { font-size: 160% }
-h4 { font-size: 140% }
-h5 { font-size: 120% }
+h3 { font-size: 130% }
+h4 { font-size: 120% }
+h5 { font-size: 110% }
 h6 { font-size: 100% }
 
 // Headings with levels 7 and higher are rendered as `<div role="heading">`

@@ -1,5 +1,9 @@
 .up-footnotes {
    font-size: 85%;
 
-   dt { font-size: 1rem }
+  dt {
+    font-weight: normal;
+  
+    a:before { content: '↑' }
+  } 
 }

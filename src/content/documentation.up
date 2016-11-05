@@ -1,6 +1,6 @@
-#########
-Write Up!
-#########
+########
+Write Up
+########
 
 Up is a markup language for writing structured documents in plain text.
 
@@ -312,7 +312,7 @@ Output
   - Buy [sugar] [wikipedia.org/wiki/Sugar]
   - Buy (happiness) (wikipedia.org/wiki/Happiness)
 
-As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.
+As demonstrated above, you can omit a link's URL scheme (`http://` and `https://` are examples of URL schemes). If you do, Up assumes the link's URL scheme is `https://`.
 
 If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`]. Other URL-related settings are:
 
@@ -697,7 +697,7 @@ Within media descriptions, [topic: typographical writing conventions] are suppor
 Media URLs
 ==========
 
-As demonstrated below, you can omit the [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax) for media. If you do, Up assumes the URL scheme is `https://`.
+As demonstrated below, you can omit the URL scheme for media URLs (`http://` and `https://` are examples of URL schemes). If you do, Up assumes the URL scheme is `https://`.
 
 If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`]. Other URL-related settings are:
 
@@ -2433,7 +2433,7 @@ Details
 ------------------
 
 Summary
-  The `defaultUrlScheme` is prefixed to any link URL or media URL without a [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax).
+  The `defaultUrlScheme` is prefixed to any link URL or media URL without a URL scheme (`http://` and `https://` are examples of URL schemes).
 
   For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: `baseForUrlsStartingWithSlash`] or [topic: `baseForUrlsStartingWithHashmark`].
 
@@ -2829,7 +2829,7 @@ Members
     Return type: array of [topic: `InlineSyntaxNode`]
       This method returns the inline syntax nodes that should represent this entry's content inside the table of contents itself.
 
-  `inlineDescendants`
+  `inlineDescendants` method
     Return type: array of [topic: `InlineSyntaxNode`]
       This method returns the inline descendants (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
 
@@ -2859,7 +2859,7 @@ Rendered HTML
   ````
   I <em>love</em> dental floss!
   ````
-Ï
+
 Notes
   The [topic: `parseInline`] function returns an instance of this class.
 
@@ -3048,7 +3048,7 @@ Extends
 `Audio` (class)
 ===============
 
-Convention
+Writing convention
   [topic: Audio]
 
 Extends
@@ -3065,7 +3065,7 @@ Rendered HTML
 `Blockquote` (class)
 ====================
 
-Convention
+Writing convention
   [topic: Blockquotes]
 
 Extends
@@ -3082,7 +3082,7 @@ Rendered HTML
 `Bold` (class)
 ==============
 
-Convention
+Writing convention
   [topic: Audio]
 
 Extends
@@ -3097,7 +3097,7 @@ Rendered HTML
 `CodeBlock` (class)
 ===================
 
-Convention
+Writing convention
   [topic: Code blocks]
 
 Implements
@@ -3116,7 +3116,7 @@ Rendered HTML
 `DescriptionList` (class)
 =========================
 
-Convention
+Writing convention
   [topic: Description lists]
 
 Implements
@@ -3179,7 +3179,7 @@ Extends
 `Emphasis` (class)
 ==================
 
-Convention
+Writing convention
   [topic: Emphasis]
 
 Extends
@@ -3194,7 +3194,7 @@ Rendered HTML
 `ExampleInput` (class)
 ======================
 
-Convention
+Writing convention
   [topic: Example input]
 
 Implements
@@ -3213,7 +3213,7 @@ Rendered HTML
 `Footnote` (class)
 ==================
 
-Convention
+Writing convention
   [topic: Footnotes]
 
 Extends
@@ -3262,7 +3262,7 @@ Rendered HTML
 `Heading` (class)
 =================
 
-Convention
+Writing convention
   [topic: Headings]
 
 Extends
@@ -3305,7 +3305,7 @@ Rendered HTML
 `Highlight` (class)
 ===================
 
-Convention
+Writing convention
   [topic: Highlighting]
 
 Extends
@@ -3320,7 +3320,7 @@ Rendered HTML
 `Image` (class)
 ===============
 
-Convention
+Writing convention
   [topic: Images]
 
 Extends
@@ -3335,7 +3335,7 @@ Rendered HTML
 `InlineCode` (class)
 ====================
 
-Convention
+Writing convention
   [topic: Inline code]
 
 Implements
@@ -3354,7 +3354,7 @@ Rendered HTML
 `InlineQuote` (class)
 =====================
 
-Convention
+Writing convention
   [topic: Inline quotes]
 
 Extends
@@ -3369,7 +3369,7 @@ Rendered HTML
 `InlineRevealable` (class)
 ==========================
 
-Convention
+Writing convention
   [topic: Inline revealables]
 
 Extends
@@ -3390,7 +3390,7 @@ Rendered HTML
 `Italic` (class)
 ================
 
-Convention
+Writing convention
   [topic: Italics]
 
 Extends
@@ -3405,7 +3405,7 @@ Rendered HTML
 `LineBlock` (class)
 ===================
 
-Convention
+Writing convention
   [topic: Line blocks]
 
 Implements
@@ -3437,7 +3437,7 @@ Extends
 `Link` (class)
 ==============
 
-Convention
+Writing convention
   [topic: Italics]
 
 Extends
@@ -3464,7 +3464,7 @@ Rendered HTML
 `NormalParenthetical` (class)
 =============================
 
-Convention
+Writing convention
   [topic: Parenthetical text] produced by parentheses
 
 Extends
@@ -3479,7 +3479,7 @@ Rendered HTML
 `OrderedList` (class)
 =====================
 
-Convention
+Writing convention
   [topic: Numbered lists]
 
 Implements
@@ -3545,7 +3545,7 @@ Values
 `Paragraph` (class)
 ===================
 
-Convention
+Writing convention
   [topic: Paragraphs]
 
 Extends
@@ -3563,7 +3563,7 @@ Rendered HTML
 `RevealableBlock` (class)
 =========================
 
-Convention
+Writing convention
   [topic: Revealable blocks]
 
 Extends
@@ -3586,7 +3586,7 @@ Rendered HTML
 `SectionLink` (class)
 =====================
 
-Convention
+Writing convention
   [topic: Section links]
 
 Implements
@@ -3611,7 +3611,7 @@ Rendered HTML
 `SquareParenthetical` (class)
 =============================
 
-Convention
+Writing convention
   [topic: Parenthetical text] produced by square brackets
 
 Extends
@@ -3626,7 +3626,7 @@ Rendered HTML
 `Stress` (class)
 ================
 
-Convention
+Writing convention
   [topic: Stress]
 
 Extends
@@ -3641,7 +3641,7 @@ Rendered HTML
 `Table` (class)
 ===============
 
-Convention
+Writing convention
   [topic: Tables]
 
 Implements
@@ -3825,7 +3825,7 @@ Rendered HTML
 `ThematicBreak` (class)
 =======================
 
-Convention
+Writing convention
   [topic: Thematic breaks]
 
 Extends
@@ -3840,7 +3840,7 @@ Rendered HTML
 `UnorderedList` (class)
 =======================
 
-Convention
+Writing convention
   [topic: Bulleted lists]
 
 Implements
@@ -3880,7 +3880,7 @@ Extends
 `Video` (class)
 ===============
 
-Convention
+Writing convention
   [topic: Video]
 
 Extends

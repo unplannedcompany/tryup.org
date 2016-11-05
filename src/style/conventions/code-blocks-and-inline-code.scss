@@ -1,3 +1,4 @@
+@import '../common/code-font-family';
 @import '../common/heavy-shadow';
 @import '../common/link-color';
 @import '../common/mild-shadow';
@@ -6,13 +7,15 @@
 pre, code {
   background: #234;
   color: white;
-  font-family: 'Inconsolata', monospace;
+  font-family: $code-font-family;
+  font-size: 100% * (7 / 8);
 }
 
 // Inline code
 code.up-inline-code {
   @include mild-shadow;
   border-radius: (1em / 8);
+  font-weight: normal;
   margin: 0 (1em / 16);
   padding: 0 .2em;
   white-space: pre-wrap;
@@ -36,7 +39,7 @@ pre {
 
   @include on-very-small-screens {
     font-size: 85%;
-    line-height: 1.4em;
+    line-height: 1.4;
   }
 }
 

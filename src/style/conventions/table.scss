@@ -18,15 +18,14 @@ table {
 
   tbody tr {
     &:hover {
-      background-color: #ddd;
-      td { border-color: #aaa }
+      td { background: #ddd }
     }
     
     &:nth-child(even) {
-      background-color: #eee;
+      td { background-color: #eee }
 
       &:hover {
-        background-color: #ccc;
+        td { background-color: #ccc }
         td { border-color: #999 }
       }
     }
@@ -46,11 +45,9 @@ table {
   }
 
   th {
-    border-color: lighten($heading-color, 20%);
-    background-color: $heading-color;
-    color: white;
+    border: 0;
+    color: $heading-color;
     font-family: $heading-font-family;
-    font-weight: normal;
     
     // When tables have a header column, their header row starts
     // with an empty cell. This cell should be invisible.

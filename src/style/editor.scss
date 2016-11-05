@@ -1,4 +1,7 @@
+@import 'common/code-font-family';
+
 .CodeMirror {
   font-size: 14px;
-  line-height: 1.3em;
+  line-height: 1.3;
+  font-family: $code-font-family !important;
 }

@@ -1,8 +1,8 @@
-@import 'common/heading-color';
+@import 'common/link-color';
 @import 'common/faux-button';
 
 #tab-container {
-  background-color: $heading-color;
+  background-color: $link-color;
   display: flex;
   justify-content: center;
 

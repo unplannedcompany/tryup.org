@@ -1,1 +1,3 @@
-$heading-font-family: 'Roboto Slab', serif;
+@import 'body-font-family';
+
+$heading-font-family: $body-font-family;
