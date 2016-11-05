@@ -7,7 +7,7 @@ import configureScrollPositionAfterNavigation from './configureScrollPositionAft
 
 document.addEventListener('DOMContentLoaded', () => {
   const documentationContainerElement = getElementById('documentation-container')
-  
+
   configureScrollPositionAfterNavigation(
     documentationContainerElement)
 
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     documentationContainerElement,
     getElementById('documentation'),
     getElementById('table-of-contents'))
-  
+
   configureTableOfContentsVisibility(
     getElementById('show-documentation'),
     getElementById('show-table-of-contents'))

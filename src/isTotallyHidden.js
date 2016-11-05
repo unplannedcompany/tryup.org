@@ -6,6 +6,6 @@ export default function isTotallyHidden(element) {
   // See: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent
   //
   // We don't check `style.display` directly, because it returns an empty string if
-  // it wasn't set by JavaScript.   
+  // it wasn't set by JavaScript.
   return !element.offsetParent;
 }

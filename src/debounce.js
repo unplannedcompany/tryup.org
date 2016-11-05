@@ -10,4 +10,3 @@ export default function debounce(callback, delay) {
       setTimeout(() => callback(...args), delay)
   }
 }
- 

@@ -1,7 +1,7 @@
 .up-lines {
   text-align: center;
 
-  // Without some extra margin, consecutive line blocks appear merged together. 
+  // Without some extra margin, consecutive line blocks appear merged together.
   + .up-lines {
     margin-top: 20px;
   }

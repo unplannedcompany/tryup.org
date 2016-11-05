@@ -7,7 +7,7 @@
   // Level 1 headings are centered, so they don't need to be indented.
   @return if($level == 1,
     0,
-    ($level - 2) * $indent-per-level); 
+    ($level - 2) * $indent-per-level);
 }
 
 // We use the same indentation for headings level 11 and up.
@@ -35,7 +35,7 @@ $indent-per-level-on-very-small-screens: 20px;
 
   // Normally, we style example input differently if it's within a link.
   //
-  // In the table of contents, everything is a link, so there's no need. 
+  // In the table of contents, everything is a link, so there's no need.
   kbd { @include default-example-input-shading }
 
   // The same logic applies for inline code.
@@ -45,11 +45,11 @@ $indent-per-level-on-very-small-screens: 20px;
   // impossible to see.
   mark { color: $link-color }
 
-  #{$heading-selector} {    
+  #{$heading-selector} {
     font-weight: normal;
     margin: 0;
     padding: 0;
-    
+
     a {
       padding-left: entry-indentation($max-indent-level);
 

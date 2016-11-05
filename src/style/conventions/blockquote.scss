@@ -21,9 +21,9 @@ blockquote {
 
     blockquote {
       @include nested-blockquoted-colors(2);
-      
+
       blockquote {
-        @include nested-blockquoted-colors(3) 
+        @include nested-blockquoted-colors(3)
       }
     }
   }

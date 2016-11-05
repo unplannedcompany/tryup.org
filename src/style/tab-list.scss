@@ -9,6 +9,6 @@
   span[role="tab"] {
     @include faux-button;
 
-    &[aria-selected="true"] { display: none }    
+    &[aria-selected="true"] { display: none }
   }
 }

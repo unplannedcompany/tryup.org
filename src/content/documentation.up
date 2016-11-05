@@ -639,7 +639,7 @@ As mentioned above, Up ignores the heading's underline and optional overline---i
 
 Up tries to match your snippet to the first heading in the document whose content markup exactly matches your snippet. If there isn't an exact match, Up will matches your snippet to the first heading in the document whose content markup *contains* your snippet.
 
-When matching the markup snippet to the most appropriate heading, Up completey ignores capitalization. 
+When matching the markup snippet to the most appropriate heading, Up completey ignores capitalization.
 
 Markup
   ````

@@ -20,7 +20,7 @@ table {
     &:hover {
       td { background: #ddd }
     }
-    
+
     &:nth-child(even) {
       td { background-color: #eee }
 
@@ -48,7 +48,7 @@ table {
     border: 0;
     color: $heading-color;
     font-family: $heading-font-family;
-    
+
     // When tables have a header column, their header row starts
     // with an empty cell. This cell should be invisible.
     &:first-child:empty {

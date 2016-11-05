@@ -30,7 +30,7 @@ function refreshSourceMappedElements(documentationElement) {
 export default function configureEditor(
   // Contains the CodeMirror editor
   editorContainerElement,
-  // When the user scrolls the documentation, this is the element that does the scrolling  
+  // When the user scrolls the documentation, this is the element that does the scrolling
   documentationScrollerElement,
   // Contains the rendered documentation
   documentationElement,
@@ -61,7 +61,7 @@ export default function configureEditor(
   })
 
   // When the user presses Shift-Tab, the editor should reduce the indentation level,
-  // not remove all indentation (which is the default behavior). 
+  // not remove all indentation (which is the default behavior).
   CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
 
   configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
@@ -156,10 +156,10 @@ function syncScrollingFromDocumentation(codeMirror, documentationElement) {
     // Well, it's a bit arbitrary! The general idea is that we don't care whether
     // every single pixel of an element is within the viewport (particularly not its
     // margin and padding). If all but the top 10 pixels are within the viewport, we'll
-    // consider it within view.  
+    // consider it within view.
     //
     // A better solution would be to check the margin and padding of each element, but
-    // this is good enough. 
+    // this is good enough.
     const viewportTop = documentationElement.offsetTop - 10
 
     // We cheat here. We know the previous element in the list is *not* within the
@@ -188,7 +188,7 @@ function syncScrollingFromDocumentation(codeMirror, documentationElement) {
 
 
 function syncScrollingFromEditor(codeMirror, documentationScrollerElement) {
-  // Line numbers in the CodeMirror editor start at 0. 
+  // Line numbers in the CodeMirror editor start at 0.
   const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
 
   if (firstVisibleLineNumber === 1) {

@@ -2,7 +2,7 @@
 @import '../common/heading-font-family';
 
 dl {
-  margin-top: 15px; 
+  margin-top: 15px;
 
   dt {
     color: $heading-color;
@@ -13,9 +13,9 @@ dl {
   dd {
     margin-left: 20px;
 
-    dd { margin-left: 40px; }    
+    dd { margin-left: 40px; }
   }
-    
+
   // Without some extra spacing, consecutive description lists appear merged together.
   + dl { margin-top:  45px }
 }
