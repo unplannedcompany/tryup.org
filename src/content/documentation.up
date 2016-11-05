@@ -314,11 +314,11 @@ Output
 
 As demonstrated above, you can omit a link's [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax). If you do, Up assumes the link's URL scheme is `https://`.
 
-If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
+If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`]. Other URL-related settings are:
 
-- [topic: baseForUrlsStartingWithSlash]
-- [topic: baseForUrlsStartingWithHashMark]
-- [topic: renderDangerousContent].
+- [topic: `baseForUrlsStartingWithSlash`]
+- [topic: `baseForUrlsStartingWithHashmark`]
+- [topic: `renderDangerousContent`].
 
 
 URLs that don't look like URLs
@@ -697,11 +697,11 @@ Media URLs
 
 As demonstrated below, you can omit the [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax) for media. If you do, Up assumes the URL scheme is `https://`.
 
-If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: defaultUrlScheme]. Other URL-related settings are:
+If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`]. Other URL-related settings are:
 
-- [topic: baseForUrlsStartingWithSlash]
-- [topic: baseForUrlsStartingWithHashMark]
-- [topic: renderDangerousContent].
+- [topic: `baseForUrlsStartingWithSlash`]
+- [topic: `baseForUrlsStartingWithHashmark`]
+- [topic: `renderDangerousContent`].
 
 
 Images
@@ -1729,7 +1729,7 @@ Markup
 Output
   I don't know... I doubt a dog would do this.
 
-If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more information, see [topic: fancyEllipsis].
+If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more information, see [topic: `fancyEllipsis`].
 
 
 En dash
@@ -1882,7 +1882,7 @@ const { parseAndRender } = require('write-up')
 const html = parseAndRender(markup, optionalSettings)
 ````
 
-Alternatively, you can use the exported [topic: `Up`] class, which can be helpful if you need to parse or render several documents sharing custom settings.
+Alternatively, you can use the exported [topic: `Up` class], which can be helpful if you need to parse or render several documents sharing custom settings.
 
 If you plan to modify or analyze a parsed document, please see [topic: abstract syntax tree].
 
@@ -1891,8 +1891,8 @@ If you plan to modify or analyze a parsed document, please see [topic: abstract 
 Functions
 =========
 
-`parseAndRender`
-================
+`parseAndRender` (function)
+===========================
 
 This function converts Up markup into HTML and returns the result.
 
@@ -1925,8 +1925,8 @@ Usage
     ````
 
 
-`parseAndRenderDocumentAndTableOfContents`
-==========================================
+`parseAndRenderDocumentAndTableOfContents` (function)
+=====================================================
 
 This function converts Up markup into two pieces of HTML, both of which are returned:
 
@@ -1965,9 +1965,9 @@ Usage
     ````
 
 
-------------------------------------
-`RenderedDocumentAndTableOfContents`
-------------------------------------
+------------------------------------------------
+`RenderedDocumentAndTableOfContents` (interface)
+------------------------------------------------
 
 This interface represents the HTML for a rendered document and table of contents.
 
@@ -1981,12 +1981,12 @@ Members
 Notes
   The following functions return an object satisfying this interface:
 
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: renderDocumentAndTableOfContents]
+  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `renderDocumentAndTableOfContents`]
 
 
-`parseAndRenderInline`
-======================
+`parseAndRenderInline` (function)
+=================================
 
 This function converts inline Up markup into inline HTML and returns the result.
 
@@ -2025,8 +2025,8 @@ Usage
     ````
 
 
-`parse`
-=======
+`parse` (function)
+==================
 
 This function parses Up markup and returns the resulting syntax tree.
 
@@ -2037,7 +2037,7 @@ Arguments
   `parsingSettings` (optional): [topic: Settings.Parsing]
     The custom parsing settings to apply.
 
-Return type: [topic: Document]
+Return type: [topic: `Document`]
   This function returns a syntax tree representing the parsed document.
 
 Usage
@@ -2055,8 +2055,8 @@ Usage
     ````
 
 
-`parseInline`
-=============
+`parseInline` (function)
+========================
 
 This function parses inline Up markup and returns the resulting inline syntax tree.
 
@@ -2069,7 +2069,7 @@ Arguments
   `parsingSettings` (optional): [topic: Settings.Parsing]
     The custom parsing settings to apply.
 
-Return type: [topic: InlineDocument]
+Return type: [topic: `InlineDocument`]
   This function returns an inline syntax tree representing the parsed document.
 
 Usage
@@ -2087,13 +2087,13 @@ Usage
     ````
 
 
-`render`
-========
+`render` (function)
+===================
 
 This function converts a syntax tree into HTML and returns the result.
 
 Arguments
-  `document`: [topic: Document]
+  `document`: [topic: `Document`]
     The syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: Settings.Rendering]
@@ -2120,8 +2120,8 @@ Usage
     ````
 
 
-`renderDocumentAndTableOfContents`
-==================================
+`renderDocumentAndTableOfContents` (function)
+=============================================
 
 This function converts a syntax tree into two pieces of HTML, both of which are returned:
 
@@ -2129,7 +2129,7 @@ This function converts a syntax tree into two pieces of HTML, both of which are 
 2. The document itself
 
 Arguments
-  `document`: [topic: Document]
+  `document`: [topic: `Document`]
     The syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: Settings.Rendering]
@@ -2155,15 +2155,15 @@ Usage
     ````
 
 
-`renderInline`
-==============
+`renderInline` (function)
+=========================
 
 This function converts an inline syntax tree into inline HTML and returns the result.
 
 For more information about inline documents, see [topic: inline documents].
 
 Arguments
-  `inlineDocument`: [topic: InlineDocument]
+  `inlineDocument`: [topic: `InlineDocument`]
     The inline syntax tree to convert into HTML.
 
   `renderingSettings` (optional): [topic: Settings.Rendering]
@@ -2191,9 +2191,9 @@ Usage
 
 
 
-====
-`Up`
-====
+============
+`Up` (class)
+============
 
 Purpose
   The `Up` class can be helpful if you need to parse or render several documents sharing custom settings.
@@ -2214,14 +2214,14 @@ Constructor arguments
 Members
   This class's methods have the same names and arguments as the [topic: functions] in the library:
 
-  - [topic: parseAndRender]
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: parseAndRenderInline]
-  - [topic: parse]
-  - [topic: parseInline]
-  - [topic: render]
-  - [topic: renderDocumentAndTableOfContents]
-  - [topic: renderInline]
+  - [topic: `parseAndRender`]
+  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderInline`]
+  - [topic: `parse`]
+  - [topic: `parseInline`]
+  - [topic: `render`]
+  - [topic: `renderDocumentAndTableOfContents`]
+  - [topic: `renderInline`]
 
   When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
 
@@ -2285,17 +2285,17 @@ All functions accept custom settings!
 For a full description of Up's functions, see [topic: functions].
 
 
-`Settings`
-==========
+`Settings` (interface)
+======================
 
 Summary
   The `Settings` interface includes both parsing settings and rendering settings.
 
   Use this interface to provide custom settings to functions that both parse markup *and* render the result to HTML:
 
-  - [topic: parseAndRender]
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: parseAndRenderInline]
+  - [topic: `parseAndRender`]
+  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderInline`]
 
 Usage
   ````
@@ -2318,22 +2318,22 @@ Members (both of which are optional)
     The custom rendering settings to apply.
 
 
-`Settings.Parsing`
-==================
+`Settings.Parsing` (interface)
+==============================
 
 Summary
   The `Settings.Parsing` interface includes all parsing settings.
 
   Use this interface to provide custom settings to functions that parse markup and return the resulting syntax tree:
 
-  - [topic: parse]
-  - [topic: parseInline]
+  - [topic: `parse`]
+  - [topic: `parseInline`]
 
   As part of [topic: Settings], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
 
-  - [topic: parseAndRender]
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: parseAndRenderInline]
+  - [topic: `parseAndRender`]
+  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderInline`]
 
 Usage
   ````
@@ -2347,19 +2347,19 @@ Usage
   ````
 
 Members (all of which are optional)
-  [topic: createSourceMap]: `boolean`
+  [topic: `createSourceMap`]: `boolean`
     Enables source mapping.
 
-  [topic: defaultUrlScheme]: `string`
+  [topic: `defaultUrlScheme`]: `string`
     The default URL scheme for URLs without one.
 
-  [topic: baseForUrlsStartingWithSlash]: `string`
+  [topic: `baseForUrlsStartingWithSlash`]: `string`
     The base for URLs starting with `/`.
 
-  [topic: baseForUrlsStartingWithHashMark]: `string`
+  [topic: `baseForUrlsStartingWithHashmark`]: `string`
     The base for URLs starting with `#`.
 
-  [topic: fancyEllipsis]: `string`
+  [topic: `fancyEllipsis`]: `string`
     Up replaces consecutive periods with this fancy ellipsis.
 
   `keywords` (all of which are optional)
@@ -2423,7 +2423,7 @@ Context
   This setting belongs to [topic: Settings.Parsing].
 
 Details
-  `createSourceMap` works by setting the `sourceLineNumber` of each [topic: OutlineSyntaxNode].
+  `createSourceMap` works by setting the `sourceLineNumber` of each [topic: `OutlineSyntaxNode`].
 
 
 ------------------
@@ -2433,7 +2433,7 @@ Details
 Summary
   The `defaultUrlScheme` is prefixed to any link URL or media URL without a [URL scheme] (wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax).
 
-  For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: baseForUrlsStartingWithSlash] or [topic: baseForUrlsStartingWithHashMark].
+  For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: `baseForUrlsStartingWithSlash`] or [topic: `baseForUrlsStartingWithHashmark`].
 
 Default
   `"https://"`
@@ -2522,23 +2522,23 @@ Context
   This setting belongs to [topic: Settings.Parsing].
 
 
-`Settings.Rendering`
-=======================
+`Settings.Rendering` (interface)
+================================
 
 Summary
   The `Settings.Rendering` interface includes all rendering settings.
 
   Use this interface to provide custom settings to functions that render syntax trees to HTML:
 
-  - [topic: render]
-  - [topic: renderDocumentAndTableOfContents]
-  - [topic: renderInline]
+  - [topic: `render`]
+  - [topic: `renderDocumentAndTableOfContents`]
+  - [topic: `renderInline`]
 
   As part of [topic: Settings], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
 
-  - [topic: parseAndRender]
-  - [topic: parseAndRenderDocumentAndTableOfContents]
-  - [topic: parseAndRenderInline]
+  - [topic: `parseAndRender`]
+  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderInline`]
 
 Usage
   ````
@@ -2552,10 +2552,10 @@ Usage
   ````
 
 Members (all of which are optional)
-  [topic: idPrefix]: `string`
+  [topic: `idPrefix`]: `string`
     The prefix to apply to HTML IDs.
 
-  [topic: renderDangerousContent]: `boolean`
+  [topic: `renderDangerousContent`]: `boolean`
     Enables the rendering of dangerous content. Enabling this setting is not recommended!
 
   `terms` (all of which are optional)
@@ -2646,9 +2646,9 @@ In certain contexts, you might want to restrict a document to just a single line
 
 That's what inline documents are for! To take advantage of inline documents, use one of the following functions:
 
-- [topic: parseAndRenderInline]
-- [topic: parseInline]
-- [topic: renderInline]
+- [topic: `parseAndRenderInline`]
+- [topic: `parseInline`]
+- [topic: `renderInline`]
 
 
 Syntax differences
@@ -2699,14 +2699,14 @@ Abstract syntax tree
 Unless you're fiddling with the abstract syntax tree of a parsed document, this section isn't relevant to you.
 
 
-`Document`
-==========
+`Document` (class)
+==================
 
 Purpose
   This class represents the syntax tree for a parsed document.
 
 Extends
-  [topic: OutlineSyntaxNodeContainer]
+  [topic: `OutlineSyntaxNodeContainer`]
 
 Unique members
   `tableOfContents`: [topic: Document.TableOfContents]
@@ -2717,10 +2717,10 @@ Unique members
       This method returns a ready-to-render syntax tree from a collection of outline syntax nodes.
 
     Arguments
-      `children`: array of [topic: OutlineSyntaxNode]
+      `children`: array of [topic: `OutlineSyntaxNode`]
         A collection of outline syntax nodes representing the top-level conventions in the document.
 
-    Return type: [topic: Document]
+    Return type: [topic: `Document`]
       This method creates and returns a ready-to-render `Document` object.
 
       To prepare the document for rendering, this method:
@@ -2728,10 +2728,10 @@ Unique members
       - Assigns footnotes their reference numbers
       - Extracts footnotes into footnote blocks
       - Produces a table of contents
-      - Associates section links with the apprioriate table of contents entries
+      - Matches section links with table of contents entries
 
 Notes
-  The [topic: parse] function returns an instance of this class.
+  The [topic: `parse`] function returns an instance of this class.
 
 Rendered HTML
   When rendered to HTML, the document is *not* put into an outer container element.
@@ -2746,9 +2746,9 @@ Rendered HTML
   ````
 
 
---------------------------
-`Document.TableOfContents`
---------------------------
+----------------------------------
+`Document.TableOfContents` (class)
+----------------------------------
 
 Purpose
   This class represents the table of contents for a document. The table of contents includes every heading except those found within [topic: revealable content].
@@ -2758,7 +2758,7 @@ Members
     A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: Heading] objects in the document itself.
 
 Rendered HTML
-  Each [topic: Document.TableOfContents.Entry] renders a heading element of the appropriate `level` containing a link to the appropriate section in the document.
+  Each [topic: `Document.TableOfContents.Entry`] renders a heading element of the appropriate `level` containing a link to the appropriate section in the document.
 
   For more information on how headings are rendered, please see [topic: Heading].
 
@@ -2796,8 +2796,8 @@ Rendered HTML
   ````
 
 
-`Document.TableOfContents.Entry`
---------------------------------
+`Document.TableOfContents.Entry` (interface)
+--------------------------------------------
 
 Purpose
   This interface represents an entry in the table of contents.
@@ -2810,7 +2810,7 @@ Members
     Represents the heading level of the entry.
 
   `sourceLineNumber`: `number`
-    If the [topic: createSourceMap] setting is enabled, this field is set to the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
+    If the [topic: `createSourceMap`] setting is enabled, this field is set to the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
 
     When rendered to HTML, entries with source line numbers are given a `data-up-source-line` attribute set the appropriate line number.
 
@@ -2824,11 +2824,11 @@ Members
     Arguments
       None.
 
-    Return type: array of [topic: InlineSyntaxNode]
+    Return type: array of [topic: `InlineSyntaxNode`]
       This method returns the inline syntax nodes that should represent this entry's content inside the table of contents itself.
 
   `inlineDescendants`
-    Return type: array of [topic: InlineSyntaxNode]
+    Return type: array of [topic: `InlineSyntaxNode`]
       This method returns the inline descendants (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
 
     Arguments
@@ -2842,14 +2842,14 @@ Members
       This method returns the entry's searchable text, which helps match [topic: section links] to the the most appropriate entry.
 
 
-`InlineDocument`
-===============
+`InlineDocument` (class)
+=======================
 
 Purpose
   This class represents the syntax tree for a parsed inline document.
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 Rendered HTML
   When rendered to HTML, an inline document is *not* put into an outer container element.
@@ -2859,32 +2859,32 @@ Rendered HTML
   ````
 Ï
 Notes
-  The [topic: parseInline] function returns an instance of this class.
+  The [topic: `parseInline`] function returns an instance of this class.
 
 
-`SyntaxNode`
-============
+`SyntaxNode` (interface)
+========================
 
 Purpose
   All syntax node classes must implement this interface.
 
 Members
   `inlineDescendants` method
-    Return type: array of [topic: InlineSyntaxNode]
+    Return type: array of [topic: `InlineSyntaxNode`]
       This method returns all inline descendants (including children, grandchildren, etc.).
 
 Notes
   This interface also has a `render` method, but it isn't relevant to developers using the Up library.
 
 
-`InlineSyntaxNode`
-==================
+`InlineSyntaxNode` (interface)
+==============================
 
 Purpose
   All inline syntax node classes must implement this interface.
 
 Extends
-  [topic: SyntaxNode]
+  [topic: `SyntaxNode`]
 
 Unique members
   `searchableText` method
@@ -2906,18 +2906,18 @@ Unique members
       None.
 
 
-`OutlineSyntaxNode`
-===================
+`OutlineSyntaxNode` (interface)
+===============================
 
 Purpose
   All outline syntax node classes must implement this interface.
 
 Extends
-  [topic: SyntaxNode]
+  [topic: `SyntaxNode`]
 
 Unique members
   `sourceLineNumber`: `number`
-    If the [topic: createSourceMap] setting is enabled, this field is set to the first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
+    If the [topic: `createSourceMap`] setting is enabled, this field is set to the first line of markup that produced this syntax node. Source line numbers start at `1`, not `0`.
 
     HTML elements rendered by outline syntax nodes with source line numbers are given a `data-up-source-line` attribute set the appropriate line number.
 
@@ -2926,84 +2926,84 @@ Unique members
     ````
 
   `descendantsToIncludeInTableOfContents` method
-    Return type: array of [topic: Document.TableOfContents.Entry]
+    Return type: array of [topic: `Document.TableOfContents.Entry`]
       This method returns any descendants (at any nesting level) to include in the table of contents.
 
     Arguments
       None.
 
 
-`RichInlineSyntaxNode`
-======================
+`RichInlineSyntaxNode` (class)
+==============================
 
 Purpose
   This abstract class represents an inline syntax node that can contain other inline syntax nodes.
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 Implements
-  [topic: InlineSyntaxNode]
+  [topic: `InlineSyntaxNode`]
 
 
-`RichOutlineSyntaxNode`
-=======================
+`RichOutlineSyntaxNode` (class)
+===============================
 
 Purpose
   This abstract class represents an outline syntax node that can contain other outline syntax nodes.
 
 Extends
-  [topic: OutlineSyntaxNodeContainer]
+  [topic: `OutlineSyntaxNodeContainer`]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 
-`InlineSyntaxNodeContainer`
-===========================
+`InlineSyntaxNodeContainer` (class)
+===================================
 
 Purpose
   This abstract class represents a container of inline syntax nodes.
 
 Members
-  `children`: array of [topic: InlineSyntaxNode]
+  `children`: array of [topic: `InlineSyntaxNode`]
     A collection of inline syntax nodes representing the top-level content of the container.
 
   `inlineDescendants` method
-    Return type: array of [topic: InlineSyntaxNode]
+    Return type: array of [topic: `InlineSyntaxNode`]
       This method returns all inline descendants (including `children`, grandchildren, etc.).
 
     Arguments
       None.
 
 
-`OutlineSyntaxNodeContainer`
-============================
+`OutlineSyntaxNodeContainer` (class)
+====================================
 
 Purpose
   This abstract class represents a container of inline syntax nodes.
 
 Members
-  `children`: array of [topic: InlineSyntaxNode]
+  `children`: array of [topic: `InlineSyntaxNode`]
     A collection of outline syntax nodes representing the top-level content of the container.
 
   `descendantsToIncludeInTableOfContents` method
-    Return type: array of [topic: Document.TableOfContents.Entry]
+    Return type: array of [topic: `Document.TableOfContents.Entry`]
       This method returns any descendants (children, grandchildren, etc.) to include in the table of contents.
 
     Arguments
       None.
 
   `inlineDescendants` method
-    Return type: array of [topic: InlineSyntaxNode]
+    Return type: array of [topic: `InlineSyntaxNode`]
       This method returns all inline descendants of `children`.
 
     Arguments
       None.
 
 
-`MediaSyntaxNode`
-=================
+`MediaSyntaxNode` (class)
+=========================
 
 Purpose
   All media syntax node classes extend this abstract class:
@@ -3013,10 +3013,10 @@ Purpose
   - [topic: `Audio`]
 
 Implements
-  [topic: InlineSyntaxNode]
+  [topic: `InlineSyntaxNode`]
     Media conventions can appear inline (i.e. within paragraphs).
 
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
     If a line consists solely of media conventions (or media conventions within links), those media conventions (or their outer links) are placed directly into the outline.
 
 Unique members
@@ -3026,13 +3026,13 @@ Unique members
   `url`: `string`
     Represents the media's URL after the following settings are applied:
 
-    - [topic: defaultUrlScheme]
-    - [topic: baseForUrlsStartingWithSlash]
-    - [topic: baseForUrlsStartingWithHashMark]
+    - [topic: `defaultUrlScheme`]
+    - [topic: `baseForUrlsStartingWithSlash`]
+    - [topic: `baseForUrlsStartingWithHashmark`]
 
 
-`ParentheticalSyntaxNode`
-=========================
+`ParentheticalSyntaxNode` (class)
+=================================
 
 Purpose
   This abstract class represents [topic: parenthetical text]. It exists solely to improve the expressiveness of the type system.
@@ -3040,17 +3040,17 @@ Purpose
   It is extended by both [topic: NormalParenthetical] and [topic: SquareParenthetical].
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 
-`Audio`
-=======
+`Audio` (class)
+===============
 
 Convention
   [topic: Audio]
 
 Extends
-  [topic: MediaSyntaxNode]
+  [topic: `MediaSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3060,14 +3060,14 @@ Rendered HTML
   ````
 
 
-`Blockquote`
-============
+`Blockquote` (class)
+====================
 
 Convention
   [topic: Blockquotes]
 
 Extends
-  [topic: RichOutlineSyntaxNode]
+  [topic: `RichOutlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3077,14 +3077,14 @@ Rendered HTML
   ````
 
 
-`Bold`
-======
+`Bold` (class)
+==============
 
 Convention
   [topic: Audio]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3092,14 +3092,14 @@ Rendered HTML
   ````
 
 
-`CodeBlock`
-===========
+`CodeBlock` (class)
+===================
 
 Convention
   [topic: Code blocks]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Unique members
   `code`: `string`
@@ -3111,14 +3111,14 @@ Rendered HTML
   ````
 
 
-`DescriptionList`
-=================
+`DescriptionList` (class)
+=========================
 
 Convention
   [topic: Description lists]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Unique members
   `items`: array of [topic: DescriptionList.Item]
@@ -3139,49 +3139,49 @@ Rendered HTML
   ````
 
 
-----------------------
-`DescriptionList.Item`
-----------------------
+------------------------------
+`DescriptionList.Item` (class)
+------------------------------
 
 Purpose
   This class represents a collection of subjects and their corresponding description.
 
 Unique members
-  `subjects`: array of [topic: DescriptionList.Item.Subject]
+  `subjects`: array of [topic: `DescriptionList.Item.Subject`]
     The subjects described by `description`.
 
-  `description`: array of [topic: DescriptionList.Item.Description]
+  `description`: array of [topic: `DescriptionList.Item.Description`]
     The description of `subjects`.
 
 
-`DescriptionList.Item.Subject`
-------------------------------
+`DescriptionList.Item.Subject` (class)
+--------------------------------------
 
 Purpose
   This class represents the collection of subjects described by a given description within a description list item.
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 
-`DescriptionList.Item.Description`
-----------------------------------
+`DescriptionList.Item.Description` (class)
+------------------------------------------
 
 Purpose
   This class represents the description of a given collection of subjects within a description list item.
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 
-`Emphasis`
-==========
+`Emphasis` (class)
+==================
 
 Convention
   [topic: Emphasis]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3189,14 +3189,14 @@ Rendered HTML
   ````
 
 
-`ExampleInput`
-==============
+`ExampleInput` (class)
+======================
 
 Convention
   [topic: Example input]
 
 Implements
-  [topic: InlineSyntaxNode]
+  [topic: `InlineSyntaxNode`]
 
 Unique members
   `input`: `string`
@@ -3208,14 +3208,14 @@ Rendered HTML
   ````
 
 
-`Footnote`
-==========
+`Footnote` (class)
+==================
 
 Convention
   [topic: Footnotes]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Unique members
   `referenceNumber`: `number`
@@ -3229,14 +3229,14 @@ Rendered HTML
   ````
 
 
-`FootnoteBlock`
-===============
+`FootnoteBlock` (class)
+=======================
 
 Purpose
   Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This class represents one of those footnote blocks.
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Unique members
   `footnotes`: array of [topic: Footnote]
@@ -3257,17 +3257,17 @@ Rendered HTML
   ````
 
 
-`Heading`
-=========
+`Heading` (class)
+=================
 
 Convention
   [topic: Headings]
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 Implements
-  [topic: OutlineSyntaxNode] and [topic: Document.TableOfContents.Entry]
+  [topic: `OutlineSyntaxNode`] and [topic: `Document.TableOfContents.Entry`]
 
 Unique members
   `level`: `number`
@@ -3300,14 +3300,14 @@ Rendered HTML
     ````
 
 
-`Highlight`
-===========
+`Highlight` (class)
+===================
 
 Convention
   [topic: Highlighting]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3315,14 +3315,14 @@ Rendered HTML
   ````
 
 
-`Image`
-=======
+`Image` (class)
+===============
 
 Convention
   [topic: Images]
 
 Extends
-  [topic: MediaSyntaxNode]
+  [topic: `MediaSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3330,14 +3330,14 @@ Rendered HTML
   ````
 
 
-`InlineCode`
-============
+`InlineCode` (class)
+====================
 
 Convention
   [topic: Inline code]
 
 Implements
-  [topic: InlineSyntaxNode]
+  [topic: `InlineSyntaxNode`]
 
 Unique members
   `code`: `string`
@@ -3349,14 +3349,14 @@ Rendered HTML
   ````
 
 
-`InlineQuote`
-=============
+`InlineQuote` (class)
+=====================
 
 Convention
   [topic: Inline quotes]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3364,14 +3364,14 @@ Rendered HTML
   ````
 
 
-`InlineRevealable`
-==================
+`InlineRevealable` (class)
+==========================
 
 Convention
   [topic: Inline revealables]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3385,14 +3385,14 @@ Rendered HTML
   ````
 
 
-`Italic`
-========
+`Italic` (class)
+================
 
 Convention
   [topic: Italics]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3400,17 +3400,17 @@ Rendered HTML
   ````
 
 
-`LineBlock`
-===========
+`LineBlock` (class)
+===================
 
 Convention
   [topic: Line blocks]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Unique members
-  `lines`: array of [topic: LineBlock.Line]
+  `lines`: array of [topic: `LineBlock.Line`]
     The collection of lines comprising this line block.
 
 Rendered HTML
@@ -3421,37 +3421,37 @@ Rendered HTML
   </div>
   ````
 
-----------------
-`LineBlock.Line`
-----------------
+------------------------
+`LineBlock.Line` (class)
+------------------------
 
 Purpose
   This class represents a line in a line block.
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 
-`Link`
-=========
+`Link` (class)
+==============
 
 Convention
   [topic: Italics]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
     If a line consists solely of media conventions (or media conventions within links), those media conventions (or their outer links) are placed directly into the outline.
 
 Unique members
   `url`: `string`
     This links's URL after the following settings are applied:
 
-    - [topic: defaultUrlScheme]
-    - [topic: baseForUrlsStartingWithSlash]
-    - [topic: baseForUrlsStartingWithHashmark]
+    - [topic: `defaultUrlScheme`]
+    - [topic: `baseForUrlsStartingWithSlash`]
+    - [topic: `baseForUrlsStartingWithHashmark`]
 
 Rendered HTML
   ````
@@ -3459,14 +3459,14 @@ Rendered HTML
   ````
 
 
-`NormalParenthetical`
-=====================
+`NormalParenthetical` (class)
+=============================
 
 Convention
   [topic: Parenthetical text] produced by parentheses
 
 Extends
-  [topic: ParentheticalSyntaxNode]
+  [topic: `ParentheticalSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3474,17 +3474,17 @@ Rendered HTML
   ````
 
 
-`OrderedList`
-=============
+`OrderedList` (class)
+=====================
 
 Convention
   [topic: Numbered lists]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Unique members
-  `items`: array of [topic: OrderedList.Item]
+  `items`: array of [topic: `OrderedList.Item`]
     The collection of items comprising this ordered list.
 
   `start` method
@@ -3495,7 +3495,7 @@ Unique members
       None.
 
   `order` method
-    Return type: [topic: OrderedList.Order]
+    Return type: [topic: `OrderedList.Order`]
       This method returns the order of the ordered list (ascending or descending).
 
     Arguments
@@ -3517,20 +3517,20 @@ Rendered HTML
   ````
 
 
-------------------
-`OrderedList.Item`
-------------------
+--------------------------
+`OrderedList.Item` (class)
+--------------------------
 
 Purpose
   This class represents an item in an ordered list.
 
 Extends
-  [topic: OutlineSyntaxNodeContainer]
+  [topic: `OutlineSyntaxNodeContainer`]
 
 
--------------------
-`OrderedList.Order`
--------------------
+---------------------------
+`OrderedList.Order` (class)
+---------------------------
 
 Purpose
   This enum represents the order of an ordered list.
@@ -3540,17 +3540,17 @@ Values
   - `Descending`
 
 
-`Paragraph`
-===========
+`Paragraph` (class)
+===================
 
 Convention
   [topic: Paragraphs]
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3558,14 +3558,14 @@ Rendered HTML
   ````
 
 
-`RevealableBlock`
-=================
+`RevealableBlock` (class)
+=========================
 
 Convention
   [topic: Revealable blocks]
 
 Extends
-  [topic: RichOutlineSyntaxNode]
+  [topic: `RichOutlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3581,14 +3581,14 @@ Rendered HTML
   ````
 
 
-`SectionLink`
-=============
+`SectionLink` (class)
+=====================
 
 Convention
   [topic: Section links]
 
 Implements
-  [topic: InlineSyntaxNode]
+  [topic: `InlineSyntaxNode`]
 
 Unique members
   `sectionTitleSnippet`: `string`
@@ -3606,14 +3606,14 @@ Rendered HTML
     ````
 
 
-`SquareParenthetical`
-=====================
+`SquareParenthetical` (class)
+=============================
 
 Convention
   [topic: Parenthetical text] produced by square brackets
 
 Extends
-  [topic: ParentheticalSyntaxNode]
+  [topic: `ParentheticalSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3621,14 +3621,14 @@ Rendered HTML
   ````
 
 
-`Stress`
-========
+`Stress` (class)
+================
 
 Convention
   [topic: Stress]
 
 Extends
-  [topic: RichInlineSyntaxNode]
+  [topic: `RichInlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3636,23 +3636,23 @@ Rendered HTML
   ````
 
 
-`Table`
-=======
+`Table` (class)
+===============
 
 Convention
   [topic: Tables]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Unique members
-  `header`: [topic: Table.Header]
+  `header`: [topic: `Table.Header`]
     The header row.
 
-  `rows`: array of [topic: Table.Row]
+  `rows`: array of [topic: `Table.Row`]
     The content rows.
 
-  `caption`: [topic: Table.Caption]
+  `caption`: [topic: `Table.Caption`]
     The optional caption.
 
 Rendered HTML
@@ -3713,26 +3713,26 @@ Rendered HTML
     ````
 
 
----------------
-`Table.Caption`
----------------
+-----------------------
+`Table.Caption` (class)
+-----------------------
 
 Purpose
   This class represents the caption of a table.
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 
-------------
-`Table.Cell`
-------------
+--------------------
+`Table.Cell` (class)
+--------------------
 
 Purpose
   This abstract class represents a table cell.
 
 Extends
-  [topic: InlineSyntaxNodeContainer]
+  [topic: `InlineSyntaxNodeContainer`]
 
 Unique members
   `isNumeric` method
@@ -3743,20 +3743,20 @@ Unique members
       None.
 
 
---------------
-`Table.Header`
---------------
+----------------------
+`Table.Header` (class)
+----------------------
 
 Purpose
   This class represents the header row of a table.
 
 Unique members
-  `cells`: array of [topic: Table.Header.Cell]
+  `cells`: array of [topic: `Table.Header.Cell`]
     The cells in this header row.
 
 
-`Table.Header.Cell`
--------------------
+`Table.Header.Cell` (class)
+---------------------------
 
 Purpose
   This class represents a table header cell.
@@ -3765,9 +3765,9 @@ Extends
   [topic: Table.Cell]
 
 
------------
-`Table.Row`
------------
+-------------------
+`Table.Row` (class)
+-------------------
 
 Purpose
   This class represents a content row in a table.
@@ -3791,8 +3791,8 @@ Unique members
       None.
 
 
-`Table.Row.Cell`
-----------------
+`Table.Row.Cell` (class)
+------------------------
 
 Purpose
   This class represents a regular (non-header) table cell.
@@ -3801,14 +3801,14 @@ Extends
   [topic: Table.Cell]
 
 
-`Text`
-=========
+`Text` (class)
+==============
 
 Purpose
   This class represents regular text content.
 
 Implements
-  [topic: InlineSyntaxNode]
+  [topic: `InlineSyntaxNode`]
 
 Unique members
   `text`: `string`
@@ -3820,14 +3820,14 @@ Rendered HTML
   ````
 
 
-`ThematicBreak`
-===============
+`ThematicBreak` (class)
+=======================
 
 Convention
   [topic: Thematic breaks]
 
 Extends
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Rendered HTML
   ````
@@ -3835,17 +3835,17 @@ Rendered HTML
   ````
 
 
-`UnorderedList`
-===============
+`UnorderedList` (class)
+=======================
 
 Convention
   [topic: Bulleted lists]
 
 Implements
-  [topic: OutlineSyntaxNode]
+  [topic: `OutlineSyntaxNode`]
 
 Unique members
-  `items`: array of [topic: UnorderedList.Item]
+  `items`: array of [topic: `UnorderedList.Item`]
     The collection of items comprising this bulleted list.
 
 Rendered HTML
@@ -3864,25 +3864,25 @@ Rendered HTML
   ````
 
 
---------------------
-`UnorderedList.Item`
---------------------
+----------------------------
+`UnorderedList.Item` (class)
+----------------------------
 
 Purpose
   This class represents an item in a bulleted list.
 
 Extends
-  [topic: OutlineSyntaxNodeContainer]
+  [topic: `OutlineSyntaxNodeContainer`]
 
 
-`Video`
-=======
+`Video` (class)
+===============
 
 Convention
   [topic: Video]
 
 Extends
-  [topic: MediaSyntaxNode]
+  [topic: `MediaSyntaxNode`]
 
 Rendered HTML
   ````
