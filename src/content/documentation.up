@@ -2704,7 +2704,7 @@ Abstract syntax tree classes
 
 Unless you're fiddling with the abstract syntax tree of a parsed document, this section isn't relevant for you.
 
-The Up library exports every class used in the abstract syntax tree. 
+The Up library exports every class used in the abstract syntax tree.
 
 ````
 const { Blockquote } = require("write-up")
@@ -2747,9 +2747,6 @@ Unique members
       - Extracts footnotes into footnote blocks
       - Produces a table of contents
       - Matches section links with table of contents entries
-
-Notes
-  The [topic: `parse`] function returns an instance of this class.
 
 Rendered HTML
   When rendered to HTML, the document is *not* put into an outer container element.
@@ -2875,9 +2872,6 @@ Rendered HTML
   ````
   I <em>love</em> dental floss!
   ````
-
-Notes
-  The [topic: `parseInline`] function returns an instance of this class.
 
 
 `SyntaxNode` (interface)
