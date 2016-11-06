@@ -9,7 +9,7 @@ const documentationMarkup =
   fs.readFileSync(getSourceFilename('content/documentation.up'), 'utf-8')
 
 const renderedResult =
-  Up.parseAndRenderDocumentAndTableOfContents(documentationMarkup, upSettings)
+  Up.parseAndRenderWithTableOfContents(documentationMarkup, upSettings)
 
 const documentationHtml = renderedResult.documentHtml
 const tableOfContentsHtml = renderedResult.tableOfContentsHtml

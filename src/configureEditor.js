@@ -1,5 +1,5 @@
 import CodeMirror from 'codemirror'
-import { parseAndRenderDocumentAndTableOfContents } from 'write-up'
+import { parseAndRenderWithTableOfContents } from 'write-up'
 import addScrollSyncingEventListeners from './addScrollSyncingEventListeners'
 import isTotallyHidden from './isTotallyHidden'
 import debounce from './debounce'
@@ -122,7 +122,7 @@ function configureLivePreview(codeMirror, documentationScrollerElement, document
 function render(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement) {
   const markup = codeMirror.getValue()
   const { documentHtml, tableOfContentsHtml } =
-    parseAndRenderDocumentAndTableOfContents(markup, upSettings)
+    parseAndRenderWithTableOfContents(markup, upSettings)
 
   // In Safari, if the documentation contains any audio or video players, and if the user
   // edits markup while the viewport is past the first media player, the viewport automatically

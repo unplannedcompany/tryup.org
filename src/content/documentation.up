@@ -1915,8 +1915,8 @@ Usage
     ````
 
 
-`parseAndRenderDocumentAndTableOfContents` (function)
-=====================================================
+`parseAndRenderWithTableOfContents` (function)
+==============================================
 
 This function converts Up markup into two pieces of HTML, both of which are returned:
 
@@ -1929,20 +1929,20 @@ Arguments
   `settings` (optional): [topic: `Settings`]
     The custom parsing and/or rendering settings to apply.
 
-Return type: [topic: RenderedDocumentAndTableOfContents]
+Return type: [topic: `DocumentAndTableOfContentsHtml`]
   This function returns HTML representing the rendered document and table of contents.
 
 Usage
   Without custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      parseAndRenderDocumentAndTableOfContents(markup)
+      parseAndRenderWithTableOfContents(markup)
     ````
 
   With custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      parseAndRenderDocumentAndTableOfContents(markup, {
+      parseAndRenderWithTableOfContents(markup, {
         parsing: {
           createSourceMap: true,
           keywords: { audio: "listen" }
@@ -1955,11 +1955,11 @@ Usage
     ````
 
 
-------------------------------------------------
-`RenderedDocumentAndTableOfContents` (interface)
-------------------------------------------------
+--------------------------------------------
+`DocumentAndTableOfContentsHtml` (interface)
+--------------------------------------------
 
-This interface represents the HTML for a rendered document and table of contents.
+This interface represents the HTML for a rendered document and its table of contents.
 
 Members
   `tableOfContentsHtml`: `string`
@@ -1971,8 +1971,8 @@ Members
 Notes
   The following functions return an object satisfying this interface:
 
-  - [topic: `parseAndRenderDocumentAndTableOfContents`]
-  - [topic: `renderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderWithTableOfContents`]
+  - [topic: `renderWithTableOfContents`]
 
 
 `parseAndRenderInline` (function)
@@ -2110,8 +2110,8 @@ Usage
     ````
 
 
-`renderDocumentAndTableOfContents` (function)
-=============================================
+`renderWithTableOfContents` (function)
+======================================
 
 This function converts a syntax tree into two pieces of HTML, both of which are returned:
 
@@ -2125,20 +2125,20 @@ Arguments
   `renderingSettings` (optional): [topic: Settings.Rendering]
     The custom rendering settings to apply.
 
-Return type: [topic: RenderedDocumentAndTableOfContents]
+Return type: [topic: `DocumentAndTableOfContentsHtml`]
   This function returns HTML representing the rendered document and table of contents.
 
 Usage
   Without custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      renderDocumentAndTableOfContents(document)
+      renderWithTableOfContents(document)
     ````
 
   With custom settings
     ````
     const { tableOfContentsHtml, documentHtml } =
-      renderDocumentAndTableOfContents(document, {
+      renderWithTableOfContents(document, {
         idPrefix: "article",
         terms: { revveal: "expand" }
       })
@@ -2208,12 +2208,12 @@ Members
   This class's methods have the same names and arguments as the [topic: functions] in the library:
 
   - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderWithTableOfContents`]
   - [topic: `parseAndRenderInline`]
   - [topic: `parse`]
   - [topic: `parseInline`]
   - [topic: `render`]
-  - [topic: `renderDocumentAndTableOfContents`]
+  - [topic: `renderWithTableOfContents`]
   - [topic: `renderInline`]
 
   When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
@@ -2287,7 +2287,7 @@ Summary
   Use this interface to provide custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderWithTableOfContents`]
   - [topic: `parseAndRenderInline`]
 
 Usage
@@ -2325,7 +2325,7 @@ Summary
   As part of [topic: `Settings`], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderWithTableOfContents`]
   - [topic: `parseAndRenderInline`]
 
 Usage
@@ -2524,13 +2524,13 @@ Summary
   Use this interface to provide custom settings to functions that render syntax trees to HTML:
 
   - [topic: `render`]
-  - [topic: `renderDocumentAndTableOfContents`]
+  - [topic: `renderWithTableOfContents`]
   - [topic: `renderInline`]
 
   As part of [topic: `Settings`], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
 
   - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderDocumentAndTableOfContents`]
+  - [topic: `parseAndRenderWithTableOfContents`]
   - [topic: `parseAndRenderInline`]
 
 Usage
