@@ -513,9 +513,9 @@ Markup
 Output
   ``let output = `score:` + 5``
 
----------------------------------------------
-Inline code starting or ending with backticks
----------------------------------------------
+--------------------------------------
+Code starting or ending with backticks
+--------------------------------------
 
 If your inline code starts or ends with backticks, place a single space between the offending backticks and the outer delimiter. This single space is trimmed away. Here's an example of inline code that both starts and ends with backticks:
 
