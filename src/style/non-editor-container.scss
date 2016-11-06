@@ -1,6 +1,6 @@
-#tab-panel-container {
+#non-editor-container {
   @import 'table-of-contents';
-  @import 'documentation-container';
+  @import 'documentation';
 
   @import 'conventions/blockquote.scss';
   @import 'conventions/code-blocks-and-inline-code.scss';

@@ -15,13 +15,10 @@ $max-indent-level: 11;
 // Small screens don't have enough room for our default indentation.
 $indent-per-level-on-very-small-screens: 20px;
 
-#table-of-contents-container {
-  padding-left: 10px;
-  padding-right: 10px;
+#table-of-contents {
   user-select: none;
 
   a {
-    border: 0;
     color: black;
     display: inline-block;
     width: 100%;
@@ -39,17 +36,17 @@ $indent-per-level-on-very-small-screens: 20px;
   code { text-decoration: none }
 
   // Our table of contents is full of parentheticals! Every heading for
-  // every class and interface ends in a parenthetical, either "(class)"
-  // or "(heading)".
+  // every member of the API ends with parenthetical text, typically
+  // either "(class)" or "(heading)".
   //
   // We don't need all that clutter.  
   small { display: none }
 
-  // That being said, nearly all of those classes and interfaces are
-  // represented by headings with levels 3 and up.
+  // That being said, nearly all of the headings described above have
+  // levels 3 and up.
   //
   // We won't clutter the table of contents by displaying parenthetical
-  // text in top-level or second-level headings. 
+  // text in top-level or second-level headings.
   h1, h2 {
     small { display: inline }
   }

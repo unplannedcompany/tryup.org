@@ -2,7 +2,7 @@
 
 <head>
 	<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Up: a markup language for writing structured documents in plain text</title>
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -25,18 +25,12 @@
         Hide table of contents
       </span>
 		</div>
-		<div id="tab-panel-container">
-			<div id="table-of-contents-container">
-				<nav aria-labelledby="show-table-of-contents" aria-live="polite" id="table-of-contents" role="tabpanel">
-					{{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
-				</nav>
-			</div>
-			<div id="documentation-container">
-				<main aria-labelledby="show-documentation" aria-live="polite" id="documentation" role="tabpanel">
-					{{{ htmlWebpackPlugin.options.documentationHtml }}}
-				</main>
-			</div>
-		</div>
+		<nav aria-labelledby="show-table-of-contents" aria-live="polite" id="table-of-contents" role="tabpanel">
+			{{{ htmlWebpackPlugin.options.tableOfContentsHtml }}}
+		</nav>
+		<main aria-labelledby="show-documentation" aria-live="polite" id="documentation" role="tabpanel">
+			{{{ htmlWebpackPlugin.options.documentationHtml }}}
+		</main>
 	</div>
 
 	<div id="editor-container"></div>
