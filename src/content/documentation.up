@@ -2821,11 +2821,11 @@ Members
     ````
 
   `contentWithinTableOfContents` method
-    Arguments
-      None.
-
     Return type: array of [topic: `InlineSyntaxNode`]
       This method returns the inline syntax nodes that should represent this entry's content inside the table of contents itself.
+
+    Arguments
+      None.
 
   `inlineDescendants` method
     Return type: array of [topic: `InlineSyntaxNode`]
@@ -2835,11 +2835,12 @@ Members
       None.
 
   `searchableText` method
+    Return type: `string`
+      This method returns the entry's searchable text, which helps match [topic: section links] to the the most appropriate entry.
+
     Arguments
       None.
 
-    Return type: `string`
-      This method returns the entry's searchable text, which helps match [topic: section links] to the the most appropriate entry.
 
 
 `InlineDocument` (class)
@@ -2869,6 +2870,9 @@ Members
   `inlineDescendants` method
     Return type: array of [topic: `InlineSyntaxNode`]
       This method returns all inline descendants (including children, grandchildren, etc.).
+
+    Arguments
+      None.
 
 Notes
   This interface also has a `render` method, but it isn't relevant to developers using the Up library.
