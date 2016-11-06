@@ -95,15 +95,13 @@ Why *not* use Up?
 You want a rich ecosystem of tools
 ==================================
 
-So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start).
-
-In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
+So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start). In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
 
 
 You need speed
 ==============
 
-Up is not terribly slow, but it's not terribly fast, either---at least not yet. If you need instant, real-time parsing and rendering of large documents, Up isn't the right markup language for you.
+Up is not terribly slow, but it's not terribly fast, either---at least not yet! If you need instant, real-time parsing and rendering of large documents, Up isn't the best markup language for you.
 
 
 
