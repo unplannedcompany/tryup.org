@@ -9,16 +9,16 @@ import repeat from './repeat'
 
 // WARNING: This collection represents shared state!
 //
-// This collection contains every element with a source line number in the documentation.
-// Every time we re-render changes from the editor, we'll update this collection.
+// This collection contains every element with a source line number in the documentation
+// and table of contents. Every time we re-render changes from the editor, we'll update
+// this collection.
 //
-// Whenever the user scrolls through the documentation, we use this collection to scroll the
-// CodeMirror editor to the line corresponding to the first visible element from this
-// collection.
+// Whenever the user scrolls through the documentation (or table of contents), we use this
+// collection to scroll the CodeMirror editor to the line corresponding to the first visible
+// element from this collection.
 //
 // Likewise, whenever the user scrolls through the editor, we use this collection to
-// scroll to the first element in the document produced by (or after) the first visible
-// line in the editor.
+// scroll to the first element produced by (or after) the first visible line in the editor.
 let sourceMappedElements = []
 
 function refreshSourceMappedElements(documentationElement) {
@@ -28,13 +28,9 @@ function refreshSourceMappedElements(documentationElement) {
 
 
 export default function configureEditor(
-  // Contains the CodeMirror editor
   editorContainerElement,
-  // When the user scrolls the documentation, this is the element that does the scrolling
-  documentationScrollerElement,
-  // Contains the rendered documentation
+  documentationContainerElement,
   documentationElement,
-  // Contains the rendered table of contents
   tableOfContentsElement
 ) {
   const codeMirror = CodeMirror(editorContainerElement, {
@@ -65,21 +61,21 @@ export default function configureEditor(
   CodeMirror.keyMap.default['Shift-Tab'] = 'indentLess'
 
   configureCodeMirrorToIndentSoftWrapedLines(codeMirror)
-  configureLivePreview(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement)
+  configureLivePreview(codeMirror, documentationContainerElement, documentationElement, tableOfContentsElement)
 
   addScrollSyncingEventListeners(
     codeMirror,
-    documentationScrollerElement,
+    documentationContainerElement,
     syncScrollingFromDocumentation,
     syncScrollingFromEditor
   )
 
   codeMirror.refresh()
-  refreshSourceMappedElements(documentationScrollerElement)
+  refreshSourceMappedElements(documentationContainerElement)
 }
 
 
-function configureLivePreview(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement) {
+function configureLivePreview(codeMirror, documentationContainerElement, documentationElement, tableOfContentsElement) {
   // We'll wait until the user is done typing before we re-render their changes. We consider the
   // user to be done typing once 1.2 seconds has elapsed since their last keystroke.
   //
@@ -92,7 +88,7 @@ function configureLivePreview(codeMirror, documentationScrollerElement, document
       return
     }
 
-    render(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement)
+    render(codeMirror, documentationContainerElement, documentationElement, tableOfContentsElement)
     markRenderedContentAsClean()
   }, 1200)
 
@@ -107,19 +103,19 @@ function configureLivePreview(codeMirror, documentationScrollerElement, document
 
   function markRenderedContentAsDirty() {
     isDirty = true
-    documentationScrollerElement.classList.remove('clean')
-    documentationScrollerElement.classList.add('dirty')
+    documentationContainerElement.classList.remove('clean')
+    documentationContainerElement.classList.add('dirty')
   }
 
   function markRenderedContentAsClean() {
     isDirty = false
-    documentationScrollerElement.classList.remove('dirty')
-    documentationScrollerElement.classList.add('clean')
+    documentationContainerElement.classList.remove('dirty')
+    documentationContainerElement.classList.add('clean')
   }
 }
 
 
-function render(codeMirror, documentationScrollerElement, documentationElement, tableOfContentsElement) {
+function render(codeMirror, documentationContainerElement, documentationElement, tableOfContentsElement) {
   const markup = codeMirror.getValue()
   const { documentHtml, tableOfContentsHtml } =
     parseAndRenderWithTableOfContents(markup, upSettings)
@@ -129,13 +125,13 @@ function render(codeMirror, documentationScrollerElement, documentationElement, 
   // jumps back to the first media player when its HTML is re-rendered.
   //
   // To avoid this, we manually restore its `scrollTop` to its pre-render position.
-  const { scrollTop } = documentationScrollerElement
+  const { scrollTop } = documentationContainerElement
 
   documentationElement.innerHTML = documentHtml
   tableOfContentsElement.innerHTML = tableOfContentsHtml
 
-  documentationScrollerElement.scrollTop = scrollTop
-  refreshSourceMappedElements(documentationScrollerElement)
+  documentationContainerElement.scrollTop = scrollTop
+  refreshSourceMappedElements(documentationContainerElement)
 }
 
 
@@ -187,7 +183,7 @@ function syncScrollingFromDocumentation(codeMirror, documentationElement) {
 }
 
 
-function syncScrollingFromEditor(codeMirror, documentationScrollerElement) {
+function syncScrollingFromEditor(codeMirror, documentationContainerElement) {
   // Line numbers in the CodeMirror editor start at 0.
   const firstVisibleLineNumber = 1 + codeMirror.lineAtHeight(0, 'window')
 
@@ -200,7 +196,7 @@ function syncScrollingFromEditor(codeMirror, documentationScrollerElement) {
     // However, the user probably expects that scrolling the editor to its top will
     // automatically scroll the documentation to *its* top, too. Here, we make sure
     // that happens.
-    documentationScrollerElement.scrollTop = 0
+    documentationContainerElement.scrollTop = 0
     return
   }
 

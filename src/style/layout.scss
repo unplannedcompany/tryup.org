@@ -8,13 +8,17 @@
   height: 44px;
 }
 
-#table-of-contents { display: none }
+#documentation-container {
+  padding: 0 15px;
 
-#documentation,
-#table-of-contents {
-  margin: 0 auto;
-  max-width: 580px;
-  overflow-x: hidden;
+  #table-of-contents { display: none }
+
+  #documentation,
+  #table-of-contents {
+    margin: 0 auto;
+    max-width: 580px;
+    overflow-x: hidden;
+  }
 }
 
 @include on-regular-screens {
@@ -32,13 +36,11 @@
     .CodeMirror { height: 100vh }
   }
 
-  #non-editor-container {
+  #documentation-container {
     flex-basis: 0;
     flex-grow: 1;
     height: 100vh;
-    // Setting `overflow-y` to anything but `visible` prevents wide elements
-    // within the documentation from widening this element.
-    overflow-y: hidden;
+    overflow-y: scroll;
   }
 }
 

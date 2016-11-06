@@ -6,14 +6,14 @@ import configureScrollPositionAfterNavigation from './configureScrollPositionAft
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const documentationContainerElement = getElementById('documentation-container')
+  const documentationContainer = getElementById('documentation-container')
 
   configureScrollPositionAfterNavigation(
-    documentationContainerElement)
+    documentationContainer)
 
   configureEditor(
     getElementById('editor-container'),
-    documentationContainerElement,
+    documentationContainer,
     getElementById('documentation'),
     getElementById('table-of-contents'))
 
