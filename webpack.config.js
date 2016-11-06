@@ -18,7 +18,7 @@ module.exports = {
   entry: getSourceFilename('app.js'),
   output: {
     path: './docs',
-    filename: 'app.js'
+    filename: 'bundle-[hash].js'
   },
   module: {
     loaders: [
