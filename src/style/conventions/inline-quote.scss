@@ -4,10 +4,7 @@ q {
 }
 
 q:before,
-q:after {
-  font-family: serif;
-  font-size: 110%;
-}
+q:after { font-family: serif }
 
 q:before { content: open-quote }
 q:after { content: close-quote }
