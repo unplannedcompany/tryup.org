@@ -3545,9 +3545,9 @@ Extends
   [topic: `OutlineSyntaxNodeContainer`]
 
 
----------------------------
-`OrderedList.Order` (class)
----------------------------
+--------------------------
+`OrderedList.Order` (enum)
+--------------------------
 
 Purpose
   This enum represents the order of an ordered list.
