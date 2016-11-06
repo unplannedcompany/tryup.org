@@ -11,10 +11,7 @@ table {
     font-size: 80%;
   }
 
-  caption {
-    padding-bottom: 10px;
-    font-style: italic;
-  }
+  caption { font-style: italic }
 
   tbody tr {
     &:hover {
@@ -35,13 +32,8 @@ table {
     padding: 10px;
     border: 1px solid #bbb;
 
-    &.up-numeric {
-      text-align: right;
-    }
-
-    &[colspan] {
-      text-align: center;
-    }
+    &.up-numeric { text-align: right }
+    &[colspan] { text-align: center }
   }
 
   th {
