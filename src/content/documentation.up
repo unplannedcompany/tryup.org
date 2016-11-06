@@ -2194,7 +2194,7 @@ Purpose
   const { Up } = require('write-up')
 
   const up = new Up(settings)
-  const html = up.parseAndRender(markup, settingsChanges)
+  const html = up.parseAndRender(markup, changedSettings)
   ````
 
 
