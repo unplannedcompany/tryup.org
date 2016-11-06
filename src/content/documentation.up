@@ -684,32 +684,6 @@ Media
 
 Up allows you to embed [topic: images], [topic: video], or [topic: audio] in your document.
 
-To embed media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
-
-You can use mix and match either type of bracket---they're totally interchangeable.
-
-
-Media descriptions
-==================
-
-Media descriptions always start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
-
-Within media descriptions, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
-
-
-Media URLs
-==========
-
-As demonstrated below, you can omit the URL scheme for media URLs. If you do, Up uses `https://` for the URL scheme.
-
-If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`].
-
-Other settings affecting media are:
-
-- [topic: `baseForUrlsStartingWithSlash`]
-- [topic: `baseForUrlsStartingWithHashmark`]
-- [topic: `renderDangerousContent`].
-
 
 Images
 ======
@@ -746,6 +720,36 @@ Markup
 
 Output
   [audio: Sadness theme from Infinity for Game Boy] (a.clyp.it/ybct5hcl.mp3)
+
+
+Syntax
+======
+
+To embed media in your document, simply enclose its description in square brackets or parentheses, then enclose its URL in square brackets or parentheses.
+
+You can use mix and match either type of bracket---they're totally interchangeable.
+
+------------------
+Media descriptions
+------------------
+
+Media descriptions always start with `image:`, `audio:`, or `video:`, depending on the type of media you wish to include.
+
+Within media descriptions, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
+
+----------
+Media URLs
+----------
+
+As demonstrated above, you can omit the URL scheme for media URLs. If you do, Up uses `https://` for the URL scheme.
+
+If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`].
+
+Other settings affecting media are:
+
+- [topic: `baseForUrlsStartingWithSlash`]
+- [topic: `baseForUrlsStartingWithHashmark`]
+- [topic: `renderDangerousContent`].
 
 
 ==================

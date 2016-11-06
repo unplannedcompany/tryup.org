@@ -45,7 +45,11 @@ $indent-per-level-on-very-small-screens: 20px;
   // We don't need all that clutter.  
   small { display: none }
 
-  // That being said, top-level or second-level headings 
+  // That being said, nearly all of those classes and interfaces are
+  // represented by headings with levels 3 and up.
+  //
+  // We won't clutter the table of contents by displaying parenthetical
+  // text in top-level or second-level headings. 
   h1, h2 {
     small { display: inline }
   }
