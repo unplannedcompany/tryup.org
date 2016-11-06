@@ -38,6 +38,18 @@ $indent-per-level-on-very-small-screens: 20px;
   // The same logic applies for inline code.
   code { text-decoration: none }
 
+  // Our table of contents is full of parentheticals! Every heading for
+  // every class and interface ends in a parenthetical, either "(class)"
+  // or "(heading)".
+  //
+  // We don't need all that clutter.  
+  small { display: none }
+
+  // That being said, top-level or second-level headings 
+  h1, h2 {
+    small { display: inline }
+  }
+
   #{$heading-selector} {
     font-weight: normal;
     font-size: 100%;
@@ -52,8 +64,6 @@ $indent-per-level-on-very-small-screens: 20px;
       }
     }
   }
-
-  h1, h2 { font-weight: bold }
 
   @for $level from 1 through ($max-indent-level - 1) {
     $selector-for-this-heading-level:
@@ -70,4 +80,8 @@ $indent-per-level-on-very-small-screens: 20px;
       }
     }
   }
+
+  h1 a { padding-top: 35px }
+
+  h1, h2 { font-weight: bold }
 }
