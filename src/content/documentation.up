@@ -1050,7 +1050,7 @@ Output
   2. Buy bread
   3. Buy happiness
 
-Numbered lists are nearly identical to [topic: bulleted lists]! The only difference is that numbered list items have ordinals, not bullets.
+Numbered lists are nearly identical to [topic: bulleted lists]---the only difference is that numbered list items have ordinals, not bullets.
 
 The ordinal for a numbered list item can be expressed several ways:
 
@@ -2729,9 +2729,11 @@ Unique members
     Purpose
       This method returns a ready-to-render syntax tree from a collection of outline syntax nodes.
 
+      Usually, you'll want to use this static method instead of the constructor.
+
     Arguments
       `children`: array of [topic: `OutlineSyntaxNode`]
-        A collection of outline syntax nodes representing the top-level conventions in the document.
+        A collection of outline syntax nodes representing the content of this document.
 
     Return type: [topic: `Document`]
       This method creates and returns a ready-to-render `Document` object.
@@ -2742,6 +2744,13 @@ Unique members
       - Extracts footnotes into footnote blocks
       - Produces a table of contents
       - Matches section links with table of contents entries
+
+Constructor arguments
+  `children`: array of [topic: `OutlineSyntaxNode`]
+    A collection of outline syntax nodes representing the content of this document.
+
+  `tableOfContents` (optional): [topic: `Document.TableOfContents`]
+    The document's table of contents.
 
 Rendered HTML
   When rendered to HTML, the document is *not* put into an outer container element.
@@ -2766,6 +2775,10 @@ Purpose
 Members
   `entries`: array of [topic: `Document.TableOfContents.Entry`]
     A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: `Heading`] objects in the document itself.
+
+Constructor arguments
+  `entries`: array of [topic: `TableOfContents.Entry`]
+    The entries in the table of contents.
 
 Rendered HTML
   Each [topic: `Document.TableOfContents.Entry`] renders a heading element of the appropriate `level` containing a link to the appropriate section in the document.
@@ -2813,14 +2826,22 @@ Purpose
   This interface represents an entry in the table of contents.
 
 Members
-  `ordinal`: `number`
+  `ordinalInTableOfContents`: `number`
     Represents the entry's ordinal in the table of contents. The first ordinal is `1`, not `0`.
 
   `level`: `number`
-    Represents the heading level of the entry.
+    Represents the heading level of the entry. Like HTML heading levels, a level of 1 is considered the most significant.
+
+  `titleMarkup`: string
+    Currently, headings are the only writing convention that produce table of contents entries, so the `titleMarkup` field always represents the markup for the "content line" of a heading.
+
+    Section links compare their `markupSnippetFromSectionLink` against this field.
+
+  `titleSyntaxNodes`: array of [topic: `InlineSyntaxNode`]
+    The inline syntax nodes that should represent this entry within the table of contents itself.
 
   `sourceLineNumber`: `number`
-    If [topic: `createSourceMap`] is enabled, this field is set to the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
+    If [topic: `createSourceMap`] is enabled, this field is set to the line number of the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
 
     When rendered to HTML, entries with source line numbers are given a `data-up-source-line` attribute set the appropriate line number.
 
@@ -2844,13 +2865,6 @@ Members
     Arguments
       None.
 
-  `searchableText` method
-    Return type: `string`
-      This method returns the entry's searchable text, which helps match [topic: section links] to the the most appropriate entry.
-
-    Arguments
-      None.
-
 
 `InlineDocument` (class)
 =======================
@@ -2860,6 +2874,9 @@ Purpose
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
 
 Rendered HTML
   When rendered to HTML, an inline document is *not* put into an outer container element.
@@ -2955,6 +2972,9 @@ Extends
 Implements
   [topic: `InlineSyntaxNode`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
+
 
 `RichOutlineSyntaxNode` (class)
 ===============================
@@ -2968,6 +2988,14 @@ Extends
 Implements
   [topic: `OutlineSyntaxNode`]
 
+Constructor arguments
+  `children`: array of [topic: `OutlineSyntaxNode`]
+    A collection of outline syntax nodes representing the content of this syntax node.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this syntax node.
+
 
 `InlineSyntaxNodeContainer` (class)
 ===================================
@@ -2977,7 +3005,7 @@ Purpose
 
 Members
   `children`: array of [topic: `InlineSyntaxNode`]
-    A collection of inline syntax nodes representing the top-level content of the container.
+    A collection of inline syntax nodes representing the content of this container.
 
   `inlineDescendants` method
     Return type: array of [topic: `InlineSyntaxNode`]
@@ -2985,6 +3013,10 @@ Members
 
     Arguments
       None.
+
+Constructor arguments
+  `children`: array of [topic: `InlineSyntaxNode`]
+    This field is described above.
 
 
 `OutlineSyntaxNodeContainer` (class)
@@ -2995,7 +3027,7 @@ Purpose
 
 Members
   `children`: array of [topic: `InlineSyntaxNode`]
-    A collection of outline syntax nodes representing the top-level content of the container.
+     A collection of outline syntax nodes representing the content of this container.
 
   `descendantsToIncludeInTableOfContents` method
     Return type: array of [topic: `Document.TableOfContents.Entry`]
@@ -3010,6 +3042,10 @@ Members
 
     Arguments
       None.
+
+Constructor arguments
+  `children`: array of [topic: `OutlineSyntaxNode`]
+    The outline syntax nodes belonging to this container.
 
 
 `MediaSyntaxNode` (class)
@@ -3040,6 +3076,17 @@ Unique members
     - [topic: `baseForUrlsStartingWithSlash`]
     - [topic: `baseForUrlsStartingWithHashmark`]
 
+Constructor arguments
+  `description`: string
+    The media's description.
+
+  `url`: string
+    The media's URL.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the line of markup that created this media syntax node.
+
 
 `ParentheticalSyntaxNode` (class)
 =================================
@@ -3052,6 +3099,9 @@ Purpose
 Extends
   [topic: `RichInlineSyntaxNode`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
+
 
 `Audio` (class)
 ===============
@@ -3061,6 +3111,9 @@ Writing convention
 
 Extends
   [topic: `MediaSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `MediaSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3079,6 +3132,9 @@ Writing convention
 Extends
   [topic: `RichOutlineSyntaxNode`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichOutlineSyntaxNode`].
+
 Rendered HTML
   ````
   <blockquote>
@@ -3095,6 +3151,9 @@ Writing convention
 
 Extends
   [topic: `RichInlineSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3115,6 +3174,14 @@ Unique members
   `code`: `string`
     The code represented by this syntax node.
 
+Constructor arguments
+  `code`: `string`
+    This field is described above.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this code block.
+
 Rendered HTML
   ````
   <pre><code>const message = "Hi there!"</code></pre>
@@ -3133,6 +3200,14 @@ Implements
 Unique members
   `items`: array of [topic: `DescriptionList.Item`]
     The collection of items comprising this description list.
+
+Constructor arguments
+  `items`: array of [topic: `DescriptionList.Item`]
+    This field is described above.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this description list.
 
 Rendered HTML
   ````
@@ -3160,8 +3235,15 @@ Unique members
   `subjects`: array of [topic: `DescriptionList.Item.Subject`]
     The subjects described by `description`.
 
-  `description`: array of [topic: `DescriptionList.Item.Description`]
+  `description`: [topic: `DescriptionList.Item.Description`]
     The description of `subjects`.
+
+Constructor arguments
+  `subjects`: array of [topic: `DescriptionList.Item.Subject`]
+    This field is described above.
+
+  `description`: [topic: `DescriptionList.Item.Description`]
+    This field is described above.
 
 
 `DescriptionList.Item.Subject` (class)
@@ -3173,6 +3255,9 @@ Purpose
 Extends
   [topic: `InlineSyntaxNodeContainer`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
+
 
 `DescriptionList.Item.Description` (class)
 ------------------------------------------
@@ -3181,7 +3266,10 @@ Purpose
   This class represents the description of a given collection of subjects within a description list item.
 
 Extends
-  [topic: `InlineSyntaxNodeContainer`]
+  [topic: `OutlineSyntaxNodeContainer`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `OutlineSyntaxNodeContainer`].
 
 
 `Emphasis` (class)
@@ -3192,6 +3280,9 @@ Writing convention
 
 Extends
   [topic: `RichInlineSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3229,7 +3320,15 @@ Extends
 
 Unique members
   `referenceNumber`: `number`
-    The number that appears in superscript for this footnote.
+    The number that appears in superscript for this footnote. Within a given document, this value must be unique.
+
+Constructor arguments
+  `children`: array of [topic: `InlineSyntaxNode`]
+    A collection of inline syntax nodes representing the content of this footnote.
+
+  `options` (optional)
+    `referenceNumber`: number
+      This field is described above.
 
 Rendered HTML
   ````
@@ -3251,6 +3350,10 @@ Implements
 Unique members
   `footnotes`: array of [topic: Footnote]
     The collection of footnotes comprising this footnote block.
+
+Constructor arguments
+  `footnotes`: array of [topic: Footnote]
+    This field is described above.
 
 Rendered HTML
   ````
@@ -3282,6 +3385,25 @@ Implements
 Unique members
   `level`: `number`
     A heading's level represents its significance in the document. Like HTML heading levels, a level of 1 is considered the most significant.
+
+Constructor arguments
+  `children`: array of [topic: `InlineSyntaxNode`]
+    A collection of inline syntax nodes representing the content of this heading.
+
+  `options`
+    `level`: `number`
+      This field is described above.
+
+    `titleMarkup`: string
+      Represents the markup for the "content line" of this heading.
+
+      Section links compare their `markupSnippetFromSectionLink` against this field.
+
+    `ordinalInTableOfContents` (optional): `number`
+      Represents this heading's ordinal in the table of contents. The first ordinal is `1`, not `0`.
+
+    `sourceLineNumber` (optional): number
+      The line number of the first line of markup that created this heading.
 
 Rendered HTML
   Levels 1--6
@@ -3319,6 +3441,9 @@ Writing convention
 Extends
   [topic: `RichInlineSyntaxNode`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
+
 Rendered HTML
   ````
   <mark>Hi there!</mark>
@@ -3333,6 +3458,9 @@ Writing convention
 
 Extends
   [topic: `MediaSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `MediaSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3353,6 +3481,10 @@ Unique members
   `code`: `string`
     The inline code represented by this syntax node.
 
+Constructor arguments
+  `code`: `string`
+    This field is described above.
+
 Rendered HTML
   ````
   <code class="up-inline-code">interface</code>
@@ -3368,6 +3500,9 @@ Writing convention
 Extends
   [topic: `RichInlineSyntaxNode`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
+
 Rendered HTML
   ````
   <q>I know!</q>
@@ -3382,6 +3517,9 @@ Writing convention
 
 Extends
   [topic: `RichInlineSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3404,6 +3542,9 @@ Writing convention
 Extends
   [topic: `RichInlineSyntaxNode`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
+
 Rendered HTML
   ````
   <i>I know!</i>
@@ -3423,6 +3564,14 @@ Unique members
   `lines`: array of [topic: `LineBlock.Line`]
     The collection of lines comprising this line block.
 
+Constructor arguments
+  `lines`: array of [topic: `LineBlock.Line`]
+    This field is described above.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this syntax node.
+
 Rendered HTML
   ````
   <div class="up-lines">
@@ -3440,6 +3589,9 @@ Purpose
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
 
 
 `Link` (class)
@@ -3463,6 +3615,17 @@ Unique members
     - [topic: `baseForUrlsStartingWithSlash`]
     - [topic: `baseForUrlsStartingWithHashmark`]
 
+Constructor arguments
+  `children`: array of [topic: `InlineSyntaxNode`]
+    A collection of inline syntax nodes representing the content of this link.
+  
+  `url`: `string`
+    This field is described above.
+
+  `options`
+    `sourceLineNumber` (optional): number
+      The line number of the line of markup that created this link.
+
 Rendered HTML
   ````
   <a href="https://example.com">Hi there!</a>
@@ -3477,6 +3640,9 @@ Writing convention
 
 Extends
   [topic: `ParentheticalSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `ParentheticalSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3511,6 +3677,14 @@ Unique members
     Arguments
       None.
 
+Constructor arguments
+  `items`: array of [topic: `OrderedList.`]
+    This field is described above.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this ordered list.
+
 Rendered HTML
   ````
   <ol reversed start="3">
@@ -3537,6 +3711,14 @@ Purpose
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
 
+Constructor arguments
+  `children`: array of [topic: `OutlineSyntaxNode`]
+    A collection of outline syntax nodes representing the content of this list item.
+
+  `options` (optional)
+    `ordinal`: number
+      This field is described above.
+
 
 --------------------------
 `OrderedList.Order` (enum)
@@ -3562,6 +3744,14 @@ Extends
 Implements
   [topic: `OutlineSyntaxNode`]
 
+Constructor arguments
+  `children`: array of [topic: `InlineSyntaxNode`]
+    A collection of inline syntax nodes representing the content of this paragraph.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the line of markup that created this paragraph.
+
 Rendered HTML
   ````
   <p>Hi there!</p>
@@ -3576,6 +3766,9 @@ Writing convention
 
 Extends
   [topic: `RichOutlineSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichOutlineSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3601,16 +3794,23 @@ Implements
   [topic: `InlineSyntaxNode`]
 
 Unique members
-  `sectionTitleSnippet`: `string`
-    A snippet of text (provided by the author) from the matching table of contents entry.
+  `markupSnippetFromSectionLink`: `string`
+    This field is compared against the `titleMarkup` field of every table of contents entry to find the most appropriate match.
+
+Constructor arguments
+  `markupSnippetFromSectionLink`: `string`
+    This field is described above.
+
+  `entry`: [topic: `Document.TableOfContents.Entry`]
+    The table of contents entry this section link points to.
 
 Rendered HTML
-  When a heading matches `sectionTitleSnippet`
+  When a heading matches `markupSnippetFromSectionLink`
     ````
-    <a href="#up-topic-79">Using the Up library</a>
+    <a href="#up-topic-77">Using the Up library</a>
     ````
 
-  When *no* heading matches `sectionTitleSnippet`
+  When *no* heading matches `markupSnippetFromSectionLink`
     ````
     <i>Using the Up library</i>
     ````
@@ -3624,6 +3824,9 @@ Writing convention
 
 Extends
   [topic: `ParentheticalSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `ParentheticalSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3639,6 +3842,9 @@ Writing convention
 
 Extends
   [topic: `RichInlineSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `RichInlineSyntaxNode`].
 
 Rendered HTML
   ````
@@ -3664,6 +3870,20 @@ Unique members
 
   `caption`: [topic: `Table.Caption`]
     The optional caption.
+
+Constructor arguments
+  `header`: [topic: `Table.Header`]
+    This field is described above.
+
+  `rows`: array of [topic: `Table.Row`]
+    This field is described above.
+
+  `caption`: [topic: `Table.Caption`]
+    This field is described above.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this table.
 
 Rendered HTML
   Without header column
@@ -3733,6 +3953,9 @@ Purpose
 Extends
   [topic: `InlineSyntaxNodeContainer`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
+
 
 --------------------
 `Table.Cell` (class)
@@ -3752,6 +3975,9 @@ Unique members
     Arguments
       None.
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
+
 
 ----------------------
 `Table.Header` (class)
@@ -3764,6 +3990,10 @@ Unique members
   `cells`: array of [topic: `Table.Header.Cell`]
     The cells in this header row.
 
+Constructor arguments
+  `cells`: array of [topic: `Table.Header.Cell`]
+    This field is described above.
+
 
 `Table.Header.Cell` (class)
 ---------------------------
@@ -3773,6 +4003,9 @@ Purpose
 
 Extends
   [topic: `Table.Cell`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
 
 
 -------------------
@@ -3800,6 +4033,13 @@ Unique members
     Arguments
       None.
 
+Constructor arguments
+  `cells`: array of [topic: `Table.Row.Cell`]
+    This field is described above.
+
+  `headerColumnCell`: [topic: `Table.Header.Cell`]
+    This field is described above.
+
 
 `Table.Row.Cell` (class)
 ------------------------
@@ -3809,6 +4049,9 @@ Purpose
 
 Extends
   [topic: `Table.Cell`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `InlineSyntaxNodeContainer`].
 
 
 `Text` (class)
@@ -3824,6 +4067,10 @@ Unique members
   `text`: `string`
     The text represented by this syntax node.
 
+Constructor arguments
+  `text`: `string`
+    This field is described above.
+
 Rendered HTML
   ````
   Yes, 1 &lt; 2
@@ -3838,6 +4085,11 @@ Writing convention
 
 Extends
   [topic: `OutlineSyntaxNode`]
+
+Constructor arguments
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the line of markup that created this thematic break.
 
 Rendered HTML
   ````
@@ -3857,6 +4109,14 @@ Implements
 Unique members
   `items`: array of [topic: `UnorderedList.Item`]
     The collection of items comprising this bulleted list.
+
+Constructor arguments
+  `items`: array of [topic: `UnorderedList.Item`]
+    This field is described above.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this unordered list.
 
 Rendered HTML
   ````
@@ -3884,6 +4144,9 @@ Purpose
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
 
+Constructor arguments
+  Please see the constructor arguments for [topic: `OutlineSyntaxNodeContainer`].
+
 
 `Video` (class)
 ===============
@@ -3893,6 +4156,9 @@ Writing convention
 
 Extends
   [topic: `MediaSyntaxNode`]
+
+Constructor arguments
+  Please see the constructor arguments for [topic: `MediaSyntaxNode`].
 
 Rendered HTML
   ````
