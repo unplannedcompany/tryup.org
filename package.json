@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/unplannedcompany/writeup.io/issues"
   },
-  "homepage": "https://github.com/unplannedcompany/writeup.io#readme",
+  "homepage": "https://tryup.org",
   "devDependencies": {
     "autoprefixer": "^6.5.0",
     "babel-core": "^6.17.0",
