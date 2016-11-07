@@ -4,7 +4,7 @@ Write Up
 
 Up is a markup language for writing structured documents in plain text.
 
-For software developers, Up offers a software library that converts Up markup into HTML. For more information, please see [topic: using the Up library].
+For software developers, Up offers a software library that converts Up markup into HTML. To learn more, please see [topic: using the Up library].
 
 
 
@@ -22,7 +22,7 @@ Too many markup languages devolve into a dense soup of symbols and punctuation.
 
 When a keyword would provide more clarity than a symbol, Up takes advantage of that! Several writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
 
-If you're a software developer, you can provide multiple custom variations for each keyword. For more information, see [topic: customizing keywords].
+If you're a software developer, you can provide multiple custom variations for each keyword. To learn more, please see [topic: customizing keywords].
 
 
 Up has a flexible, forgiving syntax
@@ -141,7 +141,7 @@ Output
 
 To produce a paragraph, write a line of text. That's all there is to it!
 
-Typically, paragraphs are separated by one or two blank lines. Three or more blank lines between paragraphs indicates a meaningful change of subject. For more information, see [topic: thematic breaks].
+Typically, paragraphs are separated by one or two blank lines. Three or more blank lines between paragraphs indicates a meaningful change of subject. To learn more, see [topic: thematic breaks].
 
 In contrast, *consecutive* non-blank lines produce [topic: line blocks], not consecutive paragraphs.
 
@@ -313,7 +313,7 @@ Output
 
 As demonstrated above, you can omit a link's URL scheme. [^ `http://` and `https://` are examples of URL schemes.] If you do, Up uses `https://` for the URL scheme.
 
-If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`].
+If you're a software developer using the Up library, you can specify a different default URL scheme. To learn more, see [topic: `defaultUrlScheme`].
 
 Other settings affecting links are:
 
@@ -733,7 +733,7 @@ Media URLs
 
 As demonstrated above, you can omit the URL scheme for media URLs. If you do, Up uses `https://` for the URL scheme.
 
-If you're a software developer using the Up library, you can specify a different default URL scheme. For more information, see [topic: `defaultUrlScheme`].
+If you're a software developer using the Up library, you can specify a different default URL scheme. To learn more, see [topic: `defaultUrlScheme`].
 
 Other settings affecting media are:
 
@@ -1303,9 +1303,9 @@ A table consists of:
 - Content rows, representing the actual data
 - An optional header column, describing each row
 
-Table cells are separated by semicolons. For more information, see [topic: cells].
+Table cells are separated by semicolons. To learn more, see [topic: cells].
 
-Our examples use extra spaces to align cells. This makes our markup more readable, but it's strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. For more information, please see [topic: empty cells].
+Our examples use extra spaces to align cells. This makes our markup more readable, but it's strictly optional! If you want, you can squish your cells together, as long as any empty cells contain at least one space. To learn more, please see [topic: empty cells].
 
 Squished markup
   ````
@@ -1379,7 +1379,7 @@ Output
 Cells
 =====
 
-Table cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. For more information, see [topic: disabling special characters].
+Table cells are separated by semicolons. If you want to include a semicolon in a cell, simply put a backslash before it. To learn more, see [topic: disabling special characters].
 
 Markup
   ````
@@ -1727,7 +1727,7 @@ Markup
 Output
   I don't know... I doubt a dog would do this.
 
-If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). For more information, see [topic: `fancyEllipsis`].
+If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). To learn more, see [topic: `fancyEllipsis`].
 
 
 En dash
@@ -1880,7 +1880,7 @@ const { parseAndRender } = require('write-up')
 const html = parseAndRender(markup, optionalSettings)
 ````
 
-Alternatively, you can use the exported `Up` class, which can be helpful if you need to parse or render several documents sharing custom settings. Please see [topic: `Up`] for more information.
+Alternatively, you can use the exported `Up` class, which can be helpful if you need to parse or render several documents sharing custom settings. Please see [topic: `Up`] To learn more.
 
 If you plan to modify or analyze a parsed document, you'll want to check out the [topic: abstract syntax tree classes].
 
@@ -1988,7 +1988,7 @@ Notes
 
 This function converts inline Up markup into inline HTML and returns the result.
 
-For more information about inline documents, see [topic: inline documents].
+To learn more about inline documents, see [topic: inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -2058,7 +2058,7 @@ Usage
 
 This function parses inline Up markup and returns the resulting inline syntax tree.
 
-For more information about inline documents, see [topic: inline documents].
+To learn more about inline documents, see [topic: inline documents].
 
 Arguments
   `inlineMarkup`: `string`
@@ -2158,7 +2158,7 @@ Usage
 
 This function converts an inline syntax tree into inline HTML and returns the result.
 
-For more information about inline documents, see [topic: inline documents].
+To learn more about inline documents, see [topic: inline documents].
 
 Arguments
   `inlineDocument`: [topic: `InlineDocument`]
@@ -2770,7 +2770,7 @@ Members
 Rendered HTML
   Each [topic: `Document.TableOfContents.Entry`] renders a heading element of the appropriate `level` containing a link to the appropriate section in the document.
 
-  For more information on how headings are rendered, please see [topic: Heading].
+  To learn more on how headings are rendered, please see [topic: Heading].
 
   ````
   <h1>

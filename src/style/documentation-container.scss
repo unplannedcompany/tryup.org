@@ -1,6 +1,9 @@
+@import 'common/body-font-family';
+
 #documentation-container {
+  font: 1em/1.6 $body-font-family;
+
   @import 'table-of-contents';
-  @import 'documentation';
 
   @import 'conventions/blockquote.scss';
   @import 'conventions/code-blocks-and-inline-code.scss';

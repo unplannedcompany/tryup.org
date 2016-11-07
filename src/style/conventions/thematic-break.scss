@@ -1,14 +1,13 @@
 hr  {
-  margin: -15px 0 55px 0;
-  padding-bottom: 8px;
+  margin: 0 0 50px 0;
   border: none;
   text-align: center;
 }
 
 hr:after {
-  content: '...';
+  content: '✩ ✩ ✩';
   color: #ccc;
-  font-size: 40px;
+  font-size: 10px;
 }
 
 @media speech, braille {
