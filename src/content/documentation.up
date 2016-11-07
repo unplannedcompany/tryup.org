@@ -2032,7 +2032,7 @@ Arguments
   `markup`: `string`
     The Up markup to parse.
 
-  `parsingSettings` (optional): [topic: Settings.Parsing]
+  `parsingSettings` (optional): [topic: `Settings.Parsing`]
     The custom parsing settings to apply.
 
 Return type: [topic: `Document`]
@@ -2064,7 +2064,7 @@ Arguments
   `inlineMarkup`: `string`
     The inline Up markup to parse.
 
-  `parsingSettings` (optional): [topic: Settings.Parsing]
+  `parsingSettings` (optional): [topic: `Settings.Parsing`]
     The custom parsing settings to apply.
 
 Return type: [topic: `InlineDocument`]
@@ -2094,7 +2094,7 @@ Arguments
   `document`: [topic: `Document`]
     The syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: Settings.Rendering]
+  `renderingSettings` (optional): [topic: `Settings.Rendering`]
     The custom rendering settings to apply.
 
 Return type: `string`
@@ -2130,7 +2130,7 @@ Arguments
   `document`: [topic: `Document`]
     The syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: Settings.Rendering]
+  `renderingSettings` (optional): [topic: `Settings.Rendering`]
     The custom rendering settings to apply.
 
 Return type: [topic: `DocumentAndTableOfContentsHtml`]
@@ -2164,7 +2164,7 @@ Arguments
   `inlineDocument`: [topic: `InlineDocument`]
     The inline syntax tree to convert into HTML.
 
-  `renderingSettings` (optional): [topic: Settings.Rendering]
+  `renderingSettings` (optional): [topic: `Settings.Rendering`]
     The custom rendering settings to apply.
 
 Return type: `string`
@@ -2312,10 +2312,10 @@ Usage
   ````
 
 Members (both of which are optional)
-  `parsing`: [topic: Settings.Parsing]
+  `parsing`: [topic: `Settings.Parsing`]
     The custom parsing settings to apply.
 
-  `rendering`: [topic: Settings.Rendering]
+  `rendering`: [topic: `Settings.Rendering`]
     The custom rendering settings to apply.
 
 
@@ -2421,7 +2421,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Settings.Parsing].
+  This setting belongs to [topic: `Settings.Parsing`].
 
 Details
   `createSourceMap` works by setting the `sourceLineNumber` of each [topic: `OutlineSyntaxNode`].
@@ -2449,7 +2449,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Settings.Parsing].
+  This setting belongs to [topic: `Settings.Parsing`].
 
 
 ----------------------------------------
@@ -2472,7 +2472,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Settings.Parsing].
+  This setting belongs to [topic: `Settings.Parsing`].
 
 
 -------------------------------------------
@@ -2495,7 +2495,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Settings.Parsing].
+  This setting belongs to [topic: `Settings.Parsing`].
 
 
 -------------------------
@@ -2520,7 +2520,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Settings.Parsing].
+  This setting belongs to [topic: `Settings.Parsing`].
 
 
 `Settings.Rendering` (interface)
@@ -2597,7 +2597,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Settings.Rendering].
+  This setting belongs to [topic: `Settings.Rendering`].
 
 Details
   You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
@@ -2625,7 +2625,7 @@ Usage
   ````
 
 Context
-  This setting belongs to [topic: Settings.Rendering].
+  This setting belongs to [topic: `Settings.Rendering`].
 
 Details
   By default, dangerous media elements produce no HTML at all. Dangerous links produce no HTML of their own, though their child elements are rendered.
@@ -2764,8 +2764,8 @@ Purpose
   This class represents the table of contents for a document. The table of contents includes every heading except those found within [topic: revealable content].
 
 Members
-  `entries`: array of [topic: TableOfContents.Entry]
-    A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: Heading] objects in the document itself.
+  `entries`: array of [topic: `Document.TableOfContents.Entry`]
+    A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: `Heading`] objects in the document itself.
 
 Rendered HTML
   Each [topic: `Document.TableOfContents.Entry`] renders a heading element of the appropriate `level` containing a link to the appropriate section in the document.
@@ -2850,7 +2850,6 @@ Members
 
     Arguments
       None.
-
 
 
 `InlineDocument` (class)
@@ -3048,7 +3047,7 @@ Unique members
 Purpose
   This abstract class represents [topic: parenthetical text]. It exists solely to improve the expressiveness of the type system.
 
-  It is extended by both [topic: NormalParenthetical] and [topic: SquareParenthetical].
+  It is extended by both [topic: `NormalParenthetical`] and [topic: `SquareParenthetical`].
 
 Extends
   [topic: `RichInlineSyntaxNode`]
@@ -3132,7 +3131,7 @@ Implements
   [topic: `OutlineSyntaxNode`]
 
 Unique members
-  `items`: array of [topic: DescriptionList.Item]
+  `items`: array of [topic: `DescriptionList.Item`]
     The collection of items comprising this description list.
 
 Rendered HTML
@@ -3773,7 +3772,7 @@ Purpose
   This class represents a table header cell.
 
 Extends
-  [topic: Table.Cell]
+  [topic: `Table.Cell`]
 
 
 -------------------
@@ -3784,16 +3783,16 @@ Purpose
   This class represents a content row in a table.
 
 Unique members
-  `cells`: array of [topic: Table.Row.Cell]
+  `cells`: array of [topic: `Table.Row.Cell`]
     The content cells in this row.
 
-  `headerColumnCell`: [topic: Table.Header.Cell]
+  `headerColumnCell`: [topic: `Table.Header.Cell`]
     The single header column cell for this row, if there is one.
 
     Tables without header columns never have header column cells.
 
   `allCellsStartingWithHeaderColumnCell` method
-    Return type: array of [topic: Table.Cell]
+    Return type: array of [topic: `Table.Cell`]
       This method returns every cell in this row.
 
       If the table has a header column, the row's `headerColumnCell` is the first item in the returned collection.
@@ -3809,7 +3808,7 @@ Purpose
   This class represents a regular (non-header) table cell.
 
 Extends
-  [topic: Table.Cell]
+  [topic: `Table.Cell`]
 
 
 `Text` (class)
