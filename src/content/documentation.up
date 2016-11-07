@@ -22,7 +22,7 @@ Too many markup languages devolve into a dense soup of symbols and punctuation.
 
 When a keyword would provide more clarity than a symbol, Up takes advantage of that! Several writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
 
-If you're a software developer, you can provide multiple custom variations for each keyword. To learn more, please see [topic: customizing keywords].
+If you're a software developer using the Up library, you can provide multiple custom variations for each keyword. To learn more, please see [topic: customizing keywords].
 
 
 Up has a flexible, forgiving syntax
