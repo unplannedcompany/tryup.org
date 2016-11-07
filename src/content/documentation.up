@@ -1278,23 +1278,23 @@ Markup
   ````
   Table: Moves learned by the Pokémon Bulbasaur
 
-  Title;  Move;         Type;     Power;  Accuracy
+  Move;         Type;     Power;  Accuracy
 
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
   ````
 
 Output
   Table: Moves learned by the Pokémon Bulbasaur
 
-  Level;  Move;         Type;     Power;  Accuracy
+  Move;         Type;     Power;  Accuracy
 
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
 
 A table consists of:
 
@@ -1492,20 +1492,20 @@ The single blank lines before and after the header are not required.
 Markup
   ````
   Table: Moves learned by the Pokémon Bulbasaur
-  Level;  Move;         Type;     Power;  Accuracy
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Move;         Type;     Power;  Accuracy
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
   ````
 
 Output
   Table: Moves learned by the Pokémon Bulbasaur
-  Level;  Move;         Type;     Power;  Accuracy
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Move;         Type;     Power;  Accuracy
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
 
 Cells in a table's header can contain any inline writing convention.
 
@@ -1521,12 +1521,12 @@ Markup
   ````
   Table: Moves learned by the Pokémon Bulbasaur
 
-  Level;  Move;         Type;     Power;  Accuracy
+  Move;         Type;     Power;  Accuracy
 
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
 
   I love Bulbasaur!
 
@@ -1535,12 +1535,12 @@ Markup
 Output
   Table: Moves learned by the Pokémon Bulbasaur
 
-  Level;  Move;         Type;     Power;  Accuracy
+  Move;         Type;     Power;  Accuracy
 
-  1;      Tackle;       Normal;   50;     100%
-  3;      Growl;        Normal;   ;       100%
-  7;      Leech Seed;   Grass;    ;       90%
-  9;      Vine Whip;    Grass;    45;     100%
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
 
   I love Bulbasaur!
 
@@ -1558,23 +1558,23 @@ Markup
   ````
   Table: Moves learned by the Pokémon Bulbasaur
 
-                Level;    Type;     Power;  Accuracy
+                Type;     Power;  Accuracy
 
-  Tackle;       1;        Normal;   50;     100%
-  Growl;        3;        Normal;   ;       100%
-  Leech Seed;   7;        Grass;    ;       90%
-  Vine Whip;    9;        Grass;    45;     100%
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
   ````
 
 Output
   Table: Moves learned by the Pokémon Bulbasaur
 
-                Level;    Type;     Power;  Accuracy
+                Type;     Power;  Accuracy
 
-  Tackle;       1;        Normal;   50;     100%
-  Growl;        3;        Normal;   ;       100%
-  Leech Seed;   7;        Grass;    ;       90%
-  Vine Whip;    9;        Grass;    45;     100%
+  Tackle;       Normal;   50;     100%
+  Growl;        Normal;   ;       100%
+  Leech Seed;   Grass;    ;       90%
+  Vine Whip;    Grass;    45;     100%
 
 When your table has a header column, Up automatically inserts an extra blank cell at the beginning of the header row in the top level corner, above the header column.
 
@@ -1611,7 +1611,7 @@ Code blocks are surrounded (underlined and "overlined") by matching streaks of 3
 
 If there is no matching end streak, the code block extends to the end of the document (or to the end of the current outline writing convention, if the code block is nested within one).
 
-Within a code block, indentation is preserved, and every single character is treated literally. No conventions are evaluated, which means [topic: disabling] is not supported.
+Within a code block, indentation is preserved, and every single character is treated literally. No other writing conventions are recognized, which means code blocks don't support [topic: disabling].
 
 
 Including streaks of backticks
