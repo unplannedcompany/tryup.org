@@ -95,7 +95,7 @@ Why *not* use Up?
 You want a rich ecosystem of tools
 ==================================
 
-So far, there is only one [software library for Up] (npmjs.com/package/write-up), written and maintained by a [single person] (github.com/start). In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
+So far, there is only one [software library for Up] (npmjs.com/package/up-lang), written and maintained by a [single person] (github.com/start). In contrast, [other markup languages] (duckduckgo.com/?q=markdown) have countless tools and plugins.
 
 
 You need speed
@@ -1854,7 +1854,7 @@ Output
 Using the Up library
 ####################
 
-The Up library can be [found on NPM] (npmjs.com/package/write-up).
+The Up library can be [found on NPM] (npmjs.com/package/up-lang).
 
 
 ============
@@ -1862,7 +1862,7 @@ Installation
 ============
 
 ````
-npm install write-up --save
+npm install up-lang --save
 ````
 
 
@@ -1873,7 +1873,7 @@ Usage Overview
 Typically, you'll want to use one of the various [topic: functions] exported by the library.
 
 ````
-const { parseAndRender } = require('write-up')
+const { parseAndRender } = require('up-lang')
 
 const html = parseAndRender(markup, optionalSettings)
 ````
@@ -2199,7 +2199,7 @@ Purpose
   Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
   ````
-  const { Up } = require('write-up')
+  const { Up } = require('up-lang')
 
   const up = new Up(settings)
   const html = up.parseAndRender(markup, changedSettings)
@@ -2700,7 +2700,7 @@ Unless you're fiddling with the abstract syntax tree of a parsed document, you c
 The Up library exports every class used in the abstract syntax tree.
 
 ````
-const { Blockquote } = require("write-up")
+const { Blockquote } = require("up-lang")
 
 if (syntaxNode instanceof Blockquote) {
   // Do something exciting

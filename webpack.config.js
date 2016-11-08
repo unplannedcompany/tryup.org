@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs')
-const Up = require('write-up')
+const Up = require('up-lang')
 const upSettings = require('./src/upSettings')
 
 const documentationMarkup =

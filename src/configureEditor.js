@@ -1,5 +1,5 @@
 import CodeMirror from 'codemirror'
-import { parseAndRenderWithTableOfContents } from 'write-up'
+import { parseAndRenderWithTableOfContents } from 'up-lang'
 import addScrollSyncingEventListeners from './addScrollSyncingEventListeners'
 import isTotallyHidden from './isTotallyHidden'
 import debounce from './debounce'
