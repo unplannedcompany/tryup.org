@@ -2773,7 +2773,7 @@ Members
     A collection of entries representing headings in the document. In fact, the objects in this collection are the same [topic: `Heading`] objects in the document itself.
 
 Constructor arguments
-  `entries`: array of [topic: `TableOfContents.Entry`]
+  `entries`: array of [topic: `Document.TableOfContents.Entry`]
     The entries in the table of contents.
 
 Rendered HTML
@@ -2823,18 +2823,18 @@ Purpose
 
 Members
   `ordinalInTableOfContents`: `number`
-    Represents the entry's ordinal in the table of contents. The first ordinal is `1`, not `0`.
+    The entry's ordinal in the table of contents. The first ordinal is `1`, not `0`.
 
   `level`: `number`
-    Represents the heading level of the entry. Like HTML heading levels, a level of 1 is considered the most significant.
+    The heading level of the entry. Like HTML heading levels, a level of 1 is considered the most significant.
+
+  `children`: array of [topic: InlineSyntaxNode]
+    The inline syntax nodes representing this entry in the table of contents.
 
   `titleMarkup`: string
     Currently, headings are the only writing convention that produce table of contents entries, so the `titleMarkup` field always represents the markup for the "content line" of a heading.
 
     Section links compare their `markupSnippetFromSectionLink` against this field.
-
-  `titleSyntaxNodes`: array of [topic: `InlineSyntaxNode`]
-    The inline syntax nodes that should represent this entry within the table of contents itself.
 
   `sourceLineNumber`: `number`
     If [topic: `createSourceMap`] is enabled, this field is set to the line number of the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
@@ -2850,13 +2850,6 @@ Members
   `contentWithinTableOfContents` method
     Return type: array of [topic: `InlineSyntaxNode`]
       This method returns the inline syntax nodes that should represent this entry's content inside the table of contents itself.
-
-    Arguments
-      None.
-
-  `inlineDescendants` method
-    Return type: array of [topic: `InlineSyntaxNode`]
-      This method returns all inline descendants (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
 
     Arguments
       None.
@@ -3679,7 +3672,7 @@ Unique members
       None.
 
 Constructor arguments
-  `items`: array of [topic: `OrderedList.`]
+  `items`: array of [topic: `OrderedList.Item`]
     This field is described above.
 
   `options` (optional)
