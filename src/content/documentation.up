@@ -1918,7 +1918,7 @@ const { parseAndRender } = require('up-lang')
 const html = parseAndRender(markup, optionalSettings)
 ````
 
-Alternatively, you can use the exported `Up` class, which can be helpful if you need to parse or render several documents sharing custom settings. Please see [topic: `Up`] To learn more.
+Alternatively, you can use the exported `Up` class, which can be helpful if you need to parse or render several documents sharing custom settings. Please see [topic: `Up`] to learn more.
 
 If you plan to modify or analyze a parsed document, you'll want to check out the [topic: abstract syntax tree classes].
 
