@@ -7,9 +7,9 @@
 kbd {
   @include default-example-input-shading;
 
-  border-width: (1em / 8);
-  border-style: solid;
   border-radius: (1em / 4);
+  border-style: solid;
+  border-width: (1em / 8);
   display: inline-block;
   font-family: $body-font-family;
   font-size: 70%;
