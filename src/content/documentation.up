@@ -70,7 +70,7 @@ Output
   - Buy [sugar] [en.wikipedia.org/wiki/Sugar]
   - Buy (happiness) (en.wikipedia.org/wiki/Happiness)
 
-Up even supports [topic: overlapping].
+Up even supports [topic: overlapping]!
 
 Markup
   ````
@@ -109,7 +109,7 @@ Up is not terribly slow, but it's not terribly fast, either---at least not yet! 
 Writing conventions
 ###################
 
-The following terms are occasionally used throughout this section.
+Don't get lost! The following terms are occasionally used throughout this section. 
 
 Writing convention
   Any special annotation or formatting recognized by Up.

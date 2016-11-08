@@ -2,7 +2,9 @@
 @import '../common/heading-font-family';
 
 dl {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+
+  dl { margin-bottom: 0 }
 
   dt {
     color: $heading-color;
