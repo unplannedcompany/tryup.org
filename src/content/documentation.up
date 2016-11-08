@@ -2770,16 +2770,16 @@ Purpose
 
 Members
   `entries`: array of [topic: `Document.TableOfContents.Entry`]
-    A collection of entries representing headings in the document. In fact, the objects in this collection are the [topic: `Heading`] objects in the document itself.
+    A collection of entries representing headings in the document. In fact, the objects in this collection are the same [topic: `Heading`] objects in the document itself.
 
 Constructor arguments
   `entries`: array of [topic: `TableOfContents.Entry`]
     The entries in the table of contents.
 
 Rendered HTML
-  Each [topic: `Document.TableOfContents.Entry`] renders a heading element of the appropriate `level` containing a link to the appropriate section in the document.
+  Each entry in the table of contents renders a heading element corresponding to its `level`. This heading element contains a link to the appropriate section in the document.
 
-  To learn more on how headings are rendered, please see [topic: Heading].
+  To learn more on how headings are rendered, please see [topic: `Heading`].
 
   ````
   <h1>
@@ -2856,7 +2856,7 @@ Members
 
   `inlineDescendants` method
     Return type: array of [topic: `InlineSyntaxNode`]
-      This method returns the inline descendants (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
+      This method returns all inline descendants (children, grandchildren, etc.) of the syntax node represented by this table of contents entry.
 
     Arguments
       None.
@@ -3376,7 +3376,12 @@ Extends
   [topic: `InlineSyntaxNodeContainer`]
 
 Implements
-  [topic: `OutlineSyntaxNode`] and [topic: `Document.TableOfContents.Entry`]
+  [topic: `Document.TableOfContents.Entry`]
+    Headings are unique! They're the only syntax node to implement this interface.
+
+  [topic: `OutlineSyntaxNode`]
+    But headings also serve as regular old outline syntax nodes.
+
 
 Unique members
   `level`: `number`
@@ -3614,7 +3619,7 @@ Unique members
 Constructor arguments
   `children`: array of [topic: `InlineSyntaxNode`]
     A collection of inline syntax nodes representing the content of this link.
-  
+
   `url`: `string`
     This field is described above.
 
