@@ -42,6 +42,18 @@ Output
   2) Buy bread
   #) Buy happiness
 
+Up usually ignores [topic: excessive delimiter characters].
+
+For example, you don't need to perfectly balance asterisks when stressing or emphasizing text.
+
+Markup
+  ````
+  I ***love****** asterisks!
+  ````
+
+Output
+  I ***love****** asterisks!
+
 Up isn't picky about which brackets you use for [topic: links].
 
 Markup
@@ -57,18 +69,6 @@ Output
   - Buy (bread) [en.wikipedia.org/wiki/Bread]
   - Buy [sugar] [en.wikipedia.org/wiki/Sugar]
   - Buy (happiness) (en.wikipedia.org/wiki/Happiness)
-
-Up usually ignores [topic: excessive delimiter characters].
-
-For example, you don't need to perfectly balance asterisks when stressing or emphasizing text.
-
-Markup
-  ````
-  I ***love****** asterisks!
-  ````
-
-Output
-  I ***love****** asterisks!
 
 Up even supports [topic: overlapping].
 
@@ -3370,7 +3370,7 @@ Extends
 
 Implements
   [topic: `Document.TableOfContents.Entry`]
-    Headings are unique! They're the only syntax node to implement this interface.
+    Headings are special! No other syntax node implements this interface.
 
   [topic: `OutlineSyntaxNode`]
     But headings also serve as regular old outline syntax nodes.
