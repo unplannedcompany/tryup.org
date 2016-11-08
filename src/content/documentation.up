@@ -3076,7 +3076,7 @@ Members
 
 Constructor arguments
   `children`: array of [topic: `OutlineSyntaxNode`]
-    The outline syntax nodes belonging to this container.
+    This field is described above.
 
 
 `MediaSyntaxNode` (class)
