@@ -109,7 +109,7 @@ Up is not terribly slow, but it's not terribly fast, either---at least not yet! 
 Writing conventions
 ###################
 
-Don't get lost! The following terms are occasionally used throughout this section. 
+Don't get lost! The following terms are occasionally used throughout this section.
 
 Writing convention
   Any special annotation or formatting recognized by Up.
@@ -157,7 +157,7 @@ Markup
   Have you read my new poem?
 
   Roses are red
-  Violets are blue
+  Violets *aren't* blue
   Lyrics have lines
   And addresses do, too
 
@@ -168,15 +168,13 @@ Output
   Have you read my new poem?
 
   Roses are red
-  Violets are blue
+  Violets *aren't* blue
   Lyrics have lines
   And addresses do, too
 
   Poetry is just too easy.
 
-Consecutive non-blank lines produce a line block, unless those lines represent another convention, like [topic: numbered lists].
-
-Line blocks can contain any inline writing convention.
+Consecutive non-blank lines produce a line block, unless those lines represent another writing convention, like [topic: numbered lists].
 
 
 ========
