@@ -9,22 +9,14 @@
     ($level - 2) * $indent-per-level);
 }
 
-// We use the same indentation for headings level 11 and up.
-$max-indent-level: 11;
-
-// Small screens don't have enough room for our default indentation.
-$indent-per-level-on-very-small-screens: 20px;
-
 #table-of-contents {
   user-select: none;
 
-  a {
-    color: black;
-    display: inline-block;
-    width: 100%;
-    text-decoration: none;
-
-    &:hover { text-decoration: underline }
+  #{$heading-selector} {
+    font-weight: normal;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   // Normally, we style example input differently if it's within a link.
@@ -39,31 +31,38 @@ $indent-per-level-on-very-small-screens: 20px;
   // every member of the API ends with parenthetical text, typically
   // either "(class)" or "(heading)".
   //
-  // We don't need all that clutter.  
+  // We don't need all that clutter.
   small { display: none }
 
-  // That being said, nearly all of the headings described above have
-  // levels 3 and up.
-  //
-  // We won't clutter the table of contents by displaying parenthetical
-  // text in top-level or second-level headings.
   h1, h2 {
+    font-weight: bold;
+     
+    // That being said, nearly all of the headings described above have
+    // levels 3 and up.
+    //
+    // We won't clutter the table of contents by displaying parenthetical
+    // text in top-level or second-level headings.
     small { display: inline }
   }
 
-  #{$heading-selector} {
-    font-weight: normal;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
+  // We use the same indentation for headings level 11 and up.
+  $max-indent-level: 11;
 
-    a {
-      padding: 3px 0 0 entry-indentation($max-indent-level);
+  // Small screens don't have enough room for our default indentation.
+  $indent-per-level-on-very-small-screens: 20px;
 
-      @include on-very-small-screens {
-        padding-left: entry-indentation($max-indent-level, $indent-per-level-on-very-small-screens)
-      }
+  a {
+    color: black;
+    display: inline-block;
+    padding: 3px 0 0 entry-indentation($max-indent-level);
+    text-decoration: none;
+    width: 100%;
+
+    @include on-very-small-screens {
+      padding-left: entry-indentation($max-indent-level, $indent-per-level-on-very-small-screens)
     }
+
+    &:hover { text-decoration: underline }
   }
 
   @for $level from 1 through ($max-indent-level - 1) {
@@ -87,6 +86,4 @@ $indent-per-level-on-very-small-screens: 20px;
   }
 
   h2 a { padding-top: 10px }
-
-  h1, h2 { font-weight: bold }
 }
