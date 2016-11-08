@@ -3838,11 +3838,11 @@ Constructor arguments
     This field is described above.
 
   `entry`: [topic: `Document.TableOfContents.Entry`]
-    The table of contents entry this section link points to.
+    The table of contents entry (i.e. heading) this section link points to.
 
 Rendered HTML
   When matched with a heading
-    Up renders a link to that heading.
+    Up renders a link to that heading. The rendered link contains the heading's content.
 
     ````
     <a href="#up-topic-77">Using the Up library</a>
