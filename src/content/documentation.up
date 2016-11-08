@@ -485,7 +485,7 @@ Inline code
 
 Use the inline code convention to represent a small fragment of computer code.
 
-When you need to represent more than a small fragment of computer code, use [topic: code blocks].
+When you need to represent more than a small fragment of computer code, use [topic: code blocks] instead.
 
 Markup
   ````
@@ -495,9 +495,17 @@ Markup
 Output
   In HTML, you probably shouldn't use the `<font>` element.
 
-To indicate that text is a fragment of computer code, surround it with an equal number of backticks on either side.
+To produce inline code, enclose text within an equal number of backticks on either side. You can use any number of backticks---simply make sure both sides match.
 
-Other writing conventions are ignored within inline code.
+Markup
+  ````
+  In HTML, you probably shouldn't use the ``<font>`` element.
+  ````
+
+Output
+  In HTML, you probably shouldn't use the ``<font>`` element.
+
+Within inline code, other writing conventions are ignored. Characters that normally have special meaning are preserved as plain text.
 
 Markup
   ````
@@ -511,7 +519,7 @@ Output
 Including backticks in your code
 ================================
 
-Within inline code, backticks can be escaped with a backslash.
+To include backticks within inline code, you can precede each backtick with a backslash.
 
 Markup
   ````
@@ -521,7 +529,9 @@ Markup
 Output
   `let output = \`score:\` + 5`
 
-Alternatively, inline code can also contain streaks of *unescaped* backticks that aren't exactly as long as the delimiters.
+For more information about the behavior of backslashes, see [topic: disabling].
+
+Alternatively, inline code can contain streaks of backticks that aren't exactly as long as the inline code's outer delimiters. No backslashes are necessary.
 
 In this example, the delimiters are **1** backtick long, so the inline code can contain streaks of **2** backticks:
 
@@ -1613,7 +1623,7 @@ Code blocks
 
 Use the code block convention to represent a block of computer code.
 
-When you need to represent a small fragment of computer code, consider using [topic: inline code].
+When you need to represent only a small fragment of computer code, consider using [topic: inline code] instead.
 
 Markup
   ````````
