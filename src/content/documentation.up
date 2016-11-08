@@ -2876,7 +2876,7 @@ Members
   `titleMarkup`: string
     Currently, headings are the only writing convention that produce table of contents entries, so the `titleMarkup` field always represents the markup for the "content line" of a heading.
 
-    Section links compare their `markupSnippetFromSectionLink` against this field.
+    Section links compare their `markupSnippetFromSectionTitle` against this field.
 
   `sourceLineNumber`: `number`
     If [topic: `createSourceMap`] is enabled, this field is set to the line number of the first line of markup that produced the heading represented by this entry. Source line numbers start at `1`, not `0`.
@@ -3433,7 +3433,7 @@ Constructor arguments
     `titleMarkup`: string
       Represents the markup for the "content line" of this heading.
 
-      Section links compare their `markupSnippetFromSectionLink` against this field.
+      Section links compare their `markupSnippetFromSectionTitle` against this field.
 
     `ordinalInTableOfContents` (optional): `number`
       Represents this heading's ordinal in the table of contents. The first ordinal is `1`, not `0`.
@@ -3830,25 +3830,29 @@ Implements
   [topic: `InlineSyntaxNode`]
 
 Unique members
-  `markupSnippetFromSectionLink`: `string`
+  `markupSnippetFromSectionTitle`: `string`
     This field is compared against the `titleMarkup` field of every table of contents entry to find the most appropriate match.
 
 Constructor arguments
-  `markupSnippetFromSectionLink`: `string`
+  `markupSnippetFromSectionTitle`: `string`
     This field is described above.
 
   `entry`: [topic: `Document.TableOfContents.Entry`]
     The table of contents entry this section link points to.
 
 Rendered HTML
-  When a heading matches `markupSnippetFromSectionLink`
+  When matched with a heading
+    Up renders a link to that heading.
+
     ````
     <a href="#up-topic-77">Using the Up library</a>
     ````
 
-  When *no* heading matches `markupSnippetFromSectionLink`
+  When *not* matched with a heading
+    Up renders the value of `markupSnippetFromSectionTitle` in italics.
+
     ````
-    <i>Using the Up library</i>
+    <i>Up library</i>
     ````
 
 
