@@ -1,7 +1,10 @@
 mark {
   background-color: yellow;
-  color: inherit;
   padding: (1em / 16);
 
-  mark { background-color: gold }
+  mark {
+    background-color: gold;
+
+    mark { background-color: orange }
+  }
 }

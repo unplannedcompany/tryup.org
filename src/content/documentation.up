@@ -253,6 +253,16 @@ Output
 
 To italicize text, enclose it within single underscores.
 
+Like most inline writing conventions, italicized text can be nested within itself.
+
+Markup
+  ````
+  My favorite show is _Real Recipes _Redux_: Super Suppers_.
+  ````
+
+Output
+  My favorite show is _Real Recipes _Redux_: Super Suppers_.
+
 
 ====
 Bold
@@ -273,6 +283,20 @@ Output
   Has anyone actually used  __KABOOM__ cleaning products?
 
 To make text bold, enclose it within double underscores.
+
+Like most inline writing conventions, bold text can be nested within itself.
+
+Markup
+  ````
+  We've all seen the ads.
+
+  __No hard scrubbing! __KABOOM__... and the stains are gone!__
+  ````
+
+Output
+  We've all seen the ads.
+
+  __No hard scrubbing! __KABOOM__... and the stains are gone!__
 
 
 =====
@@ -358,13 +382,23 @@ Highlighting should not be used to emphasize or stress text! If that's your purp
 
 Markup
   ````
-  Our cupcakes are vegan, ==gluten-free==, and made using only the most expensive ingredients.
+  Our cupcakes are organic, ==gluten-free==, and made using only the most expensive ingredients.
   ````
 
 Output
-  Our cupcakes are vegan, ==gluten-free==, and made using only the most expensive ingredients.
+  Our cupcakes are organic, ==gluten-free==, and made using only the most expensive ingredients.
 
 To highlight text, enclose it within two or more equal signs.
+
+Like most inline writing conventions, highlighting can be nested within itself.
+
+Markup
+  ````
+  Our cupcakes are ==organic, ==gluten-free==, vegan==, and made using only the most expensive ingredients.
+  ````
+
+Output
+  Our cupcakes are ==organic, ==gluten-free==, vegan==, and made using only the most expensive ingredients.
 
 
 =============
@@ -400,7 +434,7 @@ Output
 Parenthetical text
 ==================
 
-Up automatically recognizes parenthetical text!
+Up automatically recognizes parenthetical text.
 
 Markup
   ````
