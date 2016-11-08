@@ -12,16 +12,16 @@
 }
 
 h1 {
-  font-size: 220%;
+  font-size: 180%;
   padding-bottom: 15px;
   text-align: center;
 }
 
-h2 { font-size: 150% }
-h3 { font-size: 130% }
-h4 { font-size: 120% }
-h5 { font-size: 110% }
-h6 { font-size: 100% }
+h2 { font-size: 140% }
+h3 { font-size: 120% }
+h4 { font-size: 110% }
+h5 { font-size: 100% }
+h6 { font-size: 90% }
 
 // Headings with levels 7 and higher are rendered as `<div role="heading">`
 // elements with an `aria-level` attribute equal to their level.
@@ -30,7 +30,7 @@ h6 { font-size: 100% }
   margin: 1.5em 0;
 }
 
-[aria-level="7"] { font-size: 90% }
-[aria-level="8"] { font-size: 83% }
-[aria-level="9"] { font-size: 76% }
-[aria-level="10"] { font-size: 68% }
+[aria-level="7"] { font-size: 85% }
+[aria-level="8"] { font-size: 80% }
+[aria-level="9"] { font-size: 75% }
+[aria-level="10"] { font-size: 70% }
