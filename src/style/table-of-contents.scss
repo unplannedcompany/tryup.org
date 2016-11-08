@@ -55,10 +55,10 @@ $indent-per-level-on-very-small-screens: 20px;
     font-weight: normal;
     font-size: 100%;
     margin: 0;
-    padding: 3px 0 0 0;
+    padding: 0;
 
     a {
-      padding-left: entry-indentation($max-indent-level);
+      padding: 3px 0 0 entry-indentation($max-indent-level);
 
       @include on-very-small-screens {
         padding-left: entry-indentation($max-indent-level, $indent-per-level-on-very-small-screens)
@@ -82,11 +82,11 @@ $indent-per-level-on-very-small-screens: 20px;
   }
 
   h1 a {
-    padding-top: 22px;
+    padding-top: 25px;
     padding-bottom: 6px;
   }
 
-  h2 a { padding-top: 7px }
+  h2 a { padding-top: 10px }
 
   h1, h2 { font-weight: bold }
 }
