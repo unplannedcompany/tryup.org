@@ -476,8 +476,8 @@ Output
   In Up, surround text with `*asterisks*` to emphasize it.
 
 
-Including backticks in your inline code
-=======================================
+Including backticks in your code
+================================
 
 Within inline code, backticks can be escaped with a backslash.
 
@@ -634,7 +634,7 @@ Markup
 Output
   Unlike many markup languages, Up recognizes [topic: parenthetical text].
 
-To produce a section link, choose a snippet of markup from the heading you want to link to (ignoring the heading's underline and optional overline).
+To link to a heading, choose a snippet of markup from the heading's "content line". [^ Don't worry about the heading's underline or overline! Only the heading's content line matters.] Simply enclose that snippet within square brackets or parentheses, then insert `topic:` or `section:` directly inside your opening bracket. 
 
 Simply enclose that snippet within square brackets or parentheses, then insert `topic:` or `section:` directly inside your opening bracket.
 
@@ -644,9 +644,7 @@ Up automatically matches your snippet to the most appropriate heading, then prod
 Matching the most appropriate heading
 =====================================
 
-As mentioned above, Up ignores the heading's underline and optional overline---only the "content line" of the heading matters.
-
-Up tries to match your section link to the first heading in the document whose content line markup *exactly matches* your snippet. [^ Up totally ignores the capitalization of section links, so a section link and a heading can be an "exact match" without being capitalized the same way.] If there isn't an exact match, Up matches your section link to the first heading in the document whose content line markup *contains* your snippet.
+Up initially tries to match your section link to the first heading in the document whose content line markup *exactly matches* your snippet. [^ Up totally ignores the capitalization of section links, so a section link and a heading can be an "exact match" without being capitalized the same way.] If there isn't an exact match, Up matches your section link to the first heading in the document whose content line markup *contains* your snippet.
 
 
 =========
