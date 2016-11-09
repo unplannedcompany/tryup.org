@@ -447,11 +447,11 @@ Output
 Up understands that text enclosed within parentheses or square brackets represents supplemental, de-emphasized content.
 
 
-=============
-Example input
-=============
+==================
+Example user input
+==================
 
-Use the example input convention to represent user input, including:
+Use the example user input convention to represent user input, including:
 
 - Keys the user should press
 - Buttons the user should click
@@ -476,7 +476,7 @@ Markup
 Output
   Press { Start Game } when you are ready.
 
-Within example input, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
+Within example user input, most writing conventions are ignored. However, [topic: typographical writing conventions] are supported.
 
 
 ===========
@@ -1720,7 +1720,7 @@ When linkifying an image, you can mix and match square brackets and parentheses-
 
 This shortcut also works for the following inline writing conventions:
 
-[topic: Example input]
+[topic: Example user input]
   Markup
     ````
     Press {space} (en.wikipedia.org/wiki/Space_bar) to continue.
@@ -3372,17 +3372,17 @@ Rendered HTML
   ````
 
 
-`ExampleInput` (class)
-======================
+`ExampleUserInput` (class)
+==========================
 
 Writing convention
-  [topic: Example input]
+  [topic: Example user input]
 
 Implements
   [topic: `InlineSyntaxNode`]
 
 Unique members
-  `input`: `string`
+  `userInput`: `string`
     The example of user input.
 
 Rendered HTML
