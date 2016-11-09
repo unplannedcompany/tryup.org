@@ -1205,7 +1205,7 @@ Subjects can contain any inline writing convention.
 Markup
   ````
   `<ol>`
-    An HTML element representing ordered lists.
+    An HTML element representing numbered lists.
 
   `<ul>`
     An HTML element representing bulleted lists.
@@ -1213,7 +1213,7 @@ Markup
 
 Output
   `<ol>`
-    An HTML element representing ordered lists.
+    An HTML element representing numbered lists.
 
   `<ul>`
     An HTML element representing bulleted lists.
@@ -3192,6 +3192,57 @@ Rendered HTML
   ````
 
 
+`BulletedList` (class)
+=======================
+
+Writing convention
+  [topic: Bulleted lists]
+
+Implements
+  [topic: `OutlineSyntaxNode`]
+
+Unique members
+  `items`: array of [topic: `BulletedList.Item`]
+    The collection of items comprising this bulleted list.
+
+Constructor arguments
+  `items`: array of [topic: `BulletedList.Item`]
+    This field is described above.
+
+  `options` (optional)
+    `sourceLineNumber`: number
+      The line number of the first line of markup that created this bulleted list.
+
+Rendered HTML
+  ````
+  <ul>
+    <li>
+      <p>Buy milk</p>
+    </li>
+    <li>
+      <p>Buy bread</p>
+    </li>
+    <li>
+      <p>Buy happiness</p>
+    </li>
+  </ul>
+  ````
+
+
+----------------------------
+`BulletedList.Item` (class)
+----------------------------
+
+Purpose
+  This class represents an item in a bulleted list.
+
+Extends
+  [topic: `OutlineSyntaxNodeContainer`]
+
+Constructor arguments
+  See the constructor arguments for [topic: `OutlineSyntaxNodeContainer`].
+
+
 `CodeBlock` (class)
 ===================
 
@@ -3686,7 +3737,7 @@ Rendered HTML
   ````
 
 
-`OrderedList` (class)
+`NumberedList` (class)
 =====================
 
 Writing convention
@@ -3696,8 +3747,8 @@ Implements
   [topic: `OutlineSyntaxNode`]
 
 Unique members
-  `items`: array of [topic: `OrderedList.Item`]
-    The collection of items comprising this ordered list.
+  `items`: array of [topic: `NumberedList.Item`]
+    The collection of items comprising this numbered list.
 
   `start` method
     Return type: `number`
@@ -3707,19 +3758,19 @@ Unique members
       None.
 
   `order` method
-    Return type: [topic: `OrderedList.Order`]
-      This method returns the order of the ordered list (ascending or descending).
+    Return type: [topic: `NumberedList.Order`]
+      This method returns the order of the numbered list (ascending or descending).
 
     Arguments
       None.
 
 Constructor arguments
-  `items`: array of [topic: `OrderedList.Item`]
+  `items`: array of [topic: `NumberedList.Item`]
     This field is described above.
 
   `options` (optional)
     `sourceLineNumber`: number
-      The line number of the first line of markup that created this ordered list.
+      The line number of the first line of markup that created this numbered list.
 
 Rendered HTML
   ````
@@ -3738,11 +3789,11 @@ Rendered HTML
 
 
 --------------------------
-`OrderedList.Item` (class)
+`NumberedList.Item` (class)
 --------------------------
 
 Purpose
-  This class represents an item in an ordered list.
+  This class represents an item in an numbered list.
 
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
@@ -3757,11 +3808,11 @@ Constructor arguments
 
 
 --------------------------
-`OrderedList.Order` (enum)
+`NumberedList.Order` (enum)
 --------------------------
 
 Purpose
-  This enum represents the order of an ordered list.
+  This enum represents the order of an numbered list.
 
 Values
   - `Ascending` (default)
@@ -4135,57 +4186,6 @@ Rendered HTML
   ````
   <hr>
   ````
-
-
-`UnorderedList` (class)
-=======================
-
-Writing convention
-  [topic: Bulleted lists]
-
-Implements
-  [topic: `OutlineSyntaxNode`]
-
-Unique members
-  `items`: array of [topic: `UnorderedList.Item`]
-    The collection of items comprising this bulleted list.
-
-Constructor arguments
-  `items`: array of [topic: `UnorderedList.Item`]
-    This field is described above.
-
-  `options` (optional)
-    `sourceLineNumber`: number
-      The line number of the first line of markup that created this unordered list.
-
-Rendered HTML
-  ````
-  <ul>
-    <li>
-      <p>Buy milk</p>
-    </li>
-    <li>
-      <p>Buy bread</p>
-    </li>
-    <li>
-      <p>Buy happiness</p>
-    </li>
-  </ul>
-  ````
-
-
-----------------------------
-`UnorderedList.Item` (class)
-----------------------------
-
-Purpose
-  This class represents an item in a bulleted list.
-
-Extends
-  [topic: `OutlineSyntaxNodeContainer`]
-
-Constructor arguments
-  See the constructor arguments for [topic: `OutlineSyntaxNodeContainer`].
 
 
 `Video` (class)
