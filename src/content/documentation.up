@@ -716,12 +716,13 @@ Up allows you to embed [topic: images], [topic: video], or [topic: audio] in you
 Images
 ======
 
-````
-[image: Super Mario Land box art] (i.imgur.com/TxlFlkX.jpg)
-````
+Markup
+  ````
+  [image: Super Mario Land box art] (i.imgur.com/TxlFlkX.jpg)
+  ````
 
 Output
-[image: Super Mario Land box art] (i.imgur.com/TxlFlkX.jpg)
+  [image: Super Mario Land box art] (i.imgur.com/TxlFlkX.jpg)
 
 If you want to link your image to another page, please see [topic: linkifying].
 
