@@ -239,9 +239,7 @@ Output
 Italics
 =======
 
-Use the italic convention to stylistically offset a word or phrase from the surrounding text. The titles of books and movies should probably be italicized.
-
-Some authors italicize unfamiliar foreign words.
+Use the italic convention to stylistically offset a word or phrase from the surrounding text *without* conveying emphasis. The titles of books and movies should probably be italicized.
 
 Markup
   ````
