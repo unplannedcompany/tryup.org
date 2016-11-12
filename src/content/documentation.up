@@ -344,10 +344,10 @@ Other settings affecting links are:
 - [topic: `renderDangerousContent`].
 
 
-URLs that don't look like URLs
-==============================
+Links with URLs containing spaces
+=================================
 
-If Up suspects you aren't intending to produce a link, it won't produce one. For example, Up won't produce a link if the potential URL contains spaces.
+If your link URL contains spaces, Up assumes you aren't *actually* trying to produce a link. So it avoids producing one!
 
 Markup
   ````
@@ -357,7 +357,7 @@ Markup
 Output
   Warlocked is the best game for GameBoy [sic] (other than Pokémon).
 
-If your URL contains spaces, make it clear that you *do* intend to produce a link by omitting the space between your link's content and its URL.
+If your link URL really does contain spaces, you can make it clear that you intend to produce a link by omitting the space between your link's content and its URL.
 
 Markup
   ````
@@ -371,6 +371,20 @@ When you omit the space between your link's content and its URL, Up always produ
 
 These rules also apply when [topic: linkifying].
 
+
+Bare URLs
+=========
+
+Alternatively, if you include a bare URL in your document, Up will automatically produce a link for you.
+
+Markup
+  ````
+  https://en.wikipedia.org/wiki/John_Carmack
+  ````
+
+Output
+  https://en.wikipedia.org/wiki/John_Carmack
+ 
 
 ============
 Highlighting
