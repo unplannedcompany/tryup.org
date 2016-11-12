@@ -10,8 +10,7 @@ pre, code {
   font-size: 100% * (7 / 8);
 }
 
-// Inline code
-code.up-inline-code {
+.up-inline-code {
   @include mild-shadow;
 
   border-radius: (1em / 8);
