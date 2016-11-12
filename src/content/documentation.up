@@ -241,6 +241,8 @@ Italics
 
 Use the italic convention to stylistically offset a word or phrase from the surrounding text *without* conveying emphasis. The titles of books and movies should probably be italicized.
 
+If you want to emphasize text, see [topic: emphasis].
+
 Markup
   ````
   My favorite video game is _Chrono Cross_.
@@ -382,7 +384,7 @@ Markup
 
 Output
   https://en.wikipedia.org/wiki/John_Carmack
- 
+
 
 ============
 Highlighting
