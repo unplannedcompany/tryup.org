@@ -299,6 +299,35 @@ Output
   __No hard scrubbing! __KABOOM__... and the stains are gone!__
 
 
+============
+Highlighting
+============
+
+To draw attention to text without altering its semantics, using the highlighting convention.
+
+Highlighting should not be used to emphasize or stress text! If that's your purpose, see [topic: emphasis] or [topic: stress].
+
+Markup
+  ````
+  Our cupcakes are organic, ==gluten-free==, and made using only the most expensive ingredients.
+  ````
+
+Output
+  Our cupcakes are organic, ==gluten-free==, and made using only the most expensive ingredients.
+
+To highlight text, enclose it within two or more equal signs.
+
+Like most inline writing conventions, highlighting can be nested within itself.
+
+Markup
+  ````
+  Our cupcakes are ==organic, ==gluten-free==, vegan==, and made using only the most expensive ingredients.
+  ````
+
+Output
+  Our cupcakes are ==organic, ==gluten-free==, vegan==, and made using only the most expensive ingredients.
+
+
 =====
 Links
 =====
@@ -384,35 +413,6 @@ Markup
 
 Output
   https://en.wikipedia.org/wiki/John_Carmack
-
-
-============
-Highlighting
-============
-
-To draw attention to text without altering its semantics, using the highlighting convention.
-
-Highlighting should not be used to emphasize or stress text! If that's your purpose, see [topic: emphasis] or [topic: stress].
-
-Markup
-  ````
-  Our cupcakes are organic, ==gluten-free==, and made using only the most expensive ingredients.
-  ````
-
-Output
-  Our cupcakes are organic, ==gluten-free==, and made using only the most expensive ingredients.
-
-To highlight text, enclose it within two or more equal signs.
-
-Like most inline writing conventions, highlighting can be nested within itself.
-
-Markup
-  ````
-  Our cupcakes are ==organic, ==gluten-free==, vegan==, and made using only the most expensive ingredients.
-  ````
-
-Output
-  Our cupcakes are ==organic, ==gluten-free==, vegan==, and made using only the most expensive ingredients.
 
 
 =============
