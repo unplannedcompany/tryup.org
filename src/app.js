@@ -6,14 +6,16 @@ import configureScrollPositionAfterNavigation from './configureScrollPositionAft
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const documentationContainer = getElementById('documentation-container')
+  const documentationContainerElement = getElementById('documentation-container')
+  const documentationScrollerElement = documentationContainerElement
 
   configureScrollPositionAfterNavigation(
-    documentationContainer)
+    documentationContainerElement)
 
   configureEditor(
     getElementById('editor-container'),
-    documentationContainer,
+    documentationContainerElement,
+    documentationScrollerElement,
     getElementById('documentation'),
     getElementById('table-of-contents'))
 
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // If an element has an explicit tab index, it's meant to be interactable with a keyboard.
   //
   // Here, we make these elements clickable using the enter key or space bar.
-  documentationContainer.addEventListener('keydown', event => {
+  documentationContainerElement.addEventListener('keydown', event => {
     const element = event.target
     const ENTER_KEY = 13
     const SPACE_KEY = 32
