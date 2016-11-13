@@ -72,7 +72,7 @@ export default function configureEditor(
 
   addScrollSyncingEventListeners(
     codeMirror,
-    documentationContainerElement,
+    documentationScrollerElement,
     syncScrollingFromDocumentation,
     syncScrollingFromEditor)
 
