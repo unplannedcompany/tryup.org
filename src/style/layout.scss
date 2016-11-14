@@ -1,6 +1,5 @@
 @import 'common/media-queries/on-regular-screens';
 @import 'common/media-queries/on-small-screens';
-@import 'common/media-queries/on-very-small-screens';
 
 #tab-container {
   align-items: center;
@@ -33,7 +32,7 @@
     flex-basis: 460px;
     flex-grow: .1;
 
-    .CodeMirror { height: 100vh }
+    .CodeMirror { height: 100vh; }
   }
 
   #documentation-container {
@@ -41,6 +40,7 @@
     flex-grow: 1;
     height: 100vh;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch
   }
 }
 

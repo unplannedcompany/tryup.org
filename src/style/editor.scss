@@ -4,4 +4,6 @@
   font-size: 14px;
   line-height: 1.3;
   font-family: $code-font-family !important;
+
+  .CodeMirror-scroll { -webkit-overflow-scrolling: touch }
 }
