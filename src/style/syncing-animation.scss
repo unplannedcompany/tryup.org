@@ -8,10 +8,5 @@
   to { opacity: 1 }
 }
 
-.dirty, {
-	@include dirty;
-}
-
-.clean {
-	animation: 0.2s clean;
-}
+.dirty, { @include dirty }
+.clean { animation: 0.2s clean }
