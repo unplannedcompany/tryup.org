@@ -1833,11 +1833,11 @@ For [topic: emphasis], [topic: stress], [topic: italic], [topic: bold], [topic: 
 
 Markup
   ````
-  This is a """"great"""" pie.
+  This organic, ====gluten-free==== cupcake is too expensive.
   ````
 
 Output
-  This is a """"great"""" pie.
+  This organic, ====gluten-free==== cupcake is too expensive.
 
 This includes when delimiter characters aren't perfectly balanced on either side.
 
