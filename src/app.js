@@ -2,22 +2,18 @@ import './style/app.scss'
 import getElementById from './getElementById'
 import configureEditor from './configureEditor'
 import configureTableOfContentsVisibility from './configureTableOfContentsVisibility'
-import configureScrollPositionAfterNavigation from './configureScrollPositionAfterNavigation'
 
 
 document.addEventListener('DOMContentLoaded', () => {
   const documentationContainerElement = getElementById('documentation-container')
-  const documentationScrollerElement = documentationContainerElement
 
-  configureScrollPositionAfterNavigation(
-    documentationContainerElement)
-
-  configureEditor(
-    getElementById('editor-container'),
+  configureEditor({
+    editorContainerElement: getElementById('editor-container'),
     documentationContainerElement,
-    documentationScrollerElement,
-    getElementById('documentation'),
-    getElementById('table-of-contents'))
+    documentationScrollerElement: document.body,
+    documentationElement: getElementById('documentation'),
+    tableOfContentsElement: getElementById('table-of-contents')
+  })
 
   configureTableOfContentsVisibility(
     getElementById('show-documentation'),

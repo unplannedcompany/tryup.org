@@ -1,13 +1,17 @@
 @import 'common/media-queries/on-regular-screens';
 @import 'common/media-queries/on-small-screens';
 
+
 #tab-container {
   align-items: center;
   display: flex;
   height: 44px;
 }
 
+$editor-width: 510px;
+
 #documentation-container {
+  margin-left: $editor-width;
   padding: 0 15px;
 
   #table-of-contents { display: none }
@@ -21,30 +25,18 @@
 }
 
 @include on-regular-screens {
-  body {
-    display: flex;
-    flex-flow: wrap row-reverse;
-    height: 100vh;
-  }
-
   #editor-container {
     border-right: 1px solid #aaa;
-    flex-basis: 460px;
-    flex-grow: .1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: $editor-width;
 
     .CodeMirror { height: 100vh; }
-  }
-
-  #documentation-container {
-    flex-basis: 0;
-    flex-grow: 1;
-    height: 100vh;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch
   }
 }
 
 @include on-small-screens {
-  body { overflow-x: hidden }
   #editor-container { display: none }
+  #documentation-container { margin-left: 0 }
 }

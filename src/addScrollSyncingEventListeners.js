@@ -51,7 +51,7 @@ export default function addScrollSyncingEventListeners(
   const throttledSyncingFromEditor =
     throttleScrollSyncing(syncScrollingFromEditor, codeMirror, documentationScrollerElement)
 
-  addScrollEventListener(documentationScrollerElement, () => {
+  addScrollEventListener(document, () => {
     if (!ignoringScrollEventsFromDocumentation) {
       throttledSyncingFromDocumentation()
       temporarilyIgnoreScrollEventsFromEditor()

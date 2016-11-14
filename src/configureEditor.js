@@ -27,13 +27,14 @@ function refreshSourceMappedElements(documentationElement) {
 }
 
 
-export default function configureEditor(
-  editorContainerElement,
-  documentationContainerElement,
-  documentationScrollerElement,
-  documentationElement,
-  tableOfContentsElement
-) {
+export default function configureEditor(args) {
+  const {
+    editorContainerElement,
+    documentationContainerElement,
+    documentationScrollerElement,
+    documentationElement,
+    tableOfContentsElement } = args
+
   const codeMirror = CodeMirror(editorContainerElement, {
     value: require('./content/documentation.up'),
     lineNumbers: true,
