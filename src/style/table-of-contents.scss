@@ -52,6 +52,7 @@
   $indent-per-level-on-very-small-screens: 20px;
 
   a {
+    box-sizing: border-box;
     color: black;
     display: inline-block;
     padding: 3px 0 0 entry-indentation($max-indent-level);

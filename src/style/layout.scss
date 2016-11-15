@@ -20,6 +20,7 @@ $editor-width: 510px;
   #table-of-contents {
     margin: 0 auto;
     max-width: 580px;
+    overflow-wrap: break-word;
     overflow-x: hidden;
   }
 }
