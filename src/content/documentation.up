@@ -2246,79 +2246,102 @@ Usage
 `Up` (class)
 ============
 
-Purpose
-  Anything you can accomplish using the `Up` class, you can accomplish using the regular [topic: functions] exported by the library.
+Anything you can accomplish using the `Up` class, you can accomplish using the regular [topic: functions] exported by the library.
 
-  However, the `Up` class can be helpful if you need to parse or render several documents sharing custom settings.
+However, the `Up` class can be helpful if you need to parse or render several documents sharing custom settings.
 
-  Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
+Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
-  ````
-  const { Up } = require('up-lang')
+````
+const { Up } = require('up-lang')
 
-  const up = new Up(settings)
-  const html = up.parseAndRender(markup, changedSettings)
-  ````
+const up = new Up(settings)
+const html = up.parseAndRender(markup, changedSettings)
+````
 
 
 Constructor arguments
-  `settings` (optional): [topic: `Settings`]
-    The custom parsing and/or rendering settings to apply for all subsequent method calls.
+=====================
 
-Members
-  This class's methods have the same names and arguments as the [topic: functions] in the library:
+`settings` (optional): [topic: `Settings`]
+  The custom parsing and/or rendering settings to apply to all subsequent method calls.
 
-
-  When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
-
-  Example
-    ````
-    const up = new Up({
-      parsing: {
-        createSourceMap: true,
-        fancyEllipsis: "⋯",
-        keywords: {
-          audio: ["sound", "song"],
-          revealable: "hide"
-        }
-      },
-      rendering: {
-        terms: { reveal: "expand" }
+  ```
+  const up = new Up({
+    parsing: {
+      fancyEllipsis: "⋯",
+      keywords: {
+        audio: ["sound", "song"],
+        revealable: "hide"
       }
-    })
-
-    const html = up.parseAndRender(markup, {
-      parsing: {
-        createSourceMap: false,
-        keywords: {
-          audio: "listen"
-        }
-      },
-      rendering: {
-        idPrefix: "article"
-      }
-    })
-    ````
-
-  Discussion
-    In the above example, the following settings are ultimately applied:
-
-    ````
-    {
-      parsing: {
-        createSourceMap: false,
-        fancyEllipsis: "⋯",
-        keywords: {
-          audio: "listen",
-          revealable: "hide"
-        }
-      },
-      rendering: {
-        idPrefix: "article",
-        terms: { reveal: "expand" }
-      }
+    },
+    rendering: {
+      idPrefix: 'article',
+      terms: { reveal: "expand" }
     }
-    ````
+  })
+  ```
+
+
+Methods
+=======
+
+This class's methods have the exact same names and arguments as the library's [topic: functions].
+
+--------------------------------------
+Invoking a method with custom settings
+--------------------------------------
+
+When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
+
+Example
+  ````
+  const up = new Up({
+    parsing: {
+      createSourceMap: true,
+      fancyEllipsis: "⋯",
+      keywords: {
+        audio: ["sound", "song"],
+        revealable: "hide"
+      }
+    },
+    rendering: {
+      terms: { reveal: "expand" }
+    }
+  })
+
+  const html = up.parseAndRender(markup, {
+    parsing: {
+      createSourceMap: false,
+      keywords: {
+        audio: "listen"
+      }
+    },
+    rendering: {
+      idPrefix: "article"
+    }
+  })
+  ````
+
+Result
+  In the above example, the following settings are ultimately applied:
+
+  ````
+  {
+    parsing: {
+      createSourceMap: false,
+      fancyEllipsis: "⋯",
+      keywords: {
+        audio: "listen",
+        revealable: "hide"
+      }
+    },
+    rendering: {
+      idPrefix: "article",
+      terms: { reveal: "expand" }
+    }
+  }
+  ````
 
 
 
