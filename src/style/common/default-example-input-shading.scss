@@ -1,9 +1,0 @@
-@import 'example-input-shading';
-
-@mixin default-example-input-shading {
-  @include example-input-shading(
-    $text-color: #444,
-    $background-color: #eee,
-    $border-color: #aaa,
-    $shadow-color: rgba(#0d0d0d, 0.2));
-}

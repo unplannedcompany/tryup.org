@@ -1,0 +1,11 @@
+@mixin example-user-input-shading($text-color, $border-color, $shadow-color) {
+  $bottom-edge-length: (1em / 4);
+  $side-edge-length: (1em / 8);
+
+  border-color: $border-color;
+  box-shadow:
+    0 $bottom-edge-length 0 $shadow-color,
+    $side-edge-length $bottom-edge-length 0 $shadow-color,
+    -$side-edge-length $bottom-edge-length 0 $shadow-color;
+  color: $text-color;
+}

@@ -1,0 +1,8 @@
+@import 'example-user-input-shading';
+
+@mixin default-example-user-input-shading {
+  @include example-user-input-shading(
+    $text-color: #444,
+    $border-color: #aaa,
+    $shadow-color: rgba(#0d0d0d, 0.2));
+}

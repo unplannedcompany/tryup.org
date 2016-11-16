@@ -1,11 +1,11 @@
 @import '../common/body-font-family';
 @import '../common/link-color';
-@import '../common/example-input-shading';
-@import '../common/default-example-input-shading';
+@import '../common/example-user-input-shading';
+@import '../common/default-example-user-input-shading';
 
-// This is mostly taken from Stackoverflow's <kbd> styling.
+// This is mostly taken from Stackoverflow's `<kbd>` styling.
 kbd {
-  @include default-example-input-shading;
+  @include default-example-user-input-shading;
 
   border-radius: (1em / 4);
   border-style: solid;
@@ -20,14 +20,12 @@ kbd {
   white-space: nowrap;
 }
 
-// Example input within links
-//
-// We don't need to worry about removing the underline, because
-// `display: inline-block` above) takes care of that for us.
+// We don't need to worry about removing the underline for
+// example input within links, because `display: inline-block`
+// above takes care of that for us.
 a kbd {
-  @include example-input-shading(
+  @include example-user-input-shading(
     $text-color: $link-color,
-    $background-color: mix($link-color, white, 10%),
     $border-color: $link-color,
     $shadow-color: rgba($link-color, 0.3));
 }
