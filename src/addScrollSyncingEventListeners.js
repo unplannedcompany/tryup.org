@@ -1,5 +1,6 @@
 import debounce from './debounce'
 import throttle from './throttle'
+import isTotallyHidden from './isTotallyHidden'
 
 
 export default function addScrollSyncingEventListeners(
@@ -51,8 +52,10 @@ export default function addScrollSyncingEventListeners(
   const throttledSyncingFromEditor =
     throttleScrollSyncing(syncScrollingFromEditor, codeMirror, documentationScrollerElement)
 
+  const editorScrollerElement = codeMirror.getScrollerElement()
+
   addScrollEventListener(document, () => {
-    if (!ignoringScrollEventsFromDocumentation) {
+    if (!ignoringScrollEventsFromDocumentation && !isTotallyHidden(editorScrollerElement)) {
       throttledSyncingFromDocumentation()
       temporarilyIgnoreScrollEventsFromEditor()
     }
