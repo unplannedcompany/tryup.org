@@ -370,7 +370,7 @@ Other settings affecting links are:
 
 - [topic: `baseForUrlsStartingWithSlash`]
 - [topic: `baseForUrlsStartingWithHashmark`]
-- [topic: `renderDangerousContent`].
+- [topic: `renderDangerousContent`]
 
 
 Links with URLs containing spaces
@@ -792,7 +792,7 @@ Other settings affecting media are:
 
 - [topic: `baseForUrlsStartingWithSlash`]
 - [topic: `baseForUrlsStartingWithHashmark`]
-- [topic: `renderDangerousContent`].
+- [topic: `renderDangerousContent`]
 
 
 ==================
@@ -2345,13 +2345,13 @@ Result
 
 
 
-=============
-Configuration
-=============
+=====================
+Library configuration
+=====================
 
-All functions accept custom settings!
+The Up library works out of the box! No configuration is necessary.
 
-For a full description of Up's functions, see [topic: functions].
+However, all [topic: functions] do accept optional custom settings.
 
 
 `Settings` (interface)
