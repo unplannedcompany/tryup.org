@@ -2,18 +2,37 @@ import './style/app.scss'
 import getElementById from './getElementById'
 import configureEditor from './configureEditor'
 import configureTableOfContentsVisibility from './configureTableOfContentsVisibility'
+import isOnIosDevice from './isOnIosDevice'
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  const editorContainerElement = getElementById('editor-container')
   const documentationContainerElement = getElementById('documentation-container')
 
-  configureEditor({
-    editorContainerElement: getElementById('editor-container'),
-    documentationContainerElement,
-    documentationScrollerElement: document.body,
-    documentationElement: getElementById('documentation'),
-    tableOfContentsElement: getElementById('table-of-contents')
-  })
+  // We use `position: fixed` for the editor container, which has fairly poor support on iOS.
+  // Therefore, for the time being, we're hiding the editor on all iOS devices.
+  //
+  // We *could* use flexbox for our layout instead, which would give us a scrollable panel
+  // for both the editor and the documentation. Unfortunately, that comes with its own set of
+  // issues. When the documentation is placed in a scrollable panel, most browsers' back
+  // and forward buttons cease to have any effect, at least as far as intra-page navigation
+  // is concerned. We could fix *that* by using the HTML5 history API, but each browser
+  // handles those events slightly differently, particularly Microsoft Edge.
+  //
+  // We'll revisit this decision as support for `position: fixed` improves on iOS.  
+  if (isOnIosDevice()) {
+    // These changes should match the `on-small-screens` media query in `layout.scss`.
+    editorContainerElement.style.display = 'none'
+    documentationContainerElement.style.marginLeft = 0
+  } else {
+    configureEditor({
+      editorContainerElement,
+      documentationContainerElement,
+      documentationScrollerElement: document.body,
+      documentationElement: getElementById('documentation'),
+      tableOfContentsElement: getElementById('table-of-contents')
+    })
+  }
 
   configureTableOfContentsVisibility(
     getElementById('show-documentation'),
