@@ -1774,11 +1774,11 @@ Consecutive periods represent an ellipsis, so Up replaces them with a fancy elli
 
 Markup
   ````
-  I don't know... I doubt a dog would do this.
+  I don't know... I doubt a spider would do this.
   ````
 
 Output
-  I don't know... I doubt a dog would do this.
+  I don't know... I doubt a spider would do this.
 
 If you're a software developer using the Up library, you can specify a different fancy ellipsis (e.g. `⋯`). To learn more, see [topic: `fancyEllipsis`].
 
@@ -2268,14 +2268,6 @@ Constructor arguments
 Members
   This class's methods have the same names and arguments as the [topic: functions] in the library:
 
-  - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderWithTableOfContents`]
-  - [topic: `parseAndRenderInline`]
-  - [topic: `parse`]
-  - [topic: `parseInline`]
-  - [topic: `render`]
-  - [topic: `renderWithTableOfContents`]
-  - [topic: `renderInline`]
 
   When a method is invoked with custom settings, those settings are merged with the settings provided to the constructor. If any individual settings conflict, Up uses the conflicting values provided to the method.
 
