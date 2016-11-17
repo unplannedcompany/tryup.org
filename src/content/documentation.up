@@ -1987,6 +1987,7 @@ This function converts Up markup into two pieces of HTML, both of which are retu
 Arguments
   `markup`: `string`
     The Up markup to parse and render.
+
   `settings` (optional): [topic: `Settings`]
     The custom parsing and/or rendering settings to apply.
 
@@ -2046,6 +2047,7 @@ To learn more about inline documents, see [topic: inline documents].
 Arguments
   `inlineMarkup`: `string`
     The inline Up markup to convert into inline HTML.
+
   `parsingSettings` (optional): [topic: `Settings`]
     The custom parsing and/or rendering settings to apply.
 
