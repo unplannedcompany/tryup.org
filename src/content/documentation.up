@@ -3481,7 +3481,6 @@ Implements
   [topic: `OutlineSyntaxNode`]
     But headings also serve as regular old outline syntax nodes.
 
-
 Unique members
   `level`: `number`
     A heading's level represents its significance in the document. Like HTML heading levels, a level of 1 is considered the most significant.
