@@ -2351,7 +2351,7 @@ Library configuration
 
 The Up library works out of the box! No configuration is necessary.
 
-However, all [topic: functions] do accept optional custom settings.
+However, all [topic: functions] do accept optional custom settings. These various settings are described below.
 
 
 `Settings` (interface)
