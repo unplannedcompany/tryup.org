@@ -2357,14 +2357,13 @@ However, all [topic: functions] do accept optional custom settings. These variou
 `Settings` (interface)
 ======================
 
-Summary
-  The `Settings` interface includes both parsing settings and rendering settings.
+The `Settings` interface includes both parsing settings and rendering settings.
 
-  Use this interface to provide custom settings to functions that both parse markup *and* render the result to HTML:
+Use this interface to provide custom settings to functions that both parse markup *and* render the result to HTML:
 
-  - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderWithTableOfContents`]
-  - [topic: `parseAndRenderInline`]
+- [topic: `parseAndRender`]
+- [topic: `parseAndRenderWithTableOfContents`]
+- [topic: `parseAndRenderInline`]
 
 Usage
   ````
@@ -2390,19 +2389,18 @@ Members (both of which are optional)
 `Settings.Parsing` (interface)
 ==============================
 
-Summary
-  The `Settings.Parsing` interface includes all parsing settings.
+The `Settings.Parsing` interface includes all parsing settings.
 
-  Use this interface to provide custom settings to functions that parse markup and return the resulting syntax tree:
+Use this interface to provide custom settings to functions that parse markup and return the resulting syntax tree:
 
-  - [topic: `parse`]
-  - [topic: `parseInline`]
+- [topic: `parse`]
+- [topic: `parseInline`]
 
-  As part of [topic: `Settings`], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
+As part of [topic: `Settings`], this interface also provides parsing custom settings to functions that both parse markup *and* render the result to HTML:
 
-  - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderWithTableOfContents`]
-  - [topic: `parseAndRenderInline`]
+- [topic: `parseAndRender`]
+- [topic: `parseAndRenderWithTableOfContents`]
+- [topic: `parseAndRenderInline`]
 
 Usage
   ````
@@ -2473,11 +2471,9 @@ Members (all of which are optional)
 `createSourceMap` (setting)
 ---------------------------
 
-Summary
-  When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline writing convention.
+When `createSourceMap` is enabled, Up keeps track of the original line number for every instance of every outline writing convention.
 
-Default
-  `false`
+This setting works by setting the `sourceLineNumber` field of each [topic: `OutlineSyntaxNode`].
 
 Usage
   ````
@@ -2488,24 +2484,23 @@ Usage
   })
   ````
 
+Default value
+  `false`
+
 Context
   This setting belongs to [topic: `Settings.Parsing`].
-
-Details
-  `createSourceMap` works by setting the `sourceLineNumber` of each [topic: `OutlineSyntaxNode`].
 
 
 ----------------------------
 `defaultUrlScheme` (setting)
 ----------------------------
 
-Summary
-  The `defaultUrlScheme` is prefixed to any link URL or media URL without a URL scheme.
+The `defaultUrlScheme` is prefixed to any link URL or media URL without a URL scheme.
 
-  For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see [topic: `baseForUrlsStartingWithSlash`] or [topic: `baseForUrlsStartingWithHashmark`].
+For URLs *with* a URL scheme, this setting has no effect. Furthermore, this setting is not applied to URLs that start with `/` or `#`. For those URLs, see:
 
-Default
-  `"https://"`
+- [topic: `baseForUrlsStartingWithSlash`]
+- [topic: `baseForUrlsStartingWithHashmark`]
 
 Usage
   ````
@@ -2516,6 +2511,9 @@ Usage
   })
   ````
 
+Default value
+  `"https://"`
+
 Context
   This setting belongs to [topic: `Settings.Parsing`].
 
@@ -2524,11 +2522,7 @@ Context
 `baseForUrlsStartingWithSlash` (setting)
 ----------------------------------------
 
-Summary
-  The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `/`.
-
-Default
-  `""` (an empty string)
+The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `/`.
 
 Usage
   ````
@@ -2539,6 +2533,9 @@ Usage
   })
   ````
 
+Default value
+  `""` (an empty string)
+
 Context
   This setting belongs to [topic: `Settings.Parsing`].
 
@@ -2547,11 +2544,7 @@ Context
 `baseForUrlsStartingWithHashMark` (setting)
 -------------------------------------------
 
-Summary
-  The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `#`.
-
-Default
-  `""` (an empty string)
+The `baseForUrlsStartingWithSlash` is prefixed to any link URL or media URL starting with `#`.
 
 Usage
   ````
@@ -2562,6 +2555,9 @@ Usage
   })
   ````
 
+Default value
+  `""` (an empty string)
+
 Context
   This setting belongs to [topic: `Settings.Parsing`].
 
@@ -2570,13 +2566,9 @@ Context
 `fancyEllipsis` (setting)
 -------------------------
 
-Summary
-  Up automatically replaces consecutive periods with `fancyEllipsis`.
+Up automatically replaces consecutive periods with `fancyEllipsis`.
 
-  By default, `fancyEllipsis` is `…`. If you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.
-
-Default
-  `"…"`
+By default, `fancyEllipsis` is `…`. If you want Up to use a different fancy ellipsis (e.g. `⋯` or even `. . .`), set `fancyEllipsis` accordingly.
 
 Usage
   ````
@@ -2587,6 +2579,9 @@ Usage
   })
   ````
 
+Default value
+  `"…"`
+
 Context
   This setting belongs to [topic: `Settings.Parsing`].
 
@@ -2594,20 +2589,19 @@ Context
 `Settings.Rendering` (interface)
 ================================
 
-Summary
-  The `Settings.Rendering` interface includes all rendering settings.
+The `Settings.Rendering` interface includes all rendering settings.
 
-  Use this interface to provide custom settings to functions that render syntax trees to HTML:
+Use this interface to provide custom settings to functions that render syntax trees to HTML:
 
-  - [topic: `render`]
-  - [topic: `renderWithTableOfContents`]
-  - [topic: `renderInline`]
+- [topic: `render`]
+- [topic: `renderWithTableOfContents`]
+- [topic: `renderInline`]
 
-  As part of [topic: `Settings`], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
+As part of [topic: `Settings`], this interface also provides custom rendering settings to functions that both parse markup *and* render the result to HTML:
 
-  - [topic: `parseAndRender`]
-  - [topic: `parseAndRenderWithTableOfContents`]
-  - [topic: `parseAndRenderInline`]
+- [topic: `parseAndRender`]
+- [topic: `parseAndRenderWithTableOfContents`]
+- [topic: `parseAndRenderInline`]
 
 Usage
   ````
@@ -2650,10 +2644,11 @@ Members (all of which are optional)
 `idPrefix` (setting)
 --------------------
 
-Summary
-  If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
+If you are rendering multiple documents onto the same page, you need to use this setting to prevent HTML ID collisions between documents.
 
-  By default, `idPrefix` is `up` to prevent ID collisions with any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.
+By default, `idPrefix` is `up` to prevent ID collisions with any HTML elements *not* rendered by Up. If you don't want any ID prefix, you can set `idPrefix` to an empty string.
+
+You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
 
 Usage
   ````
@@ -2667,10 +2662,7 @@ Usage
 Context
   This setting belongs to [topic: `Settings.Rendering`].
 
-Details
-  You don't need to worry about escaping HTML for your `idPrefix`---Up automatically handles that for you. Furthermore, Up automatically converts any spaces in your `idPrefix` to hyphens.
-
-Default
+Default value
   `"up"`
 
 
@@ -2678,10 +2670,9 @@ Default
 `renderDangerousContent` (setting)
 ----------------------------------
 
-Summary
-  Normally, Up will not render links or media elements with potentially exploitable URI schemes: `javascript`, `vbscript`, `data`, and `file`.
+Normally, Up will not render links or media elements with potentially exploitable URI schemes: `javascript`, `vbscript`, `data`, and `file`.
 
-  When this setting is enabled, Up will dutifully render all links and media elements.
+When this setting is enabled, Up will dutifully render all links and media elements.
 
 Usage
   ````
@@ -2692,14 +2683,11 @@ Usage
   })
   ````
 
+Default value
+  `false`
+
 Context
   This setting belongs to [topic: `Settings.Rendering`].
-
-Details
-  By default, dangerous media elements produce no HTML at all. Dangerous links produce no HTML of their own, though their child elements are rendered.
-
-Default
-  `false`
 
 
 
@@ -2793,8 +2781,7 @@ All classes and interfaces are described below.
 `Document` (class)
 ==================
 
-Purpose
-  This class represents the syntax tree for a parsed document.
+This class represents the syntax tree for a parsed document.
 
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
@@ -2847,8 +2834,7 @@ Rendered HTML
 `Document.TableOfContents` (class)
 ----------------------------------
 
-Purpose
-  This class represents the table of contents for a document. The table of contents includes every heading except those found within [topic: revealable content].
+This class represents the table of contents for a document. The table of contents includes every heading except those found within [topic: revealable content].
 
 Members
   `entries`: array of [topic: `Document.TableOfContents.Entry`]
@@ -2900,8 +2886,7 @@ Rendered HTML
 `Document.TableOfContents.Entry` (interface)
 --------------------------------------------
 
-Purpose
-  This interface represents an entry in the table of contents.
+This interface represents an entry in the table of contents.
 
 Members
   `ordinalInTableOfContents`: `number`
@@ -2940,8 +2925,7 @@ Members
 `InlineDocument` (class)
 =======================
 
-Purpose
-  This class represents the syntax tree for a parsed inline document.
+This class represents the syntax tree for a parsed inline document.
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
@@ -2960,8 +2944,7 @@ Rendered HTML
 `SyntaxNode` (interface)
 ========================
 
-Purpose
-  All syntax node classes must implement this interface.
+All syntax node classes must implement this interface.
 
 Members
   `inlineDescendants` method
@@ -2978,8 +2961,7 @@ Notes
 `InlineSyntaxNode` (interface)
 ==============================
 
-Purpose
-  All inline syntax node classes must implement this interface.
+All inline syntax node classes must implement this interface.
 
 Extends
   [topic: `SyntaxNode`]
@@ -3007,8 +2989,7 @@ Unique members
 `OutlineSyntaxNode` (interface)
 ===============================
 
-Purpose
-  All outline syntax node classes must implement this interface.
+All outline syntax node classes must implement this interface.
 
 Extends
   [topic: `SyntaxNode`]
@@ -3034,8 +3015,7 @@ Unique members
 `RichInlineSyntaxNode` (class)
 ==============================
 
-Purpose
-  This abstract class represents an inline syntax node that can contain other inline syntax nodes.
+This abstract class represents an inline syntax node that can contain other inline syntax nodes.
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
@@ -3050,8 +3030,7 @@ Constructor arguments
 `RichOutlineSyntaxNode` (class)
 ===============================
 
-Purpose
-  This abstract class represents an outline syntax node that can contain other outline syntax nodes.
+This abstract class represents an outline syntax node that can contain other outline syntax nodes.
 
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
@@ -3071,8 +3050,7 @@ Constructor arguments
 `InlineSyntaxNodeContainer` (class)
 ===================================
 
-Purpose
-  This abstract class represents a container of inline syntax nodes.
+This abstract class represents a container of inline syntax nodes.
 
 Members
   `children`: array of [topic: `InlineSyntaxNode`]
@@ -3093,8 +3071,7 @@ Constructor arguments
 `OutlineSyntaxNodeContainer` (class)
 ====================================
 
-Purpose
-  This abstract class represents a container of inline syntax nodes.
+This abstract class represents a container of inline syntax nodes.
 
 Members
   `children`: array of [topic: `InlineSyntaxNode`]
@@ -3122,12 +3099,11 @@ Constructor arguments
 `MediaSyntaxNode` (class)
 =========================
 
-Purpose
-  All media syntax node classes extend this abstract class:
+All media syntax node classes extend this abstract class:
 
-  - [topic: `Image`]
-  - [topic: `Video`]
-  - [topic: `Audio`]
+- [topic: `Image`]
+- [topic: `Video`]
+- [topic: `Audio`]
 
 Implements
   [topic: `InlineSyntaxNode`]
@@ -3162,10 +3138,12 @@ Constructor arguments
 `ParentheticalSyntaxNode` (class)
 =================================
 
-Purpose
-  This abstract class represents [topic: parenthetical text]. It exists solely to improve the expressiveness of the type system.
+This abstract class represents [topic: parenthetical text]. It exists solely to improve the expressiveness of the type system.
 
-  It is extended by both [topic: `NormalParenthetical`] and [topic: `SquareParenthetical`].
+It is extended by both parenthetical syntax node classes:
+
+- [topic: `NormalParenthetical`]
+- [topic: `SquareParenthetical`]
 
 Extends
   [topic: `RichInlineSyntaxNode`]
@@ -3273,8 +3251,7 @@ Rendered HTML
 `BulletedList.Item` (class)
 ----------------------------
 
-Purpose
-  This class represents an item in a bulleted list.
+This class represents an item in a bulleted list.
 
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
@@ -3350,8 +3327,7 @@ Rendered HTML
 `DescriptionList.Item` (class)
 ------------------------------
 
-Purpose
-  This class represents a collection of subjects and their corresponding description.
+This class represents a collection of subjects and their corresponding description.
 
 Unique members
   `subjects`: array of [topic: `DescriptionList.Item.Subject`]
@@ -3371,8 +3347,7 @@ Constructor arguments
 `DescriptionList.Item.Subject` (class)
 --------------------------------------
 
-Purpose
-  This class represents the collection of subjects described by a given description within a description list item.
+This class represents the collection of subjects described by a given description within a description list item.
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
@@ -3384,8 +3359,7 @@ Constructor arguments
 `DescriptionList.Item.Description` (class)
 ------------------------------------------
 
-Purpose
-  This class represents the description of a given collection of subjects within a description list item.
+This class represents the description of a given collection of subjects within a description list item.
 
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
@@ -3463,8 +3437,7 @@ Rendered HTML
 `FootnoteBlock` (class)
 =======================
 
-Purpose
-  Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This class represents one of those footnote blocks.
+Footnotes are written inline, but they aren't meant to appear inline in the final document. That would defeat the purpose of footnotes! Instead, footnotes are extracted and placed in footnote blocks. This class represents one of those footnote blocks.
 
 Implements
   [topic: `OutlineSyntaxNode`]
@@ -3711,8 +3684,7 @@ Rendered HTML
 `LineBlock.Line` (class)
 ------------------------
 
-Purpose
-  This class represents a line in a line block.
+This class represents a line in a line block.
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
@@ -3832,8 +3804,7 @@ Rendered HTML
 `NumberedList.Item` (class)
 --------------------------
 
-Purpose
-  This class represents an item in an numbered list.
+This class represents an item in an numbered list.
 
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
@@ -3851,8 +3822,7 @@ Constructor arguments
 `NumberedList.Order` (enum)
 --------------------------
 
-Purpose
-  This enum represents the order of an numbered list.
+This enum represents the order of an numbered list.
 
 Values
   - `Ascending` (default)
@@ -4078,8 +4048,7 @@ Rendered HTML
 `Table.Caption` (class)
 -----------------------
 
-Purpose
-  This class represents the caption of a table.
+This class represents the caption of a table.
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
@@ -4092,8 +4061,7 @@ Constructor arguments
 `Table.Cell` (class)
 --------------------
 
-Purpose
-  This abstract class represents a table cell.
+This abstract class represents a table cell.
 
 Extends
   [topic: `InlineSyntaxNodeContainer`]
@@ -4114,8 +4082,7 @@ Constructor arguments
 `Table.Header` (class)
 ----------------------
 
-Purpose
-  This class represents the header row of a table.
+This class represents the header row of a table.
 
 Unique members
   `cells`: array of [topic: `Table.Header.Cell`]
@@ -4129,8 +4096,7 @@ Constructor arguments
 `Table.Header.Cell` (class)
 ---------------------------
 
-Purpose
-  This class represents a table header cell.
+This class represents a table header cell.
 
 Extends
   [topic: `Table.Cell`]
@@ -4143,8 +4109,7 @@ Constructor arguments
 `Table.Row` (class)
 -------------------
 
-Purpose
-  This class represents a content row in a table.
+This class represents a content row in a table.
 
 Unique members
   `cells`: array of [topic: `Table.Row.Cell`]
@@ -4175,8 +4140,7 @@ Constructor arguments
 `Table.Row.Cell` (class)
 ------------------------
 
-Purpose
-  This class represents a regular (non-header) table cell.
+This class represents a regular (non-header) table cell.
 
 Extends
   [topic: `Table.Cell`]
@@ -4188,8 +4152,7 @@ Constructor arguments
 `Text` (class)
 ==============
 
-Purpose
-  This class represents regular text content.
+This class represents regular text content.
 
 Implements
   [topic: `InlineSyntaxNode`]
