@@ -458,7 +458,7 @@ Markup
 Output
   When I was ten years old, I left my home (in Pallet Town) to search for Pokémon.
 
-Up understands that text enclosed within parentheses or square brackets represents supplemental, de-emphasized content.
+Up understands that text enclosed within parentheses or square brackets represents supplemental content.
 
 
 ==================
