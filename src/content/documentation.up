@@ -3751,7 +3751,7 @@ Rendered HTML
 
 
 `NumberedList` (class)
-=====================
+======================
 
 Writing convention
   [topic: Numbered lists]
@@ -3772,7 +3772,7 @@ Unique members
 
   `order` method
     Return type: [topic: `NumberedList.Order`]
-      This method returns the order of the numbered list (ascending or descending).
+      This method returns the order of this numered list.
 
     Arguments
       None.
@@ -3801,11 +3801,11 @@ Rendered HTML
   ````
 
 
---------------------------
+---------------------------
 `NumberedList.Item` (class)
---------------------------
+---------------------------
 
-This class represents an item in an numbered list.
+This class represents an item in a numbered list.
 
 Extends
   [topic: `OutlineSyntaxNodeContainer`]
@@ -3819,15 +3819,14 @@ Constructor arguments
       This field is described above.
 
 
---------------------------
+---------------------------
 `NumberedList.Order` (enum)
---------------------------
+---------------------------
 
-This enum represents the order of an numbered list.
+This enum represents the order of a numbered list. It has two members:
 
-Values
-  - `Ascending` (default)
-  - `Descending`
+- `Ascending`, whose value is `1`
+- `Descending`, whose value is `2`
 
 
 `Paragraph` (class)
