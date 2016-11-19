@@ -992,7 +992,7 @@ Output
 Bullets
 =======
 
-Every bulleted list item starts with a bullet followed by a space. The following characters can serve as a bullet:
+In a bulleted list, each item starts with a bullet character followed by a space. The following characters can serve as a bullet:
 
 - A hyphen: `-`
 - An asterisk: `*`
@@ -1002,7 +1002,7 @@ Every bulleted list item starts with a bullet followed by a space. The following
 Spacing between list items
 ==========================
 
-Each list item can be followed by a single blank line. This has no impact on the list itself.
+Each bulleted list item can be followed by a single blank line.
 
 Markup
   ````
