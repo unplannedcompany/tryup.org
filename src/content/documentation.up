@@ -376,7 +376,7 @@ Other settings affecting links are:
 Links with URLs containing spaces
 =================================
 
-If your link URL contains spaces, Up assumes you aren't *actually* trying to produce a link. So it avoids producing one!
+If your link URL contains spaces, Up assumes you *aren't* actually trying to produce a link. So it avoids producing one!
 
 Markup
   ````
