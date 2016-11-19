@@ -690,7 +690,7 @@ Markup
 Output
   Up even supports [topic: overlapping]!
 
-To link to a heading, choose a unique snippet of markup from that heading's content line. [^ Don't worry about the heading's underline or overline! Section links ignore both.] Enclose that market snippet within square brackets or parentheses, then insert `topic:` or `section:` directly inside your opening bracket.
+To link to a heading, choose a unique snippet of markup from that heading's content line. [^ Don't worry about the heading's underline or overline! Section links ignore both.] Enclose that markup snippet within square brackets or parentheses, then insert `topic:` or `section:` directly inside your opening bracket.
 
 Up automatically matches your snippet to the most appropriate heading, then produces a link for you.
 
