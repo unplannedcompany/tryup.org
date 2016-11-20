@@ -268,11 +268,9 @@ Output
 Bold
 ====
 
-If you want to make a word or phrase bold without conveying any extra importance, use the bold convention.
+Typically, people use bold text to convey extra importance---that's what the [topic: stress] convention is for!
 
-This convention should rarely be used. Usually, there's a more appropriate convention!
-
-If you want to highlight text, see [topic: highlighting]. If you want to indicate the importance of a word of phrase, see [topic: stress].
+To make a word or phrase bold *without* conveying any extra importance, use the plain old bold convention.
 
 Markup
   ````
