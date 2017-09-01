@@ -1,4 +1,4 @@
-local_modules_dir = ./node_modules/.bin
+modules_dir = ./node_modules/.bin
 
 
 .PHONY: all
@@ -15,18 +15,22 @@ clean:
 
 .PHONY: install
 install:
-	npm update
+# Currently, on my MacBook, `npm update --dev` isn't
+# installing missing dev dependencies.
+#
+# https://github.com/npm/npm/issues/16901
+	npm install
 
 
 .PHONY: build
 build: install clean
-	$(local_modules_dir)/webpack
+	$(modules_dir)/webpack
   
 
 .PHONY: dev
 dev: build
-	$(local_modules_dir)/webpack-dev-server --content-base docs/ --inline --hot --host 0.0.0.0
+	$(modules_dir)/webpack-dev-server --content-base docs/ --inline --hot --host 0.0.0.0
 
 .PHONY: prod
 prod: install clean
-	NODE_ENV='production' $(local_modules_dir)/webpack -p
+	NODE_ENV='production' $(modules_dir)/webpack -p
