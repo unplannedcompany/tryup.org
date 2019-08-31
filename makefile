@@ -9,8 +9,8 @@ all: build
 clean:
 # We'd love to clear out the entire "docs" directory, but we
 # don't want to remove the CNAME file, which is required to
-# use GitHub Pages with Cloudfare.
-	find docs ! -name CNAME -type f | xargs rm;
+# use GitHub Pages with Cloudflare.
+	find docs ! -name CNAME -type f | xargs rm -f;
 
 
 .PHONY: install

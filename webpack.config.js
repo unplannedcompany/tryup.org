@@ -1,9 +1,9 @@
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs')
 const Up = require('up-lang')
 const upSettings = require('./src/upSettings')
+const { resolve } = require('path')
 
 const documentationMarkup =
   fs.readFileSync(getSourceFilename('content/documentation.up'), 'utf-8')
@@ -17,40 +17,40 @@ const tableOfContentsHtml = renderedResult.tableOfContentsHtml
 module.exports = {
   entry: getSourceFilename('app.js'),
   output: {
-    path: './docs',
+    path: resolve('./docs'),
     filename: 'bundle-[hash].js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /.js$/,
-        loader: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        },
         exclude: /node_modules/,
-        query: {
-          presets: ['es2015']
-        }
       },
       {
         test: /\.css$/,
-        loaders: ["style", "css", "postcss"]
+        use: ["style-loader", "css-loader", "postcss-loader"]
       },
       {
+        // TODO: Get rid of this!
         test: /\.scss$/,
-        loaders: ["style", "css", "postcss", "sass"]
+        use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"]
       },
       {
         test: /\.hbs$/,
-        loader: 'handlebars'
+        use: 'handlebars-loader'
       },
       {
         test: /\.up$/,
-        loader: 'raw',
+        use: 'raw-loader',
       }
     ]
   },
-  postcss: [
-    autoprefixer({ browsers: ['last 2 versions'] })
-  ],
   plugins: [
     new HtmlWebpackPlugin({
       template: getSourceFilename('layout/index.hbs'),

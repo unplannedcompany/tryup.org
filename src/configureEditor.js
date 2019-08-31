@@ -36,7 +36,7 @@ export default function configureEditor(args) {
     tableOfContentsElement } = args
 
   const codeMirror = CodeMirror(editorContainerElement, {
-    value: require('./content/documentation.up'),
+    value: require('./content/documentation.up').default,
     lineNumbers: true,
     lineWrapping: true,
     tabSize: 2,
