@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs')
 const Up = require('up-lang')
@@ -6,16 +5,13 @@ const upSettings = require('./src/upSettings')
 const { resolve } = require('path')
 
 const documentationMarkup =
-  fs.readFileSync(getSourceFilename('content/documentation.up'), 'utf-8')
+  fs.readFileSync(sourceDir('content/documentation.up'), 'utf-8')
 
-const renderedResult =
+const renderedUp =
   Up.parseAndRenderWithTableOfContents(documentationMarkup, upSettings)
 
-const documentationHtml = renderedResult.documentHtml
-const tableOfContentsHtml = renderedResult.tableOfContentsHtml
-
 module.exports = {
-  entry: getSourceFilename('app.js'),
+  entry: sourceDir('app.js'),
   output: {
     path: resolve('./docs'),
     filename: 'bundle-[hash].js'
@@ -37,7 +33,6 @@ module.exports = {
         use: ["style-loader", "css-loader", "postcss-loader"]
       },
       {
-        // TODO: Get rid of this!
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"]
       },
@@ -53,23 +48,15 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: getSourceFilename('layout/index.hbs'),
-      documentationHtml,
-      tableOfContentsHtml,
+      template: sourceDir('layout/index.hbs'),
+      documentationHtml: renderedUp.documentHtml,
+      tableOfContentsHtml: renderedUp.tableOfContentsHtml,
       inject: 'head'
     })
   ]
 }
 
-const isForProduction = process.env.NODE_ENV === "production";
 
-if (isForProduction) {
-  module.exports.plugins.push(
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }))
-}
-
-function getSourceFilename(path) {
+function sourceDir(path) {
   return './src/' + path
 }
