@@ -2,18 +2,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const fs = require('fs')
 const Up = require('up-lang')
 const upSettings = require('./src/upSettings')
-const { resolve } = require('path')
+const path = require('path')
 
 const documentationMarkup =
-  fs.readFileSync(sourceDir('content/documentation.up'), 'utf-8')
+  fs.readFileSync(fromSourceDir('content/documentation.up'), 'utf-8')
 
 const renderedUp =
   Up.parseAndRenderWithTableOfContents(documentationMarkup, upSettings)
 
+const outputDir = path.resolve('./docs');
+
 module.exports = {
-  entry: sourceDir('app.js'),
+  entry: fromSourceDir('app.js'),
   output: {
-    path: resolve('./docs'),
+    path: outputDir,
     filename: 'bundle-[hash].js'
   },
   module: {
@@ -44,19 +46,25 @@ module.exports = {
         test: /\.up$/,
         use: 'raw-loader',
       }
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: sourceDir('layout/index.hbs'),
+      template: fromSourceDir('layout/index.hbs'),
       documentationHtml: renderedUp.documentHtml,
       tableOfContentsHtml: renderedUp.tableOfContentsHtml,
       inject: 'head'
     })
-  ]
+  ],
+  devServer: {
+    contentBase: outputDir,
+    compress: true,
+    port: 9000,
+    open: true
+  }
 }
 
 
-function sourceDir(path) {
-  return './src/' + path
+function fromSourceDir(pathAndFilename) {
+  return path.resolve('src', pathAndFilename)
 }
