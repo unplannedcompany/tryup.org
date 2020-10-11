@@ -3071,10 +3071,10 @@ Constructor arguments
 `OutlineSyntaxNodeContainer` (class)
 ====================================
 
-This abstract class represents a container of inline syntax nodes.
+This abstract class represents a container of outline syntax nodes.
 
 Members
-  `children`: array of [topic: `InlineSyntaxNode`]
+  `children`: array of [topic: `OutlineSyntaxNode`]
      A collection of outline syntax nodes representing the content of this container.
 
   `descendantsToIncludeInTableOfContents` method
