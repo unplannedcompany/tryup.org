@@ -23,7 +23,7 @@
       + label { display: none }
 
       ~ span,
-      ~div { animation: 1s reveal }
+      ~ div { animation: 1s reveal }
 
       ~ span { display: inline }
       ~ div { display: block }
