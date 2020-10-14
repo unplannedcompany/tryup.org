@@ -1926,7 +1926,7 @@ Usage Overview
 Typically, you'll want to use one of the various [topic: functions] exported by the library.
 
 ````
-const { parseAndRender } = require('up-lang')
+const { parseAndRender } = require("up-lang")
 
 const html = parseAndRender(markup, optionalSettings)
 ````
@@ -2253,7 +2253,7 @@ However, the `Up` class can be helpful if you need to parse or render several do
 Those shared settings can be provided just once---in the constructor. Then, when calling methods on your object, you only need to provide settings that overwrite (or supplement) the ones you provided to the constructor.
 
 ````
-const { Up } = require('up-lang')
+const { Up } = require("up-lang")
 
 const up = new Up(settings)
 const html = up.parseAndRender(markup, changedSettings)
@@ -3817,15 +3817,13 @@ Constructor arguments
       This field is described above.
 
 
----------------------------
-`NumberedList.Order` (enum)
----------------------------
+----------------------------
+`NumberedList.Order` (union)
+----------------------------
 
-This enum represents the order of a numbered list. It has two members:
+This union type represents the order of a numbered list.
 
-- `Ascending`, whose value is `1`
-- `Descending`, whose value is `2`
-
+It has two members: the string literals `"asc"` (for _ascending_) and `"desc"` (for _descending_).
 
 `Paragraph` (class)
 ===================
