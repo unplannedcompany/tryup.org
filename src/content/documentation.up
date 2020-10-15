@@ -15,16 +15,6 @@ Why use Up?
 Up isn't the only markup language that produces HTML. What makes it special?
 
 
-Up uses customizable keywords
-=============================
-
-Too many markup languages devolve into a dense soup of symbols and punctuation.
-
-When a keyword would provide more clarity than a symbol, Up takes advantage of that! Several writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
-
-If you're a software developer using the Up library, you can provide multiple custom variations for each keyword. To learn more, please see [topic: customizing keywords].
-
-
 Up has a flexible, forgiving syntax
 ===================================
 
@@ -79,6 +69,16 @@ Markup
 
 Output
   John **enjoys ==sleeping** late== whenever he can.
+
+
+Up uses customizable keywords
+=============================
+
+Too many markup languages devolve into a dense soup of symbols and punctuation.
+
+When a keyword would provide more clarity than a symbol, Up takes advantage of that! Several writing conventions, including [topic: tables] and [topic: revealable content], incorporate keywords.
+
+If you're a software developer using the Up library, you can provide multiple custom variations for each keyword. To learn more, please see [topic: customizing keywords].
 
 
 Up produces fully accessible HTML
